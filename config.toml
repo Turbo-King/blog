@@ -1099,7 +1099,7 @@ enableEmoji = true
 # Options to make hugo output files
 # 用于 Hugo 输出文档的设置
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "RSS", "JSON","MarkDown"]
   page = ["HTML", "MarkDown"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]

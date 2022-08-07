@@ -1,6 +1,18 @@
 ---
+weight: 5
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
-draft: true
+draft: false
+author: "Turbo-King"
+authorLink: "https://turbo-king.github.io/"
+description: ""
+resources:
+- name: "featured-image"
+  src: "featured-image.png"
+
+tags: [""]
+categories: [""]
+
+lightgallery: true
 ---
 
