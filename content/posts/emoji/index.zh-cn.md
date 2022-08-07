@@ -5,7 +5,7 @@ date: 2021-07-01T17:55:28+08:00
 lastmod: 2021-07-01T17:55:28+08:00
 draft: false
 author: "Turbo-King"
-authorLink: "https://ahao.club"
+authorLink: "https://turbo-king.github.io/"
 description: "Hugo 中的 Emoji 的用法指南."
 resources:
 - name: "featured-image"

@@ -5,7 +5,7 @@ date: 2021-07-01T17:55:28+08:00
 lastmod: 2021-07-01T17:55:28+08:00
 draft: false
 author: "Turbo-King"
-authorLink: "https://ahao.club"
+authorLink: "https://turbo-king.github.io/"
 description: "Guide d'utilisation des emoji dans Hugo ."
 resources:
 - name: "featured-image"

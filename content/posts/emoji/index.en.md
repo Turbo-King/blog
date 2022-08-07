@@ -5,7 +5,7 @@ date: 2019-10-01T17:55:28+08:00
 lastmod: 2019-10-01T17:55:28+08:00
 draft: false
 author: "Turbo-king"
-authorLink: "https://ahao.club"
+authorLink: "https://turbo-king.github.io/"
 description: "Guide to emoji usage in Hugo and LoveIt."
 resources:
 - name: "featured-image"
