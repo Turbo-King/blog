@@ -4,7 +4,23 @@
         <link>https://turbo-king.github.io/blog/en/posts/</link>
         <description>All Posts | Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 01 Oct 2019 17:55:28 &#43;0800</lastBuildDate><atom:link href="https://turbo-king.github.io/blog/en/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 13 Aug 2022 18:31:14 &#43;0800</lastBuildDate><atom:link href="https://turbo-king.github.io/blog/en/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Java 学习路线</title>
+    <link>https://turbo-king.github.io/blog/en/20220813/</link>
+    <pubDate>Sat, 13 Aug 2022 18:31:14 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://turbo-king.github.io/blog/en/20220813/</guid>
+    <description><![CDATA[<h1 id="java-学习路线">Java 学习路线</h1>]]></description>
+</item>
+<item>
+    <title>决定重新回归</title>
+    <link>https://turbo-king.github.io/blog/en/20220807/</link>
+    <pubDate>Sun, 07 Aug 2022 18:19:22 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://turbo-king.github.io/blog/en/20220807/</guid>
+    <description><![CDATA[<h1 id="去浮去燥砥砺前行">去浮去燥，砥砺前行</h1>]]></description>
+</item>
+<item>
     <title>Emoji Support</title>
     <link>https://turbo-king.github.io/blog/en/emoji/</link>
     <pubDate>Tue, 01 Oct 2019 17:55:28 &#43;0800</pubDate>
