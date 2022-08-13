@@ -11,7 +11,7 @@ resources:
   src: "featured-image.png"
 
 tags: [""]
-categories: [""]
+categories: ["Markdown"]
 
 lightgallery: true
 ---
