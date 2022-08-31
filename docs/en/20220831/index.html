@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Mac使用SQLServer数据库 - Turbo-King Blog</title><meta name="Description" content="Docker安装SQLServer"><meta property="og:title" content="Mac使用SQLServer数据库" />
+<meta property="og:description" content="Docker安装SQLServer" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://turbo-king.github.io/blog/en/20220831/" /><meta property="og:image" content="https://turbo-king.github.io/blog/en/20220831/featured-image.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-31T08:40:24+08:00" />
+<meta property="article:modified_time" content="2022-08-31T08:40:24+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://turbo-king.github.io/blog/en/20220831/featured-image.jpg"/>
+<meta name="twitter:title" content="Mac使用SQLServer数据库"/>
+<meta name="twitter:description" content="Docker安装SQLServer"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://turbo-king.github.io/blog/en/20220831/" /><link rel="prev" href="https://turbo-king.github.io/blog/en/20220813/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mac使用SQLServer数据库",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/turbo-king.github.io\/blog\/en\/20220831\/"
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "study, Docker, SQLServer, Mac","wordcount":  438 ,
+        "url": "https:\/\/turbo-king.github.io\/blog\/en\/20220831\/","datePublished": "2022-08-31T08:40:24+08:00","dateModified": "2022-08-31T08:40:24+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Turbo-King","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/turbo-king.github.io\/blog\/images\/avatar.png",
+                    "width":  1068 ,
+                    "height":  997 
+                }},"author": {
+                "@type": "Person",
+                "name": "Turbo-King"
+            },"description": "Docker安装SQLServer"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/en/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/en/posts/" title="Posts"> Posts </a><a class="menu-item" href="/blog/en/tags/" title="Tags"> Tags </a><a class="menu-item" href="/blog/en/categories/" title="Categories"> Categories </a><a class="menu-item" href="https://turbo-king.github.io/" title="Turbo-King" rel="noopener noreffer" target="_blank"> About </a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/en/20220831/" selected>English</option><option value="/blog/20220831/">简体中文</option><option value="/blog/fr/20220831/">Français</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/en/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/blog/en/posts/" title="Posts">Posts</a><a class="menu-item" href="/blog/en/tags/" title="Tags">Tags</a><a class="menu-item" href="/blog/en/categories/" title="Categories">Categories</a><a class="menu-item" href="https://turbo-king.github.io/" title="Turbo-King" rel="noopener noreffer" target="_blank">About</a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/en/20220831/" selected>English</option><option value="/blog/20220831/">简体中文</option><option value="/blog/fr/20220831/">Français</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mac使用SQLServer数据库</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">included in <a href="/blog/en/categories/markdown/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Markdown</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-31">2022-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;438 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#前言">前言</a></li>
+        <li><a href="#docker-介绍">Docker 介绍</a></li>
+        <li><a href="#mac-安装-docker">Mac 安装 Docker</a></li>
+        <li><a href="#docker-配置并拉取容器镜像">Docker 配置并拉取容器镜像</a></li>
+        <li><a href="#利用navicat可视化工具连接sql-server">利用<code>Navicat</code>可视化工具连接Sql Server</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="mac-安装-sql-server">Mac 安装 SQL Server</h1>
+<h3 id="前言">前言</h3>
+<p>由于最近学习需要使用到 SQL Server 数据库，但我本人使用的操作系统是 Mac ，众所周知， SQL Server 是微软旗下的关系型数据库（具体有关SQL Server优点自行去微软官方查看👀 <a href="https://docs.microsoft.com/zh-cn/sql/?view=sql-server-ver16" target="_blank" rel="noopener noreffer ">Microsoft - SQL Server | Microsoft Docs</a> ），所以微软肯定更加亲近自己的亲儿子 Windows 操作系统，以至于到现在 SQL Server 并不支持 Mac，那怎么办呢？总不能安装虚拟机使用吧，对于我们如此珍惜内存使用的程序猿那是不可能的😂，经过我查阅资料，我发现微软当前支持 Ubuntu 16.04，和 RHEL 7.2（红帽子企业版 Linux ），既然支持 Linux 那就好办了，我们可以使用Docker🤔应用去虚拟化实例。</p>
+<h3 id="docker-介绍">Docker 介绍</h3>
+<p>Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。</p>
+<p>Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。</p>
+<p>Docker 最好的一点在于你需要什么环境就可以下载仅拥有该环境的 Linux 系统，即缩小了使用的体积，也拥有了需要使用的环境，轻便又高效。</p>
+<h3 id="mac-安装-docker">Mac 安装 Docker</h3>
+<ul>
+<li>Docker 官网手动安装 <a href="https://docker.p2hp.com/" target="_blank" rel="noopener noreffer ">Docker</a></li>
+<li>HomeBrew 托管安装 <code>brew cask install docker</code></li>
+</ul>
+<p>对于能偷懒就偷懒的我来说😎，肯定选择后者一条命令解决了，官网安装下载还需要去寻找点击下载，对于程序猿来说多不优雅呀🤓，想要了解 <a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener noreffer ">macOS（或 Linux）缺失的软件包的管理器 — Homebrew</a> 的可以自行去了解一下，真是可以大大提高效率，让你安装程序变得如此优雅。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">==&gt; Downloading https://download.docker.com/mac/stable/42716/Docker.dmg
+</span></span><span class="line"><span class="cl">######################################################################## 100.0%
+</span></span><span class="line"><span class="cl">==&gt; Verifying SHA-256 checksum for Cask &#39;docker&#39;.
+</span></span><span class="line"><span class="cl">==&gt; Installing Cask docker
+</span></span><span class="line"><span class="cl">==&gt; Moving App &#39;Docker.app&#39; to &#39;/Applications/Docker.app&#39;.
+</span></span><span class="line"><span class="cl">   docker was successfully installed!
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>显示 <code>successfully</code> 便已经成功下载</p>
+<h3 id="docker-配置并拉取容器镜像">Docker 配置并拉取容器镜像</h3>
+<ul>
+<li>基本环境配置</li>
+</ul>
+<p>根据自己电脑相应配置，自己分配Docker占用资源大小，内存一定要大于2G，我记得好像SQL Server最基本要保证内存2G才能成功启动（以下是我的Docker资源分配配置）。</p>
+<img src="images/i1.png" alt="Docker环境配置"/>
+<br>
+<br>
+<br>
+<ul>
+<li>镜像加速</li>
+</ul>
+<p>鉴于国内网络问题，后续拉取 Docker 镜像十分缓慢，我们可以需要配置加速器来解决，我使用的是网易的镜像地址：<code>http://hub-mirror.c.163.com</code>。</p>
+<img src="images/i2.png" alt="Docker镜像加速"/>
+<br>
+<br>
+<br>
+<p>配置完成后重启 Docker 应用，打开 Terminal 输入 <code>docker info</code> 查看配置是否成功。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker info
+</span></span><span class="line"><span class="cl">....
+</span></span><span class="line"><span class="cl"> Registry Mirrors:
+</span></span><span class="line"><span class="cl">  http://hub-mirror.c.163.com/
+</span></span><span class="line"><span class="cl"> Live Restore Enabled: <span class="nb">false</span>
+</span></span><span class="line"><span class="cl"> Product License: Community Engine
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<br>
+<ul>
+<li>拉取并运行 SQL Server 容器镜像</li>
+</ul>
+<p>拉取并运行 SQL Server 容器映像，参考了<a href="https://docs.microsoft.com/zh-cn/sql/linux/quickstart-install-connect-docker?view=sql-server-linux-2017&amp;pivots=cs1-bash#pullandrun2017" target="_blank" rel="noopener noreffer ">Docker: Install containers for SQL Server on Linux - SQL Server | Microsoft Docs</a></p>
+<p>从 Microsoft 容器注册表中拉取 <code>SQL Server 2017 Linux</code> 容器映像，打开我们的终端，输入命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker pull mcr.microsoft.com/mssql/server:2017-latest
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里会将sql server for linux docker下载到我们计算机上。</p>
+<br>
+<br>
+<br>
+<ul>
+<li>使用 Docker 运行容器镜像</li>
+</ul>
+<p>要使用 Docker 运行容器映像，可以从 <code>Terminal</code> (Linux/macOS) 使用以下命令。(也就是终端)。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker run -e <span class="s2">&#34;ACCEPT_EULA=Y&#34;</span> -e <span class="s2">&#34;SA_PASSWORD=&lt;YourStrong@Passw0rd&gt;&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -p 1433:1433 --name sqlserver <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -d mcr.microsoft.com/mssql/server:2017-latest
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p><strong>备注</strong>: 密码应符合 SQL Server 默认密码策略，否则容器无法设置 SQL Server，将停止工作。 默认情况下，密码的长度必须至少为 8 个字符，并且必须包含以下四种字符中的三种：大写字母、小写字母、十进制数字和符号。 你可以通过执行 docker logs 命令检查错误日志。</p>
+<br>
+<p><strong>参数说明:</strong></p>
+<p><code>-e &quot;ACCEPT_EULA=Y&quot;</code> 将 ACCEPT_EULA 变量设置为任意值，以确认接受最终用户许可协议。 SQL Server 映像的必须设置。</p>
+<p><code>&quot;SA_PASSWORD=&lt;YourStrong@Passw0rd&gt;&quot;</code> 指定至少包含 8 个字符且符合 SQL Server 密码要求的强密码。 SQL Server 映像的必需设置。</p>
+<p><code>-p 1433:1433</code> 将主机环境中的 TCP 端口（第一个值）映射到容器中的 TCP 端口（第二个值）。 在此示例中，SQL Server 侦听容器中的 TCP 1433，并对主机上的端口 1433 公开。</p>
+<p><code>name sqlserver</code> 为容器指定一个自定义名称，而不是使用随机生成的名称。 如果运行多个容器，则无法重复使用相同的名称。</p>
+<p><code>mcr.microsoft.com/mssql/server:2017-latest</code> SQL Server 2017 Linux 容器映像</p>
+<br>
+<br>
+<br>
+<ul>
+<li>查看 Docker 容器</li>
+</ul>
+<p>要查看 Docker 容器，请在 Terminal 中使用 docker ps 命令。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker ps -a
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p>显示结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">CONTAINER ID        IMAGE                                        COMMAND                  CREATED             STATUS                     PORTS               NAMES
+</span></span><span class="line"><span class="cl">78c2deca0bd6        mcr.microsoft.com/mssql/server:2017-latest   <span class="s2">&#34;/opt/mssql/bin/nonr…&#34;</span>   <span class="m">30</span> minutes ago      Exited <span class="o">(</span>0<span class="o">)</span> <span class="m">2</span> minutes ago                       sqlserver
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果“状态”列显示“正常运行”，则 SQL Server 将在容器中运行，并侦听“端口”列中指定的端口（我现在是关闭状态，可以使用 <code>docker start CONTAINER ID</code> 重新启动 ） 。</p>
+<br>
+<br>
+<br>
+<ul>
+<li>更改 <code>SA</code> 密码</li>
+</ul>
+<p>SA 帐户是安装过程中在 SQL Server 实例上创建的系统管理员。 创建 SQL Server 容器后，通过在容器中运行 <code>echo $SA_PASSWORD</code>，可发现指定的 <code>SA_PASSWORD</code> 环境变量。 出于安全考虑，请考虑更改 SA 密码。</p>
+<ol>
+<li>选择 SA 用户要使用的强密码。</li>
+<li>使用 docker exec 运行sqlcmd ，以使用 <code>Transact-SQL</code> 更改密码。 在下面的示例中，将旧密码 <code>&lt;YourStrong!Passw0rd&gt;</code>和新密码 <code>&lt;YourNewStrong!Passw0rd&gt;</code> 替换为你自己的密码值。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker <span class="nb">exec</span> -it sqlserver /opt/mssql-tools/bin/sqlcmd <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -S localhost -U SA -P <span class="s2">&#34;&lt;YourStrong@Passw0rd&gt;&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>   -Q <span class="s1">&#39;ALTER LOGIN SA WITH PASSWORD=&#34;&lt;YourNewStrong@Passw0rd&gt;&#34;&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<br>
+<br>
+<ul>
+<li>连接 SQL Server</li>
+</ul>
+<p>下列步骤在容器内部使用 <code>SQL Server</code> 命令行工具 <code>sqlcmd</code> 来连接 <code>SQL Server</code>。</p>
+<p>使用 <code>docker exec -it</code> 命令在运行的容器内部启动交互式 <code>Bash Shell</code>。 在下面的示例中，<code>sqlserver</code> 是在创建容器时由 &ndash;name 参数指定的名称。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo docker <span class="nb">exec</span> -it sql1 <span class="s2">&#34;bash&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p>在容器内部使用 sqlcmd 进行本地连接。 默认情况下，sqlcmd 不在路径之中，因此需要指定完整路径。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P <span class="s2">&#34;&lt;YourNewStrong@Passw0rd&gt;&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>如果成功，应会显示 sqlcmd 命令提示符：1&gt;</strong></p>
+<br>
+<br>
+<br>
+<h3 id="利用navicat可视化工具连接sql-server">利用<code>Navicat</code>可视化工具连接Sql Server</h3>
+<p>下载 <code>navicat</code> 应用选择SQL Server服务，输入<code>连接名</code>、<code>主机</code>、<code>用户名</code>、<code>密码</code>进行连接。</p>
+<img src="images/i3.png" alt="Docker环境配置"/>
+<br>
+<p><strong>提示：</strong></p>
+<p>密码一定不要填错，如果密码填错，会出现以下错误(一定要学会去Docker里面查看LOG):</p>
+<img src="images/i4.png" alt="Docker环境配置"/>
+<br>
+<p><strong>注意：</strong></p>
+<p><code>创建sa账号时候的密码的左右&lt;&gt;两个尖括号也是属于密码的</code></p>
+<p>我就是在实际操作中犯了如此低级的错误，望以鉴！</p>
+<h3 id="总结">总结</h3>
+<p><strong>满怀希望就会所向披靡，因为深海不会因为一杯沸水而加温!</strong></p>
+<br>
+<p>以上就是本次分享的在Mac上如何使用 SQL Server 的详细教程,我们一起讨论！如果哪里有写的不好的地方，还希望大家提出来，在下方评论区留言，我加以修正！</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-08-31</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/blog/en/20220831/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://turbo-king.github.io/blog/en/20220831/" data-title="Mac使用SQLServer数据库" data-via="TurboKing1024" data-hashtags="study,Docker,SQLServer,Mac"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://turbo-king.github.io/blog/en/20220831/" data-hashtag="study"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://turbo-king.github.io/blog/en/20220831/" data-title="Mac使用SQLServer数据库" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 百度" data-sharer="baidu" data-url="https://turbo-king.github.io/blog/en/20220831/" data-title="Mac使用SQLServer数据库"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/en/tags/study/">study</a>,&nbsp;<a href="/blog/en/tags/docker/">Docker</a>,&nbsp;<a href="/blog/en/tags/sqlserver/">SQLServer</a>,&nbsp;<a href="/blog/en/tags/mac/">Mac</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/blog/en/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/blog/en/20220813/" class="prev" rel="prev" title="Java 学习路线"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Java 学习路线</a></div>
+</div>
+<div id="comments"><div id="disqus_thread" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://disqus.com/?ref_noscript">Disqus</a>.
+            </noscript><div id="commento" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://commento.io/">Commento</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://turbo-king.github.io/" target="_blank">Turbo-King</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">津ICP备2021001207号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://.disqus.com/embed.js" defer></script><script type="text/javascript" src="https://cdn.commento.io/js/commento.js" defer></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"data":{"id-1":"Turbo-King 博客","id-2":"Turbo-King 博客"},"lightgallery":true,"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.en","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
+</html>
