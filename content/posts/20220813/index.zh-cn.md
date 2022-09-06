@@ -537,7 +537,7 @@ Git 和它可不一样，是一个版本控制工具，可以更好地管理和�
 
     - 视频
 
-        - ⭐【尚硅谷】5h打通Git全套教程丨2021最新IDEA版 <https://www.bilibili.com/video/BV1vy4y1s7k6>
+        - ⭐【尚硅谷】5h打通Git全套教程丨2021最新IDEA版<https://www.bilibili.com/video/BV1vy4y1s7k6>
 
     - 书籍
 
@@ -1321,7 +1321,7 @@ Git 和它可不一样，是一个版本控制工具，可以更好地管理和�
 ### 建议
 
 - 1. 尽早做规划，可以通过大厂招聘官网的岗位描述来了解岗位的要求
-- 2. 雕琢一份优秀的简历，推荐阅读：<https://mp.weixin.qq.com/s/wfabzdpOPdq89faFFpZ4NA
+- 2. 雕琢一份优秀的简历，推荐阅读：<https://mp.weixin.qq.com/s/wfabzdpOPdq89faFFpZ4NA>
 - 3. 多读面经，坚持刷算法
 - 4. 多参与面试，持续复盘总结
 
