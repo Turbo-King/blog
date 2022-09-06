@@ -15,6 +15,7 @@ categories: ["Markdown "]
 
 lightgallery: true
 
+
 ---
 
 # Java 学习路线
@@ -37,12 +38,12 @@ lightgallery: true
 
 - 1. 准备好一款在线、随时随地写代码的工具，不用在本地去安装和配置，是初学者的好帮手
 
-      - 推荐网站 - 菜鸟工具：<https://c.runoob.com/compile/10>
+        - 推荐网站 - 菜鸟工具：<https://c.runoob.com/compile/10>
 
 - 2. 准备一款记笔记的软件，学编程的过程中老师的思路、自己遇到的问题、解决问题的方法、心得感悟、遇到的好资料，都要记下来哦，好记性不如烂笔头，可以帮助你事半功倍。
 
-      - 推荐软件 Typora：<https://www.typora.io/>
-      - 推荐使用 Markdown 语法编写，鱼皮教程：<https://www.bilibili.com/video/BV1no4y1k7YT/>
+        - 推荐软件 Typora：<https://www.typora.io/>
+        - 推荐使用 Markdown 语法编写，鱼皮教程：<https://www.bilibili.com/video/BV1no4y1k7YT/>
 
 - 3. 想学好编程，别背代码，要多写，把这句话刻到脑子里。
 
@@ -537,7 +538,7 @@ Git 和它可不一样，是一个版本控制工具，可以更好地管理和�
 
     - 视频
 
-        - ⭐【尚硅谷】5h打通Git全套教程丨2021最新IDEA版 <https://www.bilibili.com/video/BV1vy4y1s7k6>
+        - ⭐【尚硅谷】5h打通Git全套教程丨2021最新IDEA版<https://www.bilibili.com/video/BV1vy4y1s7k6>
 
     - 书籍
 
@@ -1321,7 +1322,7 @@ Git 和它可不一样，是一个版本控制工具，可以更好地管理和�
 ### 建议
 
 - 1. 尽早做规划，可以通过大厂招聘官网的岗位描述来了解岗位的要求
-- 2. 雕琢一份优秀的简历，推荐阅读：<https://mp.weixin.qq.com/s/wfabzdpOPdq89faFFpZ4NA
+- 2. 雕琢一份优秀的简历，推荐阅读：<https://mp.weixin.qq.com/s/wfabzdpOPdq89faFFpZ4NA>
 - 3. 多读面经，坚持刷算法
 - 4. 多参与面试，持续复盘总结
 
@@ -1505,6 +1506,6 @@ Git 和它可不一样，是一个版本控制工具，可以更好地管理和�
 
     
 
-<u>**资料参照：程序员鱼皮<https://github.com/liyupi/code-roadmap***</u>
+<u>**资料参照：程序员鱼皮<https://github.com/liyupi>**</u>
 
 <u>**（原作者创作不易，转载请注明原创者，谢谢）</u>**
