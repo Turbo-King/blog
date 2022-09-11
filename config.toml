@@ -859,7 +859,7 @@ enableEmoji = true
         recordIP = true
         highlight = true
         enableQQ = true
-        serverURLs = "https://leancloud.hugoloveit.com"
+        serverURLs = "https://nzzxvxqu.lc-cn-n1-shared.com"
         # emoji data file name, default is "google.yml"
         # ("apple.yml", "google.yml", "facebook.yml", "twitter.yml")
         # located in "themes/LoveIt/assets/data/emoji/" directory
