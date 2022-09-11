@@ -12,7 +12,8 @@ resources:
 
 tags: ["java","study","Java学习路线"]
 categories: ["Markdown "]
-
+reward: true
+comment: true  
 lightgallery: true
 
 ---
