@@ -854,12 +854,13 @@ enableEmoji = true
         avatar = "Turbo-King"
         meta= ""
         pageSize = 10
-        lang = ""
+        lang = "zh-CN"
         visitor = true
         recordIP = true
         highlight = true
         enableQQ = true
-        serverURLs = "https://leancloud.hugoloveit.com"
+        serverURLs = "https://turbo-king.github.io/blog"
+        # serverURLs = "https://leancloud.hugoloveit.com"
         # emoji data file name, default is "google.yml"
         # ("apple.yml", "google.yml", "facebook.yml", "twitter.yml")
         # located in "themes/LoveIt/assets/data/emoji/" directory
