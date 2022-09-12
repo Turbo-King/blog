@@ -900,10 +900,10 @@ enableEmoji = true
         enable = true
         # owner/repo
         repo="Turbo-King/BlogTalks"
-        issue-term="pathname"
-        theme="preferred-color-scheme"
         crossorigin="anonymous"
-        
+        issueTerm = "pathname"
+        lightTheme = "github-light"
+        darkTheme = "github-dark"
     # Third-party library config
     # 第三方库配置
     [params.page.library]
