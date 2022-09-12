@@ -899,7 +899,7 @@ enableEmoji = true
       [params.page.comment.utterances]
         enable = true
         # owner/repo
-        repo = "Turbo-King/BlogTalks"
+        repo = "Turbo-King/blog"
         issueTerm = "pathname"
         label = ""
         lightTheme = "github-light"
