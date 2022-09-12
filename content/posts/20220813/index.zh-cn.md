@@ -12,7 +12,7 @@ resources:
 
 tags: ["java","study","Java学习路线"]
 categories: ["Markdown "]
-comment: true 
+lightgallery: true
 ---
 
 # Java 学习路线
