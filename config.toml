@@ -899,11 +899,11 @@ enableEmoji = true
       [params.page.comment.utterances]
         enable = true
         # owner/repo
-        repo = "Turbo-King/blog"
-        issueTerm = "pathname"
-        label = ""
-        lightTheme = "github-light"
-        darkTheme = "github-dark"
+        repo="Turbo-King/BlogTalks"
+        issue-term="pathname"
+        theme="preferred-color-scheme"
+        crossorigin="anonymous"
+        
     # Third-party library config
     # 第三方库配置
     [params.page.library]
