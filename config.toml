@@ -848,8 +848,8 @@ enableEmoji = true
       # Valine 评论系统设置 (https://github.com/xCss/Valine)
       [params.page.comment.valine]
         enable = true
-        appId = "NzZXvxQuOsViUEqxSpcP8Y2l-gzGzoHsz"
-        appKey = "ydd0mdodwjqWgCvBWTZ7IixS"
+        appId = "azP4r9ZpmvzbO2Lg1NGaH4Hm-MdYXbMMI"
+        appKey = "ELKYLG4pTdLkxYp2CRH62GPI"
         placeholder = "欢迎交流！匿名昵称留空即可，已开启邮箱留言自动通知提醒。" #评论区提醒文字
         avatar = "Turbo-King"
         meta = ['nick', 'mail', 'link']  #评论昵称，邮件，链接三个模块
@@ -859,7 +859,7 @@ enableEmoji = true
         recordIP = true
         highlight = true
         enableQQ = true
-        serverURLs = "https://nzzxvxqu.lc-cn-n1-shared.com"
+        serverURLs = "https://azp4r9zp.api.lncldglobal.com"
         # emoji data file name, default is "google.yml"
         # ("apple.yml", "google.yml", "facebook.yml", "twitter.yml")
         # located in "themes/LoveIt/assets/data/emoji/" directory
