@@ -13,6 +13,8 @@ publishdir = "docs"
 # website title
 # 网站标题
 title = "Turbo-King Blog"
+# 网站关键词
+keywords = "Turbo-King,TurboBlog,阿豪,阿豪博客,Turbo,Blog"
 
 # whether to use robots.txt
 # 是否使用 robots.txt
