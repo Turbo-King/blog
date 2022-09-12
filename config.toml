@@ -897,6 +897,7 @@ enableEmoji = true
       # Utterances comment config (https://utteranc.es/)
       # Utterances comment 评论系统设置 (https://utteranc.es/)
       [params.page.comment.utterances]
+        src = "https://utteranc.es/client.js"
         enable = true
         # owner/repo
         repo="Turbo-King/BlogTalks"
