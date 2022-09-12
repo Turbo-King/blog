@@ -847,7 +847,7 @@ enableEmoji = true
       # Valine comment config (https://github.com/xCss/Valine)
       # Valine 评论系统设置 (https://github.com/xCss/Valine)
       [params.page.comment.valine]
-        enable = true
+        enable = false
         appId = "azP4r9ZpmvzbO2Lg1NGaH4Hm-MdYXbMMI"
         appKey = "ELKYLG4pTdLkxYp2CRH62GPI"
         placeholder = "欢迎交流！匿名昵称留空即可，已开启邮箱留言自动通知提醒。" #评论区提醒文字
@@ -897,7 +897,7 @@ enableEmoji = true
       # Utterances comment config (https://utteranc.es/)
       # Utterances comment 评论系统设置 (https://utteranc.es/)
       [params.page.comment.utterances]
-        enable = false
+        enable = true
         # owner/repo
         repo = ""
         issueTerm = "pathname"
