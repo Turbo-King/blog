@@ -77,7 +77,7 @@ enableEmoji = true
         pre = ""
         post = ""
         name = "About"
-        url = "https://turbo-king.github.io/"
+        url = "../../about/"
         title = "Turbo-King"
         weight = 4
       [[languages.en.menu.main]]
@@ -269,7 +269,7 @@ enableEmoji = true
         pre = ""
         post = ""
         name = "关于"
-        url = "https://turbo-king.github.io/"
+        url = "../../about/"
         title = "Turbo-King"
         weight = 4
       [[languages.zh-cn.menu.main]]
@@ -459,7 +459,7 @@ enableEmoji = true
         identifier = "about"
         pre = ""
         name = "À propos"
-        url = "https://turbo-king.github.io/"
+        url = "../../about/"
         title = "Turbo-King"
         weight = 4
       [[languages.fr.menu.main]]
