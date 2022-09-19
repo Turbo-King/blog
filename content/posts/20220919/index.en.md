@@ -1,7 +1,6 @@
 ---
 weight: 5
 title: "Markdown 基本语法"
-title: "20220919"
 date: 2022-09-19T08:45:39+08:00
 draft: false
 author: "Turbo-King"
@@ -17,7 +16,7 @@ categories: ["Markdown"]
 lightgallery: true
 ---
 
-This article offers a sample of basic Markdown syntax that can be used in Hugo content files.
+basic Markdown syntax.
 
 <!--more-->
 
