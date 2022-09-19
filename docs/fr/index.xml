@@ -7,12 +7,12 @@
             <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 19 Sep 2022 08:45:39 &#43;0800</lastBuildDate>
             <atom:link href="https://turbo-king.github.io/blog/fr/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>20220919</title>
+    <title>Markdown 基本语法</title>
     <link>https://turbo-king.github.io/blog/fr/20220919/</link>
     <pubDate>Mon, 19 Sep 2022 08:45:39 &#43;0800</pubDate>
     <author>Turbo-King</author>
     <guid>https://turbo-king.github.io/blog/fr/20220919/</guid>
-    <description><![CDATA[<p>这篇文章提供了可以在 Hugo 的文章中使用的基本 Markdown 语法示例.</p>]]></description>
+    <description><![CDATA[<p>基本 Markdown 语法.</p>]]></description>
 </item>
 <item>
     <title>Mac使用SQLServer数据库</title>
