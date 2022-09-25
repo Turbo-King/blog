@@ -8,7 +8,7 @@ authorLink: "https://turbo-king.github.io/"
 description: "Docker安装SQLServer"
 resources:
 - name: "featured-image"
-  src: "featured-image.png"
+  src: "featured-image.jpg"
 
 tags: ["study","Docker","SQLServer","Mac"]
 categories: ["Markdown"]

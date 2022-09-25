@@ -7,8 +7,6 @@
 
 {{< admonition >}}
 这篇文章借鉴了一篇很棒的[来自 Grav 的文章](http://learn.getgrav.org/content/markdown).
-
-如果你想了解 **Loveit** 主题的扩展 Markdown 语法, 请阅读[扩展 Markdown 语法页面](../theme-documentation-content#extended-markdown-syntax).
 {{< /admonition >}}
 
 事实上, 编写 Web 内容很麻烦. [WYSIWYG]^(所见即所得) 编辑器帮助减轻了这一任务. 但通常会导致代码太糟, 或更糟糕的是, 网页也会很丑.
@@ -24,7 +22,7 @@
 5. 可以在你喜欢的任何文本编辑器或 Markdown 应用程序中编写内容.
 6. Markdown 使用起来很有趣!
 
-John Gruber, Markdown 的作者如是说:
+John Gruber, Markdown 的作者说:
 
 > Markdown 格式的首要设计目标是更具可读性.
 > 最初的想法是 Markdown 格式的文档应当以纯文本形式发布,
