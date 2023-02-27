@@ -34,9 +34,9 @@
         },"image": [{
                             "@type": "ImageObject",
                             "url": "https:\/\/turbo-king.github.io\/blog\/20221205\/featured-image.png",
-                            "width":  8320 ,
-                            "height":  5200 
-                        }],"genre": "posts","keywords": "Java, coding, principle","wordcount":  1570 ,
+                            "width":  8310 ,
+                            "height":  3369 
+                        }],"genre": "posts","keywords": "Java, coding, principle","wordcount":  2730 ,
         "url": "https:\/\/turbo-king.github.io\/blog\/20221205\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": {
@@ -121,8 +121,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/markdown/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Markdown</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1570 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2730 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -153,7 +153,17 @@
             <li><a href="#使用接口隔离原则改进">使用接口隔离原则改进</a></li>
           </ul>
         </li>
-        <li><a href="#依赖倒转原则">依赖倒转原则</a></li>
+        <li><a href="#依赖倒转原则">依赖倒转原则</a>
+          <ul>
+            <li><a href="#介绍-2">介绍</a></li>
+            <li><a href="#依赖倒转原则的注意事项和细节">依赖倒转原则的注意事项和细节</a></li>
+          </ul>
+        </li>
+        <li><a href="#里氏替换原则">里氏替换原则</a>
+          <ul>
+            <li><a href="#介绍-3">介绍</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -290,14 +300,14 @@
 <h3 id="单一职责原则">单一职责原则</h3>
 <h4 id="介绍">介绍</h4>
 <p>对类来说，一个类应该只负责一项职责。如类A负责两个不同的职责：职责1，职责2。当职责1需求变更而改变A时，可能造成职责2执行错误，所以需要将类A的粒度分解为A1，A2。类图如下所示</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3.png.jpeg" title="单一职责.png" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3.png.jpeg" data-sub-html="<h2>单一职责原则</h2><p>单一职责.png</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg" title="单一职责.png" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/单一职责.png.jpeg" data-sub-html="<h2>单一职责原则</h2><p>单一职责.png</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3.png.jpeg"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3.png.jpeg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3.png.jpeg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3.png.jpeg 2x"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg 2x"
             data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3.png.jpeg" />
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/单一职责.png.jpeg" />
     </a><figcaption class="image-caption">单一职责原则</figcaption>
     </figure></p>
 <h4 id="单一职责原则注意事项和细节">单一职责原则注意事项和细节</h4>
@@ -562,7 +572,235 @@
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="依赖倒转原则">依赖倒转原则</h3></div><div class="post-footer" id="post-footer">
+</div><h3 id="依赖倒转原则">依赖倒转原则</h3>
+<h4 id="介绍-2">介绍</h4>
+<p>依赖倒转原则(Dependence Inversion Principle)是指：</p>
+<ol>
+<li>
+<p>高层模块不应该依赖底层模块，二者都应该依赖其抽象</p>
+</li>
+<li>
+<p>抽象不应该依赖细节，细节应该依赖抽象</p>
+</li>
+<li>
+<p>依赖倒转(倒置)的中心思想是面向接口编程</p>
+</li>
+<li>
+<p>依赖倒转原则是基于这样的设计原理：相较于细节的多变性，抽象的东西要稳定的多。以抽象为基础搭建的框架比以细节为基础的框架要稳定的多。在Java中，抽象指的是借口或抽象类，细节就是具体的实现类</p>
+</li>
+<li>
+<p>使用接口或抽象类的目的是制定好规范，而不涉及任何具体的操作，把展现细节的任务交给他们的实现类去完成</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg" title="依赖倒转" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg" data-sub-html="<h2>依赖倒转</h2><p>依赖倒转</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg" />
+    </a><figcaption class="image-caption">依赖倒转</figcaption>
+    </figure></p>
+</li>
+</ol>
+<div class="details admonition abstract open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ul fa-fw" aria-hidden="true"></i>依赖关系传递的三种方式<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>接口传递</li>
+<li>构造方法传递</li>
+<li>setter方式传递</li>
+</ol>
+</div>
+        </div>
+    </div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DependencyPass</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 方式1： 通过接口传递实现依赖
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 开关的接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">interface</span> <span class="nc">IOpenAndClose</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">open</span><span class="o">(</span><span class="n">ITV</span> <span class="n">tv</span><span class="o">);</span> <span class="c1">//抽象方法,接收接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">ITV</span> <span class="o">{</span> <span class="c1">//ITV接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 实现接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">OpenAndClose</span> <span class="kd">implements</span> <span class="n">IOpenAndClose</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">open</span><span class="o">(</span><span class="n">ITV</span> <span class="n">tv</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">tv</span><span class="o">.</span><span class="na">play</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 方式2: 通过构造方法依赖传递
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">interface</span> <span class="nc">IOpenAndClose</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">open</span><span class="o">();</span> <span class="c1">//抽象方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">ITV</span> <span class="o">{</span> <span class="c1">//ITV接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">OpenAndClose</span> <span class="kd">implements</span> <span class="n">IOpenAndClose</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">ITV</span> <span class="n">tv</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">OpenAndClose</span><span class="o">(</span><span class="n">ITV</span> <span class="n">tv</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">tv</span> <span class="o">=</span> <span class="n">tv</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">open</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">tv</span><span class="o">.</span><span class="na">play</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 方式3 , 通过setter方法传递
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">interface</span> <span class="nc">IOpenAndClose</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">open</span><span class="o">();</span> <span class="c1">// 抽象方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTv</span><span class="o">(</span><span class="n">ITV</span> <span class="n">tv</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">ITV</span> <span class="o">{</span> <span class="c1">// ITV接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">OpenAndClose</span> <span class="kd">implements</span> <span class="n">IOpenAndClose</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">ITV</span> <span class="n">tv</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTv</span><span class="o">(</span><span class="n">ITV</span> <span class="n">tv</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">tv</span> <span class="o">=</span> <span class="n">tv</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">open</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">tv</span><span class="o">.</span><span class="na">play</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="依赖倒转原则的注意事项和细节">依赖倒转原则的注意事项和细节</h4>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>依赖倒转原则<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>底层模块尽量都要有抽象类或接口，或者两者都有，程序稳定性更好</li>
+<li>变量的声明类型尽量是抽象类或接口，这样我们的变量引用和实际对象间，就存在一个缓冲层，利于程序扩展和优化</li>
+<li>继承时遵循里氏替换原则</li>
+</ol>
+</div>
+        </div>
+    </div>
+<h3 id="里氏替换原则">里氏替换原则</h3>
+<div class="details admonition question open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>OO中的继承性的思考和说明<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>继承包含这样一层含义：父类中凡是已经实现好的方法，实际上是在设定规范和契约，虽然他不强制要求所有的子类必须遵循这些契约，但是如果自类对这些已经实现的方法随意修改，就会对整个继承体系造成破坏</li>
+<li>继承在给程序设计带来便利的同时，也带来了弊端。比如使用继承会给程序带来侵入性，程序的可移植性降低，增加对象的耦合性，如果一个类被其他的类所继承，则当这个类需要修改时，必须考虑到所有的子类，并且父类修改后，所有涉及到子类的功能都有可能产生故障</li>
+</ol>
+</div>
+        </div>
+    </div>
+<h4 id="介绍-3">介绍</h4>
+<ol>
+<li>
+<p>里氏替换原则(Liskov Substitution Principle)在1988年，由麻省理工学院里一位姓里的女士提出的</p>
+</li>
+<li>
+<p>如果对每个类型为T1的对象o1，都有类型为T2的对象o2，使得以T1定义的所有程序P在所有的对象o1都替换成o2时，程序P的行为没有发生变化，那么类型T2是类型T1的子类型。换句话说，所有的引用基类的地方必须能透明地使用其子类的对象</p>
+</li>
+<li>
+<p>在使用继承，遵循里氏替换原则，在子类中尽量不要重写父类的方法</p>
+</li>
+<li>
+<p>里氏替换原则告诉我们，继承实际上让两个类耦合性增强了，在适当的情况下，可以通过耦合、组合、依赖来解决问题</p>
+</li>
+</ol></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -591,7 +829,7 @@
                 Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
             </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://turbo-king.github.io/" target="_blank">Turbo-King</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://turbo-king.github.io/" target="_blank">Turbo-King</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">津ICP备2021001207号-1</span></div>
         </div>
     </footer></div>

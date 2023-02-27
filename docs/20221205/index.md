@@ -92,7 +92,7 @@ Scott Mayers 在其巨著《Effective C++》就曾经说过：C++老手和 C++�
 
 对类来说，一个类应该只负责一项职责。如类A负责两个不同的职责：职责1，职责2。当职责1需求变更而改变A时，可能造成职责2执行错误，所以需要将类A的粒度分解为A1，A2。类图如下所示
 
-![单一职责.png](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3.png.jpeg "单一职责原则")
+![单一职责.png](https://cdn.jsdelivr.net/gh/Turbo-King/images/单一职责.png.jpeg "单一职责原则")
 
 
 
@@ -245,5 +245,130 @@ class C {
 
 
 ### 依赖倒转原则
+
+#### 介绍
+
+依赖倒转原则(Dependence Inversion Principle)是指：
+
+1. 高层模块不应该依赖底层模块，二者都应该依赖其抽象
+
+2. 抽象不应该依赖细节，细节应该依赖抽象
+
+3. 依赖倒转(倒置)的中心思想是面向接口编程
+
+4. 依赖倒转原则是基于这样的设计原理：相较于细节的多变性，抽象的东西要稳定的多。以抽象为基础搭建的框架比以细节为基础的框架要稳定的多。在Java中，抽象指的是借口或抽象类，细节就是具体的实现类
+
+5. 使用接口或抽象类的目的是制定好规范，而不涉及任何具体的操作，把展现细节的任务交给他们的实现类去完成
+
+    ![依赖倒转](https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg "依赖倒转")
+
+    
+
+{{< admonition abstract 依赖关系传递的三种方式 >}}
+
+1. 接口传递
+2. 构造方法传递
+3. setter方式传递
+
+{{< /admonition >}}
+
+```java
+public class DependencyPass {
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+
+    }
+
+}
+
+// 方式1： 通过接口传递实现依赖
+// 开关的接口
+interface IOpenAndClose {
+    public void open(ITV tv); //抽象方法,接收接口
+}
+
+interface ITV { //ITV接口
+    public void play();
+}
+
+// 实现接口
+class OpenAndClose implements IOpenAndClose {
+    public void open(ITV tv) {
+        tv.play();
+    }
+}
+
+// 方式2: 通过构造方法依赖传递
+interface IOpenAndClose {
+    public void open(); //抽象方法
+}
+
+interface ITV { //ITV接口
+    public void play();
+}
+
+class OpenAndClose implements IOpenAndClose {
+    public ITV tv;
+
+    public OpenAndClose(ITV tv) {
+        this.tv = tv;
+    }
+
+    public void open() {
+        this.tv.play();
+    }
+}
+
+// 方式3 , 通过setter方法传递
+interface IOpenAndClose {
+    public void open(); // 抽象方法
+
+    public void setTv(ITV tv);
+}
+
+interface ITV { // ITV接口
+    public void play();
+}
+
+class OpenAndClose implements IOpenAndClose {
+    private ITV tv;
+
+    public void setTv(ITV tv) {
+        this.tv = tv;
+    }
+
+    public void open() {
+        this.tv.play();
+    }
+}
+```
+
+#### 依赖倒转原则的注意事项和细节
+
+{{< admonition tip 依赖倒转原则 >}}
+
+1. 底层模块尽量都要有抽象类或接口，或者两者都有，程序稳定性更好
+2. 变量的声明类型尽量是抽象类或接口，这样我们的变量引用和实际对象间，就存在一个缓冲层，利于程序扩展和优化
+3. 继承时遵循里氏替换原则
+
+{{< /admonition >}}
+
+### 里氏替换原则
+
+{{< admonition question OO中的继承性的思考和说明 >}}
+
+1. 继承包含这样一层含义：父类中凡是已经实现好的方法，实际上是在设定规范和契约，虽然他不强制要求所有的子类必须遵循这些契约，但是如果自类对这些已经实现的方法随意修改，就会对整个继承体系造成破坏
+2. 继承在给程序设计带来便利的同时，也带来了弊端。比如使用继承会给程序带来侵入性，程序的可移植性降低，增加对象的耦合性，如果一个类被其他的类所继承，则当这个类需要修改时，必须考虑到所有的子类，并且父类修改后，所有涉及到子类的功能都有可能产生故障
+
+{{< /admonition >}}
+
+#### 介绍
+
+1. 里氏替换原则(Liskov Substitution Principle)在1988年，由麻省理工学院里一位姓里的女士提出的
+
+2. 如果对每个类型为T1的对象o1，都有类型为T2的对象o2，使得以T1定义的所有程序P在所有的对象o1都替换成o2时，程序P的行为没有发生变化，那么类型T2是类型T1的子类型。换句话说，所有的引用基类的地方必须能透明地使用其子类的对象
+3. 在使用继承，遵循里氏替换原则，在子类中尽量不要重写父类的方法
+4. 里氏替换原则告诉我们，继承实际上让两个类耦合性增强了，在适当的情况下，可以通过耦合、组合、依赖来解决问题
 
 
