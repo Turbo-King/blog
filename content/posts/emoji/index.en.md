@@ -7,9 +7,7 @@ draft: false
 author: "Turbo-king"
 authorLink: "https://turbo-king.github.io/"
 description: "Guide to emoji usage in Hugo and LoveIt."
-resources:
-- name: "featured-image"
-  src: "featured-image.jpg"
+featuredImage : "https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image-emoji.jpg"
 
 tags: ["emoji"]
 categories: ["Markdown"]

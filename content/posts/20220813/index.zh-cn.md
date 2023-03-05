@@ -6,9 +6,7 @@ draft: false
 author: "Turbo-King"
 authorLink: "https://turbo-king.github.io/"
 description: "Java学习路线"
-resources:
-- name: "featured-image"
-  src: "featured-image.jpeg"
+featuredImage : "https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220813.jpeg"
 
 tags: ["java","study","Java学习路线"]
 categories: ["Markdown "]

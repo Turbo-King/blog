@@ -7,9 +7,7 @@ draft: false
 author: "Turbo-King"
 authorLink: "https://turbo-king.github.io/"
 description: "Hugo 中的 Emoji 的用法指南."
-resources:
-- name: "featured-image"
-  src: "featured-image.jpg"
+featuredImage : "https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image-emoji.jpg"
 
 tags: ["emoji"]
 categories: ["Markdown"]

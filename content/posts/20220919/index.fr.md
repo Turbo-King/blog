@@ -6,9 +6,7 @@ draft: false
 author: "Turbo-King"
 authorLink: "https://turbo-king.github.io/"
 description: ""
-resources:
-- name: "featured-image"
-  src: "featured-image.png"
+featuredImage : "https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220919.png"
 
 tags: ["Markdown", "HTML","Posts","grammar"]
 categories: ["Markdown"]

@@ -6,9 +6,7 @@ draft: false
 author: "Turbo-King"
 authorLink: "https://turbo-king.github.io/"
 description: "Docker安装SQLServer"
-resources:
-- name: "featured-image"
-  src: "featured-image.jpg"
+featuredImage : "https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220831.jpg"
 
 tags: ["study","Docker","SQLServer","Mac"]
 categories: ["Markdown"]

@@ -6,9 +6,7 @@ draft: false
 author: "Turbo-King"
 authorLink: "https://turbo-king.github.io/"
 description: "设计模式讲解"
-resources:
-- name: "featured-image"
-  src: "featured-image.png"
+featuredImage : "https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image.png"
 
 tags: ["Java","coding","principle"]
 categories: ["Markdown"]
@@ -21,6 +19,9 @@ lightgallery: true
 <!--more-->
 
 ### 前言
+
+
+
 {{< admonition >}}
 一个 **注意** 横幅
 {{< /admonition >}}

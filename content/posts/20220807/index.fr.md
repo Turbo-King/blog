@@ -6,9 +6,7 @@ draft: false
 author: "Turbo-King"
 authorLink: "https://turbo-king.github.io/"
 description: "消去浮躁，沉淀精华."
-resources:
-- name: "featured-image"
-  src: "chouju.jpg"
+featuredImage : "https://cdn.jsdelivr.net/gh/Turbo-King/images/chouju20220807.jpg"
 
 tags: ["daily","study"]
 categories: ["Markdown"]

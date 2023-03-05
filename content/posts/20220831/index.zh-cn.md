@@ -6,9 +6,7 @@ draft: false
 author: "Turbo-King"
 authorLink: "https://turbo-king.github.io/"
 description: "Docker安装SQLServer"
-resources:
-- name: "featured-image"
-  src: "featured-image.jpg"
+featuredImage : "https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220831.jpg"
 
 tags: ["study","Docker","SQLServer","Mac"]
 categories: ["Markdown"]
@@ -56,7 +54,7 @@ Docker 最好的一点在于你需要什么环境就可以下载仅拥有该环�
 
 根据自己电脑相应配置，自己分配Docker占用资源大小，内存一定要大于2G，我记得好像SQL Server最基本要保证内存2G才能成功启动（以下是我的Docker资源分配配置）。
 
-<img src="images/i1.png" alt="Docker环境配置"/>
+![i1](https://cdn.jsdelivr.net/gh/Turbo-King/images/i1.png "Docker环境配置")
 
 <br>
 
@@ -68,7 +66,7 @@ Docker 最好的一点在于你需要什么环境就可以下载仅拥有该环�
 
 鉴于国内网络问题，后续拉取 Docker 镜像十分缓慢，我们可以需要配置加速器来解决，我使用的是网易的镜像地址：`http://hub-mirror.c.163.com`。
 
-<img src="images/i2.png" alt="Docker镜像加速"/>
+![i2](https://cdn.jsdelivr.net/gh/Turbo-King/images/i2.png "Docker镜像加速")
 
 <br>
 
@@ -219,7 +217,7 @@ sudo docker exec -it sql1 "bash"
 
 下载 `navicat` 应用选择SQL Server服务，输入`连接名`、`主机`、`用户名`、`密码`进行连接。
 
-<img src="images/i3.png" alt="Docker环境配置"/>
+![i3](https://cdn.jsdelivr.net/gh/Turbo-King/images/i3.png "Navicat连接SQLServer")
 
 <br>
 
@@ -227,7 +225,7 @@ sudo docker exec -it sql1 "bash"
 
 密码一定不要填错，如果密码填错，会出现以下错误(一定要学会去Docker里面查看LOG):
 
-<img src="images/i4.png" alt="Docker环境配置"/>
+![i4](https://cdn.jsdelivr.net/gh/Turbo-King/images/i4.png "Docker日志LOG")
 
 <br>
 
