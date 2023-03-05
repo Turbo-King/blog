@@ -10,7 +10,9 @@
     <pubDate>Mon, 19 Sep 2022 08:45:39 &#43;0800</pubDate>
     <author>Turbo-King</author>
     <guid>https://turbo-king.github.io/blog/en/20220919/</guid>
-    <description><![CDATA[<p>basic Markdown syntax.</p>]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220919.png" referrerpolicy="no-referrer">
+            </div><p>basic Markdown syntax.</p>]]></description>
 </item>
 </channel>
 </rss>
