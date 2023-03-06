@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/turbo-king.github.io\/blog\/20221205\/"
-        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  5861 ,
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  6901 ,
         "url": "https:\/\/turbo-king.github.io\/blog\/20221205\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -111,8 +111,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/markdown/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Markdown</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5861 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6901 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -127,10 +127,9 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#设计模式七大原则">设计模式七大原则</a>
       <ul>
-        <li><a href="#前言">前言</a></li>
-        <li><a href="#设计模式七大原则">设计模式七大原则</a></li>
         <li><a href="#单一职责原则">单一职责原则</a>
           <ul>
             <li><a href="#介绍">介绍</a></li>
@@ -166,12 +165,29 @@
             <li><a href="#实例应用">实例应用</a></li>
           </ul>
         </li>
+        <li><a href="#合成复用原则">合成复用原则</a>
+          <ul>
+            <li><a href="#介绍-6">介绍</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
+    <li><a href="#uml类图">UML类图</a>
+      <ul>
+        <li><a href="#介绍-7">介绍</a></li>
+        <li><a href="#依赖关系dependence">依赖关系（Dependence）</a></li>
+        <li><a href="#泛化关系generalization">泛化关系（Generalization）</a></li>
+        <li><a href="#实现关系implementation">实现关系（Implementation）</a></li>
+        <li><a href="#关联关系association">关联关系（Association）</a></li>
+        <li><a href="#聚合关系aggregation">聚合关系（Aggregation）</a></li>
+        <li><a href="#组合关系composition">组合关系（Composition）</a></li>
+      </ul>
+    </li>
+    <li><a href="#设计模式">设计模式</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h1 id="浅谈设计模式">浅谈设计模式</h1>
-<h3 id="前言">前言</h3>
+<h2 id="前言">前言</h2>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -280,7 +296,8 @@
 </blockquote>
 <p>设计模式包含了面向对象的精髓：“懂了设计模式，你就懂了面向对象分析和设计（OOA/D）的精要”。</p>
 <p>Scott Mayers 在其巨著《Effective C++》就曾经说过：C++老手和 C++新手的区别就是前者手背上有很多伤疤。</p>
-<h3 id="设计模式七大原则">设计模式七大原则</h3>
+<p><br><br><br></p>
+<h2 id="设计模式七大原则">设计模式七大原则</h2>
 <p>设计模式原则，其实就是程序员在编程时，应当遵守的原则，也是各种设计模式的基础（即：设计模式为什么这样设计的依据）</p>
 <div class="details admonition abstract open">
         <div class="details-summary admonition-title">
@@ -1584,7 +1601,155 @@
 </ol>
 </div>
         </div>
-    </div></div><div class="post-footer" id="post-footer">
+    </div>
+<h3 id="合成复用原则">合成复用原则</h3>
+<h4 id="介绍-6">介绍</h4>
+<p>原则是尽量使用合成/聚合的方式，而不是使用继承</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png" title="截屏2023-03-05 21.05.08" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png" data-sub-html="<h2>合成复用原则</h2><p>截屏2023-03-05 21.05.08</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png" />
+    </a><figcaption class="image-caption">合成复用原则</figcaption>
+    </figure></p>
+<div class="details admonition abstract open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ul fa-fw" aria-hidden="true"></i>设计原则核心思想<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>找出应用中可能需要变化之处，把它们独立出来，不要和那些不需要变化的代码混在一起</li>
+<li>针对接口编程，而不是针对实现编程</li>
+<li>为了交互对象之间的松耦合设计而努力</li>
+</ol>
+</div>
+        </div>
+    </div>
+<p><br><br><br></p>
+<h2 id="uml类图">UML类图</h2>
+<h3 id="介绍-7">介绍</h3>
+<ol>
+<li>UML&ndash;Unified modeling language UML（统一建模语言），是一种用于软件系统分析和设计的语言工具，它用于帮助软件开发人员进行思考和记录思路的结果</li>
+<li>UML本身是一套符号的规定，就像数学符号和化学符号一样，这些符号用于描述软件模型中的各个元素和他们之间的关系，比如类、接口、实现、泛化、依赖、组合、聚合等</li>
+</ol>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png" title="截屏2023-03-05 23.01.54" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png" data-sub-html="<h2>类关系</h2><p>截屏2023-03-05 23.01.54</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png" />
+    </a><figcaption class="image-caption">类关系</figcaption>
+    </figure></p>
+<br>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>UML图例分类<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>用例图（use case）</li>
+<li>静态结构图：<strong>类图</strong>、对象图、包图、组件图、部署图</li>
+<li>动态行为图：交互图（时序图与协作图）、状态图、活动图</li>
+</ol>
+<p><strong>说明</strong>：</p>
+<ol>
+<li><strong>类图用于描述系统中类（对象）本身的组成和类（对象）之间的各种静态关系，是UML图中最核心的图例</strong></li>
+<li><strong>设计模式中使用类图描述模式设计过程</strong></li>
+<li><strong>类之间关系：依赖、泛化（继承）、实现、关联、聚合与组合</strong></li>
+</ol>
+</div>
+        </div>
+    </div>
+<h3 id="依赖关系dependence">依赖关系（Dependence）</h3>
+<p>只要在类中使用到了对方，那么他们之间就存在依赖关系。如果没有对方，连编译都通过不了。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png" title="截屏2023-03-06 10.59.17" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png" data-sub-html="<h2>依赖关系</h2><p>截屏2023-03-06 10.59.17</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png" />
+    </a><figcaption class="image-caption">依赖关系</figcaption>
+    </figure></p>
+<h3 id="泛化关系generalization">泛化关系（Generalization）</h3>
+<p>如果一个模型元素（子代）基于另一个模型元素（父代），那么这两个元素之间就存在泛化关系（<strong>继承关系</strong>）</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png" title="截屏2023-03-06 11.04.28" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png" data-sub-html="<h2>泛化关系</h2><p>截屏2023-03-06 11.04.28</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png" />
+    </a><figcaption class="image-caption">泛化关系</figcaption>
+    </figure></p>
+<h3 id="实现关系implementation">实现关系（Implementation）</h3>
+<p>实现关系实际上是A类实现B接口，它是<strong>依赖关系的特例</strong></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png" title="截屏2023-03-06 11.10.37" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png" data-sub-html="<h2>实现关系</h2><p>截屏2023-03-06 11.10.37</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png" />
+    </a><figcaption class="image-caption">实现关系</figcaption>
+    </figure></p>
+<h3 id="关联关系association">关联关系（Association）</h3>
+<p>关联关系实际上是类与类之间的联系，它是<strong>依赖关系的特例</strong></p>
+<p>关联具有<strong>导航性</strong>：即双向关系或单向关系</p>
+<p>关系具有<strong>多重性</strong>：如“1”（表示有且仅有一个），“0&hellip;”（表示0个或者多个），“0，1”（表示0个或者一个），“n&hellip;m”（表示n到m个都可以），“m&hellip;*”（表示至少m个）</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png" title="截屏2023-03-06 22.59.32" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png" data-sub-html="<h2>关联关系</h2><p>截屏2023-03-06 22.59.32</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png" />
+    </a><figcaption class="image-caption">关联关系</figcaption>
+    </figure></p>
+<br>
+<h3 id="聚合关系aggregation">聚合关系（Aggregation）</h3>
+<p>是整体与部分的关系, 且部分可以离开整体而单独存在。</p>
+<p>聚合关系是关联关系的一种，是强的关联关系</p>
+<p>关联和聚合在语法上无法区分，必须考察具体的逻辑关系</p>
+<p><strong>如下所示</strong>：车和轮胎是整体和部分的关系，轮胎离开车仍然可以存在</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png" title="截屏2023-03-06 22.52.13" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png" data-sub-html="<h2>聚合关系</h2><p>截屏2023-03-06 22.52.13</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png" />
+    </a><figcaption class="image-caption">聚合关系</figcaption>
+    </figure></p>
+<br>
+<h3 id="组合关系composition">组合关系（Composition）</h3>
+<p>组合关系：也是整体与部分的关系，但是<strong>整体与部分不可以分开</strong></p>
+<p>组合关系是关联关系中的一种，也是比聚合关系还要强的关系，它要求普通的聚合关系中代表整体的对象负责代表部分对象的生命周期</p>
+<p><strong>如下所示</strong>：公司和部分是整体和部门的关系，没有公司就不存在部门</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png" title="截屏2023-03-06 23.01.18" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png" data-sub-html="<h2>组合关系</h2><p>截屏2023-03-06 23.01.18</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png" />
+    </a><figcaption class="image-caption">组合关系</figcaption>
+    </figure></p>
+<br>
+<br>
+<br>
+<h2 id="设计模式">设计模式</h2></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
