@@ -6,7 +6,7 @@ draft: false
 author: "Turbo-King"
 authorLink: "https://turbo-king.github.io/"
 description: "设计模式讲解"
-featuredImage : "https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image.png"
+featuredImage : "https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20221205.jpg"
 
 tags: ["Java","coding","principle"]
 categories: ["Markdown"]
