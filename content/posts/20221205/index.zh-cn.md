@@ -908,3 +908,170 @@ class SchoolManager {
 <br>
 
 ## 设计模式
+
+### 介绍
+
+1. 设计模式是程序员在面对同类软件工程设计问题所总结出来的有用的经验，模式不是代码，而是某类问题的通用解决方案，设计模式（Design Pattern）代表了**最佳的实践**。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。
+2. 设计模式的本质是提高软件的维护性、通用型和扩展性，并降低软件的复杂度。
+3. 《设计模式》是经典的书，作者是Erich Gamma、Richard Helm、Ralph Johnson和John Vlissides Design（俗称“四人组GOF”）
+4. 设计模式并不局限于某种语言，Java、PHP、C++都有设计模式。
+
+### 设计模式分类
+
+{{< admonition abstract 模式分为三种类型 共23种 >}}
+
+1. **创建型模式：** **单例模式**、抽象工厂模式、原型模式、建造者模式、**工厂模式**。
+2. **结构型模式：** 适配器模式、桥接模式、**装饰模式**、组合模式、外观模式、享元模式、**代理模式**。
+3. **行为型模式：** 模版方法模式、命令模式、访问者模式、迭代器模式、**观察者模式**、中介者模式、备忘录模式、解释器模式（Interpreter模式）、状态模式、策略模式、职责模式（责任链模式）。
+
+{{< /admonition >}}
+
+### 单例模式
+
+#### 介绍
+
+所谓类的单例设计模式，就是采取一定的方法保证在整个的软件系统中，对某个类中**只能存在一个对象实例**，并且该类只提供一个取得其对象实例的方法（静态方法）。
+
+<br>
+
+**单例模式举例：** 比如Hibernate的SessionFactory，它充当数据存储源的代理，并负责创建Session对象。SessionFactory并不是一个轻量级的，一般情况下，一个项目通常只需要一个SessionFactory就够，这时就会使用到单例模式。
+
+{{< admonition example 单例模式的八种方式 >}}
+
+1. **饿汉式（静态常量）**
+2. **饿汉式（静态代码块）**
+3. 懒汉式（线程不安全）
+4. 懒汉式（线程安全，同步方法）
+5. 懒汉式（线程安全，同步代码块）
+6. **双重检查**
+7. **静态内部类**
+8. **枚举**
+
+{{< / admonition >}}
+
+### 饿汉式（静态常量）
+
+#### 实现步骤
+
+1. 构造器私有化（防止new）
+2. 类的内部创建对象
+3. 向外暴露一个静态的公共方法
+4. 代码实现
+
+```java
+public class SingletonTest01 {
+
+	public static void main(String[] args) {
+		//测试
+		Singleton instance = Singleton.getInstance();
+		Singleton instance2 = Singleton.getInstance();
+		System.out.println(instance == instance2); // true
+		System.out.println("instance.hashCode=" + instance.hashCode());
+		System.out.println("instance2.hashCode=" + instance2.hashCode());
+	}
+
+}
+
+//饿汉式(静态变量)
+
+class Singleton {
+	
+	//1. 构造器私有化, 外部能new
+	private Singleton() {
+		
+	}
+	//2.本类内部创建对象实例
+	private final static Singleton instance = new Singleton();
+	
+	//3. 提供一个公有的静态方法，返回实例对象
+	public static Singleton getInstance() {
+		return instance;
+	}
+	
+}
+```
+
+#### 模式优缺点说明：
+
+1. **优点：** 这种写法比较简单，就是在类装载的时候就完成实例化。避免了线程同步问题。
+2. **缺点：** 在类装载的时候就完成实例化，没有达到Lazy Loading的效果。如果从始至终从未使用过这个实例，则会造成内存的浪费。
+3. 这种方式基于classoder机制避免了多线程的同步问题，不过，instabce在类装载时就实例化，在单例模式中大多数都是调用getInstance方法，但是导致类装载的原因有很多种，因此不能确定有其他的方式（或者其他的静态方法）导致类装载，这个时候初始化instance就没有达到lazy loading的效果。
+4. 结论：这种单例模式可用，可能造成内存浪费。
+
+<br>
+
+### 饿汉式（静态代码块）
+
+#### 实例应用
+
+```java
+package com.atguigu.singleton.type2;
+
+public class SingletonTest02 {
+
+	public static void main(String[] args) {
+		//测试
+		Singleton instance = Singleton.getInstance();
+		Singleton instance2 = Singleton.getInstance();
+		System.out.println(instance == instance2); // true
+		System.out.println("instance.hashCode=" + instance.hashCode());
+		System.out.println("instance2.hashCode=" + instance2.hashCode());
+	}
+
+}
+
+//饿汉式(静态变量)
+
+class Singleton {
+	
+	//1. 构造器私有化, 外部能new
+	private Singleton() {
+		
+	}
+	
+	//2.本类内部创建对象实例
+	private  static Singleton instance;
+	
+	static { // 在静态代码块中，创建单例对象
+		instance = new Singleton();
+	}
+	
+	//3. 提供一个公有的静态方法，返回实例对象
+	public static Singleton getInstance() {
+		return instance;
+	}
+	
+}
+```
+
+#### 模式优缺点说明
+
+1. 这种方式和上面的方式其实类似，只不过将类实例化的过程放在了静态代码块中，也是在类装载的时候，就执行静态代码块中的代码，初始化类的实例。（优缺点与上面一致）
+2. 结论：这种单例模式可用，但是可能造成内存浪费。
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
