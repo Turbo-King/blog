@@ -1319,13 +1319,307 @@ public class Runtime {
 
 ### 工厂模式
 
+#### 简单工厂模式
+
+##### 应用举例
+
+需求：有一个披萨的项目，要便于披萨种类的扩展，要便于维护
+
+1. 披萨的种类很多（比如 GreekPizz、CheesePizz等）
+2. 披萨的制作有 prepare、back、cut、box
+3. 完成披萨店的订购功能
+
+###### 传统方法分析
+
+1. 思路分析（类图）
+
+![截屏2023-04-07 10.26.25](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png "披萨项目类图")
+
+简单工厂模式的设计方案：定义一个可以实例化的Pizaa对象的类，封装创建对象的代码。
+
+```java
+//将Pizza 类做成抽象
+public abstract class Pizza {
+	protected String name; //名字
+
+	//准备原材料, 不同的披萨不一样，因此，我们做成抽象方法
+	public abstract void prepare();
+
+	
+	public void bake() {
+		System.out.println(name + " baking;");
+	}
+
+	public void cut() {
+		System.out.println(name + " cutting;");
+	}
+
+	//打包
+	public void box() {
+		System.out.println(name + " boxing;");
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+}
+```
+
+```java
+public class PepperPizza extends Pizza {
+
+	@Override
+	public void prepare() {
+		// TODO Auto-generated method stub
+		System.out.println(" 给胡椒披萨准备原材料 ");
+	}
+
+}
+```
+
+```java
+public class GreekPizza extends Pizza {
+
+	@Override
+	public void prepare() {
+		// TODO Auto-generated method stub
+		System.out.println(" 给希腊披萨 准备原材料 ");
+	}
+
+}
+```
+
+```java
+public class CheesePizza extends Pizza {
+
+	@Override
+	public void prepare() {
+		// TODO Auto-generated method stub
+		System.out.println(" 给制作奶酪披萨 准备原材料 ");
+	}
+
+}
+```
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
+public class OrderPizza {
 
+	Pizza pizza = null;
+	String orderType = "";
+	// 构造器
+	public OrderPizza2() {
+		
+		do {
+			orderType = getType();
+			pizza = SimpleFactory.createPizza2(orderType);
 
+			// 输出pizza
+			if (pizza != null) { // 订购成功
+				pizza.prepare();
+				pizza.bake();
+				pizza.cut();
+				pizza.box();
+			} else {
+				System.out.println(" 订购披萨失败 ");
+				break;
+			}
+		} while (true);
+	}
 
+	// 写一个方法，可以获取客户希望订购的披萨种类
+	private String getType() {
+		try {
+			BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("input pizza 种类:");
+			String str = strin.readLine();
+			return str;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
+}
+```
 
+###### 传统方法的优缺点
 
+1. 优点是比较好理解，简单易操作
+2. 缺点是违反了设计模式的OCP原则，即**对扩展开放，对修改关闭**。即当我们给类增加新功能的时候，尽量不修改代码，或者尽可能少修改代码
+3. 比如我们这时要新增加一个Pizza的种类（Pepper披萨），我们需要另外增加新种类进行修改
+
+{{< admonition example 改进思路与分析 >}}
+
+**分析：** 修改代码可以接受，但是如果我们在其他的地方有创建Pizza的代码，就意味着，也需要修改，而创建Pizza的代码，**往往有多处**
+
+思路：把创建Pizza对象封装到一个类中，这样我们有新的Pizza种类时，只需要修改该类即可，**其它有创建到Pizza对象的代码就不需要修改了** -> 简单工厂模式
+
+{{< / admonition >}}
+
+##### 简单工厂模式介绍
+
+1. 简单工厂模式是属于创建型模式，是工厂模式的一种。**简单工厂模式是由一个工厂对象决定创建出哪一种产品类的实例**。简单工厂模式是工厂模式家族中最简单实用的模式
+2. 简单工厂模式：定义了一个创建对象的类，由这个类来封装实例化对象的行为（代码）
+3. 在软件开发中，当我们会用到大量的创建某种、某类或者某批对象时，就会使用到工厂模式
+
+###### 简单工厂模式改造
+
+简单工厂模式的设计方案：定义一个可以实例化Pizza对象的类，封装创建对象的代码。
+
+```java
+package com.atguigu.factory.simplefactory.pizzastore.order;
+
+//简单工厂类
+public class SimpleFactory {
+
+	//更加orderType 返回对应的Pizza 对象
+	public Pizza createPizza(String orderType) {
+
+		Pizza pizza = null;
+
+		System.out.println("使用简单工厂模式");
+		if (orderType.equals("greek")) {
+			pizza = new GreekPizza();
+			pizza.setName(" 希腊披萨 ");
+		} else if (orderType.equals("cheese")) {
+			pizza = new CheesePizza();
+			pizza.setName(" 奶酪披萨 ");
+		} else if (orderType.equals("pepper")) {
+			pizza = new PepperPizza();
+			pizza.setName("胡椒披萨");
+		}
+		
+		return pizza;
+	}
+	
+	//简单工厂模式 也叫 静态工厂模式 
+	
+	public static Pizza createPizza2(String orderType) {
+
+		Pizza pizza = null;
+
+		System.out.println("使用简单工厂模式2");
+		if (orderType.equals("greek")) {
+			pizza = new GreekPizza();
+			pizza.setName(" 希腊披萨 ");
+		} else if (orderType.equals("cheese")) {
+			pizza = new CheesePizza();
+			pizza.setName(" 奶酪披萨 ");
+		} else if (orderType.equals("pepper")) {
+			pizza = new PepperPizza();
+			pizza.setName("胡椒披萨");
+		}
+		
+		return pizza;
+	}
+
+}
+
+```
+
+```java
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class OrderPizza {
+
+	// 构造器
+//	public OrderPizza() {
+//		Pizza pizza = null;
+//		String orderType; // 订购披萨的类型
+//		do {
+//			orderType = getType();
+//			if (orderType.equals("greek")) {
+//				pizza = new GreekPizza();
+//				pizza.setName(" 希腊披萨 ");
+//			} else if (orderType.equals("cheese")) {
+//				pizza = new CheesePizza();
+//				pizza.setName(" 奶酪披萨 ");
+//			} else if (orderType.equals("pepper")) {
+//				pizza = new PepperPizza();
+//				pizza.setName("胡椒披萨");
+//			} else {
+//				break;
+//			}
+//			//输出pizza 制作过程
+//			pizza.prepare();
+//			pizza.bake();
+//			pizza.cut();
+//			pizza.box();
+//			
+//		} while (true);
+//	}
+
+	//定义一个简单工厂对象
+	SimpleFactory simpleFactory;
+	Pizza pizza = null;
+	
+	//构造器
+	public OrderPizza(SimpleFactory simpleFactory) {
+		setFactory(simpleFactory);
+	}
+	
+	public void setFactory(SimpleFactory simpleFactory) {
+		String orderType = ""; //用户输入的
+		
+		this.simpleFactory = simpleFactory; //设置简单工厂对象
+		
+		do {
+			orderType = getType(); 
+			pizza = this.simpleFactory.createPizza(orderType);
+			
+			//输出pizza
+			if(pizza != null) { //订购成功
+				pizza.prepare();
+				pizza.bake();
+				pizza.cut();
+				pizza.box();
+			} else {
+				System.out.println(" 订购披萨失败 ");
+				break;
+			}
+		}while(true);
+	}
+	
+	// 写一个方法，可以获取客户希望订购的披萨种类
+	private String getType() {
+		try {
+			BufferedReader strin = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("input pizza 种类:");
+			String str = strin.readLine();
+			return str;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
+
+}
+
+```
+
+#### 工厂方法模式
+
+##### 介绍
+
+**工厂方法模式设计方案：** 将披萨项目的实例化功能抽象成抽象方法，在不同的口味点餐子类中具体实现
+
+**工厂方法模式：** 定义了一个创建对象的抽象方法，由子类决定要实例化的类。工厂方法模式将**对象的实例化推迟到子类**
+
+#### 抽象工厂模式
+
+##### 介绍
+
+1. 抽象工厂模式：定义了一个interface用于创建相关或者有依赖关系的对象簇，而无需指明具体的类
+2. 抽象工厂模式可以将简单工厂模式和工厂方法模式进行整合
+3. 从设计层面看，抽象工厂模式就是对简单工厂模式的改进（或者称为进一步的抽象）
+4. 将工厂抽象成两层，AbsFactory（抽象工厂）和具体实现的工厂子类。程序员可以根据创建对象类型实用对应的工厂子类。这样将单个的简单工厂类变成**工厂簇**，更利于代码的维护和扩展
+5. 类图
 
 
 
