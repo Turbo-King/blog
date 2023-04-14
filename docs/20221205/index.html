@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/turbo-king.github.io\/blog\/20221205\/"
-        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  12720 ,
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  16849 ,
         "url": "https:\/\/turbo-king.github.io\/blog\/20221205\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -111,8 +111,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/markdown/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Markdown</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 12720 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 26 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 16849 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 34 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -267,8 +267,37 @@
                 <li><a href="#介绍-11">介绍</a></li>
               </ul>
             </li>
+            <li><a href="#工厂模式在jdkcalendar应用的源码分析">工厂模式在JDK—Calendar应用的源码分析</a></li>
+            <li><a href="#工厂模式小结">工厂模式小结</a></li>
           </ul>
         </li>
+        <li><a href="#原型模式">原型模式</a>
+          <ul>
+            <li><a href="#传统方法">传统方法</a>
+              <ul>
+                <li><a href="#克隆羊问题">克隆羊问题</a></li>
+                <li><a href="#传统方式解决克隆羊问题">传统方式解决克隆羊问题</a></li>
+                <li><a href="#传统方式的优缺点">传统方式的优缺点</a></li>
+              </ul>
+            </li>
+            <li><a href="#原型模式-1">原型模式</a>
+              <ul>
+                <li><a href="#介绍-12">介绍</a></li>
+                <li><a href="#原型模式原理结构图-uml类图">原型模式原理结构图-UML类图</a></li>
+                <li><a href="#原型模式解决克隆羊问题">原型模式解决克隆羊问题</a></li>
+              </ul>
+            </li>
+            <li><a href="#原型模式在spring框架中源码分析">原型模式在Spring框架中源码分析</a></li>
+            <li><a href="#深入讨论浅拷贝和深拷贝">深入讨论浅拷贝和深拷贝</a>
+              <ul>
+                <li><a href="#浅拷贝介绍">浅拷贝介绍</a></li>
+                <li><a href="#浅拷贝应用实例">浅拷贝应用实例</a></li>
+                <li><a href="#原型模式的注意事项和细节">原型模式的注意事项和细节</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#建造者模式">建造者模式</a></li>
       </ul>
     </li>
   </ul>
@@ -3052,8 +3081,1178 @@
 <li>抽象工厂模式可以将简单工厂模式和工厂方法模式进行整合</li>
 <li>从设计层面看，抽象工厂模式就是对简单工厂模式的改进（或者称为进一步的抽象）</li>
 <li>将工厂抽象成两层，AbsFactory（抽象工厂）和具体实现的工厂子类。程序员可以根据创建对象类型实用对应的工厂子类。这样将单个的简单工厂类变成<strong>工厂簇</strong>，更利于代码的维护和扩展</li>
-<li>类图</li>
-</ol></div><div class="post-footer" id="post-footer">
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.atguigu.factory.absfactory.pizzastore.pizza.Pizza</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderPizza</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">AbsFactory</span> <span class="n">factory</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 构造器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="nf">OrderPizza</span><span class="o">(</span><span class="n">AbsFactory</span> <span class="n">factory</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setFactory</span><span class="o">(</span><span class="n">factory</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">void</span> <span class="nf">setFactory</span><span class="o">(</span><span class="n">AbsFactory</span> <span class="n">factory</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">Pizza</span> <span class="n">pizza</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">String</span> <span class="n">orderType</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span> <span class="c1">// 用户输入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">this</span><span class="o">.</span><span class="na">factory</span> <span class="o">=</span> <span class="n">factory</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">do</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">orderType</span> <span class="o">=</span> <span class="n">getType</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// factory 可能是北京的工厂子类，也可能是伦敦的工厂子类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">pizza</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createPizza</span><span class="o">(</span><span class="n">orderType</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="o">(</span><span class="n">pizza</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 订购ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">pizza</span><span class="o">.</span><span class="na">prepare</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">				<span class="n">pizza</span><span class="o">.</span><span class="na">bake</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">				<span class="n">pizza</span><span class="o">.</span><span class="na">cut</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">				<span class="n">pizza</span><span class="o">.</span><span class="na">box</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;订购失败&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">				<span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 写一个方法，可以获取客户希望订购的披萨种类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="n">String</span> <span class="nf">getType</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">BufferedReader</span> <span class="n">strin</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;input pizza 种类:&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">strin</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="n">str</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="工厂模式在jdkcalendar应用的源码分析">工厂模式在JDK—Calendar应用的源码分析</h4>
+<p>JDK中的Calendar类中，就使用了简单工厂模式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">com.atguigu.jdk</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Calendar</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Factory</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">// getInstance 是 Calendar 静态方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Calendar</span> <span class="n">cal</span> <span class="o">=</span> <span class="n">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	    <span class="c1">// 注意月份下标从0开始，所以取月份要+1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;年:&#34;</span> <span class="o">+</span> <span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">YEAR</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;月:&#34;</span> <span class="o">+</span> <span class="o">(</span><span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">MONTH</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">));</span>       
+</span></span><span class="line"><span class="cl">	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;日:&#34;</span> <span class="o">+</span> <span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">DAY_OF_MONTH</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;时:&#34;</span> <span class="o">+</span> <span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">HOUR_OF_DAY</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;分:&#34;</span> <span class="o">+</span> <span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">MINUTE</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;秒:&#34;</span> <span class="o">+</span> <span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">SECOND</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">	    
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Gets a calendar with the specified time zone and locale.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * The &lt;code&gt;Calendar&lt;/code&gt; returned is based on the current time
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * in the given time zone with the given locale.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param zone the time zone to use
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param aLocale the locale for the week data
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return a Calendar.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="n">Calendar</span> <span class="nf">getInstance</span><span class="o">(</span><span class="n">TimeZone</span> <span class="n">zone</span><span class="o">,</span><span class="n">Locale</span> <span class="n">aLocale</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">createCalendar</span><span class="o">(</span><span class="n">zone</span><span class="o">,</span> <span class="n">aLocale</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Calendar</span> <span class="nf">createCalendar</span><span class="o">(</span><span class="n">TimeZone</span> <span class="n">zone</span><span class="o">,</span><span class="n">Locale</span> <span class="n">aLocale</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">CalendarProvider</span> <span class="n">provider</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">            <span class="n">LocaleProviderAdapter</span><span class="o">.</span><span class="na">getAdapter</span><span class="o">(</span><span class="n">CalendarProvider</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">aLocale</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                                 <span class="o">.</span><span class="na">getCalendarProvider</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">provider</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">provider</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">zone</span><span class="o">,</span> <span class="n">aLocale</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IllegalArgumentException</span> <span class="n">iae</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// fall back to the default instantiation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">Calendar</span> <span class="n">cal</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">aLocale</span><span class="o">.</span><span class="na">hasExtensions</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">String</span> <span class="n">caltype</span> <span class="o">=</span> <span class="n">aLocale</span><span class="o">.</span><span class="na">getUnicodeLocaleType</span><span class="o">(</span><span class="s">&#34;ca&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">caltype</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">switch</span> <span class="o">(</span><span class="n">caltype</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">case</span> <span class="s">&#34;buddhist&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">cal</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BuddhistCalendar</span><span class="o">(</span><span class="n">zone</span><span class="o">,</span> <span class="n">aLocale</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">case</span> <span class="s">&#34;japanese&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">cal</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JapaneseImperialCalendar</span><span class="o">(</span><span class="n">zone</span><span class="o">,</span> <span class="n">aLocale</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">case</span> <span class="s">&#34;gregory&#34;</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">cal</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GregorianCalendar</span><span class="o">(</span><span class="n">zone</span><span class="o">,</span> <span class="n">aLocale</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">cal</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// If no known calendar type is explicitly specified,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// perform the traditional way to create a Calendar:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// create a BuddhistCalendar for th_TH locale,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// a JapaneseImperialCalendar for ja_JP_JP locale, or
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// a GregorianCalendar for any other locales.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// NOTE: The language, country and variant strings are interned.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">aLocale</span><span class="o">.</span><span class="na">getLanguage</span><span class="o">()</span> <span class="o">==</span> <span class="s">&#34;th&#34;</span> <span class="o">&amp;&amp;</span> <span class="n">aLocale</span><span class="o">.</span><span class="na">getCountry</span><span class="o">()</span> <span class="o">==</span> <span class="s">&#34;TH&#34;</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">cal</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BuddhistCalendar</span><span class="o">(</span><span class="n">zone</span><span class="o">,</span> <span class="n">aLocale</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">aLocale</span><span class="o">.</span><span class="na">getVariant</span><span class="o">()</span> <span class="o">==</span> <span class="s">&#34;JP&#34;</span> <span class="o">&amp;&amp;</span> <span class="n">aLocale</span><span class="o">.</span><span class="na">getLanguage</span><span class="o">()</span> <span class="o">==</span> <span class="s">&#34;ja&#34;</span>
+</span></span><span class="line"><span class="cl">                       <span class="o">&amp;&amp;</span> <span class="n">aLocale</span><span class="o">.</span><span class="na">getCountry</span><span class="o">()</span> <span class="o">==</span> <span class="s">&#34;JP&#34;</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">cal</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JapaneseImperialCalendar</span><span class="o">(</span><span class="n">zone</span><span class="o">,</span> <span class="n">aLocale</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">cal</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GregorianCalendar</span><span class="o">(</span><span class="n">zone</span><span class="o">,</span> <span class="n">aLocale</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">cal</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="工厂模式小结">工厂模式小结</h4>
+<ol>
+<li>工厂模式的意义：将实例化对象的的代码提取出来，放到一个类中统一管理和维护，达到和主项目的依赖关系的解耦。从而提高项目的扩展和维护性。</li>
+<li>三种工厂模式（简单工厂模式、工厂方法模式、抽象工厂模式）</li>
+<li>设计模式的依赖抽象原则。</li>
+<li>创建对象实例时，不要直接new类，而是把这个new类的动作放在一个工厂的方法中，并返回。有些书上说，变量不要直接持有具体类的引用。</li>
+<li>不要让类继承具体类，而是继承抽象类或者实现interface（接口）</li>
+<li>不要覆盖基类中已经实现的方法。</li>
+</ol>
+<br>
+<h3 id="原型模式">原型模式</h3>
+<h4 id="传统方法">传统方法</h4>
+<h5 id="克隆羊问题">克隆羊问题</h5>
+<p>现在有一只羊tom，姓名为：tom，年龄为：1，颜色为：白色，请编写程序创建和tom羊属性完全相同的10只羊。</p>
+<h5 id="传统方式解决克隆羊问题">传统方式解决克隆羊问题</h5>
+<p>思路分析：类图图解</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png" title="截屏2023-04-14 09.59.55" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png" data-sub-html="<h2>克隆羊类图</h2><p>截屏2023-04-14 09.59.55</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png" />
+    </a><figcaption class="image-caption">克隆羊类图</figcaption>
+    </figure></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Sheep</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">color</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">Sheep</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="n">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAge</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getColor</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">color</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setColor</span><span class="o">(</span><span class="n">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s">&#34;Sheep [name=&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#34;, age=&#34;</span> <span class="o">+</span> <span class="n">age</span> <span class="o">+</span> <span class="s">&#34;, color=&#34;</span> <span class="o">+</span> <span class="n">color</span> <span class="o">+</span> <span class="s">&#34;]&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//传统的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Sheep</span> <span class="n">sheep</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="s">&#34;白色&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">Sheep</span> <span class="n">sheep2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="n">sheep</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">sheep</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">sheep</span><span class="o">.</span><span class="na">getColor</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">Sheep</span> <span class="n">sheep3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="n">sheep</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">sheep</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">sheep</span><span class="o">.</span><span class="na">getColor</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">Sheep</span> <span class="n">sheep4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="n">sheep</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">sheep</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">sheep</span><span class="o">.</span><span class="na">getColor</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">Sheep</span> <span class="n">sheep5</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="n">sheep</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">sheep</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">sheep</span><span class="o">.</span><span class="na">getColor</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//....
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sheep</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sheep2</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sheep3</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sheep4</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sheep5</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="传统方式的优缺点">传统方式的优缺点</h5>
+<ol>
+<li>有点是比较好理解，简单易操作。</li>
+<li>在创建新的对象时，总是需要重新获取原始对象的属性，如果创建的对象比较复杂时，效率较低。</li>
+<li>总是需要重新初始化对象，而不是动态地获得对象运行时的状态，不够灵活。</li>
+</ol>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>改进思路与分析<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">思路：Java中Object类是所有类的根类，Object类提供了一个clone()方法，该方法可以将一个Java对象复制一份，但是需要实现clone的Java类必须要实现一个接口Cloneable，该接口表示该类能够复制且具有复制的能力-&gt;<strong>原型模式</strong></div>
+        </div>
+    </div>
+<h4 id="原型模式-1">原型模式</h4>
+<h5 id="介绍-12">介绍</h5>
+<ol>
+<li>原型模式（Prototype模式）是指：用原型实例指定创建对象的种类，并且通过拷贝这些原型，创建新的对象。</li>
+<li>原型模式是一种创建型设计模式，允许一个对象再创建另外一个可定制的对象，无需知道如何创建的细节。</li>
+<li>工作原理：通过将一个原型对象传给那个要发动创建的对象，这个要发动创建的对象通过请求原型对象拷贝它们自己来实施创建，即 对象.clone()</li>
+<li>形象的理解：孙大圣拔出猴毛，变出其他孙大圣。</li>
+</ol>
+<h5 id="原型模式原理结构图-uml类图">原型模式原理结构图-UML类图</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png" title="截屏2023-04-14 10.21.11" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png" data-sub-html="<h2>原型模式类图</h2><p>截屏2023-04-14 10.21.11</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png" />
+    </a><figcaption class="image-caption">原型模式类图</figcaption>
+    </figure></p>
+<div class="details admonition question open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>原理结构图说明<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>Prototype：原型类，声明一个克隆自己的接口</li>
+<li>ConcretePrototype：具体的原型类，实现一个克隆自己的操作</li>
+<li>Client：让一个原型对象克隆自己，从而创建一个新的对象（属性一样）</li>
+</ol>
+</div>
+        </div>
+    </div>
+<h5 id="原型模式解决克隆羊问题">原型模式解决克隆羊问题</h5>
+<p>使用原型模式改进传统方式，让程序具有更高的效率和扩展性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Sheep</span> <span class="kd">implements</span> <span class="n">Cloneable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">color</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">address</span> <span class="o">=</span> <span class="s">&#34;蒙古羊&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">Sheep</span> <span class="n">friend</span><span class="o">;</span> <span class="c1">//是对象, 克隆是会如何处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="nf">Sheep</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="n">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAge</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getColor</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">color</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setColor</span><span class="o">(</span><span class="n">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s">&#34;Sheep [name=&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&#34;, age=&#34;</span> <span class="o">+</span> <span class="n">age</span> <span class="o">+</span> <span class="s">&#34;, color=&#34;</span> <span class="o">+</span> <span class="n">color</span> <span class="o">+</span> <span class="s">&#34;, address=&#34;</span> <span class="o">+</span> <span class="n">address</span> <span class="o">+</span> <span class="s">&#34;]&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//克隆该实例，使用默认的clone方法来完成
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">protected</span> <span class="n">Object</span> <span class="nf">clone</span><span class="o">()</span>  <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">Sheep</span> <span class="n">sheep</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">sheep</span> <span class="o">=</span> <span class="o">(</span><span class="n">Sheep</span><span class="o">)</span><span class="kd">super</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// TODO: handle exception
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="n">sheep</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;原型模式完成对象的创建&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Sheep</span> <span class="n">sheep</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="s">&#34;白色&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">sheep</span><span class="o">.</span><span class="na">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="s">&#34;黑色&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">Sheep</span> <span class="n">sheep2</span> <span class="o">=</span> <span class="o">(</span><span class="n">Sheep</span><span class="o">)</span><span class="n">sheep</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span> <span class="c1">//克隆
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Sheep</span> <span class="n">sheep3</span> <span class="o">=</span> <span class="o">(</span><span class="n">Sheep</span><span class="o">)</span><span class="n">sheep</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span> <span class="c1">//克隆
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Sheep</span> <span class="n">sheep4</span> <span class="o">=</span> <span class="o">(</span><span class="n">Sheep</span><span class="o">)</span><span class="n">sheep</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span> <span class="c1">//克隆
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Sheep</span> <span class="n">sheep5</span> <span class="o">=</span> <span class="o">(</span><span class="n">Sheep</span><span class="o">)</span><span class="n">sheep</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span> <span class="c1">//克隆
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;sheep2 =&#34;</span> <span class="o">+</span> <span class="n">sheep2</span> <span class="o">+</span> <span class="s">&#34;sheep2.friend=&#34;</span> <span class="o">+</span> <span class="n">sheep2</span><span class="o">.</span><span class="na">friend</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;sheep3 =&#34;</span> <span class="o">+</span> <span class="n">sheep3</span> <span class="o">+</span> <span class="s">&#34;sheep3.friend=&#34;</span> <span class="o">+</span> <span class="n">sheep3</span><span class="o">.</span><span class="na">friend</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;sheep4 =&#34;</span> <span class="o">+</span> <span class="n">sheep4</span> <span class="o">+</span> <span class="s">&#34;sheep4.friend=&#34;</span> <span class="o">+</span> <span class="n">sheep4</span><span class="o">.</span><span class="na">friend</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;sheep5 =&#34;</span> <span class="o">+</span> <span class="n">sheep5</span> <span class="o">+</span> <span class="s">&#34;sheep5.friend=&#34;</span> <span class="o">+</span> <span class="n">sheep5</span><span class="o">.</span><span class="na">friend</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="原型模式在spring框架中源码分析">原型模式在Spring框架中源码分析</h4>
+<ol>
+<li>Spring中原型bean的创建，就是原型模式的应用</li>
+<li>代码分析</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 注释
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Monster</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span> <span class="o">=</span> <span class="n">10</span> <span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">nickname</span> <span class="o">=</span> <span class="s">&#34;牛魔王&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">skill</span> <span class="o">=</span> <span class="s">&#34;芭蕉扇&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">Monster</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;monster 创建..&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">Monster</span><span class="o">(</span><span class="n">Integer</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">nickname</span><span class="o">,</span> <span class="n">String</span> <span class="n">skill</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//System.out.println(&#34;Integer id, String nickname, String skill被调用&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">nickname</span> <span class="o">=</span> <span class="n">nickname</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">skill</span> <span class="o">=</span> <span class="n">skill</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">Monster</span><span class="o">(</span> <span class="n">String</span> <span class="n">nickname</span><span class="o">,</span> <span class="n">String</span> <span class="n">skill</span><span class="o">,</span><span class="n">Integer</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">nickname</span> <span class="o">=</span> <span class="n">nickname</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">skill</span> <span class="o">=</span> <span class="n">skill</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">Integer</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setId</span><span class="o">(</span><span class="n">Integer</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getNickname</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">nickname</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNickname</span><span class="o">(</span><span class="n">String</span> <span class="n">nickname</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">nickname</span> <span class="o">=</span> <span class="n">nickname</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getSkill</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">skill</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setSkill</span><span class="o">(</span><span class="n">String</span> <span class="n">skill</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">skill</span> <span class="o">=</span> <span class="n">skill</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s">&#34;Monster [id=&#34;</span> <span class="o">+</span> <span class="n">id</span> <span class="o">+</span> <span class="s">&#34;, nickname=&#34;</span> <span class="o">+</span> <span class="n">nickname</span> <span class="o">+</span> <span class="s">&#34;, skill=&#34;</span>
+</span></span><span class="line"><span class="cl">				<span class="o">+</span> <span class="n">skill</span> <span class="o">+</span> <span class="s">&#34;]&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&#34;http://www.springframework.org/schema/beans&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="na">xmlns:p=</span><span class="s">&#34;http://www.springframework.org/schema/p&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="na">xmlns:util=</span><span class="s">&#34;http://www.springframework.org/schema/util&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="na">xmlns:context=</span><span class="s">&#34;http://www.springframework.org/schema/context&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+</span></span></span><span class="line"><span class="cl"><span class="s">		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+</span></span></span><span class="line"><span class="cl"><span class="s">		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="c">&lt;!-- 这里我们的 scope=&#34;prototype&#34; 即 原型模式来创建 --&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;id01&#34;</span> <span class="na">class=</span><span class="s">&#34;com.spring.bean.Monster&#34;</span> 
+</span></span><span class="line"><span class="cl"> 	<span class="na">scope=</span><span class="s">&#34;prototype&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/beans&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.context.ApplicationContext</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.context.support.ClassPathXmlApplicationContext</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProtoType</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">ApplicationContext</span> <span class="n">applicationContext</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="s">&#34;beans.xml&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 获取monster[通过id获取monster]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Object</span> <span class="n">bean</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">&#34;id01&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;bean&#34;</span> <span class="o">+</span> <span class="n">bean</span><span class="o">);</span> <span class="c1">// 输出 &#34;牛魔王&#34; .....
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
+</span></span><span class="line"><span class="cl">		<span class="n">Object</span> <span class="n">bean2</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">&#34;id01&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;bean2&#34;</span> <span class="o">+</span> <span class="n">bean2</span><span class="o">);</span> <span class="c1">//输出 &#34;牛魔王&#34; .....
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">bean</span> <span class="o">==</span> <span class="n">bean2</span><span class="o">);</span> <span class="c1">// false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
+</span></span><span class="line"><span class="cl">		<span class="c1">// ConfigurableApplicationContext
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="深入讨论浅拷贝和深拷贝">深入讨论浅拷贝和深拷贝</h4>
+<h5 id="浅拷贝介绍">浅拷贝介绍</h5>
+<ol>
+<li>对于数据类型是基本数据类型的成员变量，浅拷贝会直接进行值传递，也就是将该属性值复制一份给新的对象。</li>
+<li>对于数据类型是引用数据类型的成员变量，比如说成员变量是某个数组、某个类的对象等，那么浅拷贝会进行引用传递，也就是是只是将该成员变量的引用值（内存地址）复制一份给新的对象。因为实际上两个对象的该成员变量都指向同一个实例。在这种情况下，在一个对象中修改该成员变量会影响到另一个对象的该成员变量值。</li>
+<li>浅拷贝实现方式1:重写clone方法来实现浅拷贝</li>
+<li>浅拷贝实现方式2:通过对象序列化实现浅拷贝（<strong>推荐</strong>）</li>
+</ol>
+<h5 id="浅拷贝应用实例">浅拷贝应用实例</h5>
+<ol>
+<li>使用重写clone方法实现浅拷贝</li>
+<li>使用序列化来实现浅拷贝</li>
+<li>代码演示</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeepCloneableTarget</span> <span class="kd">implements</span> <span class="n">Serializable</span><span class="o">,</span> <span class="n">Cloneable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">	 * 
+</span></span></span><span class="line"><span class="cl"><span class="cm">	 */</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">cloneName</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">cloneClass</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//构造器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="nf">DeepCloneableTarget</span><span class="o">(</span><span class="n">String</span> <span class="n">cloneName</span><span class="o">,</span> <span class="n">String</span> <span class="n">cloneClass</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">cloneName</span> <span class="o">=</span> <span class="n">cloneName</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">cloneClass</span> <span class="o">=</span> <span class="n">cloneClass</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//因为该类的属性，都是String , 因此我们这里使用默认的clone完成即可
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">protected</span> <span class="n">Object</span> <span class="nf">clone</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">CloneNotSupportedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.ByteArrayInputStream</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.ByteArrayOutputStream</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.ObjectInputStream</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.ObjectOutputStream</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeepProtoType</span> <span class="kd">implements</span> <span class="n">Serializable</span><span class="o">,</span> <span class="n">Cloneable</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span> <span class="c1">//String 属性
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="n">DeepCloneableTarget</span> <span class="n">deepCloneableTarget</span><span class="o">;</span><span class="c1">// 引用类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="nf">DeepProtoType</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//深拷贝 - 方式 1 使用clone 方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">protected</span> <span class="n">Object</span> <span class="nf">clone</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">CloneNotSupportedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">Object</span> <span class="n">deep</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//这里完成对基本数据类型(属性)和String的克隆
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">deep</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">		<span class="c1">//对引用类型的属性，进行单独处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">DeepProtoType</span> <span class="n">deepProtoType</span> <span class="o">=</span> <span class="o">(</span><span class="n">DeepProtoType</span><span class="o">)</span><span class="n">deep</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">deepProtoType</span><span class="o">.</span><span class="na">deepCloneableTarget</span>  <span class="o">=</span> <span class="o">(</span><span class="n">DeepCloneableTarget</span><span class="o">)</span><span class="n">deepCloneableTarget</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="n">deepProtoType</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//深拷贝 - 方式2 通过对象的序列化实现 (推荐)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">Object</span> <span class="nf">deepClone</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">//创建流对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">ByteArrayOutputStream</span> <span class="n">bos</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">ObjectOutputStream</span> <span class="n">oos</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">ByteArrayInputStream</span> <span class="n">bis</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">ObjectInputStream</span> <span class="n">ois</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			<span class="c1">//序列化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">bos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="n">oos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">bos</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="n">oos</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="k">this</span><span class="o">);</span> <span class="c1">//当前这个对象以对象流的方式输出
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			
+</span></span><span class="line"><span class="cl">			<span class="c1">//反序列化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">bis</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayInputStream</span><span class="o">(</span><span class="n">bos</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">			<span class="n">ois</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="n">bis</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="n">DeepProtoType</span> <span class="n">copyObj</span> <span class="o">=</span> <span class="o">(</span><span class="n">DeepProtoType</span><span class="o">)</span><span class="n">ois</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="n">copyObj</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			
+</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// TODO: handle exception
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//关闭流
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="n">bos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">				<span class="n">oos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">				<span class="n">bis</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">				<span class="n">ois</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e2</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="c1">// TODO: handle exception
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e2</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">DeepProtoType</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DeepProtoType</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">p</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">&#34;宋江&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">p</span><span class="o">.</span><span class="na">deepCloneableTarget</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DeepCloneableTarget</span><span class="o">(</span><span class="s">&#34;大牛&#34;</span><span class="o">,</span> <span class="s">&#34;小牛&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">//方式1 完成深拷贝
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
+</span></span><span class="line"><span class="cl"><span class="c1">//		DeepProtoType p2 = (DeepProtoType) p.clone();
+</span></span></span><span class="line"><span class="cl"><span class="c1">//		
+</span></span></span><span class="line"><span class="cl"><span class="c1">//		System.out.println(&#34;p.name=&#34; + p.name + &#34;p.deepCloneableTarget=&#34; + p.deepCloneableTarget.hashCode());
+</span></span></span><span class="line"><span class="cl"><span class="c1">//		System.out.println(&#34;p2.name=&#34; + p.name + &#34;p2.deepCloneableTarget=&#34; + p2.deepCloneableTarget.hashCode());
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	
+</span></span><span class="line"><span class="cl">		<span class="c1">//方式2 完成深拷贝
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">DeepProtoType</span> <span class="n">p2</span> <span class="o">=</span> <span class="o">(</span><span class="n">DeepProtoType</span><span class="o">)</span> <span class="n">p</span><span class="o">.</span><span class="na">deepClone</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;p.name=&#34;</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="na">name</span> <span class="o">+</span> <span class="s">&#34;p.deepCloneableTarget=&#34;</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="na">deepCloneableTarget</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;p2.name=&#34;</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="na">name</span> <span class="o">+</span> <span class="s">&#34;p2.deepCloneableTarget=&#34;</span> <span class="o">+</span> <span class="n">p2</span><span class="o">.</span><span class="na">deepCloneableTarget</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="原型模式的注意事项和细节">原型模式的注意事项和细节</h5>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>原型模式<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>创建新的对象比较复杂时，可以利用原型模式简化对象的创建过程，同时也能够提高效率。</li>
+<li>不用重新初始化对象，而是动态地获得对象运行时的状态。</li>
+<li>如果原始对象发生变化（增加或者减少属性），其它克隆的对象也会发生相应的变化，无需修改代码。</li>
+<li>在实现深克隆的时候可能需要比较复杂的代码。</li>
+<li><strong>缺点</strong>：需要为每一个类配备一个克隆方法，这对全新的类来说不是很难，但对已有的类进行改造时，需要修改其源代码，这违背了OCP原则。</li>
+</ol>
+</div>
+        </div>
+    </div>
+<br>
+<h3 id="建造者模式">建造者模式</h3></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
