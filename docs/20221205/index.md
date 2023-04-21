@@ -1786,7 +1786,7 @@ public static Calendar getInstance(TimeZone zone,Locale aLocale)
 
 现在有一只羊tom，姓名为：tom，年龄为：1，颜色为：白色，请编写程序创建和tom羊属性完全相同的10只羊。
 
-##### 传统方式解决克隆羊问题
+##### 传统方式解决
 
 思路分析：类图图解
 
@@ -2256,6 +2256,363 @@ public class Client {
 <br>
 
 ### 建造者模式
+
+#### 传统方法
+
+##### 盖房问题
+
+项目需求：
+
+1. 需要建造房子：这一过程为打桩、砌墙、封顶
+2. 房子有各种各样的，比如普通房，高楼，别墅，各种房子的过程虽然一样，但是要求不要相同的。
+
+##### 传统方式解决
+
+![截屏2023-04-21 10.13.32](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png "传统方式分析类图")
+
+```java
+public abstract class AbstractHouse {
+	
+	//打地基
+	public abstract void buildBasic();
+	//砌墙
+	public abstract void buildWalls();
+	//封顶
+	public abstract void roofed();
+	
+	public void build() {
+		buildBasic();
+		buildWalls();
+		roofed();
+	}
+	
+}
+
+
+
+
+public class CommonHouse extends AbstractHouse {
+
+	@Override
+	public void buildBasic() {
+		// TODO Auto-generated method stub
+		System.out.println(" 普通房子打地基 ");
+	}
+
+	@Override
+	public void buildWalls() {
+		// TODO Auto-generated method stub
+		System.out.println(" 普通房子砌墙 ");
+	}
+
+	@Override
+	public void roofed() {
+		// TODO Auto-generated method stub
+		System.out.println(" 普通房子封顶 ");
+	}
+
+}
+
+
+
+public class Client {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		CommonHouse commonHouse = new CommonHouse();
+		commonHouse.build();
+	}
+
+}
+```
+
+##### 传统方式的问题分析
+
+1. 优点是比较好理解，简单易操作。
+2. 设计的程序结构，过于简单，没有设计缓存层对象，程序的扩展和维护不好，也就是说，这种设计方案，把产品（即：房子）和创建产品的过程（即：建房子流程）封装在一起，耦合性增强了。
+3. 解决方案：将产品和产品建造过程耦合->建造者模式
+
+#### 建造者模式基本介绍
+
+1. **建造者模式**（Builder Pattern）又叫生成器模式，是一种对象构造模式。它可以将复杂对象的建造过程抽象出来（抽象类别），使这个抽象过程的不同实现方法可以构造出不同表现（属性）的对象。
+2. **建造者模式 **是一步一步创建一个复杂的对象，它允许用户只通过指定复杂对象的类型和内容就可以构造他们，用户不需要知道内部的具体构建细节。
+
+{{< admonition question 建造者模式的四个角色 >}}
+
+1. **Product**（**产品角色**）：一个具体的产品对象
+2. **Builder**（**抽象建造者**）：创建一个Product对象的各个部件指定的接口/抽象类。
+3. **ConcreteBuilder**（具体建造者）：实现接口，构造和装配各个部件。
+4. **Director**（**指挥者**）：构建一个使用Builder接口的对象。它主要是用于创建一个复杂的对象。它主要有两个作用，一：隔离了客户与对象的生产过程，二：负责控制产品对象的生产过程。
+
+{{< /admonition >}}
+
+#### 建造者模式原理类图
+
+![截屏2023-04-21 10.40.20](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png "建造者模式类图")
+
+#### 建造者模式解决盖房问题
+
+![截屏2023-04-21 10.42.44](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png "盖房问题类图")
+
+```java
+// 抽象的建造者
+public abstract class HouseBuilder {
+
+	protected House house = new House();
+	
+	//将建造的流程写好, 抽象的方法
+	public abstract void buildBasic();
+	public abstract void buildWalls();
+	public abstract void roofed();
+	
+	//建造房子好， 将产品(房子) 返回
+	public House buildHouse() {
+		return house;
+	}
+	
+}
+
+
+
+
+//指挥者，这里去指定制作流程，返回产品
+public class HouseDirector {
+	
+	HouseBuilder houseBuilder = null;
+
+	//构造器传入 houseBuilder
+	public HouseDirector(HouseBuilder houseBuilder) {
+		this.houseBuilder = houseBuilder;
+	}
+
+	//通过setter 传入 houseBuilder
+	public void setHouseBuilder(HouseBuilder houseBuilder) {
+		this.houseBuilder = houseBuilder;
+	}
+	
+	//如何处理建造房子的流程，交给指挥者
+	public House constructHouse() {
+		houseBuilder.buildBasic();
+		houseBuilder.buildWalls();
+		houseBuilder.roofed();
+		return houseBuilder.buildHouse();
+	}
+	
+	
+}
+
+
+
+//产品->Product
+public class House {
+	private String baise;
+	private String wall;
+	private String roofed;
+	public String getBaise() {
+		return baise;
+	}
+	public void setBaise(String baise) {
+		this.baise = baise;
+	}
+	public String getWall() {
+		return wall;
+	}
+	public void setWall(String wall) {
+		this.wall = wall;
+	}
+	public String getRoofed() {
+		return roofed;
+	}
+	public void setRoofed(String roofed) {
+		this.roofed = roofed;
+	}
+	
+}
+
+
+
+
+public class HighBuilding extends HouseBuilder {
+
+	@Override
+	public void buildBasic() {
+		// TODO Auto-generated method stub
+		System.out.println(" 高楼的打地基100米 ");
+	}
+
+	@Override
+	public void buildWalls() {
+		// TODO Auto-generated method stub
+		System.out.println(" 高楼的砌墙20cm ");
+	}
+
+	@Override
+	public void roofed() {
+		// TODO Auto-generated method stub
+		System.out.println(" 高楼的透明屋顶 ");
+	}
+
+}
+
+
+
+
+public class CommonHouse extends HouseBuilder {
+
+	@Override
+	public void buildBasic() {
+		// TODO Auto-generated method stub
+		System.out.println(" 普通房子打地基5米 ");
+	}
+
+	@Override
+	public void buildWalls() {
+		// TODO Auto-generated method stub
+		System.out.println(" 普通房子砌墙10cm ");
+	}
+
+	@Override
+	public void roofed() {
+		// TODO Auto-generated method stub
+		System.out.println(" 普通房子屋顶 ");
+	}
+
+}
+
+
+
+public class Client {
+	public static void main(String[] args) {
+		
+		//盖普通房子
+		CommonHouse commonHouse = new CommonHouse();
+		//准备创建房子的指挥者
+		HouseDirector houseDirector = new HouseDirector(commonHouse);
+		
+		//完成盖房子，返回产品(普通房子)
+		House house = houseDirector.constructHouse();
+		
+		//System.out.println("输出流程");
+		
+		System.out.println("--------------------------");
+		//盖高楼
+		HighBuilding highBuilding = new HighBuilding();
+		//重置建造者
+		houseDirector.setHouseBuilder(highBuilding);
+		//完成盖房子，返回产品(高楼)
+		houseDirector.constructHouse();	
+		
+	}
+}
+
+```
+
+#### 建造者模式在JDK的应用和源码分析
+
+**java.lang.StringBuilder中的建造者模式**
+
+```java
+abstract class AbstractStringBuilder implements Appendable, CharSequence {
+    /**
+     * The value is used for character storage.
+     */
+    char[] value;
+
+    /**
+     * The count is the number of characters used.
+     */
+    int count;
+  
+  /**
+     * Appends the specified string to this character sequence.
+     * <p>
+     * The characters of the {@code String} argument are appended, in
+     * order, increasing the length of this sequence by the length of the
+     * argument. If {@code str} is {@code null}, then the four
+     * characters {@code "null"} are appended.
+     * <p>
+     * Let <i>n</i> be the length of this character sequence just prior to
+     * execution of the {@code append} method. Then the character at
+     * index <i>k</i> in the new character sequence is equal to the character
+     * at index <i>k</i> in the old character sequence, if <i>k</i> is less
+     * than <i>n</i>; otherwise, it is equal to the character at index
+     * <i>k-n</i> in the argument {@code str}.
+     *
+     * @param   str   a string.
+     * @return  a reference to this object.
+     */
+  public AbstractStringBuilder append(String str) {
+        if (str == null)
+            return appendNull();
+        int len = str.length();
+        ensureCapacityInternal(count + len);
+        str.getChars(0, len, value, count);
+        count += len;
+        return this;
+    }
+}
+
+
+
+
+
+public final class StringBuilder
+    extends AbstractStringBuilder
+    implements java.io.Serializable, CharSequence
+{
+
+    /** use serialVersionUID for interoperability */
+    static final long serialVersionUID = 4383685877147921099L;
+
+    @Override
+    public StringBuilder append(String str) {
+        super.append(str);
+        return this;
+    }
+}
+```
+
+{{< admonition question 源码中建造者模式角色分析 >}}
+
+1. **Appendable**接口定义了多个append方法（**抽象方法**），即Appendable为**抽象建造者**，定义了抽象方法
+2. **AbstractStringBuilder**实现了Appendable接口方法，这里的AbstractStringBuilder已经是**建造者**，只是不能实例化。
+3. **StringBuilder**即充当了**指挥者**角色，同时充当了具体的**建造者**，建造方法的实现是由AbstractStringBuilder完成，而StringBuilder继承了AbstractStringBuilder。
+
+{{< /admonition >}}
+
+#### 建造者模式的注意事项和细节
+
+{{< admonition tip 建造者模式 >}}
+
+1. 客户端（使用程序）**不必知道产品内部组成的细节，将产品本身与产品的创建过程解耦**，使得相同的建造过程可以创建不同的产品对象。
+2. **每一个具体创造者都相对独立，而与其他的具体建造者无关**，因此可以很方便地替换具体建造者或增加新的具体建造者，用户使用不同的具体建造者即可得到不同的产品对象。
+3. 可以更加精细地控制产品的创建过程。将复杂产品的创建步骤分解在不同的方法中，使得建造过程更加清晰，也更方便使用程序来控制创建过程
+4. 增加新的具体建造者无需修改原有类库的代码，指挥者类针对抽象建造者类编程，系统扩展方便，符合“开闭原则”。
+5. 建造者模式所创建的产品一般具有较多的共同点，其组成部分相似，**如果产品之间差异性很大，则不适合使用建造者模式**，因此其使用范围受到一定的限制。
+6. 如果产品内部变化复杂可能会导致需要定义很多具体建造者来实现这种变化，导致系统变得很庞大，因此在这种情况下，要考虑是是否选择建造者模式。
+7. **抽象工厂模式 VS 建造者模式**
+
+抽象工厂模式实现对产品家族的创建，一个产品家族是这样的一系列产品：具有不同分类维度的产品组合，采用抽象工厂模式**不需要关心构建过程**，只关心什么产品由什么工厂生产即可。而建造者模式则是**要求按照指定的蓝图建造产品**，它的主要目的是通过组装零配件而产生一个新的产品。
+
+{{< /admonition >}}
+
+<br>
+
+### 适配器模式
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
