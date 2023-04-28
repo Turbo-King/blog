@@ -2613,13 +2613,223 @@ public final class StringBuilder
 
 ### 适配器模式
 
+#### 介绍
+
+1. 适配器模式（Adapter Pattern）将某个类的接口转换成客户端期望的另一个接口表示，主要目的是兼容性，让原本因接口不匹配不能一起工作的两个类可以协同工作。其别名为**包装器（Wrapper）**
+2. 适配器模式属于**结构型模式**
+3. 主要分为三类：**类适配器模式、对象适配器模式、接口适配器模式**
+
+#### 适配器模式工作原理
+
+1. 适配器模式：将一个类的接口转换成另一种接口，让原本接口不兼容的类可以兼容
+2. 从**用户的角度看不到适配者**，是解耦的
+3. 用户调用适配器转化出来的目标接口方法，适配器再调用被适配者的相关接口方法
+4. 用户用收到反馈结果，感觉只是和目标交互
+
+#### 类适配器模式
+
+##### 介绍
+
+Adapter类，通过继承src类，实现dst类接口，完成 src -> dst 的适配
+
+##### 应用实例
+
+生活中充电器的例子来反应适配器模式，充电器本身相当于Adapter，220V交流电相当于src（即被适配者），我们的dst（即目标)是5V直流电
+
+![适配器](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%80%82%E9%85%8D%E5%99%A8.png "类适配器实例")
+
+```java
+//适配接口
+public interface IVoltage5V {
+	public int output5V();
+}
+
+
+
+//被适配的类
+public class Voltage220V {
+	//输出220V的电压
+	public int output220V() {
+		int src = 220;
+		System.out.println("电压=" + src + "伏");
+		return src;
+	}
+}
+
+
+
+//适配器类
+public class VoltageAdapter extends Voltage220V implements IVoltage5V {
+
+	@Override
+	public int output5V() {
+		// TODO Auto-generated method stub
+		//获取到220V电压
+		int srcV = output220V();
+		int dstV = srcV / 44 ; //转成 5v
+		return dstV;
+	}
+
+}
+
+
+
+public class Phone {
+
+	//充电
+	public void charging(IVoltage5V iVoltage5V) {
+		if(iVoltage5V.output5V() == 5) {
+			System.out.println("电压为5V, 可以充电~~");
+		} else if (iVoltage5V.output5V() > 5) {
+			System.out.println("电压大于5V, 不能充电~~");
+		}
+	}
+}
+
+
+
+public class Client {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println(" === 类适配器模式 ====");
+		Phone phone = new Phone();
+		phone.charging(new VoltageAdapter());
+	}
+
+}
+
+```
+
+##### 类适配器模式注意事项和细节
+
+{{< admonition 类适配器模式 >}}
+
+1. Java是单继承机制，所以类适配器需要继承src类这一点算是一个缺点，因为这要求dst必须是接口，有一定局限性
+2. src类的方法在Adapter中都会暴露出来，也增加了使用的成本
+3. 由于其继承了src类，所以它可以根据需求重写src类的方法，使得Adapter的灵活性增强了。
+
+{{< /admonition >}}
+
+<br>
+
+#### 对象适配器模式
+
+##### 介绍
+
+1. 基本思路和类的适配器模式相同，只是将Adapter类作修改，不是继承src类，而是持有src类的实例，以解决兼容性的问题。即：持有src类，实现dst类接口，完成 src -> dst 的适配
+2. 根据“**合成复用原则**”，在系统中**尽量使用关联关系来代替继承关系**
+3. 对象适配器模式是适配器模式常用的一种
+
+##### 应用实例
+
+生活中充电器的例子来讲解适配器，充电器本身相当于Adapter，220V交流电相当于src（即被适配者），我们的dst（即目标）是5V直流电，使用**对象适配器模式**完成
+
+![截屏2023-04-28 09.30.52](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-28%2009.30.52.png "对象适配器实例")
+
+```java
+//适配接口
+public interface IVoltage5V {
+	public int output5V();
+}
 
 
 
 
+//被适配的类
+public class Voltage220V {
+	//输出220V的电压，不变
+	public int output220V() {
+		int src = 220;
+		System.out.println("电压=" + src + "伏");
+		return src;
+	}
+}
 
 
 
+
+//适配器类
+public class VoltageAdapter  implements IVoltage5V {
+
+	private Voltage220V voltage220V; // 关联关系-聚合
+	
+	
+	//通过构造器，传入一个 Voltage220V 实例
+	public VoltageAdapter(Voltage220V voltage220v) {
+		
+		this.voltage220V = voltage220v;
+	}
+
+	@Override
+	public int output5V() {
+		
+		int dst = 0;
+		if(null != voltage220V) {
+			int src = voltage220V.output220V();//获取220V 电压
+			System.out.println("使用对象适配器，进行适配~~");
+			dst = src / 44;
+			System.out.println("适配完成，输出的电压为=" + dst);
+		}
+		
+		return dst;
+		
+	}
+
+}
+
+
+
+
+public class Phone {
+
+	//充电
+	public void charging(IVoltage5V iVoltage5V) {
+		if(iVoltage5V.output5V() == 5) {
+			System.out.println("电压为5V, 可以充电~~");
+		} else if (iVoltage5V.output5V() > 5) {
+			System.out.println("电压大于5V, 不能充电~~");
+		}
+	}
+}
+
+
+
+
+public class Client {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println(" === 对象适配器模式 ====");
+		Phone phone = new Phone();
+		phone.charging(new VoltageAdapter(new Voltage220V()));
+	}
+
+}
+```
+
+##### 对象适配器模式注意事项和细节
+
+{{< admonition tip 对象适配器 >}}
+
+1. 对象适配器和类适配器其实算是同一种思想，只不过实现方式不同。根据合成复用原则，使用组合替代继承，所以它解决了类适配器必须继承src的局限性问题，也不再要求dst必须是接口
+2. 使用成本更低，更灵活
+
+{{< /admonition >}}
+
+<br>
+
+#### 接口适配器模式
+
+##### 介绍
+
+1. 一些书籍称为：适配器模式（Default Adapter Pattern）或缺省适配器模式
+2. 当不需要全部实现接口提供的方法时，可以先设计一个抽象类实现接口，并为该接口中每个方法提供一个默认实现（空方法），那么该抽象类的字类可有选择地覆盖父类的某些方法来实现需求
+3. 适用于一个接口不想使用其所有的方法的情况
+
+##### 应用实例
+
+Android中的属性动画ValueAnimator类可以通过addListener(AnimatorListener listener)方法添加监听器，那么常规写法如下
 
 
 
