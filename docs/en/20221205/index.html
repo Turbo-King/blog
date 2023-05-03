@@ -12,7 +12,6 @@
 <meta property="og:url" content="https://turbo-king.github.io/blog/en/20221205/" /><meta property="og:image" content="https://turbo-king.github.io/blog/en/20221205/featured-image20221205.jpg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-12-05T08:53:36+08:00" />
 <meta property="article:modified_time" content="2022-12-05T08:53:36+08:00" /><meta property="og:site_name" content="My cool site" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://turbo-king.github.io/blog/en/20221205/featured-image20221205.jpg"/>
 <meta name="twitter:title" content="设计模式"/>
@@ -20,7 +19,7 @@
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://turbo-king.github.io/blog/en/20221205/" /><link rel="prev" href="https://turbo-king.github.io/blog/en/20220919/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://turbo-king.github.io/blog/en/20221205/" /><link rel="prev" href="https://turbo-king.github.io/blog/en/20220919/" /><link rel="next" href="https://turbo-king.github.io/blog/en/20230503/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -915,11 +914,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">GraphicEditor</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//接收Shape对象，然后根据type，来绘制不同的图形
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawShape</span><span class="o">(</span><span class="n">Shape</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">m_type</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">m_type</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl">			<span class="n">drawRectangle</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">m_type</span> <span class="o">==</span> <span class="n">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">m_type</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl">			<span class="n">drawCircle</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">m_type</span> <span class="o">==</span> <span class="n">3</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">m_type</span> <span class="o">==</span> <span class="mi">3</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl">			<span class="n">drawTriangle</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">
@@ -946,20 +945,20 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Rectangle</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Rectangle</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Circle</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Circle</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//新增画三角形
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Triangle</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Triangle</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">3</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1091,7 +1090,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Rectangle</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Rectangle</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
@@ -1103,7 +1102,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Circle</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Circle</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span> <span class="o">{</span>
@@ -1115,7 +1114,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">//新增画三角形
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Triangle</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Triangle</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">3</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span> <span class="o">{</span>
@@ -1127,7 +1126,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">//新增一个图形
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">OtherGraphic</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">OtherGraphic</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">4</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
@@ -1301,7 +1300,7 @@
 </span></span><span class="line"><span class="cl">	<span class="c1">//返回学院的所有员工
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">CollegeEmployee</span><span class="o">&gt;</span> <span class="nf">getAllEmployee</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">List</span><span class="o">&lt;</span><span class="n">CollegeEmployee</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">CollegeEmployee</span><span class="o">&gt;();</span>
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了10个员工到 list
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了10个员工到 list
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">CollegeEmployee</span> <span class="n">emp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CollegeEmployee</span><span class="o">();</span>
 </span></span><span class="line"><span class="cl">			<span class="n">emp</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">&#34;学院员工id= &#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">			<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">emp</span><span class="o">);</span>
@@ -1319,7 +1318,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="nf">getAllEmployee</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;();</span>
 </span></span><span class="line"><span class="cl">		
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了5个员工到 list
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了5个员工到 list
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">Employee</span> <span class="n">emp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Employee</span><span class="o">();</span>
 </span></span><span class="line"><span class="cl">			<span class="n">emp</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">&#34;学校总部员工id= &#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">			<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">emp</span><span class="o">);</span>
@@ -1520,7 +1519,7 @@
 </span></span><span class="line"><span class="cl">	<span class="c1">//返回学院的所有员工
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">CollegeEmployee</span><span class="o">&gt;</span> <span class="nf">getAllEmployee</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">List</span><span class="o">&lt;</span><span class="n">CollegeEmployee</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">CollegeEmployee</span><span class="o">&gt;();</span>
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了10个员工到 list
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了10个员工到 list
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">CollegeEmployee</span> <span class="n">emp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CollegeEmployee</span><span class="o">();</span>
 </span></span><span class="line"><span class="cl">			<span class="n">emp</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">&#34;学院员工id= &#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">			<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">emp</span><span class="o">);</span>
@@ -1548,7 +1547,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="nf">getAllEmployee</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;();</span>
 </span></span><span class="line"><span class="cl">		
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了5个员工到 list
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了5个员工到 list
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">Employee</span> <span class="n">emp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Employee</span><span class="o">();</span>
 </span></span><span class="line"><span class="cl">			<span class="n">emp</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">&#34;学校总部员工id= &#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">			<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">emp</span><span class="o">);</span>
@@ -1607,7 +1606,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/blog/en/20220919/" class="prev" rel="prev" title="Markdown 基本语法"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Markdown 基本语法</a></div>
+    <div class="post-nav"><a href="/blog/en/20220919/" class="prev" rel="prev" title="Markdown 基本语法"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Markdown 基本语法</a>
+            <a href="/blog/en/20230503/" class="next" rel="next" title="Redis集群">Redis集群<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"><div id="utterances" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.

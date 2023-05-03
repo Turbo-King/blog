@@ -12,7 +12,6 @@
 <meta property="og:url" content="https://turbo-king.github.io/blog/20221205/" /><meta property="og:image" content="https://turbo-king.github.io/blog/20221205/featured-image20221205.jpg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-12-05T08:53:36+08:00" />
 <meta property="article:modified_time" content="2022-12-05T08:53:36+08:00" /><meta property="og:site_name" content="My cool site" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://turbo-king.github.io/blog/20221205/featured-image20221205.jpg"/>
 <meta name="twitter:title" content="设计模式"/>
@@ -20,7 +19,7 @@
 <meta name="application-name" content="Turbo-King">
 <meta name="apple-mobile-web-app-title" content="Turbo-King"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://turbo-king.github.io/blog/20221205/" /><link rel="prev" href="https://turbo-king.github.io/blog/20220919/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://turbo-king.github.io/blog/20221205/" /><link rel="prev" href="https://turbo-king.github.io/blog/20220919/" /><link rel="next" href="https://turbo-king.github.io/blog/20230503/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -476,7 +475,7 @@
 <h3 id="单一职责原则">单一职责原则</h3>
 <h4 id="介绍">介绍</h4>
 <p>对类来说，一个类应该只负责一项职责。如类A负责两个不同的职责：职责1，职责2。当职责1需求变更而改变A时，可能造成职责2执行错误，所以需要将类A的粒度分解为A1，A2。类图如下所示</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg" title="单一职责.png" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/单一职责.png.jpeg" data-sub-html="<h2>单一职责原则</h2><p>单一职责.png</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg" title="单一职责原则" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/单一职责.png.jpeg" data-sub-html="<h2>单一职责原则</h2><p>单一职责原则</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -504,7 +503,7 @@
 <h3 id="接口隔离原则">接口隔离原则</h3>
 <h4 id="介绍-1">介绍</h4>
 <p>客户端不应该依赖他不需要的接口，即对类对另一个类的依赖应该建立在最小的接口上。</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.40.01.png" title="截屏2022-12-05 14.40.01" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.40.01.png" data-sub-html="<h2>接口隔离原则-未拆分</h2><p>截屏2022-12-05 14.40.01</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.40.01.png" title="接口隔离原则-未拆分" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.40.01.png" data-sub-html="<h2>接口隔离原则-未拆分</h2><p>接口隔离原则-未拆分</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -532,7 +531,7 @@
         </div>
     </div>
 <p>拆分实现如下：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.56.50.png" title="截屏2022-12-05 14.56.50" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.56.50.png" data-sub-html="<h2>接口隔离原则-拆分</h2><p>截屏2022-12-05 14.56.50</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.56.50.png" title="接口隔离原则-拆分" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.56.50.png" data-sub-html="<h2>接口隔离原则-拆分</h2><p>接口隔离原则-拆分</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -1089,11 +1088,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">GraphicEditor</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//接收Shape对象，然后根据type，来绘制不同的图形
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawShape</span><span class="o">(</span><span class="n">Shape</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">m_type</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">m_type</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl">			<span class="n">drawRectangle</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">m_type</span> <span class="o">==</span> <span class="n">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">m_type</span> <span class="o">==</span> <span class="mi">2</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl">			<span class="n">drawCircle</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">m_type</span> <span class="o">==</span> <span class="n">3</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">m_type</span> <span class="o">==</span> <span class="mi">3</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl">			<span class="n">drawTriangle</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1120,20 +1119,20 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Rectangle</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Rectangle</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Circle</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Circle</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//新增画三角形
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Triangle</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Triangle</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">3</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1265,7 +1264,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Rectangle</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Rectangle</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
@@ -1277,7 +1276,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Circle</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Circle</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span> <span class="o">{</span>
@@ -1289,7 +1288,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">//新增画三角形
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">Triangle</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Triangle</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">3</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span> <span class="o">{</span>
@@ -1301,7 +1300,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">//新增一个图形
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">class</span> <span class="nc">OtherGraphic</span> <span class="kd">extends</span> <span class="n">Shape</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">OtherGraphic</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="n">4</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">m_type</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
@@ -1475,7 +1474,7 @@
 </span></span><span class="line"><span class="cl">	<span class="c1">//返回学院的所有员工
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">CollegeEmployee</span><span class="o">&gt;</span> <span class="nf">getAllEmployee</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">List</span><span class="o">&lt;</span><span class="n">CollegeEmployee</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">CollegeEmployee</span><span class="o">&gt;();</span>
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了10个员工到 list
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了10个员工到 list
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">CollegeEmployee</span> <span class="n">emp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CollegeEmployee</span><span class="o">();</span>
 </span></span><span class="line"><span class="cl">			<span class="n">emp</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">&#34;学院员工id= &#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">			<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">emp</span><span class="o">);</span>
@@ -1493,7 +1492,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="nf">getAllEmployee</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;();</span>
 </span></span><span class="line"><span class="cl">		
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了5个员工到 list
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了5个员工到 list
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">Employee</span> <span class="n">emp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Employee</span><span class="o">();</span>
 </span></span><span class="line"><span class="cl">			<span class="n">emp</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">&#34;学校总部员工id= &#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">			<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">emp</span><span class="o">);</span>
@@ -1694,7 +1693,7 @@
 </span></span><span class="line"><span class="cl">	<span class="c1">//返回学院的所有员工
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">CollegeEmployee</span><span class="o">&gt;</span> <span class="nf">getAllEmployee</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">List</span><span class="o">&lt;</span><span class="n">CollegeEmployee</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">CollegeEmployee</span><span class="o">&gt;();</span>
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了10个员工到 list
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了10个员工到 list
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">CollegeEmployee</span> <span class="n">emp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CollegeEmployee</span><span class="o">();</span>
 </span></span><span class="line"><span class="cl">			<span class="n">emp</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">&#34;学院员工id= &#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">			<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">emp</span><span class="o">);</span>
@@ -1722,7 +1721,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="nf">getAllEmployee</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;();</span>
 </span></span><span class="line"><span class="cl">		
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了5个员工到 list
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span> <span class="c1">//这里我们增加了5个员工到 list
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">Employee</span> <span class="n">emp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Employee</span><span class="o">();</span>
 </span></span><span class="line"><span class="cl">			<span class="n">emp</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="s">&#34;学校总部员工id= &#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">			<span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">emp</span><span class="o">);</span>
@@ -1762,7 +1761,7 @@
 <h3 id="合成复用原则">合成复用原则</h3>
 <h4 id="介绍-6">介绍</h4>
 <p>原则是尽量使用合成/聚合的方式，而不是使用继承</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png" title="截屏2023-03-05 21.05.08" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png" data-sub-html="<h2>合成复用原则</h2><p>截屏2023-03-05 21.05.08</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png" title="合成复用原则" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png" data-sub-html="<h2>合成复用原则</h2><p>合成复用原则</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -1792,7 +1791,7 @@
 <li>UML&ndash;Unified modeling language UML（统一建模语言），是一种用于软件系统分析和设计的语言工具，它用于帮助软件开发人员进行思考和记录思路的结果</li>
 <li>UML本身是一套符号的规定，就像数学符号和化学符号一样，这些符号用于描述软件模型中的各个元素和他们之间的关系，比如类、接口、实现、泛化、依赖、组合、聚合等</li>
 </ol>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png" title="截屏2023-03-05 23.01.54" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png" data-sub-html="<h2>类关系</h2><p>截屏2023-03-05 23.01.54</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png" title="类关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png" data-sub-html="<h2>类关系</h2><p>类关系</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -1824,7 +1823,7 @@
     </div>
 <h3 id="依赖关系dependence">依赖关系（Dependence）</h3>
 <p>只要在类中使用到了对方，那么他们之间就存在依赖关系。如果没有对方，连编译都通过不了。</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png" title="截屏2023-03-06 10.59.17" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png" data-sub-html="<h2>依赖关系</h2><p>截屏2023-03-06 10.59.17</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png" title="依赖关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png" data-sub-html="<h2>依赖关系</h2><p>依赖关系</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -1836,7 +1835,7 @@
     </figure></p>
 <h3 id="泛化关系generalization">泛化关系（Generalization）</h3>
 <p>如果一个模型元素（子代）基于另一个模型元素（父代），那么这两个元素之间就存在泛化关系（<strong>继承关系</strong>）</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png" title="截屏2023-03-06 11.04.28" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png" data-sub-html="<h2>泛化关系</h2><p>截屏2023-03-06 11.04.28</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png" title="泛化关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png" data-sub-html="<h2>泛化关系</h2><p>泛化关系</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -1848,7 +1847,7 @@
     </figure></p>
 <h3 id="实现关系implementation">实现关系（Implementation）</h3>
 <p>实现关系实际上是A类实现B接口，它是<strong>依赖关系的特例</strong></p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png" title="截屏2023-03-06 11.10.37" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png" data-sub-html="<h2>实现关系</h2><p>截屏2023-03-06 11.10.37</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png" title="实现关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png" data-sub-html="<h2>实现关系</h2><p>实现关系</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -1862,7 +1861,7 @@
 <p>关联关系实际上是类与类之间的联系，它是<strong>依赖关系的特例</strong></p>
 <p>关联具有<strong>导航性</strong>：即双向关系或单向关系</p>
 <p>关系具有<strong>多重性</strong>：如“1”（表示有且仅有一个），“0&hellip;”（表示0个或者多个），“0，1”（表示0个或者一个），“n&hellip;m”（表示n到m个都可以），“m&hellip;*”（表示至少m个）</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png" title="截屏2023-03-06 22.59.32" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png" data-sub-html="<h2>关联关系</h2><p>截屏2023-03-06 22.59.32</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png" title="关联关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png" data-sub-html="<h2>关联关系</h2><p>关联关系</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -1878,7 +1877,7 @@
 <p>聚合关系是关联关系的一种，是强的关联关系</p>
 <p>关联和聚合在语法上无法区分，必须考察具体的逻辑关系</p>
 <p><strong>如下所示</strong>：车和轮胎是整体和部分的关系，轮胎离开车仍然可以存在</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png" title="截屏2023-03-06 22.52.13" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png" data-sub-html="<h2>聚合关系</h2><p>截屏2023-03-06 22.52.13</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png" title="聚合关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png" data-sub-html="<h2>聚合关系</h2><p>聚合关系</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -1893,7 +1892,7 @@
 <p>组合关系：也是整体与部分的关系，但是<strong>整体与部分不可以分开</strong></p>
 <p>组合关系是关联关系中的一种，也是比聚合关系还要强的关系，它要求普通的聚合关系中代表整体的对象负责代表部分对象的生命周期</p>
 <p><strong>如下所示</strong>：公司和部分是整体和部门的关系，没有公司就不存在部门</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png" title="截屏2023-03-06 23.01.18" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png" data-sub-html="<h2>组合关系</h2><p>截屏2023-03-06 23.01.18</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png" title="组合关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png" data-sub-html="<h2>组合关系</h2><p>组合关系</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -2596,7 +2595,7 @@
 <ol>
 <li>思路分析（类图）</li>
 </ol>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png" title="截屏2023-04-07 10.26.25" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png" data-sub-html="<h2>披萨项目类图</h2><p>截屏2023-04-07 10.26.25</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png" title="披萨项目类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png" data-sub-html="<h2>披萨项目类图</h2><p>披萨项目类图</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -3330,7 +3329,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Calendar</span> <span class="n">cal</span> <span class="o">=</span> <span class="n">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
 </span></span><span class="line"><span class="cl">	    <span class="c1">// 注意月份下标从0开始，所以取月份要+1
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;年:&#34;</span> <span class="o">+</span> <span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">YEAR</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;月:&#34;</span> <span class="o">+</span> <span class="o">(</span><span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">MONTH</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">));</span>       
+</span></span><span class="line"><span class="cl">	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;月:&#34;</span> <span class="o">+</span> <span class="o">(</span><span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">MONTH</span><span class="o">)</span> <span class="o">+</span> <span class="mi">1</span><span class="o">));</span>       
 </span></span><span class="line"><span class="cl">	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;日:&#34;</span> <span class="o">+</span> <span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">DAY_OF_MONTH</span><span class="o">));</span>
 </span></span><span class="line"><span class="cl">	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;时:&#34;</span> <span class="o">+</span> <span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">HOUR_OF_DAY</span><span class="o">));</span>
 </span></span><span class="line"><span class="cl">	    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;分:&#34;</span> <span class="o">+</span> <span class="n">cal</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">MINUTE</span><span class="o">));</span>
@@ -3423,7 +3422,7 @@
 <p>现在有一只羊tom，姓名为：tom，年龄为：1，颜色为：白色，请编写程序创建和tom羊属性完全相同的10只羊。</p>
 <h5 id="传统方式解决">传统方式解决</h5>
 <p>思路分析：类图图解</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png" title="截屏2023-04-14 09.59.55" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png" data-sub-html="<h2>克隆羊类图</h2><p>截屏2023-04-14 09.59.55</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png" title="克隆羊类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png" data-sub-html="<h2>克隆羊类图</h2><p>克隆羊类图</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -3544,7 +3543,7 @@
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//传统的方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Sheep</span> <span class="n">sheep</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="s">&#34;白色&#34;</span><span class="o">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Sheep</span> <span class="n">sheep</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="s">&#34;白色&#34;</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		
 </span></span><span class="line"><span class="cl">		<span class="n">Sheep</span> <span class="n">sheep2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="n">sheep</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">sheep</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">sheep</span><span class="o">.</span><span class="na">getColor</span><span class="o">());</span>
 </span></span><span class="line"><span class="cl">		<span class="n">Sheep</span> <span class="n">sheep3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="n">sheep</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">sheep</span><span class="o">.</span><span class="na">getAge</span><span class="o">(),</span> <span class="n">sheep</span><span class="o">.</span><span class="na">getColor</span><span class="o">());</span>
@@ -3586,7 +3585,7 @@
 <li>形象的理解：孙大圣拔出猴毛，变出其他孙大圣。</li>
 </ol>
 <h5 id="原型模式原理结构图-uml类图">原型模式原理结构图-UML类图</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png" title="截屏2023-04-14 10.21.11" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png" data-sub-html="<h2>原型模式类图</h2><p>截屏2023-04-14 10.21.11</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png" title="原型模式类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png" data-sub-html="<h2>原型模式类图</h2><p>原型模式类图</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -3757,9 +3756,9 @@
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;原型模式完成对象的创建&#34;</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Sheep</span> <span class="n">sheep</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="s">&#34;白色&#34;</span><span class="o">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Sheep</span> <span class="n">sheep</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="s">&#34;白色&#34;</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		
-</span></span><span class="line"><span class="cl">		<span class="n">sheep</span><span class="o">.</span><span class="na">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="s">&#34;黑色&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">sheep</span><span class="o">.</span><span class="na">friend</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Sheep</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="s">&#34;黑色&#34;</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		
 </span></span><span class="line"><span class="cl">		<span class="n">Sheep</span> <span class="n">sheep2</span> <span class="o">=</span> <span class="o">(</span><span class="n">Sheep</span><span class="o">)</span><span class="n">sheep</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span> <span class="c1">//克隆
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Sheep</span> <span class="n">sheep3</span> <span class="o">=</span> <span class="o">(</span><span class="n">Sheep</span><span class="o">)</span><span class="n">sheep</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span> <span class="c1">//克隆
@@ -3844,7 +3843,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
 </span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Monster</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span> <span class="o">=</span> <span class="n">10</span> <span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">nickname</span> <span class="o">=</span> <span class="s">&#34;牛魔王&#34;</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">skill</span> <span class="o">=</span> <span class="s">&#34;芭蕉扇&#34;</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">Monster</span><span class="o">()</span> <span class="o">{</span>
@@ -4144,7 +4143,7 @@
 </span></span><span class="line"><span class="cl">	<span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">	 * 
 </span></span></span><span class="line"><span class="cl"><span class="cm">	 */</span>
-</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="n">1L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">cloneName</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">
@@ -4302,7 +4301,7 @@
 <li>房子有各种各样的，比如普通房，高楼，别墅，各种房子的过程虽然一样，但是要求不要相同的。</li>
 </ol>
 <h5 id="传统方式解决-1">传统方式解决</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png" title="截屏2023-04-21 10.13.32" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png" data-sub-html="<h2>传统方式分析类图</h2><p>截屏2023-04-21 10.13.32</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png" title="传统方式分析类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png" data-sub-html="<h2>传统方式分析类图</h2><p>传统方式分析类图</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -4450,7 +4449,7 @@
         </div>
     </div>
 <h4 id="建造者模式原理类图">建造者模式原理类图</h4>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png" title="截屏2023-04-21 10.40.20" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png" data-sub-html="<h2>建造者模式类图</h2><p>截屏2023-04-21 10.40.20</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png" title="建造者模式类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png" data-sub-html="<h2>建造者模式类图</h2><p>建造者模式类图</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -4461,7 +4460,7 @@
     </a><figcaption class="image-caption">建造者模式类图</figcaption>
     </figure></p>
 <h4 id="建造者模式解决盖房问题">建造者模式解决盖房问题</h4>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png" title="截屏2023-04-21 10.42.44" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png" data-sub-html="<h2>盖房问题类图</h2><p>截屏2023-04-21 10.42.44</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png" title="盖房问题类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png" data-sub-html="<h2>盖房问题类图</h2><p>盖房问题类图</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -4873,7 +4872,7 @@
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">appendNull</span><span class="o">();</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
 </span></span><span class="line"><span class="cl">        <span class="n">ensureCapacityInternal</span><span class="o">(</span><span class="n">count</span> <span class="o">+</span> <span class="n">len</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">str</span><span class="o">.</span><span class="na">getChars</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">len</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="n">count</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">str</span><span class="o">.</span><span class="na">getChars</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">len</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="n">count</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">count</span> <span class="o">+=</span> <span class="n">len</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
@@ -4889,7 +4888,7 @@
 </span></span><span class="line"><span class="cl"><span class="o">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="cm">/** use serialVersionUID for interoperability */</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="n">4383685877147921099L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">4383685877147921099L</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">StringBuilder</span> <span class="nf">append</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
@@ -4950,7 +4949,7 @@
 <p>Adapter类，通过继承src类，实现dst类接口，完成 src -&gt; dst 的适配</p>
 <h5 id="应用实例-4">应用实例</h5>
 <p>生活中充电器的例子来反应适配器模式，充电器本身相当于Adapter，220V交流电相当于src（即被适配者），我们的dst（即目标)是5V直流电</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%80%82%E9%85%8D%E5%99%A8.png" title="适配器" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%80%82%E9%85%8D%E5%99%A8.png" data-sub-html="<h2>类适配器实例</h2><p>适配器</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%80%82%E9%85%8D%E5%99%A8.png" title="类适配器实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%80%82%E9%85%8D%E5%99%A8.png" data-sub-html="<h2>类适配器实例</h2><p>类适配器实例</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -5034,7 +5033,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Voltage220V</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//输出220V的电压
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">output220V</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">src</span> <span class="o">=</span> <span class="n">220</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">src</span> <span class="o">=</span> <span class="mi">220</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;电压=&#34;</span> <span class="o">+</span> <span class="n">src</span> <span class="o">+</span> <span class="s">&#34;伏&#34;</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">src</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
@@ -5050,7 +5049,7 @@
 </span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//获取到220V电压
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="kt">int</span> <span class="n">srcV</span> <span class="o">=</span> <span class="n">output220V</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">dstV</span> <span class="o">=</span> <span class="n">srcV</span> <span class="o">/</span> <span class="n">44</span> <span class="o">;</span> <span class="c1">//转成 5v
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">dstV</span> <span class="o">=</span> <span class="n">srcV</span> <span class="o">/</span> <span class="mi">44</span> <span class="o">;</span> <span class="c1">//转成 5v
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="n">dstV</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">
@@ -5062,9 +5061,9 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//充电
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">charging</span><span class="o">(</span><span class="n">IVoltage5V</span> <span class="n">iVoltage5V</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="o">(</span><span class="n">iVoltage5V</span><span class="o">.</span><span class="na">output5V</span><span class="o">()</span> <span class="o">==</span> <span class="n">5</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="o">(</span><span class="n">iVoltage5V</span><span class="o">.</span><span class="na">output5V</span><span class="o">()</span> <span class="o">==</span> <span class="mi">5</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;电压为5V, 可以充电~~&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">iVoltage5V</span><span class="o">.</span><span class="na">output5V</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">5</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">iVoltage5V</span><span class="o">.</span><span class="na">output5V</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;电压大于5V, 不能充电~~&#34;</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		<span class="o">}</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
@@ -5108,7 +5107,7 @@
 </ol>
 <h5 id="应用实例-5">应用实例</h5>
 <p>生活中充电器的例子来讲解适配器，充电器本身相当于Adapter，220V交流电相当于src（即被适配者），我们的dst（即目标）是5V直流电，使用<strong>对象适配器模式</strong>完成</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-28%2009.30.52.png" title="截屏2023-04-28 09.30.52" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-28%2009.30.52.png" data-sub-html="<h2>对象适配器实例</h2><p>截屏2023-04-28 09.30.52</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-28%2009.30.52.png" title="对象适配器实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-28%2009.30.52.png" data-sub-html="<h2>对象适配器实例</h2><p>对象适配器实例</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
@@ -5212,7 +5211,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Voltage220V</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//输出220V的电压，不变
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">output220V</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">src</span> <span class="o">=</span> <span class="n">220</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">src</span> <span class="o">=</span> <span class="mi">220</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;电压=&#34;</span> <span class="o">+</span> <span class="n">src</span> <span class="o">+</span> <span class="s">&#34;伏&#34;</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">src</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
@@ -5236,11 +5235,11 @@
 </span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">output5V</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		
-</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">dst</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">dst</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">voltage220V</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">			<span class="kt">int</span> <span class="n">src</span> <span class="o">=</span> <span class="n">voltage220V</span><span class="o">.</span><span class="na">output220V</span><span class="o">();</span><span class="c1">//获取220V 电压
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;使用对象适配器，进行适配~~&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">			<span class="n">dst</span> <span class="o">=</span> <span class="n">src</span> <span class="o">/</span> <span class="n">44</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			<span class="n">dst</span> <span class="o">=</span> <span class="n">src</span> <span class="o">/</span> <span class="mi">44</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;适配完成，输出的电压为=&#34;</span> <span class="o">+</span> <span class="n">dst</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		<span class="o">}</span>
 </span></span><span class="line"><span class="cl">		
@@ -5257,9 +5256,9 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//充电
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">charging</span><span class="o">(</span><span class="n">IVoltage5V</span> <span class="n">iVoltage5V</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="o">(</span><span class="n">iVoltage5V</span><span class="o">.</span><span class="na">output5V</span><span class="o">()</span> <span class="o">==</span> <span class="n">5</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="o">(</span><span class="n">iVoltage5V</span><span class="o">.</span><span class="na">output5V</span><span class="o">()</span> <span class="o">==</span> <span class="mi">5</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;电压为5V, 可以充电~~&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">iVoltage5V</span><span class="o">.</span><span class="na">output5V</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">5</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">iVoltage5V</span><span class="o">.</span><span class="na">output5V</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;电压大于5V, 不能充电~~&#34;</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		<span class="o">}</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
@@ -5325,7 +5324,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/blog/20220919/" class="prev" rel="prev" title="Markdown 基本语法"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Markdown 基本语法</a></div>
+    <div class="post-nav"><a href="/blog/20220919/" class="prev" rel="prev" title="Markdown 基本语法"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Markdown 基本语法</a>
+            <a href="/blog/20230503/" class="next" rel="next" title="Redis集群">Redis集群<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"><div id="utterances" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
