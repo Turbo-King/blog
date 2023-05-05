@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/turbo-king.github.io\/blog\/20221205\/"
-        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  21469 ,
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  24290 ,
         "url": "https:\/\/turbo-king.github.io\/blog\/20221205\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/markdown/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Markdown</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 21469 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 43 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 24290 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 49 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -336,6 +336,27 @@
                 <li><a href="#应用实例-6">应用实例</a></li>
               </ul>
             </li>
+            <li><a href="#适配器模式在springmvc框架应用的源码分析">适配器模式在SpringMVC框架应用的源码分析</a></li>
+            <li><a href="#适配器模式的注意事项和细节">适配器模式的注意事项和细节</a></li>
+          </ul>
+        </li>
+        <li><a href="#桥接模式">桥接模式</a>
+          <ul>
+            <li><a href="#传统方法-2">传统方法</a>
+              <ul>
+                <li><a href="#手机操作问题">手机操作问题</a></li>
+                <li><a href="#传统方案解决手机使用问题">传统方案解决手机使用问题</a></li>
+                <li><a href="#传统方案解决手机操作类型">传统方案解决手机操作类型</a></li>
+              </ul>
+            </li>
+            <li><a href="#桥接模式-1">桥接模式</a>
+              <ul>
+                <li><a href="#基本介绍">基本介绍</a></li>
+                <li><a href="#桥接模式原理类图">桥接模式原理类图</a></li>
+                <li><a href="#桥接模式解决手机操作问题">桥接模式解决手机操作问题</a></li>
+              </ul>
+            </li>
+            <li><a href="#桥接模式在jdbc的源码剖析">桥接模式在JDBC的源码剖析</a></li>
           </ul>
         </li>
       </ul>
@@ -4949,14 +4970,14 @@
 <p>Adapter类，通过继承src类，实现dst类接口，完成 src -&gt; dst 的适配</p>
 <h5 id="应用实例-4">应用实例</h5>
 <p>生活中充电器的例子来反应适配器模式，充电器本身相当于Adapter，220V交流电相当于src（即被适配者），我们的dst（即目标)是5V直流电</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%80%82%E9%85%8D%E5%99%A8.png" title="类适配器实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%80%82%E9%85%8D%E5%99%A8.png" data-sub-html="<h2>类适配器实例</h2><p>类适配器实例</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png" title="类适配器实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png" data-sub-html="<h2>类适配器实例</h2><p>类适配器实例</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%80%82%E9%85%8D%E5%99%A8.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%80%82%E9%85%8D%E5%99%A8.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%80%82%E9%85%8D%E5%99%A8.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%80%82%E9%85%8D%E5%99%A8.png 2x"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png 2x"
             data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%80%82%E9%85%8D%E5%99%A8.png" />
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png" />
     </a><figcaption class="image-caption">类适配器实例</figcaption>
     </figure></p>
 <div class="highlight"><div class="chroma">
@@ -5107,16 +5128,7 @@
 </ol>
 <h5 id="应用实例-5">应用实例</h5>
 <p>生活中充电器的例子来讲解适配器，充电器本身相当于Adapter，220V交流电相当于src（即被适配者），我们的dst（即目标）是5V直流电，使用<strong>对象适配器模式</strong>完成</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-28%2009.30.52.png" title="对象适配器实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-28%2009.30.52.png" data-sub-html="<h2>对象适配器实例</h2><p>对象适配器实例</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-28%2009.30.52.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-28%2009.30.52.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-28%2009.30.52.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-28%2009.30.52.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-28%2009.30.52.png" />
-    </a><figcaption class="image-caption">对象适配器实例</figcaption>
-    </figure></p>
+<p>![对象适配器实例](<a href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AF%B9%E8%B1%A1%E9%80%82%E9%85%8D%E5%99%A8%E5%AE%9E%E4%BE%8B.png" target="_blank" rel="noopener noreffer ">https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AF%B9%E8%B1%A1%E9%80%82%E9%85%8D%E5%99%A8%E5%AE%9E%E4%BE%8B.png</a> &ldquo;&ldquo;对象适配器实例&rdquo;&rdquo;)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -5301,7 +5313,809 @@
 <li>适用于一个接口不想使用其所有的方法的情况</li>
 </ol>
 <h5 id="应用实例-6">应用实例</h5>
-<p>Android中的属性动画ValueAnimator类可以通过addListener(AnimatorListener listener)方法添加监听器，那么常规写法如下</p></div><div class="post-footer" id="post-footer">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png" title="接口适配器实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png" data-sub-html="<h2>接口适配器实例</h2><p>接口适配器实例</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png" />
+    </a><figcaption class="image-caption">接口适配器实例</figcaption>
+    </figure></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">InterfaceAdapter</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">m1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">m2</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">m3</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">m4</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//在AbsAdapter 我们将 Interface4 的方法进行默认实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbsAdapter</span> <span class="kd">implements</span> <span class="n">InterfaceAdapter</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//默认实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">m1</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">m2</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">m3</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">m4</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">AbsAdapter</span> <span class="n">absAdapter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AbsAdapter</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//只需要去覆盖我们 需要使用 接口方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">m1</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;使用了m1的方法&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">};</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">absAdapter</span><span class="o">.</span><span class="na">m1</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>有时候我们不想实现<strong>InterfaceAdapter接口</strong>中的全部方法，我们只想监听m1方法，我们只需按如上方式实现<strong>接口适配器</strong>。</p>
+<p>AbsAdapter类，就是一个<strong>接口适配器</strong>，它空实现了InterfaceAdapter接口中的所有方法。</p>
+<h4 id="适配器模式在springmvc框架应用的源码分析">适配器模式在SpringMVC框架应用的源码分析</h4>
+<ol>
+<li>SpringMVC中的<strong>HandleAdapter</strong>，就使用了适配器模式</li>
+<li>使用HandleAdapter的原因分析：</li>
+</ol>
+<p>根据源码分析可以看到处理器的类型不同，有<strong>多重实现方式</strong>，那么调用方式就是不确定的，如果需要直接调用Controller方法，需要调用的时候就得不断使用if-else来进行判断是哪一种自类然后执行。那么如果后面要扩展Controller，就得修改原来的代码，这样就违背了OCP原则。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//多种Controller实现  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Controller</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">HttpController</span> <span class="kd">implements</span> <span class="n">Controller</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doHttpHandler</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;http...&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">SimpleController</span> <span class="kd">implements</span> <span class="n">Controller</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doSimplerHandler</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;simple...&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">AnnotationController</span> <span class="kd">implements</span> <span class="n">Controller</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doAnnotationHandler</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;annotation...&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DispatchServlet</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">HandlerAdapter</span><span class="o">&gt;</span> <span class="n">handlerAdapters</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">HandlerAdapter</span><span class="o">&gt;();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">DispatchServlet</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">handlerAdapters</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">AnnotationHandlerAdapter</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">handlerAdapters</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">HttpHandlerAdapter</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">handlerAdapters</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="k">new</span> <span class="n">SimpleHandlerAdapter</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doDispatch</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 此处模拟SpringMVC从request取handler的对象，
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">// 适配器可以获取到希望的Controller
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		 <span class="n">HttpController</span> <span class="n">controller</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpController</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// AnnotationController controller = new AnnotationController();
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//SimpleController controller = new SimpleController();
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">// 得到对应适配器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">HandlerAdapter</span> <span class="n">adapter</span> <span class="o">=</span> <span class="n">getHandler</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 通过适配器执行对应的controller对应方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">adapter</span><span class="o">.</span><span class="na">handle</span><span class="o">(</span><span class="n">controller</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">HandlerAdapter</span> <span class="nf">getHandler</span><span class="o">(</span><span class="n">Controller</span> <span class="n">controller</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//遍历：根据得到的controller(handler), 返回对应适配器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">for</span> <span class="o">(</span><span class="n">HandlerAdapter</span> <span class="n">adapter</span> <span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="na">handlerAdapters</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="o">(</span><span class="n">adapter</span><span class="o">.</span><span class="na">supports</span><span class="o">(</span><span class="n">controller</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="n">adapter</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">new</span> <span class="n">DispatchServlet</span><span class="o">().</span><span class="na">doDispatch</span><span class="o">();</span> <span class="c1">// http...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">///定义一个Adapter接口 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">HandlerAdapter</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supports</span><span class="o">(</span><span class="n">Object</span> <span class="n">handler</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Object</span> <span class="n">handler</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 多种适配器类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">SimpleHandlerAdapter</span> <span class="kd">implements</span> <span class="n">HandlerAdapter</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="o">((</span><span class="n">SimpleController</span><span class="o">)</span> <span class="n">handler</span><span class="o">).</span><span class="na">doSimplerHandler</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supports</span><span class="o">(</span><span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">(</span><span class="n">handler</span> <span class="k">instanceof</span> <span class="n">SimpleController</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">HttpHandlerAdapter</span> <span class="kd">implements</span> <span class="n">HandlerAdapter</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="o">((</span><span class="n">HttpController</span><span class="o">)</span> <span class="n">handler</span><span class="o">).</span><span class="na">doHttpHandler</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supports</span><span class="o">(</span><span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">(</span><span class="n">handler</span> <span class="k">instanceof</span> <span class="n">HttpController</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">AnnotationHandlerAdapter</span> <span class="kd">implements</span> <span class="n">HandlerAdapter</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="o">((</span><span class="n">AnnotationController</span><span class="o">)</span> <span class="n">handler</span><span class="o">).</span><span class="na">doAnnotationHandler</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">supports</span><span class="o">(</span><span class="n">Object</span> <span class="n">handler</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">(</span><span class="n">handler</span> <span class="k">instanceof</span> <span class="n">AnnotationController</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>说明</strong></p>
+<ul>
+<li>Spring定义了一个适配器接口，使得每一种Controller有一种对应的适配器实现类</li>
+<li>适配器代替了Controller执行相应的方法</li>
+<li>扩展Controller时，只需要增加一个适配器类就完成了SpringMVC的扩展。</li>
+</ul>
+<h4 id="适配器模式的注意事项和细节">适配器模式的注意事项和细节</h4>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>适配器模式<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>三种命名方式，是根据src是以怎样的形式给到Adapter（在Adapter里的形式）来命名的</li>
+<li><strong>类适配器</strong>：以类给到，在Adapter里，就是将src当作类，继承</li>
+<li><strong>对象适配器</strong>：给对象到，在Adapter里，将src作为一个对象，持有</li>
+<li><strong>接口适配器</strong>：以接口给到，在Apapter里，将src作为一个接口，实现</li>
+<li>Adapter模式最大的作用还是将原本不兼容的接口融合在一起工作</li>
+<li>实际开发中，实现起来不拘泥于我们讲解的三种惊呆你形式</li>
+</ol>
+</div>
+        </div>
+    </div>
+<br>
+<h3 id="桥接模式">桥接模式</h3>
+<h4 id="传统方法-2">传统方法</h4>
+<h5 id="手机操作问题">手机操作问题</h5>
+<p>现在对于不同手机类型的不同品牌实现操作编程（比如：开机、关机、上网、打电话等），如下图所示：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png" title="手机类型分类" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png" data-sub-html="<h2>Phone</h2><p>手机类型分类</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png" />
+    </a><figcaption class="image-caption">Phone</figcaption>
+    </figure></p>
+<h5 id="传统方案解决手机使用问题">传统方案解决手机使用问题</h5>
+<p>传统方法对应的类图</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png" title="Phone类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>手机使用问题类图</h2><p>Phone类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">手机使用问题类图</figcaption>
+    </figure></p>
+<h5 id="传统方案解决手机操作类型">传统方案解决手机操作类型</h5>
+<ol>
+<li>扩展性问题（类爆炸），如果我们再增加手机的样式（旋转式）,就需要增加各个品牌手机的类，同样如果我们增加一个手机品牌，也要在各个手机样式类下增加</li>
+<li>违反了单一职责原则，当我们增加手机样式时，要同时增加所有品牌的手机，这样增加了代码维护成本</li>
+<li>解决方案-使用桥接模式</li>
+</ol>
+<h4 id="桥接模式-1">桥接模式</h4>
+<h5 id="基本介绍">基本介绍</h5>
+<ol>
+<li>**桥接模式（Bridge模式）**是指：将实现与抽象放在两个不同的类层次中，使两个层次可以独立改变</li>
+<li>是一种<strong>结构型设计模式</strong></li>
+<li>Bridge模式基于<strong>类的最小设计原则</strong>，通过使用<strong>封装</strong>、<strong>聚合</strong>及<strong>继承</strong>等行为让不同的类承担不同的职责。它的主要特点是把<strong>抽象（Abstraction）与行为实现（Implementation）分离开来</strong>，从而可以保持各部分的独立性以及应对他们的功能扩展</li>
+</ol>
+<h5 id="桥接模式原理类图">桥接模式原理类图</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png" title="桥接模式类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png" data-sub-html="<h2>桥接模式类图</h2><p>桥接模式类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png" />
+    </a><figcaption class="image-caption">桥接模式类图</figcaption>
+    </figure></p>
+<p><strong>类图说明</strong></p>
+<ol>
+<li>Client类：桥接模式模式的调用者</li>
+<li>抽象类（Abstraction）：维护了Implementor/即它的实现类Concrete ImplementorA..，二者是聚合关系，Abstraction充当桥接类</li>
+<li>RefinedAbstraction：是Abstraction抽象类的字类</li>
+<li>Implementor：行为实现类的接口</li>
+<li>Concrete ImplementorA/B：行为的具体实现类</li>
+<li>从UML图：这里的抽象类和接口是聚合的关系，其实调用和被调用关系</li>
+</ol>
+<h5 id="桥接模式解决手机操作问题">桥接模式解决手机操作问题</h5>
+<p>使用桥接模式改进传统方式，让程序具有搞好的扩展性，利用程序维护</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png" title="桥接模式解决手机操作问题类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>桥接模式解决手机操作问题类图</h2><p>桥接模式解决手机操作问题类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">桥接模式解决手机操作问题类图</figcaption>
+    </figure></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Brand</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">open</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">call</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Phone</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//组合品牌
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="n">Brand</span> <span class="n">brand</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//构造器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="nf">Phone</span><span class="o">(</span><span class="n">Brand</span> <span class="n">brand</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">brand</span> <span class="o">=</span> <span class="n">brand</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">open</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">brand</span><span class="o">.</span><span class="na">open</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">brand</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">call</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">brand</span><span class="o">.</span><span class="na">call</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//折叠式手机类，继承 抽象类 Phone
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FoldedPhone</span> <span class="kd">extends</span> <span class="n">Phone</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//构造器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="nf">FoldedPhone</span><span class="o">(</span><span class="n">Brand</span> <span class="n">brand</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">(</span><span class="n">brand</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">open</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">open</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; 折叠样式手机 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; 折叠样式手机 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">call</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">.</span><span class="na">call</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; 折叠样式手机 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UpRightPhone</span> <span class="kd">extends</span> <span class="n">Phone</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">		<span class="c1">//构造器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="kd">public</span> <span class="nf">UpRightPhone</span><span class="o">(</span><span class="n">Brand</span> <span class="n">brand</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">super</span><span class="o">(</span><span class="n">brand</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">open</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">super</span><span class="o">.</span><span class="na">open</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; 直立样式手机 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">super</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; 直立样式手机 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">call</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="kd">super</span><span class="o">.</span><span class="na">call</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; 直立样式手机 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Vivo</span> <span class="kd">implements</span> <span class="n">Brand</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">open</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; Vivo手机开机 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; Vivo手机关机 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">call</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; Vivo手机打电话 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">XiaoMi</span> <span class="kd">implements</span> <span class="n">Brand</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">open</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; 小米手机开机 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; 小米手机关机 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">call</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; 小米手机打电话 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">//获取折叠式手机 (样式 + 品牌 )
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
+</span></span><span class="line"><span class="cl">		<span class="n">Phone</span> <span class="n">phone1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FoldedPhone</span><span class="o">(</span><span class="k">new</span> <span class="n">XiaoMi</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">phone1</span><span class="o">.</span><span class="na">open</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">phone1</span><span class="o">.</span><span class="na">call</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">phone1</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;=======================&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">Phone</span> <span class="n">phone2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FoldedPhone</span><span class="o">(</span><span class="k">new</span> <span class="n">Vivo</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">phone2</span><span class="o">.</span><span class="na">open</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">phone2</span><span class="o">.</span><span class="na">call</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">phone2</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;==============&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">UpRightPhone</span> <span class="n">phone3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UpRightPhone</span><span class="o">(</span><span class="k">new</span> <span class="n">XiaoMi</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">phone3</span><span class="o">.</span><span class="na">open</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">phone3</span><span class="o">.</span><span class="na">call</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">phone3</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;==============&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">UpRightPhone</span> <span class="n">phone4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UpRightPhone</span><span class="o">(</span><span class="k">new</span> <span class="n">Vivo</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">phone4</span><span class="o">.</span><span class="na">open</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">phone4</span><span class="o">.</span><span class="na">call</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">phone4</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="桥接模式在jdbc的源码剖析">桥接模式在JDBC的源码剖析</h4>
+<p>JDBC的Driver接口，如果从<strong>桥接模式</strong>来看，<strong>Driver</strong>就是一个接口，下面可以有MySQL的Driver，Oracle的Driver，这些就可以当作实现接口类</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

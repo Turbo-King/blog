@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>NOSQL - Tag - Turbo-King Blog</title>
+        <title>NoSQL - Tag - Turbo-King Blog</title>
         <link>https://turbo-king.github.io/blog/en/tags/nosql/</link>
-        <description>NOSQL - Tag - Turbo-King Blog</description>
+        <description>NoSQL - Tag - Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
             <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 03 May 2023 14:39:48 &#43;0800</lastBuildDate><atom:link href="https://turbo-king.github.io/blog/en/tags/nosql/" rel="self" type="application/rss+xml" /><item>
     <title>Redis集群</title>
