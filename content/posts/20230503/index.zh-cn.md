@@ -8,7 +8,7 @@ authorLink: "https://turbo-king.github.io/"
 description: "Redis集群"
 featuredImage : "https://cdn.jsdelivr.net/gh/Turbo-King/images/redis.png"
 
-tags: ["redis","Java","NOSQL"]
+tags: ["Redis","Java","NoSQL"]
 categories: ["Markdown"]
 
 lightgallery: true

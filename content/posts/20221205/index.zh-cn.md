@@ -2829,9 +2829,211 @@ public class Client {
 
 ##### 应用实例
 
-Android中的属性动画ValueAnimator类可以通过addListener(AnimatorListener listener)方法添加监听器，那么常规写法如下
+![接口适配器实例](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png "接口适配器实例")
+
+```java
+public interface InterfaceAdapter {
+	public void m1();
+	public void m2();
+	public void m3();
+	public void m4();
+}
 
 
+
+//在AbsAdapter 我们将 Interface4 的方法进行默认实现
+public abstract class AbsAdapter implements InterfaceAdapter {
+
+	//默认实现
+	public void m1() {
+
+	}
+
+	public void m2() {
+
+	}
+
+	public void m3() {
+
+	}
+
+	public void m4() {
+
+	}
+}
+
+
+
+public class Client {
+	public static void main(String[] args) {
+		
+		AbsAdapter absAdapter = new AbsAdapter() {
+			//只需要去覆盖我们 需要使用 接口方法
+			@Override
+			public void m1() {
+				// TODO Auto-generated method stub
+				System.out.println("使用了m1的方法");
+			}
+		};
+		
+		absAdapter.m1();
+	}
+}
+```
+
+有时候我们不想实现**InterfaceAdapter接口**中的全部方法，我们只想监听m1方法，我们只需按如上方式实现**接口适配器**。
+
+AbsAdapter类，就是一个**接口适配器**，它空实现了InterfaceAdapter接口中的所有方法。
+
+#### 适配器模式在SpringMVC框架应用的源码分析
+
+1. SpringMVC中的**HandleAdapter**，就使用了适配器模式
+2. 使用HandleAdapter的原因分析：
+
+根据源码分析可以看到处理器的类型不同，有**多重实现方式**，那么调用方式就是不确定的，如果需要直接调用Controller方法，需要调用的时候就得不断使用if-else来进行判断是哪一种自类然后执行。那么如果后面要扩展Controller，就得修改原来的代码，这样就违背了OCP原则。
+
+```java
+//多种Controller实现  
+public interface Controller {
+
+}
+
+class HttpController implements Controller {
+	public void doHttpHandler() {
+		System.out.println("http...");
+	}
+}
+
+class SimpleController implements Controller {
+	public void doSimplerHandler() {
+		System.out.println("simple...");
+	}
+}
+
+class AnnotationController implements Controller {
+	public void doAnnotationHandler() {
+		System.out.println("annotation...");
+	}
+}
+
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class DispatchServlet {
+
+	public static List<HandlerAdapter> handlerAdapters = new ArrayList<HandlerAdapter>();
+
+	public DispatchServlet() {
+		handlerAdapters.add(new AnnotationHandlerAdapter());
+		handlerAdapters.add(new HttpHandlerAdapter());
+		handlerAdapters.add(new SimpleHandlerAdapter());
+	}
+
+	public void doDispatch() {
+
+		// 此处模拟SpringMVC从request取handler的对象，
+		// 适配器可以获取到希望的Controller
+		 HttpController controller = new HttpController();
+		// AnnotationController controller = new AnnotationController();
+		//SimpleController controller = new SimpleController();
+		// 得到对应适配器
+		HandlerAdapter adapter = getHandler(controller);
+		// 通过适配器执行对应的controller对应方法
+		adapter.handle(controller);
+
+	}
+
+	public HandlerAdapter getHandler(Controller controller) {
+		//遍历：根据得到的controller(handler), 返回对应适配器
+		for (HandlerAdapter adapter : this.handlerAdapters) {
+			if (adapter.supports(controller)) {
+				return adapter;
+			}
+		}
+		return null;
+	}
+
+	public static void main(String[] args) {
+		new DispatchServlet().doDispatch(); // http...
+	}
+
+}
+
+
+
+
+///定义一个Adapter接口 
+public interface HandlerAdapter {
+	public boolean supports(Object handler);
+
+	public void handle(Object handler);
+}
+
+// 多种适配器类
+
+class SimpleHandlerAdapter implements HandlerAdapter {
+
+	public void handle(Object handler) {
+		((SimpleController) handler).doSimplerHandler();
+	}
+
+	public boolean supports(Object handler) {
+		return (handler instanceof SimpleController);
+	}
+
+}
+
+class HttpHandlerAdapter implements HandlerAdapter {
+
+	public void handle(Object handler) {
+		((HttpController) handler).doHttpHandler();
+	}
+
+	public boolean supports(Object handler) {
+		return (handler instanceof HttpController);
+	}
+
+}
+
+class AnnotationHandlerAdapter implements HandlerAdapter {
+
+	public void handle(Object handler) {
+		((AnnotationController) handler).doAnnotationHandler();
+	}
+
+	public boolean supports(Object handler) {
+
+		return (handler instanceof AnnotationController);
+	}
+
+}
+```
+
+**说明**
+
+- Spring定义了一个适配器接口，使得每一种Controller有一种对应的适配器实现类
+- 适配器代替了Controller执行相应的方法
+- 扩展Controller时，只需要增加一个适配器类就完成了SpringMVC的扩展。
+
+#### 适配器模式的注意事项和细节
+
+{{< admonition tip 适配器模式 >}}
+
+1. 三种命名方式，是根据src是以怎样的形式给到Adapter（在Adapter里的形式）来命名的
+2. **类适配器**：以类给到，在Adapter里，就是将src当作类，继承
+3. **对象适配器**：给对象到，在Adapter里，将src作为一个对象，持有
+4. **接口适配器**：以接口给到，在Apapter里，将src作为一个接口，实现
+5. Adapter模式最大的作用还是将原本不兼容的接口融合在一起工作
+6. 实际开发中，实现起来不拘泥于我们讲解的三种惊呆你形式
+
+{{< /admonition >}}
+
+<br>
+
+### 桥接模式
 
 
 
