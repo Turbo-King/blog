@@ -3247,6 +3247,123 @@ public class Client {
 
 JDBC的Driver接口，如果从**桥接模式**来看，**Driver**就是一个接口，下面可以有MySQL的Driver，Oracle的Driver，这些就可以当作实现接口类
 
+![JDBC源码分析类图](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2010.46.43.png "JDBC源码分析类图")
+
+```java
+import java.sql.SQLException;
+
+/**
+ * The Java SQL framework allows for multiple database drivers. Each driver should supply a class that implements the Driver interface
+ * 
+ * <p>
+ * The DriverManager will try to load as many drivers as it can find and then for any given connection request, it will ask each driver in turn to try to
+ * connect to the target URL.
+ * 
+ * <p>
+ * It is strongly recommended that each Driver class should be small and standalone so that the Driver class can be loaded and queried without bringing in vast
+ * quantities of supporting code.
+ * 
+ * <p>
+ * When a Driver class is loaded, it should create an instance of itself and register it with the DriverManager. This means that a user can load and register a
+ * driver by doing Class.forName("foo.bah.Driver")
+ */
+public class Driver extends NonRegisteringDriver implements java.sql.Driver {
+    //
+    // Register ourselves with the DriverManager
+    //
+    static {
+        try {
+            java.sql.DriverManager.registerDriver(new Driver());
+        } catch (SQLException E) {
+            throw new RuntimeException("Can't register driver!");
+        }
+    }
+
+    /**
+     * Construct a new driver and register it with DriverManager
+     * 
+     * @throws SQLException
+     *             if a database error occurs.
+     */
+    public Driver() throws SQLException {
+        // Required for Class.forName().newInstance()
+    }
+}
+```
+
+**说明：**
+
+1. MySQL有自己的ConnectuinImpl类，同样Oracle也有对应的实现类
+2. Driver和Connection之间是通过DriverManager类进行桥连接的
+
+#### 桥接模式的注意事项和细节
+
+{{< admonition tip 桥接模式 >}}
+
+1. 实现了抽象和实现部分的分离，从而极大的提供了系统的灵活性，让抽象部分和实现部分独立开来，这有助于系统进行分层设计，从而产生更好的结构化系统。
+2. 对于系统的高层部分，只需知道抽象部分和实现部分的接口就可以了，其它的部分由具体业务来完成。
+3. 桥接模式替代多层继承方案，可以减少字类的个数，降低系统的管理和维护成本。
+4. 桥接模式的引入增加了系统的理解和设计难度，由于聚合关联关系建立在抽象层，要求开发者针对抽象进行设计和编程。
+5. 桥接模式要求正确识别出系统中两个独立变化的维度，因此其使用范围有一定的局限性，既需要有这样的应用场景。
+
+{{< /admonition >}}
+
+#### 桥接模式其他应用场景
+
+1. 对于那些不希望使用继承或因为多层继承导致系统类的个数急剧增加的系统，桥接模式尤为适用
+2. 常见具体场景：
+
+- JDBC驱动程序
+- 银行转账系统
+    - 转账分类：网上转账，柜台转账，ATM转账
+    - 转账用户类型：普通用户，银卡用户，金卡用户
+- 消息管理
+    - 消息类型：即时消息，延时消息
+    - 消息分类：手机短信，邮件消息，QQ消息
+
+<br>
+
+### 装饰者模式
+
+#### 传统方法
+
+##### 咖啡订单项目（咖啡馆）
+
+1. 咖啡种类/单品咖啡：Espresso（意大利浓缩咖啡）、ShortBlack、LongBlack（美式咖啡）、Decaf（无因咖啡）
+2. 调料：Milk、Soy（豆浆）、Chocolate
+3. 要求在扩展**新的咖啡种类**时，具有良好的扩展性、改动方便、维护方便
+4. 使用OO的来计算不同种类咖啡的**费用**：客户可以点**单品咖啡**、也可以点**单品咖啡+调料组合**
+
+##### 解决方案一
+
+![咖啡订单解决方案一](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2011.34.39-20230509113642796.png "咖啡订单解决方案一")
+
+方案一问题分析
+
+1. Drink是一个抽象类，表示饮料
+2. des就是对咖啡的描述，比如咖啡的名字
+3. cost()方法就是计算费用，Drink类中做一个抽象方法
+4. Decaf就是单品咖啡，继承Drink，并实现cost方法
+5. Espress && Milk 就是单品咖啡+调料，这个组合很多
+
+问题：这样设计会有很多类，当我们增加一个单品咖啡或者一个新的调料，类的数量就会倍增，就会出现类爆炸
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
