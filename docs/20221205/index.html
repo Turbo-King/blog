@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/turbo-king.github.io\/blog\/20221205\/"
-        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  25418 ,
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  27400 ,
         "url": "https:\/\/turbo-king.github.io\/blog\/20221205\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/markdown/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Markdown</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 25418 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 51 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 27400 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 55 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -367,10 +367,21 @@
               <ul>
                 <li><a href="#咖啡订单项目咖啡馆">咖啡订单项目（咖啡馆）</a></li>
                 <li><a href="#解决方案一">解决方案一</a></li>
+                <li><a href="#解决方案二">解决方案二</a></li>
               </ul>
             </li>
+            <li><a href="#装饰者模式-1">装饰者模式</a>
+              <ul>
+                <li><a href="#基本介绍-1">基本介绍</a></li>
+                <li><a href="#装饰者模式原理">装饰者模式原理</a></li>
+                <li><a href="#装饰者模式解决咖啡订单">装饰者模式解决咖啡订单</a></li>
+                <li><a href="#装饰者模式咖啡订单应用实例">装饰者模式咖啡订单应用实例</a></li>
+              </ul>
+            </li>
+            <li><a href="#装饰者模式在jdk应用的源码分析">装饰者模式在JDK应用的源码分析</a></li>
           </ul>
         </li>
+        <li><a href="#组合模式">组合模式</a></li>
       </ul>
     </li>
   </ul>
@@ -6284,7 +6295,7 @@
             alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2011.34.39-20230509113642796.png" />
     </a><figcaption class="image-caption">咖啡订单解决方案一</figcaption>
     </figure></p>
-<p>方案一问题分析</p>
+<p><strong>方案一问题分析</strong></p>
 <ol>
 <li>Drink是一个抽象类，表示饮料</li>
 <li>des就是对咖啡的描述，比如咖啡的名字</li>
@@ -6292,7 +6303,563 @@
 <li>Decaf就是单品咖啡，继承Drink，并实现cost方法</li>
 <li>Espress &amp;&amp; Milk 就是单品咖啡+调料，这个组合很多</li>
 </ol>
-<p>问题：这样设计会有很多类，当我们增加一个单品咖啡或者一个新的调料，类的数量就会倍增，就会出现类爆炸</p></div><div class="post-footer" id="post-footer">
+<p><strong>问题：这样设计会有很多类，当我们增加一个单品咖啡或者一个新的调料，类的数量就会倍增，就会出现类爆炸</strong></p>
+<h5 id="解决方案二">解决方案二</h5>
+<p>前面分析到方案一因为咖啡单品+调料组合会造成类的倍增，因此可以做改进，将调料内置到Drink类，这样就不会造成类数量过多。从而提高项目的维护性（如下图）</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png" title="咖啡馆解决方案二" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png" data-sub-html="<h2>咖啡馆解决方案二</h2><p>咖啡馆解决方案二</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png" />
+    </a><figcaption class="image-caption">咖啡馆解决方案二</figcaption>
+    </figure></p>
+<p>**说明：**milk，soy，chocolate 可以设计为Boolean，表示是否要添加相应的调料</p>
+<p><strong>方案二分析</strong></p>
+<ol>
+<li>方案二可以控制类的数量，不至于造成很多的类</li>
+<li>在增加或者删除调料种类时，代码的维护量很大</li>
+<li>考虑到用户可以添加多份调料时，可以将hasMIlk返回一个对应的int</li>
+<li>考虑使用<strong>装饰者模式</strong></li>
+</ol>
+<h4 id="装饰者模式-1">装饰者模式</h4>
+<h5 id="基本介绍-1">基本介绍</h5>
+<ol>
+<li><strong>装饰者模式</strong>：动态的将新功能附加到对象上。在对象功能扩展方面，它比继承更有弹性，<strong>装饰者模式也体现了开闭原则（OCP）</strong></li>
+<li>这里提到的动态的将新功能附加到对象和OCP原则，在后面的应用实例上会以代码的形式体现，请读者注意。</li>
+</ol>
+<h5 id="装饰者模式原理">装饰者模式原理</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png" title="原理图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png" data-sub-html="<h2>原理图</h2><p>原理图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png" />
+    </a><figcaption class="image-caption">原理图</figcaption>
+    </figure></p>
+<ol>
+<li>装饰者模式就像打包一个快递</li>
+</ol>
+<p>主体：比如：陶瓷、衣服（Component） //被装饰者</p>
+<p>包装：比如：报纸填充、塑料泡沫、纸板、木板（Decorator）</p>
+<ol start="2">
+<li>Component主体：比如类似前面的Drink</li>
+<li>ConcreteComponent：具体的主体，比如前面各个单品咖啡</li>
+<li>Decorator：装饰者，比如各种调料</li>
+</ol>
+<p>如图中Component与ConcreteComponent之间，如果ConcreteComponent类很多，还可以设计一个缓冲层，将共有的部分提取出来，抽象层一个类</p>
+<h5 id="装饰者模式解决咖啡订单">装饰者模式解决咖啡订单</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png" title="装饰者模式解决咖啡订单" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png" data-sub-html="<h2>装饰者模式解决咖啡订单</h2><p>装饰者模式解决咖啡订单</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png" />
+    </a><figcaption class="image-caption">装饰者模式解决咖啡订单</figcaption>
+    </figure></p>
+<p><strong>说明：</strong></p>
+<ol>
+<li>Drink 类就是前面说的抽象类，Component</li>
+<li>ShortBlack 就是单品咖啡</li>
+<li>Decorator是一个装饰类，含有一个被装饰的对象（Drink obj）</li>
+<li>Decorator的cost方法进行一个费用的叠加计算，递归的计算价格</li>
+</ol>
+<p>装饰者模式下的订单：2份巧克力+1份牛奶的LongBlack</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png" title="装饰者模式下的订单" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png" data-sub-html="<h2>装饰者模式下的订单</h2><p>装饰者模式下的订单</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png" />
+    </a><figcaption class="image-caption">装饰者模式下的订单</figcaption>
+    </figure></p>
+<p><strong>说明：</strong></p>
+<ol>
+<li>Milk包含了LongBlack</li>
+<li>一份Chocolate包含了（Milk+LongBlack）</li>
+<li>一份Chocolate包含了（Chocolate+Milk+LongBlack）</li>
+<li>这样是不管什么形式的单品咖啡+调料组合，通过递归方式可以方便的组合和维护</li>
+</ol>
+<h5 id="装饰者模式咖啡订单应用实例">装饰者模式咖啡订单应用实例</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Drink</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="n">des</span><span class="o">;</span> <span class="c1">// 描述
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="kt">float</span> <span class="n">price</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getDes</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">des</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDes</span><span class="o">(</span><span class="n">String</span> <span class="n">des</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">des</span> <span class="o">=</span> <span class="n">des</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">float</span> <span class="nf">getPrice</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">price</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPrice</span><span class="o">(</span><span class="kt">float</span> <span class="n">price</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//计算费用的抽象方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//子类来实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">float</span> <span class="nf">cost</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Coffee</span>  <span class="kd">extends</span> <span class="n">Drink</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">float</span> <span class="nf">cost</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">getPrice</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeCaf</span> <span class="kd">extends</span> <span class="n">Coffee</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">DeCaf</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; 无因咖啡 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">1.0f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Decorator</span> <span class="kd">extends</span> <span class="n">Drink</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">Drink</span> <span class="n">obj</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">Decorator</span><span class="o">(</span><span class="n">Drink</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span> <span class="c1">//组合
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">// TODO Auto-generated constructor stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">this</span><span class="o">.</span><span class="na">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">float</span> <span class="nf">cost</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">// getPrice 自己价格
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">getPrice</span><span class="o">()</span> <span class="o">+</span> <span class="n">obj</span><span class="o">.</span><span class="na">cost</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getDes</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">// obj.getDes() 输出被装饰者的信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="n">des</span> <span class="o">+</span> <span class="s">&#34; &#34;</span> <span class="o">+</span> <span class="n">getPrice</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34; &amp;&amp; &#34;</span> <span class="o">+</span> <span class="n">obj</span><span class="o">.</span><span class="na">getDes</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Espresso</span> <span class="kd">extends</span> <span class="n">Coffee</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">Espresso</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; 意大利咖啡 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">6.0f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//具体的Decorator， 这里就是调味品
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Chocolate</span> <span class="kd">extends</span> <span class="n">Decorator</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">Chocolate</span><span class="o">(</span><span class="n">Drink</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; 巧克力 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">3.0f</span><span class="o">);</span> <span class="c1">// 调味品 的价格
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LongBlack</span> <span class="kd">extends</span> <span class="n">Coffee</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">LongBlack</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; longblack &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">5.0f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShortBlack</span> <span class="kd">extends</span> <span class="n">Coffee</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">ShortBlack</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; shortblack &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">4.0f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Milk</span> <span class="kd">extends</span> <span class="n">Decorator</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">Milk</span><span class="o">(</span><span class="n">Drink</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated constructor stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; 牛奶 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">2.0f</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Soy</span> <span class="kd">extends</span> <span class="n">Decorator</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">Soy</span><span class="o">(</span><span class="n">Drink</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated constructor stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; Soy  &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">1.5f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CoffeeBar</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">// 装饰者模式下的订单：2份巧克力+一份牛奶的LongBlack
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 1. 点一份 LongBlack
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Drink</span> <span class="n">order</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LongBlack</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;费用1=&#34;</span> <span class="o">+</span> <span class="n">order</span><span class="o">.</span><span class="na">cost</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;描述=&#34;</span> <span class="o">+</span> <span class="n">order</span><span class="o">.</span><span class="na">getDes</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 2. order 加入一份牛奶
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">order</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Milk</span><span class="o">(</span><span class="n">order</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;order 加入一份牛奶 费用 =&#34;</span> <span class="o">+</span> <span class="n">order</span><span class="o">.</span><span class="na">cost</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;order 加入一份牛奶 描述 = &#34;</span> <span class="o">+</span> <span class="n">order</span><span class="o">.</span><span class="na">getDes</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 3. order 加入一份巧克力
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">		<span class="n">order</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Chocolate</span><span class="o">(</span><span class="n">order</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;order 加入一份牛奶 加入一份巧克力  费用 =&#34;</span> <span class="o">+</span> <span class="n">order</span><span class="o">.</span><span class="na">cost</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;order 加入一份牛奶 加入一份巧克力 描述 = &#34;</span> <span class="o">+</span> <span class="n">order</span><span class="o">.</span><span class="na">getDes</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 3. order 加入一份巧克力
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">		<span class="n">order</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Chocolate</span><span class="o">(</span><span class="n">order</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;order 加入一份牛奶 加入2份巧克力   费用 =&#34;</span> <span class="o">+</span> <span class="n">order</span><span class="o">.</span><span class="na">cost</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;order 加入一份牛奶 加入2份巧克力 描述 = &#34;</span> <span class="o">+</span> <span class="n">order</span><span class="o">.</span><span class="na">getDes</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;===========================&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">Drink</span> <span class="n">order2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DeCaf</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;order2 无因咖啡  费用 =&#34;</span> <span class="o">+</span> <span class="n">order2</span><span class="o">.</span><span class="na">cost</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;order2 无因咖啡 描述 = &#34;</span> <span class="o">+</span> <span class="n">order2</span><span class="o">.</span><span class="na">getDes</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">order2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Milk</span><span class="o">(</span><span class="n">order2</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;order2 无因咖啡 加入一份牛奶  费用 =&#34;</span> <span class="o">+</span> <span class="n">order2</span><span class="o">.</span><span class="na">cost</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;order2 无因咖啡 加入一份牛奶 描述 = &#34;</span> <span class="o">+</span> <span class="n">order2</span><span class="o">.</span><span class="na">getDes</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="装饰者模式在jdk应用的源码分析">装饰者模式在JDK应用的源码分析</h4>
+<p><strong>Java的IO结构，FileInputStream就是一个装饰者</strong></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png" title="FileInputStream" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png" data-sub-html="<h2>FileInputStream</h2><p>FileInputStream</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png" />
+    </a><figcaption class="image-caption">FileInputStream</figcaption>
+    </figure></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.DataInputStream</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.FileInputStream</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Decorator</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
+</span></span><span class="line"><span class="cl">		<span class="c1">//说明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//1. InputStream 是抽象类, 类似我们前面讲的 Drink
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//2. FileInputStream 是  InputStream 子类，类似我们前面的 DeCaf, LongBlack
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//3. FilterInputStream  是  InputStream 子类：类似我们前面 的 Decorator 修饰者
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//4. DataInputStream 是 FilterInputStream 子类，具体的修饰者，类似前面的 Milk, Soy 等
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//5. FilterInputStream 类 有  protected volatile InputStream in; 即含被装饰者
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//6. 分析得出在jdk 的io体系中，就是使用装饰者模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
+</span></span><span class="line"><span class="cl">		<span class="n">DataInputStream</span> <span class="n">dis</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DataInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">&#34;d:\\abc.txt&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">dis</span><span class="o">.</span><span class="na">read</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="n">dis</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="组合模式">组合模式</h3></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

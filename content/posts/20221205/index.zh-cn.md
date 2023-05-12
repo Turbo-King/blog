@@ -3351,7 +3351,7 @@ public class Driver extends NonRegisteringDriver implements java.sql.Driver {
 
 ![咖啡订单解决方案一](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2011.34.39-20230509113642796.png "咖啡订单解决方案一")
 
-方案一问题分析
+**方案一问题分析**
 
 1. Drink是一个抽象类，表示饮料
 2. des就是对咖啡的描述，比如咖啡的名字
@@ -3359,7 +3359,321 @@ public class Driver extends NonRegisteringDriver implements java.sql.Driver {
 4. Decaf就是单品咖啡，继承Drink，并实现cost方法
 5. Espress && Milk 就是单品咖啡+调料，这个组合很多
 
-问题：这样设计会有很多类，当我们增加一个单品咖啡或者一个新的调料，类的数量就会倍增，就会出现类爆炸
+**问题：这样设计会有很多类，当我们增加一个单品咖啡或者一个新的调料，类的数量就会倍增，就会出现类爆炸**
+
+##### 解决方案二
+
+前面分析到方案一因为咖啡单品+调料组合会造成类的倍增，因此可以做改进，将调料内置到Drink类，这样就不会造成类数量过多。从而提高项目的维护性（如下图）
+
+![咖啡馆解决方案二](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png "咖啡馆解决方案二")
+
+**说明：**milk，soy，chocolate 可以设计为Boolean，表示是否要添加相应的调料
+
+**方案二分析**
+
+1. 方案二可以控制类的数量，不至于造成很多的类
+2. 在增加或者删除调料种类时，代码的维护量很大
+3. 考虑到用户可以添加多份调料时，可以将hasMIlk返回一个对应的int
+4. 考虑使用**装饰者模式**
+
+#### 装饰者模式
+
+##### 基本介绍
+
+1. **装饰者模式**：动态的将新功能附加到对象上。在对象功能扩展方面，它比继承更有弹性，**装饰者模式也体现了开闭原则（OCP）**
+2. 这里提到的动态的将新功能附加到对象和OCP原则，在后面的应用实例上会以代码的形式体现，请读者注意。
+
+##### 装饰者模式原理
+
+![原理图](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png "原理图")
+
+1. 装饰者模式就像打包一个快递
+
+主体：比如：陶瓷、衣服（Component） //被装饰者
+
+包装：比如：报纸填充、塑料泡沫、纸板、木板（Decorator）
+
+2. Component主体：比如类似前面的Drink
+3. ConcreteComponent：具体的主体，比如前面各个单品咖啡
+4. Decorator：装饰者，比如各种调料
+
+如图中Component与ConcreteComponent之间，如果ConcreteComponent类很多，还可以设计一个缓冲层，将共有的部分提取出来，抽象层一个类
+
+##### 装饰者模式解决咖啡订单
+
+![装饰者模式解决咖啡订单](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png "装饰者模式解决咖啡订单")
+
+**说明：**
+
+1. Drink 类就是前面说的抽象类，Component
+2. ShortBlack 就是单品咖啡
+3. Decorator是一个装饰类，含有一个被装饰的对象（Drink obj）
+4. Decorator的cost方法进行一个费用的叠加计算，递归的计算价格
+
+装饰者模式下的订单：2份巧克力+1份牛奶的LongBlack
+
+![装饰者模式下的订单](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png "装饰者模式下的订单")
+
+**说明：**
+
+1. Milk包含了LongBlack
+2. 一份Chocolate包含了（Milk+LongBlack）
+3. 一份Chocolate包含了（Chocolate+Milk+LongBlack）
+4. 这样是不管什么形式的单品咖啡+调料组合，通过递归方式可以方便的组合和维护
+
+##### 装饰者模式咖啡订单应用实例
+
+```java
+public abstract class Drink {
+
+	public String des; // 描述
+	private float price = 0.0f;
+	public String getDes() {
+		return des;
+	}
+	public void setDes(String des) {
+		this.des = des;
+	}
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(float price) {
+		this.price = price;
+	}
+	
+	//计算费用的抽象方法
+	//子类来实现
+	public abstract float cost();
+	
+}
+
+
+
+
+public class Coffee  extends Drink {
+
+	@Override
+	public float cost() {
+		// TODO Auto-generated method stub
+		return super.getPrice();
+	}
+
+	
+}
+
+
+
+
+public class DeCaf extends Coffee {
+
+	public DeCaf() {
+		setDes(" 无因咖啡 ");
+		setPrice(1.0f);
+	}
+}
+
+
+
+
+public class Decorator extends Drink {
+	private Drink obj;
+	
+	public Decorator(Drink obj) { //组合
+		// TODO Auto-generated constructor stub
+		this.obj = obj;
+	}
+	
+	@Override
+	public float cost() {
+		// TODO Auto-generated method stub
+		// getPrice 自己价格
+		return super.getPrice() + obj.cost();
+	}
+	
+	@Override
+	public String getDes() {
+		// TODO Auto-generated method stub
+		// obj.getDes() 输出被装饰者的信息
+		return des + " " + getPrice() + " && " + obj.getDes();
+	}
+	
+	
+
+}
+
+
+
+
+public class Espresso extends Coffee {
+	
+	public Espresso() {
+		setDes(" 意大利咖啡 ");
+		setPrice(6.0f);
+	}
+}
+
+
+
+
+//具体的Decorator， 这里就是调味品
+public class Chocolate extends Decorator {
+
+	public Chocolate(Drink obj) {
+		super(obj);
+		setDes(" 巧克力 ");
+		setPrice(3.0f); // 调味品 的价格
+	}
+
+}
+
+
+
+
+public class LongBlack extends Coffee {
+
+	public LongBlack() {
+		setDes(" longblack ");
+		setPrice(5.0f);
+	}
+}
+
+
+
+public class ShortBlack extends Coffee{
+	
+	public ShortBlack() {
+		setDes(" shortblack ");
+		setPrice(4.0f);
+	}
+}
+
+
+
+
+public class Milk extends Decorator {
+
+	public Milk(Drink obj) {
+		super(obj);
+		// TODO Auto-generated constructor stub
+		setDes(" 牛奶 ");
+		setPrice(2.0f); 
+	}
+
+}
+
+
+
+public class Soy extends Decorator{
+
+	public Soy(Drink obj) {
+		super(obj);
+		// TODO Auto-generated constructor stub
+		setDes(" Soy  ");
+		setPrice(1.5f);
+	}
+
+}
+
+
+
+
+public class CoffeeBar {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// 装饰者模式下的订单：2份巧克力+一份牛奶的LongBlack
+
+		// 1. 点一份 LongBlack
+		Drink order = new LongBlack();
+		System.out.println("费用1=" + order.cost());
+		System.out.println("描述=" + order.getDes());
+
+		// 2. order 加入一份牛奶
+		order = new Milk(order);
+
+		System.out.println("order 加入一份牛奶 费用 =" + order.cost());
+		System.out.println("order 加入一份牛奶 描述 = " + order.getDes());
+
+		// 3. order 加入一份巧克力
+
+		order = new Chocolate(order);
+
+		System.out.println("order 加入一份牛奶 加入一份巧克力  费用 =" + order.cost());
+		System.out.println("order 加入一份牛奶 加入一份巧克力 描述 = " + order.getDes());
+
+		// 3. order 加入一份巧克力
+
+		order = new Chocolate(order);
+
+		System.out.println("order 加入一份牛奶 加入2份巧克力   费用 =" + order.cost());
+		System.out.println("order 加入一份牛奶 加入2份巧克力 描述 = " + order.getDes());
+	
+		System.out.println("===========================");
+		
+		Drink order2 = new DeCaf();
+		
+		System.out.println("order2 无因咖啡  费用 =" + order2.cost());
+		System.out.println("order2 无因咖啡 描述 = " + order2.getDes());
+		
+		order2 = new Milk(order2);
+		
+		System.out.println("order2 无因咖啡 加入一份牛奶  费用 =" + order2.cost());
+		System.out.println("order2 无因咖啡 加入一份牛奶 描述 = " + order2.getDes());
+
+	
+	}
+
+}
+
+```
+
+#### 装饰者模式在JDK应用的源码分析
+
+**Java的IO结构，FileInputStream就是一个装饰者**
+
+![FileInputStream](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png "FileInputStream")
+
+```java
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+public class Decorator {
+
+	public static void main(String[] args) throws Exception{
+		// TODO Auto-generated method stub
+		
+		//说明
+		//1. InputStream 是抽象类, 类似我们前面讲的 Drink
+		//2. FileInputStream 是  InputStream 子类，类似我们前面的 DeCaf, LongBlack
+		//3. FilterInputStream  是  InputStream 子类：类似我们前面 的 Decorator 修饰者
+		//4. DataInputStream 是 FilterInputStream 子类，具体的修饰者，类似前面的 Milk, Soy 等
+		//5. FilterInputStream 类 有  protected volatile InputStream in; 即含被装饰者
+		//6. 分析得出在jdk 的io体系中，就是使用装饰者模式
+		
+		DataInputStream dis = new DataInputStream(new FileInputStream("d:\\abc.txt"));
+		System.out.println(dis.read());
+		dis.close();
+	}
+
+}
+```
+
+### 组合模式
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
