@@ -14,7 +14,7 @@ publishdir = "docs"
 # 网站标题
 title = "Turbo-King Blog"
 # 网站关键词
-keywords = "Turbo-King,TurboBlog,阿豪,阿豪博客,Turbo,Blog"
+keywords = "Turbo-King,TurboBlog,阿豪,阿豪博客,Turbo,Blog,魏志豪"
 
 # whether to use robots.txt
 # 是否使用 robots.txt
@@ -714,10 +714,10 @@ enableEmoji = true
     hiddenFromSearch = false
     # whether to enable twemoji
     # 是否使用 twemoji
-    twemoji = false
+    twemoji = true
     # whether to enable lightgallery
     # 是否使用 lightgallery
-    lightgallery = false
+    lightgallery = true
     # whether to enable the ruby extended syntax
     # 是否使用 ruby 扩展语法
     ruby = true
@@ -729,7 +729,7 @@ enableEmoji = true
     fontawesome = true
     # whether to show link to Raw Markdown content of the content
     # 是否显示原始 Markdown 文档内容的链接
-    linkToMarkdown = true
+    linkToMarkdown = false
     # whether to show the full text content in RSS
     # 是否在 RSS 中显示全文内容
     rssFullText = false
@@ -1014,10 +1014,10 @@ enableEmoji = true
   [params.compatibility]
     # whether to use Polyfill.io to be compatible with older browsers
     # 是否使用 Polyfill.io 来兼容旧式浏览器
-    polyfill = false
+    polyfill = true
     # whether to use object-fit-images to be compatible with older browsers
     # 是否使用 object-fit-images 来兼容旧式浏览器
-    objectFit = false
+    objectFit = true
 
 # Markup related configuration in Hugo
 # Hugo 解析文档的配置

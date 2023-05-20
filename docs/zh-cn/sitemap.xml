@@ -2,96 +2,96 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://turbo-king.github.io/blog/20230519/</loc><lastmod>2023-05-19T16:13:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://turbo-king.github.io/blog/20230519_lambda/</loc><lastmod>2023-05-19T16:13:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20230519/"
+                        href="https://turbo-king.github.io/blog/en/20230519_lambda/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20230519/"
+                        href="https://turbo-king.github.io/blog/fr/20230519_lambda/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20230519/"
+                    href="https://turbo-king.github.io/blog/20230519_lambda/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/20230515/</loc><lastmod>2023-05-15T21:33:35&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://turbo-king.github.io/blog/20230515_code/</loc><lastmod>2023-05-15T21:33:35&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20230515/"
+                        href="https://turbo-king.github.io/blog/en/20230515_code/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20230515/"
+                        href="https://turbo-king.github.io/blog/fr/20230515_code/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20230515/"
+                    href="https://turbo-king.github.io/blog/20230515_code/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/20230503/</loc><lastmod>2023-05-03T14:39:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+            <loc>https://turbo-king.github.io/blog/20230503_colony/</loc><lastmod>2023-05-03T14:39:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20230503/"
+                        href="https://turbo-king.github.io/blog/en/20230503_colony/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20230503/"
+                        href="https://turbo-king.github.io/blog/fr/20230503_colony/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20230503/"
+                    href="https://turbo-king.github.io/blog/20230503_colony/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/20221205/</loc><lastmod>2022-12-05T08:53:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://turbo-king.github.io/blog/20221205_designpatterns/</loc><lastmod>2022-12-05T08:53:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20221205/"
+                        href="https://turbo-king.github.io/blog/en/20221205_designpatterns/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20221205/"
+                        href="https://turbo-king.github.io/blog/fr/20221205_designpatterns/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20221205/"
+                    href="https://turbo-king.github.io/blog/20221205_designpatterns/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/20220919/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://turbo-king.github.io/blog/markdown/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20220919/"
+                        href="https://turbo-king.github.io/blog/en/markdown/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20220919/"
+                        href="https://turbo-king.github.io/blog/fr/markdown/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20220919/"
+                    href="https://turbo-king.github.io/blog/markdown/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/20220831/</loc><lastmod>2022-08-31T08:40:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://turbo-king.github.io/blog/20220831_sqlserver/</loc><lastmod>2022-08-31T08:40:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20220831/"
+                        href="https://turbo-king.github.io/blog/en/20220831_sqlserver/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20220831/"
+                        href="https://turbo-king.github.io/blog/fr/20220831_sqlserver/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20220831/"
+                    href="https://turbo-king.github.io/blog/20220831_sqlserver/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/20220813/</loc><lastmod>2022-08-13T18:31:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://turbo-king.github.io/blog/20220813_route/</loc><lastmod>2022-08-13T18:31:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20220813/"
+                        href="https://turbo-king.github.io/blog/en/20220813_route/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20220813/"
+                        href="https://turbo-king.github.io/blog/fr/20220813_route/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20220813/"
+                    href="https://turbo-king.github.io/blog/20220813_route/"
                     /></url><url>
             <loc>https://turbo-king.github.io/blog/20220807/</loc><lastmod>2022-08-07T18:19:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
@@ -145,6 +145,19 @@
                     hreflang="zh-cn"
                     href="https://turbo-king.github.io/blog/tags/java/"
                     /></url><url>
+            <loc>https://turbo-king.github.io/blog/categories/java/</loc><lastmod>2023-05-19T16:13:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="https://turbo-king.github.io/blog/en/categories/java/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://turbo-king.github.io/blog/fr/categories/java/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh-cn"
+                    href="https://turbo-king.github.io/blog/categories/java/"
+                    /></url><url>
             <loc>https://turbo-king.github.io/blog/tags/lambda/</loc><lastmod>2023-05-19T16:13:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
@@ -157,19 +170,6 @@
                     rel="alternate"
                     hreflang="zh-cn"
                     href="https://turbo-king.github.io/blog/tags/lambda/"
-                    /></url><url>
-            <loc>https://turbo-king.github.io/blog/categories/markdown/</loc><lastmod>2023-05-19T16:13:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/categories/markdown/"
-                        /><xhtml:link
-                        rel="alternate"
-                        hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/categories/markdown/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/categories/markdown/"
                     /></url><url>
             <loc>https://turbo-king.github.io/blog/posts/</loc><lastmod>2023-05-19T16:13:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
@@ -262,6 +262,19 @@
                     hreflang="zh-cn"
                     href="https://turbo-king.github.io/blog/tags/redis/"
                     /></url><url>
+            <loc>https://turbo-king.github.io/blog/categories/redis/</loc><lastmod>2023-05-03T14:39:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="https://turbo-king.github.io/blog/en/categories/redis/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://turbo-king.github.io/blog/fr/categories/redis/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh-cn"
+                    href="https://turbo-king.github.io/blog/categories/redis/"
+                    /></url><url>
             <loc>https://turbo-king.github.io/blog/tags/coding/</loc><lastmod>2022-12-05T08:53:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
@@ -288,6 +301,19 @@
                     hreflang="zh-cn"
                     href="https://turbo-king.github.io/blog/tags/principle/"
                     /></url><url>
+            <loc>https://turbo-king.github.io/blog/categories/technology/</loc><lastmod>2022-12-05T08:53:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="https://turbo-king.github.io/blog/en/categories/technology/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://turbo-king.github.io/blog/fr/categories/technology/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh-cn"
+                    href="https://turbo-king.github.io/blog/categories/technology/"
+                    /></url><url>
             <loc>https://turbo-king.github.io/blog/tags/grammar/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
@@ -313,6 +339,19 @@
                     rel="alternate"
                     hreflang="zh-cn"
                     href="https://turbo-king.github.io/blog/tags/html/"
+                    /></url><url>
+            <loc>https://turbo-king.github.io/blog/categories/hugo/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="https://turbo-king.github.io/blog/en/categories/hugo/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://turbo-king.github.io/blog/fr/categories/hugo/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh-cn"
+                    href="https://turbo-king.github.io/blog/categories/hugo/"
                     /></url><url>
             <loc>https://turbo-king.github.io/blog/tags/markdown/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
@@ -417,6 +456,19 @@
                     rel="alternate"
                     hreflang="zh-cn"
                     href="https://turbo-king.github.io/blog/tags/daily/"
+                    /></url><url>
+            <loc>https://turbo-king.github.io/blog/categories/daily/</loc><lastmod>2022-08-07T18:19:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="https://turbo-king.github.io/blog/en/categories/daily/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://turbo-king.github.io/blog/fr/categories/daily/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh-cn"
+                    href="https://turbo-king.github.io/blog/categories/daily/"
                     /></url><url>
             <loc>https://turbo-king.github.io/blog/tags/emoji/</loc><lastmod>2021-07-01T17:55:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"

@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Redis集群 - Turbo-King Blog</title><meta name="keywords" content="[Turbo-King Blog weizhihao ahao 阿豪]">
+
+<meta name="Description" content="Redis集群"><meta property="og:title" content="Redis集群" />
+<meta property="og:description" content="Redis集群" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://turbo-king.github.io/blog/fr/20230503_colony/" /><meta property="og:image" content="https://turbo-king.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-05-03T14:39:48+08:00" />
+<meta property="article:modified_time" content="2023-05-03T14:39:48+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://turbo-king.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Redis集群"/>
+<meta name="twitter:description" content="Redis集群"/>
+<meta name="application-name" content="Turbo-King">
+<meta name="apple-mobile-web-app-title" content="Turbo-King"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://turbo-king.github.io/blog/fr/20230503_colony/" /><link rel="prev" href="https://turbo-king.github.io/blog/fr/20221205_designpatterns/" /><link rel="next" href="https://turbo-king.github.io/blog/fr/20230515_code/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Redis集群",
+        "inLanguage": "fr",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/turbo-king.github.io\/blog\/fr\/20230503_colony\/"
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Redis, Java, NoSQL","wordcount":  818 ,
+        "url": "https:\/\/turbo-king.github.io\/blog\/fr\/20230503_colony\/","datePublished": "2023-05-03T14:39:48+08:00","dateModified": "2023-05-03T14:39:48+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
+                "@type": "Person",
+                "name": "Turbo-King"
+            },"description": "Redis集群"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/fr/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/fr/posts/" title="Postes"> Postes </a><a class="menu-item" href="/blog/fr/tags/" title="Balises"> Balises </a><a class="menu-item" href="/blog/fr/categories/" title="Catégories"> Catégories </a><a class="menu-item" href="/about/" title="Turbo-King"> À propos </a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Rechercher des titres, des contenus..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Chercher">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clair">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Changer de Thème">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Choisir la langue">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/en/20230503_colony/">English</option><option value="/blog/20230503_colony/">简体中文</option><option value="/blog/fr/20230503_colony/" selected>Français</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/fr/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Rechercher des titres, des contenus..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Chercher">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clair">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Annuler
+                    </a>
+                </div><a class="menu-item" href="/blog/fr/posts/" title="Postes">Postes</a><a class="menu-item" href="/blog/fr/tags/" title="Balises">Balises</a><a class="menu-item" href="/blog/fr/categories/" title="Catégories">Catégories</a><a class="menu-item" href="/about/" title="Turbo-King">À propos</a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Changer de Thème">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Choisir la langue">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/en/20230503_colony/">English</option><option value="/blog/20230503_colony/">简体中文</option><option value="/blog/fr/20230503_colony/" selected>Français</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contenu</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Redis集群</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">inclus dans <a href="/blog/fr/categories/redis/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Redis</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-03">2023-05-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;818 mots&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/redis.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/redis.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/redis.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/redis.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/redis.png"
+        title="Redis集群" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contenu</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#redis主从集群">Redis主从集群</a>
+      <ul>
+        <li><a href="#集群结构">集群结构</a></li>
+        <li><a href="#准备实例和配置">准备实例和配置</a></li>
+        <li><a href="#启动">启动</a></li>
+        <li><a href="#开启主从关系">开启主从关系</a></li>
+        <li><a href="#测试">测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#搭建哨兵集群">搭建哨兵集群</a>
+      <ul>
+        <li><a href="#集群结构-1">集群结构</a></li>
+        <li><a href="#准备实例和配置-1">准备实例和配置</a></li>
+        <li><a href="#启动-1">启动</a></li>
+        <li><a href="#测试-1">测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#搭建分片集群">搭建分片集群</a>
+      <ul>
+        <li><a href="#集群结构-2">集群结构</a></li>
+        <li><a href="#准备实例和配置-2">准备实例和配置</a></li>
+        <li><a href="#启动-2">启动</a></li>
+        <li><a href="#创建集群">创建集群</a></li>
+        <li><a href="#测试-2">测试</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Redis集群搭建</p>
+<blockquote>
+<p>Redis 是一个高性能的开源键值存储数据库，它支持多种数据结构，如字符串、哈希、列表、集合和有序集合。它的出色性能和易于使用的特性，使得 Redis 成为了许多应用程序的首选数据存储方案。然而，随着业务的增长，单节点 Redis 可能会面临诸如存储容量、读写性能等方面的限制。为了解决这些问题，Redis 提供了集群模式，使得用户可以通过水平扩展的方式来横向扩展 Redis 的性能和存储能力。在本此内容中，我 将介绍Redis 集群的几种部署方法，帮助读者了解如何使用 Redis 集群来满足业务需求，提高应用程序的性能和可扩展性。</p>
+</blockquote>
+<h2 id="redis主从集群">Redis主从集群</h2>
+<h3 id="集群结构">集群结构</h3>
+<p>我们搭建的主从集群结构如图：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png" title="主从集群结构" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png" data-sub-html="<h2>主从集群结构</h2><p>主从集群结构</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png" />
+    </a><figcaption class="image-caption">主从集群结构</figcaption>
+    </figure></p>
+<p>共包含三个节点，一个主节点，两个从节点。</p>
+<p>这里我们会在同一台虚拟机中开启3个redis实例，模拟主从集群，信息如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">IP</th>
+<th style="text-align:center">PORT</th>
+<th style="text-align:center">角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">192.168.150.101</td>
+<td style="text-align:center">7001</td>
+<td style="text-align:center">master</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.150.101</td>
+<td style="text-align:center">7002</td>
+<td style="text-align:center">slave</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.150.101</td>
+<td style="text-align:center">7003</td>
+<td style="text-align:center">slave</td>
+</tr>
+</tbody>
+</table>
+<h3 id="准备实例和配置">准备实例和配置</h3>
+<p>要在同一台虚拟机开启3个实例，必须准备三份不同的配置文件和目录，配置文件所在目录也就是工作目录。</p>
+<p>1）创建目录</p>
+<p>我们创建三个文件夹，名字分别叫7001、7002、7003：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 进入/tmp目录</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /tmp
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建目录</span>
+</span></span><span class="line"><span class="cl">mkdir <span class="m">7001</span> <span class="m">7002</span> <span class="m">7003</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如图：</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630113929868.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630113929868.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630113929868.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630113929868.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630113929868.png"
+        title="image-20210630113929868" /></p>
+<p>2）恢复原始配置</p>
+<p>修改redis-6.2.4/redis.conf文件，将其中的持久化模式改为默认的RDB模式，AOF保持关闭状态。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-properties" data-lang="properties"><span class="line"><span class="cl"><span class="c1"># 开启RDB</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># save &#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">save</span> <span class="s">3600 1</span>
+</span></span><span class="line"><span class="cl"><span class="na">save</span> <span class="s">300 100</span>
+</span></span><span class="line"><span class="cl"><span class="na">save</span> <span class="s">60 10000</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 关闭AOF</span>
+</span></span><span class="line"><span class="cl"><span class="na">appendonly</span> <span class="s">no</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3）拷贝配置文件到每个实例目录</p>
+<p>然后将redis-6.2.4/redis.conf文件拷贝到三个目录中（在/tmp目录执行下列命令）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 方式一：逐个拷贝</span>
+</span></span><span class="line"><span class="cl">cp redis-6.2.4/redis.conf <span class="m">7001</span>
+</span></span><span class="line"><span class="cl">cp redis-6.2.4/redis.conf <span class="m">7002</span>
+</span></span><span class="line"><span class="cl">cp redis-6.2.4/redis.conf <span class="m">7003</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 方式二：管道组合命令，一键拷贝</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="m">7001</span> <span class="m">7002</span> <span class="m">7003</span> <span class="p">|</span> xargs -t -n <span class="m">1</span> cp redis-6.2.4/redis.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>4）修改每个实例的端口、工作目录</p>
+<p>修改每个文件夹内的配置文件，将端口分别修改为7001、7002、7003，将rdb文件保存位置都修改为自己所在目录（在/tmp目录执行下列命令）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sed -i -e <span class="s1">&#39;s/6379/7001/g&#39;</span> -e <span class="s1">&#39;s/dir .\//dir \/tmp\/7001\//g&#39;</span> 7001/redis.conf
+</span></span><span class="line"><span class="cl">sed -i -e <span class="s1">&#39;s/6379/7002/g&#39;</span> -e <span class="s1">&#39;s/dir .\//dir \/tmp\/7002\//g&#39;</span> 7002/redis.conf
+</span></span><span class="line"><span class="cl">sed -i -e <span class="s1">&#39;s/6379/7003/g&#39;</span> -e <span class="s1">&#39;s/dir .\//dir \/tmp\/7003\//g&#39;</span> 7003/redis.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>5）修改每个实例的声明IP</p>
+<p>虚拟机本身有多个IP，为了避免将来混乱，我们需要在redis.conf文件中指定每一个实例的绑定ip信息，格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-properties" data-lang="properties"><span class="line"><span class="cl"><span class="c1"># redis实例的声明 IP</span>
+</span></span><span class="line"><span class="cl"><span class="na">replica-announce-ip</span> <span class="s">192.168.150.101</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>每个目录都要改，我们一键完成修改（在/tmp目录执行下列命令）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 逐一执行</span>
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;1a replica-announce-ip 192.168.150.101&#39;</span> 7001/redis.conf
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;1a replica-announce-ip 192.168.150.101&#39;</span> 7002/redis.conf
+</span></span><span class="line"><span class="cl">sed -i <span class="s1">&#39;1a replica-announce-ip 192.168.150.101&#39;</span> 7003/redis.conf
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 或者一键修改</span>
+</span></span><span class="line"><span class="cl"><span class="nb">printf</span> <span class="s1">&#39;%s\n&#39;</span> <span class="m">7001</span> <span class="m">7002</span> <span class="m">7003</span> <span class="p">|</span> xargs -I<span class="o">{}</span> -t sed -i <span class="s1">&#39;1a replica-announce-ip 192.168.150.101&#39;</span> <span class="o">{}</span>/redis.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="启动">启动</h3>
+<p>为了方便查看日志，我们打开3个ssh窗口，分别启动3个redis实例，启动命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 第1个</span>
+</span></span><span class="line"><span class="cl">redis-server 7001/redis.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># 第2个</span>
+</span></span><span class="line"><span class="cl">redis-server 7002/redis.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># 第3个</span>
+</span></span><span class="line"><span class="cl">redis-server 7003/redis.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动后：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png" title="redis集群启动" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png" data-sub-html="<h2>redis集群启动</h2><p>redis集群启动</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png" />
+    </a><figcaption class="image-caption">redis集群启动</figcaption>
+    </figure></p>
+<p>如果要一键停止，可以运行下面命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">printf</span> <span class="s1">&#39;%s\n&#39;</span> <span class="m">7001</span> <span class="m">7002</span> <span class="m">7003</span> <span class="p">|</span> xargs -I<span class="o">{}</span> -t redis-cli -p <span class="o">{}</span> shutdown
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="开启主从关系">开启主从关系</h3>
+<p>现在三个实例还没有任何关系，要配置主从可以使用replicaof 或者slaveof（5.0以前）命令。</p>
+<p>有临时和永久两种模式：</p>
+<ul>
+<li>
+<p>修改配置文件（永久生效）</p>
+<ul>
+<li>在redis.conf中添加一行配置：<code>slaveof &lt;masterip&gt; &lt;masterport&gt;</code></li>
+</ul>
+</li>
+<li>
+<p>使用redis-cli客户端连接到redis服务，执行slaveof命令（重启后失效）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">slaveof &lt;masterip&gt; &lt;masterport&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p><strong><font color='red'>注意</font></strong>：在5.0以后新增命令replicaof，与salveof效果一致。</p>
+<p>这里我们为了演示方便，使用方式二。</p>
+<p>通过redis-cli命令连接7002，执行下面命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 连接 7002</span>
+</span></span><span class="line"><span class="cl">redis-cli -p <span class="m">7002</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 执行slaveof</span>
+</span></span><span class="line"><span class="cl">slaveof 192.168.150.101 <span class="m">7001</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过redis-cli命令连接7003，执行下面命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 连接 7003</span>
+</span></span><span class="line"><span class="cl">redis-cli -p <span class="m">7003</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 执行slaveof</span>
+</span></span><span class="line"><span class="cl">slaveof 192.168.150.101 <span class="m">7001</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后连接 7001节点，查看集群状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 连接 7001</span>
+</span></span><span class="line"><span class="cl">redis-cli -p <span class="m">7001</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看状态</span>
+</span></span><span class="line"><span class="cl">info replication
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png" title="查看redis集群状态" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png" data-sub-html="<h2>查看redis集群状态</h2><p>查看redis集群状态</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png" />
+    </a><figcaption class="image-caption">查看redis集群状态</figcaption>
+    </figure></p>
+<h3 id="测试">测试</h3>
+<p>执行下列操作以测试：</p>
+<ul>
+<li>
+<p>利用redis-cli连接7001，执行<code>set num 123</code></p>
+</li>
+<li>
+<p>利用redis-cli连接7002，执行<code>get num</code>，再执行<code>set num 666</code></p>
+</li>
+<li>
+<p>利用redis-cli连接7003，执行<code>get num</code>，再执行<code>set num 888</code></p>
+</li>
+</ul>
+<p>可以发现，只有在7001这个master节点上可以执行写操作，7002和7003这两个slave节点只能执行读操作。</p>
+<h2 id="搭建哨兵集群">搭建哨兵集群</h2>
+<h3 id="集群结构-1">集群结构</h3>
+<p>这里我们搭建一个三节点形成的Sentinel集群，来监管之前的Redis主从集群。如图：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png" title="redis哨兵集群结构" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png" data-sub-html="<h2>redis哨兵集群结构</h2><p>redis哨兵集群结构</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png" />
+    </a><figcaption class="image-caption">redis哨兵集群结构</figcaption>
+    </figure></p>
+<p>三个sentinel实例信息如下：</p>
+<table>
+<thead>
+<tr>
+<th>节点</th>
+<th style="text-align:center">IP</th>
+<th style="text-align:center">PORT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s1</td>
+<td style="text-align:center">192.168.150.101</td>
+<td style="text-align:center">27001</td>
+</tr>
+<tr>
+<td>s2</td>
+<td style="text-align:center">192.168.150.101</td>
+<td style="text-align:center">27002</td>
+</tr>
+<tr>
+<td>s3</td>
+<td style="text-align:center">192.168.150.101</td>
+<td style="text-align:center">27003</td>
+</tr>
+</tbody>
+</table>
+<h3 id="准备实例和配置-1">准备实例和配置</h3>
+<p>要在同一台虚拟机开启3个实例，必须准备三份不同的配置文件和目录，配置文件所在目录也就是工作目录。</p>
+<p>我们创建三个文件夹，名字分别叫s1、s2、s3：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 进入/tmp目录</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /tmp
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建目录</span>
+</span></span><span class="line"><span class="cl">mkdir s1 s2 s3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如图：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png" title="准备实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png" data-sub-html="<h2>准备实例</h2><p>准备实例</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png" />
+    </a><figcaption class="image-caption">准备实例</figcaption>
+    </figure></p>
+<p>然后我们在s1目录创建一个sentinel.conf文件，添加下面的内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">port 27001</span>
+</span></span><span class="line"><span class="cl"><span class="na">sentinel announce-ip 192.168.150.101</span>
+</span></span><span class="line"><span class="cl"><span class="na">sentinel monitor mymaster 192.168.150.101 7001 2</span>
+</span></span><span class="line"><span class="cl"><span class="na">sentinel down-after-milliseconds mymaster 5000</span>
+</span></span><span class="line"><span class="cl"><span class="na">sentinel failover-timeout mymaster 60000</span>
+</span></span><span class="line"><span class="cl"><span class="na">dir &#34;/tmp/s1&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>解读：</p>
+<ul>
+<li><code>port 27001</code>：是当前sentinel实例的端口</li>
+<li><code>sentinel monitor mymaster 192.168.150.101 7001 2</code>：指定主节点信息
+<ul>
+<li><code>mymaster</code>：主节点名称，自定义，任意写</li>
+<li><code>192.168.150.101 7001</code>：主节点的ip和端口</li>
+<li><code>2</code>：选举master时的quorum值</li>
+</ul>
+</li>
+</ul>
+<p>然后将s1/sentinel.conf文件拷贝到s2、s3两个目录中（在/tmp目录执行下列命令）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 方式一：逐个拷贝</span>
+</span></span><span class="line"><span class="cl">cp s1/sentinel.conf s2
+</span></span><span class="line"><span class="cl">cp s1/sentinel.conf s3
+</span></span><span class="line"><span class="cl"><span class="c1"># 方式二：管道组合命令，一键拷贝</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> s2 s3 <span class="p">|</span> xargs -t -n <span class="m">1</span> cp s1/sentinel.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改s2、s3两个文件夹内的配置文件，将端口分别修改为27002、27003：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sed -i -e <span class="s1">&#39;s/27001/27002/g&#39;</span> -e <span class="s1">&#39;s/s1/s2/g&#39;</span> s2/sentinel.conf
+</span></span><span class="line"><span class="cl">sed -i -e <span class="s1">&#39;s/27001/27003/g&#39;</span> -e <span class="s1">&#39;s/s1/s3/g&#39;</span> s3/sentinel.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="启动-1">启动</h3>
+<p>为了方便查看日志，我们打开3个ssh窗口，分别启动3个redis实例，启动命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 第1个</span>
+</span></span><span class="line"><span class="cl">redis-sentinel s1/sentinel.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># 第2个</span>
+</span></span><span class="line"><span class="cl">redis-sentinel s2/sentinel.conf
+</span></span><span class="line"><span class="cl"><span class="c1"># 第3个</span>
+</span></span><span class="line"><span class="cl">redis-sentinel s3/sentinel.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动后：<figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png" title="哨兵集群启动" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png" data-sub-html="<h2>哨兵集群启动</h2><p>哨兵集群启动</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png" />
+    </a><figcaption class="image-caption">哨兵集群启动</figcaption>
+    </figure></p>
+<h3 id="测试-1">测试</h3>
+<p>尝试让master节点7001宕机，查看sentinel日志：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png" title="sentinel日志" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png" data-sub-html="<h2>sentinel日志</h2><p>sentinel日志</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png" />
+    </a><figcaption class="image-caption">sentinel日志</figcaption>
+    </figure></p>
+<p>查看7003的日志：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png" title="7003的日志" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png" data-sub-html="<h2>7003的日志</h2><p>7003的日志</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png" />
+    </a><figcaption class="image-caption">7003的日志</figcaption>
+    </figure></p>
+<p>查看7002的日志：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png" title="7002的日志" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png" data-sub-html="<h2>7002的日志</h2><p>7002的日志</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png" />
+    </a><figcaption class="image-caption">7002的日志</figcaption>
+    </figure></p>
+<h2 id="搭建分片集群">搭建分片集群</h2>
+<h3 id="集群结构-2">集群结构</h3>
+<p>分片集群需要的节点数量较多，这里我们搭建一个最小的分片集群，包含3个master节点，每个master包含一个slave节点，结构如下：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png" title="redis分片集群结构" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png" data-sub-html="<h2>redis分片集群结构</h2><p>redis分片集群结构</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png" />
+    </a><figcaption class="image-caption">redis分片集群结构</figcaption>
+    </figure></p>
+<p>这里我们会在同一台虚拟机中开启6个redis实例，模拟分片集群，信息如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">IP</th>
+<th style="text-align:center">PORT</th>
+<th style="text-align:center">角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">192.168.150.101</td>
+<td style="text-align:center">7001</td>
+<td style="text-align:center">master</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.150.101</td>
+<td style="text-align:center">7002</td>
+<td style="text-align:center">master</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.150.101</td>
+<td style="text-align:center">7003</td>
+<td style="text-align:center">master</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.150.101</td>
+<td style="text-align:center">8001</td>
+<td style="text-align:center">slave</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.150.101</td>
+<td style="text-align:center">8002</td>
+<td style="text-align:center">slave</td>
+</tr>
+<tr>
+<td style="text-align:center">192.168.150.101</td>
+<td style="text-align:center">8003</td>
+<td style="text-align:center">slave</td>
+</tr>
+</tbody>
+</table>
+<h3 id="准备实例和配置-2">准备实例和配置</h3>
+<p>删除之前的7001、7002、7003这几个目录，重新创建出7001、7002、7003、8001、8002、8003目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 进入/tmp目录</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /tmp
+</span></span><span class="line"><span class="cl"><span class="c1"># 删除旧的，避免配置干扰</span>
+</span></span><span class="line"><span class="cl">rm -rf <span class="m">7001</span> <span class="m">7002</span> <span class="m">7003</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建目录</span>
+</span></span><span class="line"><span class="cl">mkdir <span class="m">7001</span> <span class="m">7002</span> <span class="m">7003</span> <span class="m">8001</span> <span class="m">8002</span> <span class="m">8003</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在/tmp下准备一个新的redis.conf文件，内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">port 6379</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 开启集群功能</span>
+</span></span><span class="line"><span class="cl"><span class="na">cluster-enabled yes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 集群的配置文件名称，不需要我们创建，由redis自己维护</span>
+</span></span><span class="line"><span class="cl"><span class="na">cluster-config-file /tmp/6379/nodes.conf</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 节点心跳失败的超时时间</span>
+</span></span><span class="line"><span class="cl"><span class="na">cluster-node-timeout 5000</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 持久化文件存放目录</span>
+</span></span><span class="line"><span class="cl"><span class="na">dir /tmp/6379</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 绑定地址</span>
+</span></span><span class="line"><span class="cl"><span class="na">bind 0.0.0.0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 让redis后台运行</span>
+</span></span><span class="line"><span class="cl"><span class="na">daemonize yes</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 注册的实例ip</span>
+</span></span><span class="line"><span class="cl"><span class="na">replica-announce-ip 192.168.150.101</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 保护模式</span>
+</span></span><span class="line"><span class="cl"><span class="na">protected-mode no</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 数据库数量</span>
+</span></span><span class="line"><span class="cl"><span class="na">databases 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 日志</span>
+</span></span><span class="line"><span class="cl"><span class="na">logfile /tmp/6379/run.log</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将这个文件拷贝到每个目录下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 进入/tmp目录</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /tmp
+</span></span><span class="line"><span class="cl"><span class="c1"># 执行拷贝</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="m">7001</span> <span class="m">7002</span> <span class="m">7003</span> <span class="m">8001</span> <span class="m">8002</span> <span class="m">8003</span> <span class="p">|</span> xargs -t -n <span class="m">1</span> cp redis.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改每个目录下的redis.conf，将其中的6379修改为与所在目录一致：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 进入/tmp目录</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /tmp
+</span></span><span class="line"><span class="cl"><span class="c1"># 修改配置文件</span>
+</span></span><span class="line"><span class="cl"><span class="nb">printf</span> <span class="s1">&#39;%s\n&#39;</span> <span class="m">7001</span> <span class="m">7002</span> <span class="m">7003</span> <span class="m">8001</span> <span class="m">8002</span> <span class="m">8003</span> <span class="p">|</span> xargs -I<span class="o">{}</span> -t sed -i <span class="s1">&#39;s/6379/{}/g&#39;</span> <span class="o">{}</span>/redis.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="启动-2">启动</h3>
+<p>因为已经配置了后台启动模式，所以可以直接启动服务：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 进入/tmp目录</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /tmp
+</span></span><span class="line"><span class="cl"><span class="c1"># 一键启动所有服务</span>
+</span></span><span class="line"><span class="cl"><span class="nb">printf</span> <span class="s1">&#39;%s\n&#39;</span> <span class="m">7001</span> <span class="m">7002</span> <span class="m">7003</span> <span class="m">8001</span> <span class="m">8002</span> <span class="m">8003</span> <span class="p">|</span> xargs -I<span class="o">{}</span> -t redis-server <span class="o">{}</span>/redis.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过ps查看状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ps -ef <span class="p">|</span> grep redis
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>发现服务都已经正常启动：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png" title="redis服务状态" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png" data-sub-html="<h2>redis服务状态</h2><p>redis服务状态</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png" />
+    </a><figcaption class="image-caption">redis服务状态</figcaption>
+    </figure></p>
+<p>如果要关闭所有进程，可以执行命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">ps -ef <span class="p">|</span> grep redis <span class="p">|</span> awk <span class="s1">&#39;{print $2}&#39;</span> <span class="p">|</span> xargs <span class="nb">kill</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>或者（推荐这种方式）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">printf</span> <span class="s1">&#39;%s\n&#39;</span> <span class="m">7001</span> <span class="m">7002</span> <span class="m">7003</span> <span class="m">8001</span> <span class="m">8002</span> <span class="m">8003</span> <span class="p">|</span> xargs -I<span class="o">{}</span> -t redis-cli -p <span class="o">{}</span> shutdown
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="创建集群">创建集群</h3>
+<p>虽然服务启动了，但是目前每个服务之间都是独立的，没有任何关联。</p>
+<p>我们需要执行命令来创建集群，在Redis5.0之前创建集群比较麻烦，5.0之后集群管理命令都集成到了redis-cli中。</p>
+<p>1）Redis5.0之前</p>
+<p>Redis5.0之前集群命令都是用redis安装包下的src/redis-trib.rb来实现的。因为redis-trib.rb是有ruby语言编写的所以需要安装ruby环境。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 安装依赖</span>
+</span></span><span class="line"><span class="cl">yum -y install zlib ruby rubygems
+</span></span><span class="line"><span class="cl">gem install redis
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后通过命令来管理集群：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 进入redis的src目录</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /tmp/redis-6.2.4/src
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建集群</span>
+</span></span><span class="line"><span class="cl">./redis-trib.rb create --replicas <span class="m">1</span> 192.168.150.101:7001 192.168.150.101:7002 192.168.150.101:7003 192.168.150.101:8001 192.168.150.101:8002 192.168.150.101:8003
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>2）Redis5.0以后</p>
+<p>我们使用的是Redis6.2.4版本，集群管理以及集成到了redis-cli中，格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">redis-cli --cluster create --cluster-replicas <span class="m">1</span> 192.168.150.101:7001 192.168.150.101:7002 192.168.150.101:7003 192.168.150.101:8001 192.168.150.101:8002 192.168.150.101:8003
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>命令说明：</p>
+<ul>
+<li><code>redis-cli --cluster</code>或者<code>./redis-trib.rb</code>：代表集群操作命令</li>
+<li><code>create</code>：代表是创建集群</li>
+<li><code>--replicas 1</code>或者<code>--cluster-replicas 1</code> ：指定集群中每个master的副本个数为1，此时<code>节点总数 ÷ (replicas + 1)</code> 得到的就是master的数量。因此节点列表中的前n个就是master，其它节点都是slave节点，随机分配到不同master</li>
+</ul>
+<p>运行后的样子：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png" title="服务运行详情" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png" data-sub-html="<h2>服务运行详情</h2><p>服务运行详情</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png" />
+    </a><figcaption class="image-caption">服务运行详情</figcaption>
+    </figure></p>
+<p>这里输入yes，则集群开始创建：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png" title="构建状态" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png" data-sub-html="<h2>构建状态</h2><p>构建状态</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png" />
+    </a><figcaption class="image-caption">构建状态</figcaption>
+    </figure></p>
+<p>通过命令可以查看集群状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">redis-cli -p <span class="m">7001</span> cluster nodes
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png" title="集群状态" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png" data-sub-html="<h2>集群状态</h2><p>集群状态</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png" />
+    </a><figcaption class="image-caption">集群状态</figcaption>
+    </figure></p>
+<h3 id="测试-2">测试</h3>
+<p>尝试连接7001节点，存储一个数据：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 连接</span>
+</span></span><span class="line"><span class="cl">redis-cli -p <span class="m">7001</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 存储数据</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> num <span class="m">123</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 读取数据</span>
+</span></span><span class="line"><span class="cl">get num
+</span></span><span class="line"><span class="cl"><span class="c1"># 再次存储</span>
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> a <span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果悲剧了：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png" title="连接7001节点" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png" data-sub-html="<h2>连接7001节点</h2><p>连接7001节点</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png" />
+    </a><figcaption class="image-caption">连接7001节点</figcaption>
+    </figure></p>
+<p>集群操作时，需要给<code>redis-cli</code>加上<code>-c</code>参数才可以：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">redis-cli -c -p <span class="m">7001</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这次可以了：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png" title="连接重试" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png" data-sub-html="<h2>连接重试</h2><p>连接重试</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png" />
+    </a><figcaption class="image-caption">连接重试</figcaption>
+    </figure></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Mis à jour le 2023-05-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Partager sur Twitter" data-sharer="twitter" data-url="https://turbo-king.github.io/blog/fr/20230503_colony/" data-title="Redis集群" data-via="TurboKing1024" data-hashtags="Redis,Java,NoSQL"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Partager sur Facebook" data-sharer="facebook" data-url="https://turbo-king.github.io/blog/fr/20230503_colony/" data-hashtag="Redis"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Partager sur 微博" data-sharer="weibo" data-url="https://turbo-king.github.io/blog/fr/20230503_colony/" data-title="Redis集群" data-image="https://cdn.jsdelivr.net/gh/Turbo-King/images/redis.png" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Partager sur 百度" data-sharer="baidu" data-url="https://turbo-king.github.io/blog/fr/20230503_colony/" data-title="Redis集群"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/fr/tags/redis/">Redis</a>,&nbsp;<a href="/blog/fr/tags/java/">java</a>,&nbsp;<a href="/blog/fr/tags/nosql/">NoSQL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Retour</a></span>&nbsp;|&nbsp;<span><a href="/blog/fr/">Accueil</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/blog/fr/20221205_designpatterns/" class="prev" rel="prev" title="设计模式"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>设计模式</a>
+            <a href="/blog/fr/20230515_code/" class="next" rel="next" title="剑指Offer-个人题解">剑指Offer-个人题解<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://turbo-king.github.io/" target="_blank">Turbo-King</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">津ICP备2021001207号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Retour en Haut">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="Afficher les Commentaires">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.fill%2CArray.prototype.find%2CArray.from%2CIntersectionObserver%2CMath.sign%2CObject.assign%2CPromise%2CObject.entries%2Chtml5shiv%2CObject.values%2Cfetch%2CElement.prototype.after"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/object-fit-images@3.2.4/dist/ofi.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copier dans le presse-papiers","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"Turbo-King/BlogTalks"}},"data":{"id-1":"Turbo-King 博客","id-2":"Turbo-King 博客"},"lightgallery":true,"search":{"algoliaAppID":"14K5QJ9E92","algoliaIndex":"index.blog","algoliaSearchKey":"ccd19bed70442743b8a0e214d9705da3","highlightTag":"em","maxResultLength":10,"noResultsFound":"Aucun résultat trouvé","snippetLength":30,"type":"algolia"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="js/custom.js"></script></body>
+</html>

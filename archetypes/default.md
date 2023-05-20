@@ -12,5 +12,6 @@ tags: [""]
 categories: ["Markdown"]
 
 lightgallery: true
+linkToMarkdown: false
 ---
 
