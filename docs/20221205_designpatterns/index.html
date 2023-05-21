@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/"
-        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  31713 ,
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  34407 ,
         "url": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 31713 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 64 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 34407 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 69 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -422,7 +422,28 @@
             <li><a href="#外观模式的注意事项和细节">外观模式的注意事项和细节</a></li>
           </ul>
         </li>
-        <li><a href="#享元模式">享元模式</a></li>
+        <li><a href="#享元模式">享元模式</a>
+          <ul>
+            <li><a href="#传统方法-6">传统方法</a>
+              <ul>
+                <li><a href="#展示网站项目需求">展示网站项目需求</a></li>
+                <li><a href="#传统方案解决网站展现项目">传统方案解决网站展现项目</a></li>
+                <li><a href="#传统方案解决网站展现项目问题分析">传统方案解决网站展现项目问题分析</a></li>
+              </ul>
+            </li>
+            <li><a href="#享元模式-1">享元模式</a>
+              <ul>
+                <li><a href="#基本介绍-4">基本介绍</a></li>
+                <li><a href="#享元模式的原理类图">享元模式的原理类图</a></li>
+                <li><a href="#内部状态和外部状态">内部状态和外部状态</a></li>
+                <li><a href="#享元模式解决网站展现项目应用实例">享元模式解决网站展现项目应用实例</a></li>
+              </ul>
+            </li>
+            <li><a href="#享元模式在jdk-interge的应用源码分析">享元模式在JDK-Interge的应用源码分析</a></li>
+            <li><a href="#享元模式的注意事项和细节">享元模式的注意事项和细节</a></li>
+          </ul>
+        </li>
+        <li><a href="#代理模式">代理模式</a></li>
       </ul>
     </li>
   </ul>
@@ -8099,6 +8120,442 @@
     </div>
 <br>
 <h3 id="享元模式">享元模式</h3>
+<h4 id="传统方法-6">传统方法</h4>
+<h5 id="展示网站项目需求">展示网站项目需求</h5>
+<p>小型的外包项目，给客户A做一个产品展示网站，客户A的朋友感觉效果不错，也希望做这样的产品展示网站，但是要求都有些不同：</p>
+<ol>
+<li>客户要求以新闻的形式发布</li>
+<li>有客户人要求以博客的形式发布</li>
+<li>有客户希望以微信公众号的形式发布</li>
+</ol>
+<h5 id="传统方案解决网站展现项目">传统方案解决网站展现项目</h5>
+<ol>
+<li>直觉复制粘贴一份，然后根据客户不同要求，进行定制修改</li>
+<li>给每个网站租用一个空间</li>
+<li>方案设计示意图如下：</li>
+</ol>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png" title="展示网站方案设计示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png" data-sub-html="<h2>展示网站方案设计示意图</h2><p>展示网站方案设计示意图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">展示网站方案设计示意图</figcaption>
+    </figure></p>
+<h5 id="传统方案解决网站展现项目问题分析">传统方案解决网站展现项目问题分析</h5>
+<ol>
+<li>需要的网站结构<strong>相似度很高</strong>，而且都<strong>不是高访问量网站</strong>，如果分成多个虚拟空间来处理，相当于一个相同的网站的实例对象有很多，造成服务器的资源浪费</li>
+<li>解决思路：<strong>整合到一个网站中</strong>，<strong>共享</strong>其相关的代码和数据，对于硬盘、内存、CPu、数据库空间等服务器资源都可以达到共享，减少服务器资源</li>
+<li>对于上面代码来说，由于是一份实例，维护和扩展都更加容易</li>
+<li>上面的解决思路就可以使用<strong>享元模式</strong>来解决</li>
+</ol>
+<h4 id="享元模式-1">享元模式</h4>
+<h5 id="基本介绍-4">基本介绍</h5>
+<ol>
+<li>享元模式（Flyweight Pattern）也叫蝇量模式，运用共享技术有效地支持大量细粒度的对象</li>
+<li>常用于系统底层开发，解决系统的性能问题。像数据库连接池，里面都是创建好的连接对象，在这些连接对象中我们需要的则直接拿来用，避免重新创建，如果没有我们需要的，则创建一个</li>
+<li>享元模式能够解决重复对象的内存浪费问题，当系统中有大量相似对象，需要缓存池时。不需总是创建新对象，可以从缓存池里拿。这样可以降低系统内存，同时提高效率</li>
+<li>享元模式经典的应用常见就是池技术了，String常量池、数据库连接池、缓冲池等等都是享元模式的应用，享元吗模式是池技术的重要实现方式</li>
+</ol>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png" title="String常量池" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png" data-sub-html="<h2>String常量池</h2><p>String常量池</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png" />
+    </a><figcaption class="image-caption">String常量池</figcaption>
+    </figure></p>
+<h5 id="享元模式的原理类图">享元模式的原理类图</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" title="享元模式原理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>享元模式原理类图</h2><p>享元模式原理类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">享元模式原理类图</figcaption>
+    </figure></p>
+<div class="details admonition question open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>享元模式的角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li><strong>FlyWeight</strong>是抽象的<strong>享元角色</strong>，它是产品的<strong>抽象类</strong>，同时定义出对象的<strong>外部状态</strong>和<strong>内部状态</strong>的接口或实现</li>
+<li><strong>ConcreteFlyWeight</strong>是<strong>具体的享元角色</strong>，是具体的产品类，实现抽象角色定义相关业务</li>
+<li><strong>UnSharedConcreteFlyWeight</strong>是不可共享的角色，一般不会出现在享元工厂</li>
+<li><strong>FlyWeightFactory</strong>享元<strong>工厂类</strong>，用于<strong>创建一个池容器</strong>（集合），同时提供从池中获取对象方法</li>
+</ol>
+</div>
+        </div>
+    </div>
+<h5 id="内部状态和外部状态">内部状态和外部状态</h5>
+<p>比如围棋、五子棋、跳棋、它们都有大量的棋子对象，围棋和五子棋<strong>只有黑白两色</strong>，跳棋颜色多一点，所以棋子颜色就是棋子的<strong>内部状态</strong>；而各个棋子之间的差别就是位置的不同，当我们落子后，<strong>落子颜色是定的，但位置是变化的</strong>，所以棋子坐标就是棋子的<strong>外部状态</strong></p>
+<ol>
+<li>享元模式提出两个要求：<strong>细粒度</strong>和<strong>共享对象</strong>。这里就涉及到内部状态和外部状态了，即将对象的信息分为两个部分，<strong>内部状态</strong>和<strong>外部状态</strong></li>
+<li><strong>内部状态</strong>指对象<strong>共享出来的信息</strong>，存储在享元对象内部<strong>且不会随环境的改变而变化</strong></li>
+<li><strong>外部状态</strong>指对象得以<strong>依赖的一个标记</strong>，是<strong>随环境改变而变化的、不可共享的状态</strong></li>
+<li>举个例子：围棋理论上有361个空位可以放棋子，每个棋盘都有可能有两三百个棋子对象产生，因为内存空间有限，一台服务器很难支持更多的玩家玩围棋游戏，如果用享元模式来处理棋子，那么棋子对象就可以减少到只有两个实例，这样就很好的解决了对象的开销问题</li>
+</ol>
+<h5 id="享元模式解决网站展现项目应用实例">享元模式解决网站展现项目应用实例</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png" title="享元模式解决网站展现类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>享元模式解决网站展现类图</h2><p>享元模式解决网站展现类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">享元模式解决网站展现类图</figcaption>
+    </figure></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 网站工厂类，根据需要返回压一个网站
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebSiteFactory</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//集合， 充当池的作用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">ConcreteWebSite</span><span class="o">&gt;</span> <span class="n">pool</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//根据网站的类型，返回一个网站, 如果没有就创建一个网站，并放入到池中,并返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="n">WebSite</span> <span class="nf">getWebSiteCategory</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span><span class="o">(!</span><span class="n">pool</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">type</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//就创建一个网站，并放入到池中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">pool</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">type</span><span class="o">,</span> <span class="k">new</span> <span class="n">ConcreteWebSite</span><span class="o">(</span><span class="n">type</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">(</span><span class="n">WebSite</span><span class="o">)</span><span class="n">pool</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">type</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//获取网站分类的总数 (池中有多少个网站类型)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getWebSiteCount</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">pool</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">WebSite</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">use</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">);</span><span class="c1">//抽象方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//具体网站
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteWebSite</span> <span class="kd">extends</span> <span class="n">WebSite</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//共享的部分，内部状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="n">String</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span> <span class="c1">//网站发布的形式(类型)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//构造器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="nf">ConcreteWebSite</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">type</span> <span class="o">=</span> <span class="n">type</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">use</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;网站的发布形式为:&#34;</span> <span class="o">+</span> <span class="n">type</span> <span class="o">+</span> <span class="s">&#34; 在使用中 .. 使用者是&#34;</span> <span class="o">+</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">User</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 创建一个工厂类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">WebSiteFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WebSiteFactory</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 客户要一个以新闻形式发布的网站
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">WebSite</span> <span class="n">webSite1</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">getWebSiteCategory</span><span class="o">(</span><span class="s">&#34;新闻&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">webSite1</span><span class="o">.</span><span class="na">use</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;tom&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 客户要一个以博客形式发布的网站
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">WebSite</span> <span class="n">webSite2</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">getWebSiteCategory</span><span class="o">(</span><span class="s">&#34;博客&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">webSite2</span><span class="o">.</span><span class="na">use</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;jack&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 客户要一个以博客形式发布的网站
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">WebSite</span> <span class="n">webSite3</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">getWebSiteCategory</span><span class="o">(</span><span class="s">&#34;博客&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">webSite3</span><span class="o">.</span><span class="na">use</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;smith&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// 客户要一个以博客形式发布的网站
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">WebSite</span> <span class="n">webSite4</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">getWebSiteCategory</span><span class="o">(</span><span class="s">&#34;博客&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">webSite4</span><span class="o">.</span><span class="na">use</span><span class="o">(</span><span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;king&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;网站的分类共=&#34;</span> <span class="o">+</span> <span class="n">factory</span><span class="o">.</span><span class="na">getWebSiteCount</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="享元模式在jdk-interge的应用源码分析">享元模式在JDK-Interge的应用源码分析</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FlyWeight</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//如果 Integer.valueOf(x) x 在  -128 --- 127 直接，就是使用享元模式返回,如果不在
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//范围类，则仍然 new 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
+</span></span><span class="line"><span class="cl">		<span class="c1">//小结:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//1. 在valueOf 方法中，先判断值是否在 IntegerCache 中，如果不在，就创建新的Integer(new), 否则，就直接从 缓存池返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//2. valueOf 方法，就使用到享元模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//3. 如果使用valueOf 方法得到一个Integer 实例，范围在 -128 - 127 ，执行速度比 new 快
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">Integer</span> <span class="n">x</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">127</span><span class="o">);</span> <span class="c1">// 得到 x实例，类型 Integer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Integer</span> <span class="n">y</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="mi">127</span><span class="o">);</span> <span class="c1">// 得到 y 实例，类型 Integer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Integer</span> <span class="n">z</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">127</span><span class="o">);</span><span class="c1">//..
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Integer</span> <span class="n">w</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="mi">127</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">y</span><span class="o">));</span> <span class="c1">// 大小，true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">y</span> <span class="o">);</span> <span class="c1">//  false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">z</span> <span class="o">);</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">w</span> <span class="o">==</span> <span class="n">x</span> <span class="o">);</span> <span class="c1">// false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">w</span> <span class="o">==</span> <span class="n">y</span> <span class="o">);</span> <span class="c1">// false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">Integer</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">200</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">Integer</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mi">200</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;x1==x2&#34;</span> <span class="o">+</span> <span class="o">(</span><span class="n">x1</span> <span class="o">==</span> <span class="n">x2</span><span class="o">));</span> <span class="c1">// false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="享元模式的注意事项和细节">享元模式的注意事项和细节</h4>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>享元模式<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>在享元模式这样理解，<strong>“享”就表示共享</strong>，<strong>“元”表示对象</strong></li>
+<li>系统中有大量对象，这些对象消耗大量内存，并且<strong>对象的状态大部分可以外部化</strong>时，我们就可以考虑选用享元模式</li>
+<li>用唯一标识码判断，如果在内存中有，则返回这个<strong>唯一标识码</strong>所标识的对象，用<strong>HashMap</strong>/<strong>HashTable</strong>存储</li>
+<li>享元模式大大减少了对象的创建，降低了程序内存的占用，提高效率</li>
+<li>享元模式提高了系统的复杂度。需要分离出内部状态和外部状态，而<strong>外部状态具有固化特性</strong>，<strong>不应该随着内部状态的改变而变化</strong>，这就是我们使用享元模式需要注意的地方</li>
+<li>使用享元模式时，注意划分<strong>内部状态</strong>和<strong>外部状态</strong>，并且需要有一个<strong>工厂类</strong>加以控制</li>
+<li>享元模式经典的应用场景是需要<strong>缓冲池</strong>的场景，比如<strong>String常量池</strong>、<strong>数据库连接池</strong></li>
+</ol>
+</div>
+        </div>
+    </div>
+<br>
+<h3 id="代理模式">代理模式</h3>
 <br>
 <p><strong>未完待续···</strong></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
