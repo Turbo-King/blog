@@ -3947,7 +3947,377 @@ Java的集合类-HashMap就使用了组合模式
 
 {{< /admonition >}}
 
+
+
+<br>
+
 ### 外观模式
+
+#### 传统方法
+
+##### 影院管理项目
+
+**组建一个家庭影院：**
+
+DVD播放器、投影仪、自动屏幕、环绕立体声、爆米花机，要求完成使用家庭影院的功能，其过程如下：
+
+- 直接用遥控器：统筹各系统开关
+- 开爆米花机
+- 放下投影幕布
+- 开投影仪
+- 开音响
+- 开DVD，选DVD片源
+- 去拿爆米花
+- 调暗灯关
+- 播放
+- 观影结束，关闭各种设备
+
+
+
+##### 传统方式解决影院管理
+
+![传统方式解决影院管理](https://cdn.jsdelivr.net/gh/Turbo-King/images/传统方式解决影院管理.png "传统方式解决影院管理")
+
+##### 传统方式解决影院管理问题分析
+
+1. 在ClientTest的main方法中，创建各个子系统的对象，并直接去调用子系统（对象）相关方法，会造成调用过程混乱，没有清晰的过程
+2. 不利于在ClientTest中，去维护对子系统的操作
+3. 解决思路：定义一个高层接口，给子系统中的一组接口提供一个**一致的界面（比如在高层接口提供四个方法：ready，play，pause，end）**，用来访问子系统中的一群接口
+4. 就是通过定义一个一致的接口（界面类），用以屏蔽内部子系统的细节，使得调用端只需跟这个接口发生调用，而无须关心这个子系统的内部细节->外观模式
+
+#### 外观模式
+
+##### 基本介绍
+
+1. 外观模式（Facade），也叫“过程模式：外观模式为子系统中的一组接口提供一个一致的界面，此模式定义了一个高层接口，这个接口使得这一子系统更加容易使用”
+2. 外观模式通过定义个一致的接口，用以屏蔽内部子系统的细节，使得调用端只需跟这个接口发生调用，而无需关心这个子系统的内部细节
+
+##### 外观模式原理类图
+
+![外观模式原理类图](https://cdn.jsdelivr.net/gh/Turbo-King/images/外观模式原理类图.png "外观模式原理类图")
+
+{{< admonition question 外观模式的角色及职责 >}}
+
+1. 外观类（Facade）：为调用端提供统一的调用接口，外观类知道哪些子系统负责处理请求，从而将调用端的请求代理给适当子系统对象
+2. 调用着（Client）：外观接口的调用者
+3. 子系统的集合：指模块或者子系统，处理Facade对象指派的任务，它是功能的实际提供者
+
+{{< /admonition >}}
+
+##### 外观模式解决影院管理
+
+1. 外观模式可以理解为转换一群接口，客户只要调用一个接口，而不用调用多个接口才能达到目的。比如：在PC上安装软件的时候经常有一键安装选项（省去选择安装目录、安装的组件等等），还有就是手机的重启功能（把关机和启动合为一个操作）
+2. 外观模式就是解决多个复杂接口带来的使用困难，起到简化用户操作的作用
+3. 示意图说明如下：
+
+![外观模式解决影院管理示意图](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png "外观模式解决影院管理示意图")
+
+##### 外观模式解决影院管理应用实例
+
+![外观模式解决影院管理应用实例](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png "外观模式解决影院管理应用实例")
+
+```java
+public class HomeTheaterFacade {
+	
+	//定义各个子系统对象
+	private TheaterLight theaterLight;
+	private Popcorn popcorn;
+	private Stereo stereo;
+	private Projector projector;
+	private Screen screen;
+	private DVDPlayer dVDPlayer;
+	
+	
+	//构造器
+	public HomeTheaterFacade() {
+		super();
+		this.theaterLight = TheaterLight.getInstance();
+		this.popcorn = Popcorn.getInstance();
+		this.stereo = Stereo.getInstance();
+		this.projector = Projector.getInstance();
+		this.screen = Screen.getInstance();
+		this.dVDPlayer = DVDPlayer.getInstanc();
+	}
+
+	//操作分成 4 步
+	
+	public void ready() {
+		popcorn.on();
+		popcorn.pop();
+		screen.down();
+		projector.on();
+		stereo.on();
+		dVDPlayer.on();
+		theaterLight.dim();
+	}
+	
+	public void play() {
+		dVDPlayer.play();
+	}
+	
+	public void pause() {
+		dVDPlayer.pause();
+	}
+	
+	public void end() {
+		popcorn.off();
+		theaterLight.bright();
+		screen.up();
+		projector.off();
+		stereo.off();
+		dVDPlayer.off();
+	}
+
+}
+
+
+
+
+
+
+public class Stereo {
+
+	private static Stereo instance = new Stereo();
+	
+	public static Stereo getInstance() {
+		return instance;
+	}
+	
+	public void on() {
+		System.out.println(" Stereo on ");
+	}
+	
+	public void off() {
+		System.out.println(" Screen off ");
+	}
+	
+	public void up() {
+		System.out.println(" Screen up.. ");
+	}
+	
+	//...
+}
+
+
+
+
+
+public class DVDPlayer {
+	
+	//使用单例模式, 使用饿汉式
+	private static DVDPlayer instance = new DVDPlayer();
+	
+	public static DVDPlayer getInstanc() {
+		return instance;
+	}
+	
+	public void on() {
+		System.out.println(" dvd on ");
+	}
+	public void off() {
+		System.out.println(" dvd off ");
+	}
+	
+	public void play() {
+		System.out.println(" dvd is playing ");
+	}
+	
+	//....
+	public void pause() {
+		System.out.println(" dvd pause ..");
+	}
+}
+
+
+
+
+
+public class TheaterLight {
+
+	private static TheaterLight instance = new TheaterLight();
+
+	public static TheaterLight getInstance() {
+		return instance;
+	}
+
+	public void on() {
+		System.out.println(" TheaterLight on ");
+	}
+
+	public void off() {
+		System.out.println(" TheaterLight off ");
+	}
+
+	public void dim() {
+		System.out.println(" TheaterLight dim.. ");
+	}
+
+	public void bright() {
+		System.out.println(" TheaterLight bright.. ");
+	}
+}
+
+
+
+
+public class Projector {
+
+	private static Projector instance = new Projector();
+	
+	public static Projector getInstance() {
+		return instance;
+	}
+	
+	public void on() {
+		System.out.println(" Projector on ");
+	}
+	
+	public void off() {
+		System.out.println(" Projector ff ");
+	}
+	
+	public void focus() {
+		System.out.println(" Projector is Projector  ");
+	}
+	
+	//...
+}
+
+
+
+
+
+public class Popcorn {
+	
+	private static Popcorn instance = new Popcorn();
+	
+	public static Popcorn getInstance() {
+		return instance;
+	}
+	
+	public void on() {
+		System.out.println(" popcorn on ");
+	}
+	
+	public void off() {
+		System.out.println(" popcorn ff ");
+	}
+	
+	public void pop() {
+		System.out.println(" popcorn is poping  ");
+	}
+}
+
+
+
+
+
+
+public class Screen {
+
+	private static Screen instance = new Screen();
+	
+	public static Screen getInstance() {
+		return instance;
+	}
+	
+	public void up() {
+		System.out.println(" Screen up ");
+	}
+	
+	public void down() {
+		System.out.println(" Screen down ");
+	}
+	
+}
+```
+
+#### 外观模式在MyBatis框架应用的源码分析
+
+Mybatis中的Configuration去创建MetaObject对象使用到外观模式
+
+![mybatis中使用外观模式角色类图](https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png "mybatis中使用外观模式角色类图")
+
+```java
+public class Configuration {  
+  protected ReflectorFactory reflectorFactory = new DefaultReflectorFactory();
+  protected ObjectFactory objectFactory = new DefaultObjectFactory();
+  protected ObjectWrapperFactory objectWrapperFactory = new DefaultObjectWrapperFactory();
+  
+  public MetaObject newMetaObject(Object object) {
+    return MetaObject.forObject(object, objectFactory, objectWrapperFactory, reflectorFactory);
+  }
+}
+
+
+
+
+public class MetaObject {
+  private MetaObject(Object object, ObjectFactory objectFactory, ObjectWrapperFactory objectWrapperFactory, ReflectorFactory reflectorFactory) {
+    this.originalObject = object;
+    this.objectFactory = objectFactory;
+    this.objectWrapperFactory = objectWrapperFactory;
+    this.reflectorFactory = reflectorFactory;
+
+    if (object instanceof ObjectWrapper) {
+      this.objectWrapper = (ObjectWrapper) object;
+    } else if (objectWrapperFactory.hasWrapperFor(object)) {
+      this.objectWrapper = objectWrapperFactory.getWrapperFor(this, object);
+    } else if (object instanceof Map) {
+      this.objectWrapper = new MapWrapper(this, (Map) object);
+    } else if (object instanceof Collection) {
+      this.objectWrapper = new CollectionWrapper(this, (Collection) object);
+    } else {
+      this.objectWrapper = new BeanWrapper(this, object);
+    }
+  }
+}
+```
+
+#### 外观模式的注意事项和细节
+
+{{< admonition tip 外观模式 >}}
+
+1. **外观模式**对外**屏蔽了子系统的的细节**，因此外观模式降低了客户端对子系统使用的复杂性
+2. 外观模式对客户端与子系统的耦合关系，让子系统内部的模块更易维护和扩展
+3. 通过合理的使用外观模式，可以帮我们更好的**划分访问的层次**
+4. 当系统需要进行**分层设计**时，可以考虑使用Facade模式
+5. 在维护一个遗留的大型系统时，可能这个系统已经变得非常难以维护和扩展，此时可以考虑为新系统开发一个Facade类，来提供遗留系统的比较清晰简单的接口，**让新系统与Facade类交互，提高复用性**
+6. 不能过多的或者不合理的使用外观模式，使用外观模式好，还是直接调用模块好。**要以让系统有层次，利于维护为目的**
+
+{{< /admonition >}}
+
+<br>
+
+### 享元模式
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3962,26 +4332,6 @@ Java的集合类-HashMap就使用了组合模式
 <br>
 
 **未完待续···**
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

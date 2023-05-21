@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/"
-        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  29651 ,
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  31713 ,
         "url": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 29651 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 60 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 31713 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 64 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -401,7 +401,28 @@
             <li><a href="#组合模式的注意事项和细节">组合模式的注意事项和细节</a></li>
           </ul>
         </li>
-        <li><a href="#外观模式">外观模式</a></li>
+        <li><a href="#外观模式">外观模式</a>
+          <ul>
+            <li><a href="#传统方法-5">传统方法</a>
+              <ul>
+                <li><a href="#影院管理项目">影院管理项目</a></li>
+                <li><a href="#传统方式解决影院管理">传统方式解决影院管理</a></li>
+                <li><a href="#传统方式解决影院管理问题分析">传统方式解决影院管理问题分析</a></li>
+              </ul>
+            </li>
+            <li><a href="#外观模式-1">外观模式</a>
+              <ul>
+                <li><a href="#基本介绍-3">基本介绍</a></li>
+                <li><a href="#外观模式原理类图">外观模式原理类图</a></li>
+                <li><a href="#外观模式解决影院管理">外观模式解决影院管理</a></li>
+                <li><a href="#外观模式解决影院管理应用实例">外观模式解决影院管理应用实例</a></li>
+              </ul>
+            </li>
+            <li><a href="#外观模式在mybatis框架应用的源码分析">外观模式在MyBatis框架应用的源码分析</a></li>
+            <li><a href="#外观模式的注意事项和细节">外观模式的注意事项和细节</a></li>
+          </ul>
+        </li>
+        <li><a href="#享元模式">享元模式</a></li>
       </ul>
     </li>
   </ul>
@@ -7450,7 +7471,634 @@
 </div>
         </div>
     </div>
+<br>
 <h3 id="外观模式">外观模式</h3>
+<h4 id="传统方法-5">传统方法</h4>
+<h5 id="影院管理项目">影院管理项目</h5>
+<p><strong>组建一个家庭影院：</strong></p>
+<p>DVD播放器、投影仪、自动屏幕、环绕立体声、爆米花机，要求完成使用家庭影院的功能，其过程如下：</p>
+<ul>
+<li>直接用遥控器：统筹各系统开关</li>
+<li>开爆米花机</li>
+<li>放下投影幕布</li>
+<li>开投影仪</li>
+<li>开音响</li>
+<li>开DVD，选DVD片源</li>
+<li>去拿爆米花</li>
+<li>调暗灯关</li>
+<li>播放</li>
+<li>观影结束，关闭各种设备</li>
+</ul>
+<h5 id="传统方式解决影院管理">传统方式解决影院管理</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e4%bc%a0%e7%bb%9f%e6%96%b9%e5%bc%8f%e8%a7%a3%e5%86%b3%e5%bd%b1%e9%99%a2%e7%ae%a1%e7%90%86.png" title="传统方式解决影院管理" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/传统方式解决影院管理.png" data-sub-html="<h2>传统方式解决影院管理</h2><p>传统方式解决影院管理</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e4%bc%a0%e7%bb%9f%e6%96%b9%e5%bc%8f%e8%a7%a3%e5%86%b3%e5%bd%b1%e9%99%a2%e7%ae%a1%e7%90%86.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e4%bc%a0%e7%bb%9f%e6%96%b9%e5%bc%8f%e8%a7%a3%e5%86%b3%e5%bd%b1%e9%99%a2%e7%ae%a1%e7%90%86.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e4%bc%a0%e7%bb%9f%e6%96%b9%e5%bc%8f%e8%a7%a3%e5%86%b3%e5%bd%b1%e9%99%a2%e7%ae%a1%e7%90%86.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e4%bc%a0%e7%bb%9f%e6%96%b9%e5%bc%8f%e8%a7%a3%e5%86%b3%e5%bd%b1%e9%99%a2%e7%ae%a1%e7%90%86.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/传统方式解决影院管理.png" />
+    </a><figcaption class="image-caption">传统方式解决影院管理</figcaption>
+    </figure></p>
+<h5 id="传统方式解决影院管理问题分析">传统方式解决影院管理问题分析</h5>
+<ol>
+<li>在ClientTest的main方法中，创建各个子系统的对象，并直接去调用子系统（对象）相关方法，会造成调用过程混乱，没有清晰的过程</li>
+<li>不利于在ClientTest中，去维护对子系统的操作</li>
+<li>解决思路：定义一个高层接口，给子系统中的一组接口提供一个<strong>一致的界面（比如在高层接口提供四个方法：ready，play，pause，end）</strong>，用来访问子系统中的一群接口</li>
+<li>就是通过定义一个一致的接口（界面类），用以屏蔽内部子系统的细节，使得调用端只需跟这个接口发生调用，而无须关心这个子系统的内部细节-&gt;外观模式</li>
+</ol>
+<h4 id="外观模式-1">外观模式</h4>
+<h5 id="基本介绍-3">基本介绍</h5>
+<ol>
+<li>外观模式（Facade），也叫“过程模式：外观模式为子系统中的一组接口提供一个一致的界面，此模式定义了一个高层接口，这个接口使得这一子系统更加容易使用”</li>
+<li>外观模式通过定义个一致的接口，用以屏蔽内部子系统的细节，使得调用端只需跟这个接口发生调用，而无需关心这个子系统的内部细节</li>
+</ol>
+<h5 id="外观模式原理类图">外观模式原理类图</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%a4%96%e8%a7%82%e6%a8%a1%e5%bc%8f%e5%8e%9f%e7%90%86%e7%b1%bb%e5%9b%be.png" title="外观模式原理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/外观模式原理类图.png" data-sub-html="<h2>外观模式原理类图</h2><p>外观模式原理类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%a4%96%e8%a7%82%e6%a8%a1%e5%bc%8f%e5%8e%9f%e7%90%86%e7%b1%bb%e5%9b%be.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%a4%96%e8%a7%82%e6%a8%a1%e5%bc%8f%e5%8e%9f%e7%90%86%e7%b1%bb%e5%9b%be.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%a4%96%e8%a7%82%e6%a8%a1%e5%bc%8f%e5%8e%9f%e7%90%86%e7%b1%bb%e5%9b%be.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%a4%96%e8%a7%82%e6%a8%a1%e5%bc%8f%e5%8e%9f%e7%90%86%e7%b1%bb%e5%9b%be.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/外观模式原理类图.png" />
+    </a><figcaption class="image-caption">外观模式原理类图</figcaption>
+    </figure></p>
+<div class="details admonition question open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>外观模式的角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>外观类（Facade）：为调用端提供统一的调用接口，外观类知道哪些子系统负责处理请求，从而将调用端的请求代理给适当子系统对象</li>
+<li>调用着（Client）：外观接口的调用者</li>
+<li>子系统的集合：指模块或者子系统，处理Facade对象指派的任务，它是功能的实际提供者</li>
+</ol>
+</div>
+        </div>
+    </div>
+<h5 id="外观模式解决影院管理">外观模式解决影院管理</h5>
+<ol>
+<li>外观模式可以理解为转换一群接口，客户只要调用一个接口，而不用调用多个接口才能达到目的。比如：在PC上安装软件的时候经常有一键安装选项（省去选择安装目录、安装的组件等等），还有就是手机的重启功能（把关机和启动合为一个操作）</li>
+<li>外观模式就是解决多个复杂接口带来的使用困难，起到简化用户操作的作用</li>
+<li>示意图说明如下：</li>
+</ol>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png" title="外观模式解决影院管理示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png" data-sub-html="<h2>外观模式解决影院管理示意图</h2><p>外观模式解决影院管理示意图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">外观模式解决影院管理示意图</figcaption>
+    </figure></p>
+<h5 id="外观模式解决影院管理应用实例">外观模式解决影院管理应用实例</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" title="外观模式解决影院管理应用实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" data-sub-html="<h2>外观模式解决影院管理应用实例</h2><p>外观模式解决影院管理应用实例</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" />
+    </a><figcaption class="image-caption">外观模式解决影院管理应用实例</figcaption>
+    </figure></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HomeTheaterFacade</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//定义各个子系统对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="n">TheaterLight</span> <span class="n">theaterLight</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">Popcorn</span> <span class="n">popcorn</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">Stereo</span> <span class="n">stereo</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">Projector</span> <span class="n">projector</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">Screen</span> <span class="n">screen</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">DVDPlayer</span> <span class="n">dVDPlayer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//构造器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="nf">HomeTheaterFacade</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">theaterLight</span> <span class="o">=</span> <span class="n">TheaterLight</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">popcorn</span> <span class="o">=</span> <span class="n">Popcorn</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">stereo</span> <span class="o">=</span> <span class="n">Stereo</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">projector</span> <span class="o">=</span> <span class="n">Projector</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">screen</span> <span class="o">=</span> <span class="n">Screen</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">dVDPlayer</span> <span class="o">=</span> <span class="n">DVDPlayer</span><span class="o">.</span><span class="na">getInstanc</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//操作分成 4 步
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">ready</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">popcorn</span><span class="o">.</span><span class="na">on</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">popcorn</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">screen</span><span class="o">.</span><span class="na">down</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">projector</span><span class="o">.</span><span class="na">on</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">stereo</span><span class="o">.</span><span class="na">on</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">dVDPlayer</span><span class="o">.</span><span class="na">on</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">theaterLight</span><span class="o">.</span><span class="na">dim</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">dVDPlayer</span><span class="o">.</span><span class="na">play</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">pause</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">dVDPlayer</span><span class="o">.</span><span class="na">pause</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">end</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">popcorn</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">theaterLight</span><span class="o">.</span><span class="na">bright</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">screen</span><span class="o">.</span><span class="na">up</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">projector</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">stereo</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">dVDPlayer</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Stereo</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">static</span> <span class="n">Stereo</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stereo</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="n">Stereo</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; Stereo on &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; Screen off &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">up</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; Screen up.. &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DVDPlayer</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//使用单例模式, 使用饿汉式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="kd">static</span> <span class="n">DVDPlayer</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DVDPlayer</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="n">DVDPlayer</span> <span class="nf">getInstanc</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; dvd on &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; dvd off &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; dvd is playing &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//....
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">pause</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; dvd pause ..&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TheaterLight</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">static</span> <span class="n">TheaterLight</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TheaterLight</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="n">TheaterLight</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; TheaterLight on &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; TheaterLight off &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">dim</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; TheaterLight dim.. &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">bright</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; TheaterLight bright.. &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Projector</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">static</span> <span class="n">Projector</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Projector</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="n">Projector</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; Projector on &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; Projector ff &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">focus</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; Projector is Projector  &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Popcorn</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">static</span> <span class="n">Popcorn</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Popcorn</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="n">Popcorn</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">on</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; popcorn on &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">off</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; popcorn ff &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">pop</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; popcorn is poping  &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Screen</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kd">static</span> <span class="n">Screen</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Screen</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="n">Screen</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">up</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; Screen up &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">down</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; Screen down &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="外观模式在mybatis框架应用的源码分析">外观模式在MyBatis框架应用的源码分析</h4>
+<p>Mybatis中的Configuration去创建MetaObject对象使用到外观模式</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png" title="mybatis中使用外观模式角色类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>mybatis中使用外观模式角色类图</h2><p>mybatis中使用外观模式角色类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">mybatis中使用外观模式角色类图</figcaption>
+    </figure></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Configuration</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">  <span class="kd">protected</span> <span class="n">ReflectorFactory</span> <span class="n">reflectorFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultReflectorFactory</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">protected</span> <span class="n">ObjectFactory</span> <span class="n">objectFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultObjectFactory</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">protected</span> <span class="n">ObjectWrapperFactory</span> <span class="n">objectWrapperFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultObjectWrapperFactory</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">MetaObject</span> <span class="nf">newMetaObject</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">MetaObject</span><span class="o">.</span><span class="na">forObject</span><span class="o">(</span><span class="n">object</span><span class="o">,</span> <span class="n">objectFactory</span><span class="o">,</span> <span class="n">objectWrapperFactory</span><span class="o">,</span> <span class="n">reflectorFactory</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MetaObject</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="nf">MetaObject</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span><span class="o">,</span> <span class="n">ObjectFactory</span> <span class="n">objectFactory</span><span class="o">,</span> <span class="n">ObjectWrapperFactory</span> <span class="n">objectWrapperFactory</span><span class="o">,</span> <span class="n">ReflectorFactory</span> <span class="n">reflectorFactory</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">originalObject</span> <span class="o">=</span> <span class="n">object</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">objectFactory</span> <span class="o">=</span> <span class="n">objectFactory</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">objectWrapperFactory</span> <span class="o">=</span> <span class="n">objectWrapperFactory</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">reflectorFactory</span> <span class="o">=</span> <span class="n">reflectorFactory</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">object</span> <span class="k">instanceof</span> <span class="n">ObjectWrapper</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="o">.</span><span class="na">objectWrapper</span> <span class="o">=</span> <span class="o">(</span><span class="n">ObjectWrapper</span><span class="o">)</span> <span class="n">object</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">objectWrapperFactory</span><span class="o">.</span><span class="na">hasWrapperFor</span><span class="o">(</span><span class="n">object</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="o">.</span><span class="na">objectWrapper</span> <span class="o">=</span> <span class="n">objectWrapperFactory</span><span class="o">.</span><span class="na">getWrapperFor</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">object</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">object</span> <span class="k">instanceof</span> <span class="n">Map</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="o">.</span><span class="na">objectWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MapWrapper</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="o">(</span><span class="n">Map</span><span class="o">)</span> <span class="n">object</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">object</span> <span class="k">instanceof</span> <span class="n">Collection</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="o">.</span><span class="na">objectWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CollectionWrapper</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="o">(</span><span class="n">Collection</span><span class="o">)</span> <span class="n">object</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="o">.</span><span class="na">objectWrapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BeanWrapper</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">object</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="外观模式的注意事项和细节">外观模式的注意事项和细节</h4>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>外观模式<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li><strong>外观模式</strong>对外<strong>屏蔽了子系统的的细节</strong>，因此外观模式降低了客户端对子系统使用的复杂性</li>
+<li>外观模式对客户端与子系统的耦合关系，让子系统内部的模块更易维护和扩展</li>
+<li>通过合理的使用外观模式，可以帮我们更好的<strong>划分访问的层次</strong></li>
+<li>当系统需要进行<strong>分层设计</strong>时，可以考虑使用Facade模式</li>
+<li>在维护一个遗留的大型系统时，可能这个系统已经变得非常难以维护和扩展，此时可以考虑为新系统开发一个Facade类，来提供遗留系统的比较清晰简单的接口，<strong>让新系统与Facade类交互，提高复用性</strong></li>
+<li>不能过多的或者不合理的使用外观模式，使用外观模式好，还是直接调用模块好。<strong>要以让系统有层次，利于维护为目的</strong></li>
+</ol>
+</div>
+        </div>
+    </div>
+<br>
+<h3 id="享元模式">享元模式</h3>
 <br>
 <p><strong>未完待续···</strong></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
