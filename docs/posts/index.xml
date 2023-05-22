@@ -4,7 +4,17 @@
         <link>https://turbo-king.github.io/blog/posts/</link>
         <description>所有文章 | Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 19 May 2023 16:13:37 &#43;0800</lastBuildDate><atom:link href="https://turbo-king.github.io/blog/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 22 May 2023 09:03:59 &#43;0800</lastBuildDate><atom:link href="https://turbo-king.github.io/blog/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>集合Stream流用法</title>
+    <link>https://turbo-king.github.io/blog/20230522_stream/</link>
+    <pubDate>Mon, 22 May 2023 09:03:59 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://turbo-king.github.io/blog/20230522_stream/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-3zp6o9_3840x2160.jpg" referrerpolicy="no-referrer">
+            </div>Stream流]]></description>
+</item>
+<item>
     <title>Lambda常见场景用法</title>
     <link>https://turbo-king.github.io/blog/20230519_lambda/</link>
     <pubDate>Fri, 19 May 2023 16:13:37 &#43;0800</pubDate>
