@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/"
-        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  34407 ,
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  36757 ,
         "url": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 34407 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 69 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 36757 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 74 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -443,7 +443,33 @@
             <li><a href="#享元模式的注意事项和细节">享元模式的注意事项和细节</a></li>
           </ul>
         </li>
-        <li><a href="#代理模式">代理模式</a></li>
+        <li><a href="#代理模式">代理模式</a>
+          <ul>
+            <li><a href="#基本介绍-5">基本介绍</a></li>
+            <li><a href="#静态代理">静态代理</a>
+              <ul>
+                <li><a href="#基本介绍-6">基本介绍</a></li>
+                <li><a href="#应用实例-7">应用实例</a></li>
+              </ul>
+            </li>
+            <li><a href="#动态代理">动态代理</a>
+              <ul>
+                <li><a href="#基本介绍-7">基本介绍</a></li>
+                <li><a href="#jdk中生成代理对象的api">JDK中生成代理对象的API</a></li>
+                <li><a href="#应用实例-8">应用实例</a></li>
+              </ul>
+            </li>
+            <li><a href="#cglib代理模式">Cglib代理模式</a>
+              <ul>
+                <li><a href="#基本介绍-8">基本介绍</a></li>
+                <li><a href="#cglib代理模式实现步骤">Cglib代理模式实现步骤</a></li>
+                <li><a href="#cglib代理模式应用实例">Cglib代理模式应用实例</a></li>
+              </ul>
+            </li>
+            <li><a href="#代理模式proxy的变体">代理模式（Proxy）的变体</a></li>
+          </ul>
+        </li>
+        <li><a href="#模版方法模式">模版方法模式</a></li>
       </ul>
     </li>
   </ul>
@@ -8556,6 +8582,427 @@
     </div>
 <br>
 <h3 id="代理模式">代理模式</h3>
+<h4 id="基本介绍-5">基本介绍</h4>
+<ol>
+<li>代理模式(Proxy)：为一个对象<strong>提供一个替身</strong>，以控制对这个对象的访问。即通过代理对象访问目标对象，这样做的<strong>好处</strong>是：可以在目标对象实现的基础上，增强额外的功能操作，即扩展目标对象的功能。</li>
+<li>被代理的对象可以是远程对象、<strong>创建开销大的对象</strong>或<strong>需要安全控制的对象</strong>。</li>
+<li>代理模式有不同的形式，主要有三种：静态代理、动态代理（JDK代理、接口代理）和Cglib代理（可以在内存动态的创建对象，而不需要实现接口，它是属于动态代理的范畴）</li>
+<li>代理模式示意图如下：</li>
+</ol>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png" title="代理模式示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png" data-sub-html="<h2>代理模式示意图</h2><p>代理模式示意图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">代理模式示意图</figcaption>
+    </figure></p>
+<br>
+<h4 id="静态代理">静态代理</h4>
+<h5 id="基本介绍-6">基本介绍</h5>
+<p>静态代理在使用时，需要定义接口或者父类，被代理对象（即目标对象）与代理对象一起实现相同的接口或者是继承相同父类</p>
+<h5 id="应用实例-7">应用实例</h5>
+<p>具体要求</p>
+<ul>
+<li>定义一个接口：ITeacherDao</li>
+<li>目标对象TeacherDao实现接口ITeacherDAO</li>
+<li>使用静态代理方式，就需要在代理对象TeacherDAOProxy中也实现ITeacherDAO</li>
+<li>调用的时候通过调用代理对象的方法来调用目标对象</li>
+<li><strong>特别提醒</strong>：代理对象与目标对象要实现相同的接口，然后通过调用相同的方法来调用目标对象的方法</li>
+</ul>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png" title="静态代理分类图解（类图）" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png" data-sub-html="<h2>静态代理分类图解（类图）</h2><p>静态代理分类图解（类图）</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png" />
+    </a><figcaption class="image-caption">静态代理分类图解（类图）</figcaption>
+    </figure></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//代理对象,静态代理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TeacherDaoProxy</span> <span class="kd">implements</span> <span class="n">ITeacherDao</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">ITeacherDao</span> <span class="n">target</span><span class="o">;</span> <span class="c1">// 目标对象，通过接口来聚合
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//构造器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="nf">TeacherDaoProxy</span><span class="o">(</span><span class="n">ITeacherDao</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">target</span> <span class="o">=</span> <span class="n">target</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">teach</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;开始代理  完成某些操作。。。。。 &#34;</span><span class="o">);</span><span class="c1">//方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">target</span><span class="o">.</span><span class="na">teach</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;提交。。。。。&#34;</span><span class="o">);</span><span class="c1">//方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ITeacherDao</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">teach</span><span class="o">();</span> <span class="c1">// 授课的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TeacherDao</span> <span class="kd">implements</span> <span class="n">ITeacherDao</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">teach</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; 老师授课中  。。。。。&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//创建目标对象(被代理对象)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">TeacherDao</span> <span class="n">teacherDao</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TeacherDao</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">//创建代理对象, 同时将被代理对象传递给代理对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">TeacherDaoProxy</span> <span class="n">teacherDaoProxy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TeacherDaoProxy</span><span class="o">(</span><span class="n">teacherDao</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">//通过代理对象，调用到被代理对象的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//即：执行的是代理对象的方法，代理对象再去调用目标对象的方法 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">teacherDaoProxy</span><span class="o">.</span><span class="na">teach</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>静态代理优缺点</strong></p>
+<ol>
+<li><strong>优点</strong>：在不修改目标对象的功能前提下，能通过代理对象对目标功能扩展</li>
+<li><strong>缺点</strong>：因为代理对象需要与目标对象实现一样的接口，所以会有很多代理类</li>
+<li>一旦接口增加方法，目标对象与代理对象都要维护</li>
+</ol>
+<br>
+<h4 id="动态代理">动态代理</h4>
+<h5 id="基本介绍-7">基本介绍</h5>
+<ol>
+<li>代理对象，不需要实现接口，但是目标对象要实现接口，否则不能用动态代理</li>
+<li>代理对象的生成，是利用JDK的API，动态的在内存中构建代理对象</li>
+<li>动态代理也叫做：JDK代理、接口代理</li>
+</ol>
+<h5 id="jdk中生成代理对象的api">JDK中生成代理对象的API</h5>
+<ol>
+<li>代理类所在包：java.lang.reflect.Proxy</li>
+<li>JDK实现代理只需要使用newProxyInstance方法，但是该方法需要接收三个参数，完成写法如下：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="n">Object</span> <span class="nf">newProxyInstance</span><span class="o">(</span><span class="n">ClassLoader</span> <span class="n">loader</span><span class="o">,</span><span class="n">Class</span><span class="o">&lt;?&gt;[]</span> <span class="n">interfaces</span><span class="o">,</span><span class="n">InvocationHandler</span> <span class="n">handler</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="应用实例-8">应用实例</h5>
+<p>将前面的静态代理该进成动态代理模式（即：JDK代理模式）</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" title="动态代理应用实例类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>动态代理应用实例类图</h2><p>动态代理应用实例类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">动态代理应用实例类图</figcaption>
+    </figure></p>
+<br>
+<h4 id="cglib代理模式">Cglib代理模式</h4>
+<h5 id="基本介绍-8">基本介绍</h5>
+<ol>
+<li>
+<p>静态代理和JDK代理模式都要求目标对象是实现一个接口，但是有时候目标对象只是一个单独的对象，并没有实现任何的接口，这个时候可使用目标对象子类来实现代理-&gt;这就是Cglib代理</p>
+</li>
+<li>
+<p>Cglib代理也叫作子类代理，它是在内存中构建一个字类对象从而实现对目标对象功能扩展，有些书也将<strong>Cglib代理归属到动态代理</strong></p>
+</li>
+<li>
+<p>Cglib是一个强大的高性能的代码生成包，它可以在运行期扩展Java类与实现Java接口，它广泛的被许多AOP的框架使用，例如Spring AOP，实现方法拦截</p>
+</li>
+<li>
+<p>在AOP编程中如何选择代理模式</p>
+<ul>
+<li>目标对象需要实现接口，用JDK代理</li>
+<li>目标对象不需要实现接口，用Cglib代理</li>
+</ul>
+</li>
+<li>
+<p>Cglib包的底层是通过使用字节码处理框架ASM来转换字节码并生成新的类</p>
+</li>
+</ol>
+<h5 id="cglib代理模式实现步骤">Cglib代理模式实现步骤</h5>
+<ol>
+<li>需要引入cglib的jar包</li>
+<li>在内存中动态构建字类，注意代理的类不能为final，否则报错（java.lang.IllegalArgumentException）</li>
+<li>目标对象的方法如果为final/static，那么就不会被拦截，即不会执行目标对象额外的业务方法</li>
+</ol>
+<h5 id="cglib代理模式应用实例">Cglib代理模式应用实例</h5>
+<p>将前面案例用Cglib代理模式实现</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" title="Cglib代理模式应用实例类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>Cglib代理模式应用实例类图</h2><p>Cglib代理模式应用实例类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">Cglib代理模式应用实例类图</figcaption>
+    </figure></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.lang.reflect.Method</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">net.sf.cglib.proxy.Enhancer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">net.sf.cglib.proxy.MethodInterceptor</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">net.sf.cglib.proxy.MethodProxy</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProxyFactory</span> <span class="kd">implements</span> <span class="n">MethodInterceptor</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//维护一个目标对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="n">Object</span> <span class="n">target</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//构造器，传入一个被代理的对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="nf">ProxyFactory</span><span class="o">(</span><span class="n">Object</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">target</span> <span class="o">=</span> <span class="n">target</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//返回一个代理对象:  是 target 对象的代理对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="n">Object</span> <span class="nf">getProxyInstance</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//1. 创建一个工具类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Enhancer</span> <span class="n">enhancer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Enhancer</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//2. 设置父类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">enhancer</span><span class="o">.</span><span class="na">setSuperclass</span><span class="o">(</span><span class="n">target</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//3. 设置回调函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">enhancer</span><span class="o">.</span><span class="na">setCallback</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//4. 创建子类对象，即代理对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="n">enhancer</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//重写  intercept 方法，会调用目标对象的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">Object</span> <span class="nf">intercept</span><span class="o">(</span><span class="n">Object</span> <span class="n">arg0</span><span class="o">,</span> <span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">,</span> <span class="n">MethodProxy</span> <span class="n">arg3</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Cglib代理模式 ~~ 开始&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">Object</span> <span class="n">returnVal</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">target</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Cglib代理模式 ~~ 提交&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">returnVal</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TeacherDao</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">teach</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; 老师授课中  ， 我是cglib代理，不需要实现接口 &#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//创建目标对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">TeacherDao</span> <span class="n">target</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TeacherDao</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//获取到代理对象，并且将目标对象传递给代理对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">TeacherDao</span> <span class="n">proxyInstance</span> <span class="o">=</span> <span class="o">(</span><span class="n">TeacherDao</span><span class="o">)</span><span class="k">new</span> <span class="n">ProxyFactory</span><span class="o">(</span><span class="n">target</span><span class="o">).</span><span class="na">getProxyInstance</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">//执行代理对象的方法，触发intecept 方法，从而实现 对目标对象的调用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">String</span> <span class="n">res</span> <span class="o">=</span> <span class="n">proxyInstance</span><span class="o">.</span><span class="na">teach</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;res=&#34;</span> <span class="o">+</span> <span class="n">res</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="代理模式proxy的变体">代理模式（Proxy）的变体</h4>
+<ol>
+<li>
+<p><strong>防火墙代理</strong></p>
+<p>内网通过代理穿透防火墙，实现对公网的访问</p>
+</li>
+<li>
+<p><strong>缓存代理</strong></p>
+<p>比如：当请求图片文件等资源时，先到缓存代理取，如果取到资源则OK，如果取不到资源，再到公网或者数据库中取，然后缓存</p>
+</li>
+<li>
+<p><strong>远程代理</strong></p>
+<p><strong>远程对象的本地代表</strong>，通过它可以<strong>把远程对象当本地对象</strong>来调用。远程代理通过网络和真正的远程对象沟通信息</p>
+</li>
+<li>
+<p>同步代理</p>
+<p>主要使用在多线程编程中，完成多线程间同步工作</p>
+</li>
+</ol>
+<br>
+<h3 id="模版方法模式">模版方法模式</h3>
 <br>
 <p><strong>未完待续···</strong></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
