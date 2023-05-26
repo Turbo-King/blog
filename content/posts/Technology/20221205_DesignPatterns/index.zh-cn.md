@@ -4817,7 +4817,7 @@ public class Client {
 3. 选材、浸泡和放到豆浆机打碎这几个步骤对于制作每种口味的豆浆都是一样的
 4. 请使用**模版方法模式**完成（说明：因为模版方法模式，比较简单，很容易就想到这个方案，因此就直接使用，不再使用传统方案引出模版方法模式）
 
-#### 基本介绍
+#### 模版方法模式基本介绍
 
 1. 模版方法模式（Template Method Pattern），又叫模版模式（Template Pattern），在一个抽象类公开定义了执行它的方法的模版。它的字类可以按需要重写方法实现，但调用将以抽象类中定义的方式进行。
 2. 简单说，模版方法模式定义了一个操作中的算法骨架，而将一些步骤延迟到子类中，使得子类可以不改变一个算法的结构，就可以重定义该算法的某些特定步骤
@@ -5059,9 +5059,446 @@ public class Client {
 
 <br>
 
-## 命令模式
+### 命令模式
+
+#### 智能生活项目
+
+智能生活项目具体需求
+
+1. 我们买了一套智能家电，有照明灯、风扇冰箱、洗衣机，我们只要在手机上安装app就可以控制对这些家电工作
+2. 这些职能家电来自不同的厂家，我们不想针对每一种家电都安装一个App，分别控制，我们希望只要一个app就可以控制全部职能家电
+3. 要实现一个app控制所有智能家电的需求，则每个智能家电厂家都要提供一个统一的接口给app调用，这时就可以考虑使用命令模式
+4. 命令模式可将“动作的请求者”从“动作的执行者”对象中解耦出来
+5. 在上面例子中，动作的请求者是手机app，动作的执行者是每个厂商的一个家电产品
+
+#### 命令模式基本介绍
+
+1. 命令模式（Command Pattern）：在软件设计中，我们经常需要向某些对象发送请求，但是并不知道请求的接收者是谁，也不知道被请求的操作是哪个，我们只需在程序运行时指定具体的请求接收者即可，此时，可以使用命令模式来进行设计
+2. 命令模式使得请求发送者与请求接收者消除彼此之间的耦合，让对象之间的调用关系更加灵活，实现解耦
+3. 在命令模式中，会将一个请求封装为一个对象，以便使用不同参数来表示不同的请求（即命名），同时命令模式也支持可撤销的操作
+4. 通俗易懂的理解：将军发布命令，士兵去执行。其中有几个角色：将军（命令发布者）、士兵（命令的具体执行者）、命令（连接将军和士兵）。Invoker是调用者（将军），Receiver是被调用者（士兵），MyCommand是命令，实现了Command接口，持有接收对象
+
+#### 命令模式的原理类图
+
+![命令模式的原理类图](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png "命令模式的原理类图")
+
+{{< admonition question 命令模式的角色及职责 >}}
+
+1. Invoker：是调用者角色
+2. Command：是命令角色，需要执行的所有命令都在这里，可以是接口或抽象类
+3. Receiver：是接收者角色，知道如何实施和执行一个请求相关的操作
+4. ConcreteCommand：将一个接收者对象与一个动作绑定，调用接收者相应的操作，实现execute
+
+{{< /admonition >}}
+
+#### 命令模式解决智能生活项目
+
+![命令模式解决智能生活项目类图](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E7%94%9F%E6%B4%BB%E9%A1%B9%E7%9B%AE%E7%B1%BB%E5%9B%BE.png "命令模式解决智能生活项目类图")
+
+```java
+//创建命令接口
+public interface Command {
+
+	//执行动作(操作)
+	public void execute();
+	//撤销动作(操作)
+	public void undo();
+}
 
 
+
+
+/**
+ * 没有任何命令，即空执行: 用于初始化每个按钮, 当调用空命令时，对象什么都不做
+ * 其实，这样是一种设计模式, 可以省掉对空判断
+ * @author Administrator
+ *
+ */
+public class NoCommand implements Command {
+
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+
+
+
+
+
+public class LightOffCommand implements Command {
+
+	// 聚合LightReceiver
+
+	LightReceiver light;
+
+	// 构造器
+	public LightOffCommand(LightReceiver light) {
+			super();
+			this.light = light;
+		}
+
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		// 调用接收者的方法
+		light.off();
+	}
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+		// 调用接收者的方法
+		light.on();
+	}
+}
+
+
+
+
+
+public class LightOnCommand implements Command {
+
+	//聚合LightReceiver
+	
+	LightReceiver light;
+	
+	//构造器
+	public LightOnCommand(LightReceiver light) {
+		super();
+		this.light = light;
+	}
+	
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		//调用接收者的方法
+		light.on();
+	}
+
+	
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+		//调用接收者的方法
+		light.off();
+	}
+
+}
+
+
+
+
+
+public class LightReceiver {
+
+	public void on() {
+		System.out.println(" 电灯打开了.. ");
+	}
+	
+	public void off() {
+		System.out.println(" 电灯关闭了.. ");
+	}
+}
+
+
+
+
+
+public class RemoteController {
+
+	// 开 按钮的命令数组
+	Command[] onCommands;
+	Command[] offCommands;
+
+	// 执行撤销的命令
+	Command undoCommand;
+
+	// 构造器，完成对按钮初始化
+
+	public RemoteController() {
+
+		onCommands = new Command[5];
+		offCommands = new Command[5];
+
+		for (int i = 0; i < 5; i++) {
+			onCommands[i] = new NoCommand();
+			offCommands[i] = new NoCommand();
+		}
+	}
+
+	// 给我们的按钮设置你需要的命令
+	public void setCommand(int no, Command onCommand, Command offCommand) {
+		onCommands[no] = onCommand;
+		offCommands[no] = offCommand;
+	}
+
+	// 按下开按钮
+	public void onButtonWasPushed(int no) { // no 0
+		// 找到你按下的开的按钮， 并调用对应方法
+		onCommands[no].execute();
+		// 记录这次的操作，用于撤销
+		undoCommand = onCommands[no];
+
+	}
+
+	// 按下开按钮
+	public void offButtonWasPushed(int no) { // no 0
+		// 找到你按下的关的按钮， 并调用对应方法
+		offCommands[no].execute();
+		// 记录这次的操作，用于撤销
+		undoCommand = offCommands[no];
+
+	}
+	
+	// 按下撤销按钮
+	public void undoButtonWasPushed() {
+		undoCommand.undo();
+	}
+
+}
+
+
+
+
+
+public class TVOffCommand implements Command {
+
+	// 聚合TVReceiver
+
+	TVReceiver tv;
+
+	// 构造器
+	public TVOffCommand(TVReceiver tv) {
+		super();
+		this.tv = tv;
+	}
+
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		// 调用接收者的方法
+		tv.off();
+	}
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+		// 调用接收者的方法
+		tv.on();
+	}
+}
+
+
+
+
+
+public class TVOnCommand implements Command {
+
+	// 聚合TVReceiver
+
+	TVReceiver tv;
+
+	// 构造器
+	public TVOnCommand(TVReceiver tv) {
+		super();
+		this.tv = tv;
+	}
+
+	@Override
+	public void execute() {
+		// TODO Auto-generated method stub
+		// 调用接收者的方法
+		tv.on();
+	}
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+		// 调用接收者的方法
+		tv.off();
+	}
+}
+
+
+
+
+
+public class TVReceiver {
+	
+	public void on() {
+		System.out.println(" 电视机打开了.. ");
+	}
+	
+	public void off() {
+		System.out.println(" 电视机关闭了.. ");
+	}
+}
+
+
+
+
+
+
+public class Client {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		//使用命令设计模式，完成通过遥控器，对电灯的操作
+		
+		//创建电灯的对象(接受者)
+		LightReceiver lightReceiver = new LightReceiver();
+		
+		//创建电灯相关的开关命令
+		LightOnCommand lightOnCommand = new LightOnCommand(lightReceiver);
+		LightOffCommand lightOffCommand = new LightOffCommand(lightReceiver);
+		
+		//需要一个遥控器
+		RemoteController remoteController = new RemoteController();
+		
+		//给我们的遥控器设置命令, 比如 no = 0 是电灯的开和关的操作
+		remoteController.setCommand(0, lightOnCommand, lightOffCommand);
+		
+		System.out.println("--------按下灯的开按钮-----------");
+		remoteController.onButtonWasPushed(0);
+		System.out.println("--------按下灯的关按钮-----------");
+		remoteController.offButtonWasPushed(0);
+		System.out.println("--------按下撤销按钮-----------");
+		remoteController.undoButtonWasPushed();
+		
+		
+		System.out.println("=========使用遥控器操作电视机==========");
+		
+		TVReceiver tvReceiver = new TVReceiver();
+		
+		TVOffCommand tvOffCommand = new TVOffCommand(tvReceiver);
+		TVOnCommand tvOnCommand = new TVOnCommand(tvReceiver);
+		
+		//给我们的遥控器设置命令, 比如 no = 1 是电视机的开和关的操作
+		remoteController.setCommand(1, tvOnCommand, tvOffCommand);
+		
+		System.out.println("--------按下电视机的开按钮-----------");
+		remoteController.onButtonWasPushed(1);
+		System.out.println("--------按下电视机的关按钮-----------");
+		remoteController.offButtonWasPushed(1);
+		System.out.println("--------按下撤销按钮-----------");
+		remoteController.undoButtonWasPushed();
+
+	}
+
+}
+```
+
+#### 命令模式在Spring框架JdbcTemplate应用的源码分析
+
+**Spring框架的JdbcTemplate就使用到了命令模式**
+
+```java
+public class JdbcTemplate extends JdbcAccessor implements JdbcOperations {
+
+public void query(String sql, RowCallbackHandler rch) throws DataAccessException {
+        this.query((String)sql, (ResultSetExtractor)(new RowCallbackHandlerResultSetExtractor(rch)));
+    }
+  
+  
+  
+  @Nullable
+    public <T> T query(final String sql, final ResultSetExtractor<T> rse) throws DataAccessException {
+        Assert.notNull(sql, "SQL must not be null");
+        Assert.notNull(rse, "ResultSetExtractor must not be null");
+        if (this.logger.isDebugEnabled()) {
+            this.logger.debug("Executing SQL query [" + sql + "]");
+        }
+
+        class QueryStatementCallback implements StatementCallback<T>, SqlProvider {
+            QueryStatementCallback() {
+            }
+
+            @Nullable
+            public T doInStatement(Statement stmt) throws SQLException {
+                ResultSet rs = null;
+
+                Object var3;
+                try {
+                    rs = stmt.executeQuery(sql);
+                    var3 = rse.extractData(rs);
+                } finally {
+                    JdbcUtils.closeResultSet(rs);
+                }
+
+                return var3;
+            }
+
+            public String getSql() {
+                return sql;
+            }
+        }
+
+        return this.execute(new QueryStatementCallback(), true);
+    }
+  
+  
+
+@Nullable
+    public <T> T execute(ConnectionCallback<T> action) throws DataAccessException {
+    
+    ·······
+    
+    }
+}
+
+
+
+
+
+@FunctionalInterface
+public interface StatementCallback<T> {
+    @Nullable
+    T doInStatement(Statement stmt) throws SQLException, DataAccessException;
+}
+```
+
+{{< admonition question 模式角色分析说明 >}}
+
+- StatementCallback接口，类似命令接口（Command）
+- class QueryStatementCallback implements StatementCallback`<T>`,sqlProvider,匿名内部类，实现了命令接口，同时也充当命令接收者
+- 命令调用者是JdbcTemplate，其中execute（StatementCallback`<T>`action）方法中，调用action.doInStatement方法。不同的实现StatementCallback接口的对象，对应不同的doInStatement实现逻辑
+- 另外实现StatementCallback命令接口的子类还有QueryStatementCallback
+
+![StatementCallback 命令接口的子类](https://cdn.jsdelivr.net/gh/Turbo-King/images/StatementCallback%20%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AD%90%E7%B1%BB.png "StatementCallback 命令接口的子类")
+
+{{< /admonition >}}
+
+#### 命令模式的注意事项和细节
+
+{{< admonition tip 命令模式 >}}
+
+1. 将发起请求的对象与执行请求的对象解耦。发起请求的对象是调用者，调用者只要调用命令对象的execute()方法就可以让接收者工作，而不必知道具体的接收者对象是谁、是如何实现的，命令对象会负责让接收者执行请求的动作，也就是说：“请求发起者”和“请求执行者”之间的解耦是通过命令对象实现的，命令对象起到了纽带桥梁的作用
+2. 容易设计一个命令队列。只要把命令对象放到队列，就可以多线程的执行命令
+3. 容易实现对请求的撤销和重做
+4. 命令模式不足：可能导致某些系统有过多的具体命令类，增加了系统的复杂度，这点在使用的时候需要注意
+5. 空命令也是一种设计模式，它为我们省去了判空的操作。在上面的实例中，如果没有使用空命令，我们每按下一个按键都需要判空，这给我们编码带来了一定的麻烦
+6. 命令模式经典的应用场景：界面的一个按钮都是一条命令、模拟CMD（DOS命令）订单的撤销/恢复、触发-反馈机制
+
+{{< /admonition >}}
+
+
+
+
+
+<br>
+
+### 访问者模式
 
 
 
