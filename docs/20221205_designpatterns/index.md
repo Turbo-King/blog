@@ -4794,6 +4794,265 @@ public class Client {
 
 ### 模版方法模式
 
+#### 豆浆制作问题
+
+编写制作豆浆的程序，说明如下：
+
+1. 制作豆浆的流程 选材->添加配料->浸泡->放到豆浆机打碎
+2. 通过添加不同的配料，可以制作出不同口味的豆浆
+3. 选材、浸泡和放到豆浆机打碎这几个步骤对于制作每种口味的豆浆都是一样的
+4. 请使用**模版方法模式**完成（说明：因为模版方法模式，比较简单，很容易就想到这个方案，因此就直接使用，不再使用传统方案引出模版方法模式）
+
+#### 基本介绍
+
+1. 模版方法模式（Template Method Pattern），又叫模版模式（Template Pattern），在一个抽象类公开定义了执行它的方法的模版。它的字类可以按需要重写方法实现，但调用将以抽象类中定义的方式进行。
+2. 简单说，模版方法模式定义了一个操作中的算法骨架，而将一些步骤延迟到子类中，使得子类可以不改变一个算法的结构，就可以重定义该算法的某些特定步骤
+3. 这种类型的设计模式属于->行为型模式
+
+#### 模版方法模式原理类图
+
+![模版方法模式原理类图](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png "模版方法模式原理类图")
+
+{{< admonition question 模版方法模式的角色及职责 >}}
+
+1. AbstractClass 抽象类，类中实现了模版方法（Template），定义了算法的骨架，具体子类需要去实现其它的抽象方法 operation2，3，4
+2. ConcreteClass实现抽象方法operation2，3，4，以完成算法中特定子类的步骤
+
+{{< /admonition >}}
+
+#### 模版方法模式解决豆浆制作问题
+
+![模版方法模式解决豆浆制作问题类图](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E8%B1%86%E6%B5%86%E5%88%B6%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png "模版方法模式解决豆浆制作问题类图")
+
+```java
+//抽象类，表示豆浆
+public abstract class SoyaMilk {
+
+	//模板方法, make , 模板方法可以做成final , 不让子类去覆盖.
+	final void make() {
+		
+		select(); 
+		addCondiments();
+		soak();
+		beat();
+		
+	}
+	
+	//选材料
+	void select() {
+		System.out.println("第一步：选择好的新鲜黄豆  ");
+	}
+	
+	//添加不同的配料， 抽象方法, 子类具体实现
+	abstract void addCondiments();
+	
+	//浸泡
+	void soak() {
+		System.out.println("第三步， 黄豆和配料开始浸泡， 需要3小时 ");
+	}
+	 
+	void beat() {
+		System.out.println("第四步：黄豆和配料放到豆浆机去打碎  ");
+	}
+}
+
+
+
+
+public class RedBeanSoyaMilk extends SoyaMilk {
+
+	@Override
+	void addCondiments() {
+		// TODO Auto-generated method stub
+		System.out.println(" 加入上好的红豆 ");
+	}
+
+}
+
+
+
+
+public class PeanutSoyaMilk extends SoyaMilk {
+
+	@Override
+	void addCondiments() {
+		// TODO Auto-generated method stub
+		System.out.println(" 加入上好的花生 ");
+	}
+
+}
+
+
+
+
+public class Client {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//制作红豆豆浆
+		
+		System.out.println("----制作红豆豆浆----");
+		SoyaMilk redBeanSoyaMilk = new RedBeanSoyaMilk();
+		redBeanSoyaMilk.make();
+		
+		System.out.println("----制作花生豆浆----");
+		SoyaMilk peanutSoyaMilk = new PeanutSoyaMilk();
+		peanutSoyaMilk.make();
+	}
+
+}
+
+```
+
+#### 模版方法模式的钩子方法
+
+1. 在模版方法模式的父类中，我们定义一个方法，它默认不做任何事，子类可以视情况要不要覆盖它，该方法称为“钩子”
+2. 还是用上面做豆浆的例子来讲解，比如，我们还希望制作纯豆浆，不添加任何的配料，请使用钩子方法对前面的模版方法进行改造
+
+```java
+//抽象类，表示豆浆
+public abstract class SoyaMilk {
+
+	//模板方法, make , 模板方法可以做成final , 不让子类去覆盖.
+	final void make() {
+		
+		select(); 
+		if(customerWantCondiments()) {
+			addCondiments();
+		}
+		soak();
+		beat();
+		
+	}
+	
+	//选材料
+	void select() {
+		System.out.println("第一步：选择好的新鲜黄豆  ");
+	}
+	
+	//添加不同的配料， 抽象方法, 子类具体实现
+	abstract void addCondiments();
+	
+	//浸泡
+	void soak() {
+		System.out.println("第三步， 黄豆和配料开始浸泡， 需要3小时 ");
+	}
+	 
+	void beat() {
+		System.out.println("第四步：黄豆和配料放到豆浆机去打碎  ");
+	}
+	
+	//钩子方法，决定是否需要添加配料
+	boolean customerWantCondiments() {
+		return true;
+	}
+}
+
+
+
+
+
+public class RedBeanSoyaMilk extends SoyaMilk {
+
+	@Override
+	void addCondiments() {
+		// TODO Auto-generated method stub
+		System.out.println(" 加入上好的红豆 ");
+	}
+
+}
+
+
+
+
+
+public class PureSoyaMilk extends SoyaMilk{
+
+	@Override
+	void addCondiments() {
+		// TODO Auto-generated method stub
+		//空实现
+	}
+	
+	@Override
+	boolean customerWantCondiments() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+ 
+}
+
+
+
+
+
+public class PeanutSoyaMilk extends SoyaMilk {
+
+	@Override
+	void addCondiments() {
+		// TODO Auto-generated method stub
+		System.out.println(" 加入上好的花生 ");
+	}
+
+}
+
+
+
+
+
+public class Client {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//制作红豆豆浆
+		
+		System.out.println("----制作红豆豆浆----");
+		SoyaMilk redBeanSoyaMilk = new RedBeanSoyaMilk();
+		redBeanSoyaMilk.make();
+		
+		System.out.println("----制作花生豆浆----");
+		SoyaMilk peanutSoyaMilk = new PeanutSoyaMilk();
+		peanutSoyaMilk.make();
+		
+		System.out.println("----制作纯豆浆----");
+		SoyaMilk pureSoyaMilk = new PureSoyaMilk();
+		pureSoyaMilk.make();
+	}
+
+}
+```
+
+#### 模版方法模式在Spring框架应用的源码分析
+
+**Spring IOC容器初始化时运用到的模版方法模式**
+
+![Spring源码使用模版方法模式类图](https://cdn.jsdelivr.net/gh/Turbo-King/images/Spring%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE.png "Spring源码使用模版方法模式类图")
+
+#### 模版方法模式注意事项和细节
+
+{{< admonition tip 模版方法模式 >}}
+
+1. **基本思想**：**算法只存在于一个地方，也就是在父类中，容易修改**。需要修改算法时，只要修改父类的模版方法或者已经实现的某些步骤，子类就会继承这些修改
+2. **实现了最大化代码复用**。父类的模版方法和已经实现的某些步骤会被子类继承而直接使用
+3. **即统一了算法，也提供了很大的灵活性**。父类的模版方法确保了算法的结构保持不变，同时由子类提供部分步骤的实现
+4. 该模式的不足之处：每一个不同的实现都需要一个子类实现，导致类的个数增加，使得系统更加庞大
+5. 一般模版方法都加上**final**关键字，防止子类重写模版方法
+6. 模版方法模式使用场景：**当要完成在某个过程**，该过程要执行一系列步骤，**这一系列的步骤基本相同**，但其**个别步骤**在实现时可能不同，通常考虑用模版方法模式来处理
+
+{{< /admonition >}}
+
+
+
+<br>
+
+## 命令模式
+
+
+
+
+
+
+
 
 
 
