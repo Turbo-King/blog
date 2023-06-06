@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/"
-        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  47213 ,
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  50053 ,
         "url": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 47213 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 95 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 50053 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 100 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -527,7 +527,25 @@
             <li><a href="#迭代器模式的注意事项和细节">迭代器模式的注意事项和细节</a></li>
           </ul>
         </li>
-        <li><a href="#观察者模式">观察者模式</a></li>
+        <li><a href="#观察者模式">观察者模式</a>
+          <ul>
+            <li><a href="#天气预报项目">天气预报项目</a></li>
+            <li><a href="#传统方案">传统方案</a>
+              <ul>
+                <li><a href="#传统方案问题分析">传统方案问题分析</a></li>
+              </ul>
+            </li>
+            <li><a href="#观察者模式-1">观察者模式</a>
+              <ul>
+                <li><a href="#基本介绍-11">基本介绍</a></li>
+                <li><a href="#观察者模式原理">观察者模式原理</a></li>
+                <li><a href="#观察者模式应用实例">观察者模式应用实例</a></li>
+              </ul>
+            </li>
+            <li><a href="#观察者模式在jdk应用的源码分析">观察者模式在JDK应用的源码分析</a></li>
+          </ul>
+        </li>
+        <li><a href="#中介者模式">中介者模式</a></li>
       </ul>
     </li>
   </ul>
@@ -10877,11 +10895,11 @@
         </div>
         <div class="details-content">
             <div class="admonition-content"><ol>
-<li>Iterator：迭代器接口，是系统提供，含义 hasNext，next，remove</li>
-<li>ConcreteIterator：具体的迭代器类，管理迭代</li>
-<li>Aggregate：一个统一的聚合接口，将客户端和具体聚合解耦</li>
-<li>ConcreteAggreage：具体的聚合持有对象集合，并提供一个方法，返回一个迭代器，该迭代器可以正确遍历集合</li>
-<li>Client：客户端，通过 Iterator 和 Aggregate 依赖子类</li>
+<li><strong>Iterator</strong>：<strong>迭代器接口</strong>，是系统提供，含义 hasNext，next，remove</li>
+<li><strong>ConcreteIterator</strong>：具体的迭代器类，管理迭代</li>
+<li><strong>Aggregate</strong>：一个统一的<strong>聚合接口</strong>，将<strong>客户端和具体聚合解耦</strong></li>
+<li><strong>ConcreteAggreage</strong>：具体的聚合持有对象集合，并提供一个方法，返回一个迭代器，该迭代器可以正确遍历集合</li>
+<li><strong>Client</strong>：客户端，<strong>通过 Iterator 和 Aggregate 依赖子类</strong></li>
 </ol>
 </div>
         </div>
@@ -11790,6 +11808,787 @@
     </div>
 <br>
 <h3 id="观察者模式">观察者模式</h3>
+<h4 id="天气预报项目">天气预报项目</h4>
+<p><strong>具体需求如下：</strong></p>
+<ol>
+<li>气象站可以将每天测量到的温度、湿度、气压等等以公告的形式发布出去（比如发布到自己的网站或第三方）</li>
+<li>需要设计开放型API，便于其他第三方也能接入气象站获取数据</li>
+<li>提供温度、气压和湿度的接口</li>
+<li>测量数据更新时，要能实时的通知给第三方</li>
+</ol>
+<h4 id="传统方案">传统方案</h4>
+<p>通过对气象站项目的分析，我们可以初步设计出一个WeatherData类</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png" title="weather" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png" data-sub-html="<h2>weather</h2><p>weather</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png" />
+    </a><figcaption class="image-caption">weather</figcaption>
+    </figure></p>
+<p><strong>说明：</strong></p>
+<ol>
+<li>通过getXxx方法，可以让第三方接入，并得到相关信息</li>
+<li>当数据有更新时，气象站通过调用 dataChange() 去个更新数据，当第三方再次获取时，就能得到最新数据，当然也可以推送</li>
+</ol>
+<p><strong>解决示意图：</strong></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" title="解决示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" data-sub-html="<h2>解决示意图解决示意图</h2><p>解决示意图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">解决示意图解决示意图</figcaption>
+    </figure></p>
+<p>CurrentConditions(当前的天气情况)</p>
+<p>可以理解成是我们气象局的网站 // 推送</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span><span class="lnt">97
+</span><span class="lnt">98
+</span><span class="lnt">99
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 显示当前天气情况（可以理解成是气象站自己的网站）
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CurrentConditions</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 温度，气压，湿度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="kt">float</span> <span class="n">temperature</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//更新 天气情况，是由 WeatherData 来调用，我使用推送模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="kt">float</span> <span class="n">temperature</span><span class="o">,</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">,</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">temperature</span> <span class="o">=</span> <span class="n">temperature</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">pressure</span> <span class="o">=</span> <span class="n">pressure</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">humidity</span> <span class="o">=</span> <span class="n">humidity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">display</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//显示
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;***Today mTemperature: &#34;</span> <span class="o">+</span> <span class="n">temperature</span> <span class="o">+</span> <span class="s">&#34;***&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;***Today mPressure: &#34;</span> <span class="o">+</span> <span class="n">pressure</span> <span class="o">+</span> <span class="s">&#34;***&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;***Today mHumidity: &#34;</span> <span class="o">+</span> <span class="n">humidity</span> <span class="o">+</span> <span class="s">&#34;***&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 类是核心
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 1. 包含最新的天气情况信息 
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 2. 含有 CurrentConditions 对象
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 3. 当数据有更新时，就主动的调用   CurrentConditions对象update方法(含 display), 这样他们（接入方）就看到最新的信息
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WeatherData</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">float</span> <span class="n">temperatrue</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">CurrentConditions</span> <span class="n">currentConditions</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//加入新的第三方
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">WeatherData</span><span class="o">(</span><span class="n">CurrentConditions</span> <span class="n">currentConditions</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">currentConditions</span> <span class="o">=</span> <span class="n">currentConditions</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">float</span> <span class="nf">getTemperature</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">temperatrue</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">float</span> <span class="nf">getPressure</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">pressure</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">float</span> <span class="nf">getHumidity</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">humidity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">dataChange</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//调用 接入方的 update
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">currentConditions</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">getTemperature</span><span class="o">(),</span> <span class="n">getPressure</span><span class="o">(),</span> <span class="n">getHumidity</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//当数据有更新时，就调用 setData
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setData</span><span class="o">(</span><span class="kt">float</span> <span class="n">temperature</span><span class="o">,</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">,</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">temperatrue</span> <span class="o">=</span> <span class="n">temperature</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">pressure</span> <span class="o">=</span> <span class="n">pressure</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">humidity</span> <span class="o">=</span> <span class="n">humidity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//调用dataChange， 将最新的信息 推送给 接入方 currentConditions
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">dataChange</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//创建接入方 currentConditions
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">CurrentConditions</span> <span class="n">currentConditions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CurrentConditions</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//创建 WeatherData 并将 接入方 currentConditions 传递到 WeatherData中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">WeatherData</span> <span class="n">weatherData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeatherData</span><span class="o">(</span><span class="n">currentConditions</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">//更新天气情况
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">weatherData</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="mi">30</span><span class="o">,</span> <span class="mi">150</span><span class="o">,</span> <span class="mi">40</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">//天气情况变化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;============天气情况变化=============&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">weatherData</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="mi">40</span><span class="o">,</span> <span class="mi">160</span><span class="o">,</span> <span class="mi">20</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="传统方案问题分析">传统方案问题分析</h5>
+<ol>
+<li>其他第三方接入气象站获取数据的问题</li>
+<li>无法在运行时动态的添加第三方（新浪网站）</li>
+<li>违反 OCP 原则 -&gt; 观察者模式</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 在WeatherData中，当增加一个第三方，都需要创建一个对应的第三方的公告板对象，并加入到dataChange，不利于维护也不是动态加入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">dataChange</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">  <span class="n">currentConditions</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">getTemperature</span><span class="o">,</span><span class="n">getPressure</span><span class="o">,</span><span class="n">getHumidity</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="观察者模式-1">观察者模式</h4>
+<h5 id="基本介绍-11">基本介绍</h5>
+<p><strong>观察者模式（Observer Pattern）</strong>：指多个对象间存在<strong>一对多的依赖关系</strong>，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。这种模式有时又称作<strong>发布-订阅模式</strong>、<strong>模型-视图模式</strong>，它是对象<strong>行为型模式</strong>。</p>
+<h5 id="观察者模式原理">观察者模式原理</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png" title="观察者模式原理-Subject" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png" data-sub-html="<h2>观察者模式原理-Subject</h2><p>观察者模式原理-Subject</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png" />
+    </a><figcaption class="image-caption">观察者模式原理-Subject</figcaption>
+    </figure></p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86-Observer.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86-Observer.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86-Observer.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86-Observer.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86-Observer.png"
+        title="观察者模式原理-Observer" /></p>
+<div class="details admonition question open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>观察者模式的角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><strong>观察者模式类似用户订购牛奶业务</strong>
+<ol>
+<li>奶站：<strong>Subject</strong></li>
+<li>用户：<strong>Observer</strong></li>
+</ol>
+</li>
+<li><strong>Subject</strong>：登记注册、移除和通知
+<ol>
+<li><strong>registerObserver</strong> 注册</li>
+<li><strong>removeObserver</strong> 移除</li>
+<li><strong>notifyObserver</strong> 通知所有的注册用户，根据不同的需求，可以是更新数据，让用户来取，也可能是实施推送，根据具体需求定</li>
+</ol>
+</li>
+<li><strong>Observer</strong>：接收输入</li>
+<li><strong>观察者模式</strong>：对象之间多对一依赖的一种设计方案，被依赖的对象为 Subject，依赖的对象为 Observer，Subject 通知 Observer 变化，比如这里的奶站是 Subject，是“1”的一方，用户是 Observer，是“多”的一方</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h5 id="观察者模式应用实例">观察者模式应用实例</h5>
+<p><strong>观察者模式解决天气预报需求</strong></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png" title="观察者模式解决天气预报需求类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>观察者模式解决天气预报需求类图</h2><p>观察者模式解决天气预报需求类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">观察者模式解决天气预报需求类图</figcaption>
+    </figure></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//观察者接口，有观察者来实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Observer</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="kt">float</span> <span class="n">temperature</span><span class="o">,</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">,</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//接口, 让WeatherData 来实现 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Subject</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">registerObserver</span><span class="o">(</span><span class="n">Observer</span> <span class="n">o</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeObserver</span><span class="o">(</span><span class="n">Observer</span> <span class="n">o</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">notifyObservers</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 类是核心
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 1. 包含最新的天气情况信息 
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 2. 含有 观察者集合，使用ArrayList管理
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 3. 当数据有更新时，就主动的调用   ArrayList, 通知所有的（接入方）就看到最新的信息
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WeatherData</span> <span class="kd">implements</span> <span class="n">Subject</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">float</span> <span class="n">temperatrue</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//观察者集合
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Observer</span><span class="o">&gt;</span> <span class="n">observers</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//加入新的第三方
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">WeatherData</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">observers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Observer</span><span class="o">&gt;();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">float</span> <span class="nf">getTemperature</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">temperatrue</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">float</span> <span class="nf">getPressure</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">pressure</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">float</span> <span class="nf">getHumidity</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">humidity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">dataChange</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//调用 接入方的 update
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		
+</span></span><span class="line"><span class="cl">		<span class="n">notifyObservers</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//当数据有更新时，就调用 setData
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setData</span><span class="o">(</span><span class="kt">float</span> <span class="n">temperature</span><span class="o">,</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">,</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">temperatrue</span> <span class="o">=</span> <span class="n">temperature</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">pressure</span> <span class="o">=</span> <span class="n">pressure</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">humidity</span> <span class="o">=</span> <span class="n">humidity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//调用dataChange， 将最新的信息 推送给 接入方 currentConditions
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">dataChange</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//注册一个观察者
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">registerObserver</span><span class="o">(</span><span class="n">Observer</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">observers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">o</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//移除一个观察者
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">removeObserver</span><span class="o">(</span><span class="n">Observer</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span><span class="o">(</span><span class="n">observers</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">o</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">observers</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">o</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//遍历所有的观察者，并通知
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">notifyObservers</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">observers</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">observers</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">update</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">temperatrue</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">pressure</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">humidity</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CurrentConditions</span> <span class="kd">implements</span> <span class="n">Observer</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 温度，气压，湿度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="kt">float</span> <span class="n">temperature</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 更新 天气情况，是由 WeatherData 来调用，我使用推送模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="kt">float</span> <span class="n">temperature</span><span class="o">,</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">,</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">temperature</span> <span class="o">=</span> <span class="n">temperature</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">pressure</span> <span class="o">=</span> <span class="n">pressure</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">humidity</span> <span class="o">=</span> <span class="n">humidity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">display</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 显示
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;***Today mTemperature: &#34;</span> <span class="o">+</span> <span class="n">temperature</span> <span class="o">+</span> <span class="s">&#34;***&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;***Today mPressure: &#34;</span> <span class="o">+</span> <span class="n">pressure</span> <span class="o">+</span> <span class="s">&#34;***&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;***Today mHumidity: &#34;</span> <span class="o">+</span> <span class="n">humidity</span> <span class="o">+</span> <span class="s">&#34;***&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BaiduSite</span> <span class="kd">implements</span> <span class="n">Observer</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 温度，气压，湿度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="kt">float</span> <span class="n">temperature</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 更新 天气情况，是由 WeatherData 来调用，我使用推送模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="kt">float</span> <span class="n">temperature</span><span class="o">,</span> <span class="kt">float</span> <span class="n">pressure</span><span class="o">,</span> <span class="kt">float</span> <span class="n">humidity</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">temperature</span> <span class="o">=</span> <span class="n">temperature</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">pressure</span> <span class="o">=</span> <span class="n">pressure</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">humidity</span> <span class="o">=</span> <span class="n">humidity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">display</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 显示
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;===百度网站====&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;***百度网站 气温 : &#34;</span> <span class="o">+</span> <span class="n">temperature</span> <span class="o">+</span> <span class="s">&#34;***&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;***百度网站 气压: &#34;</span> <span class="o">+</span> <span class="n">pressure</span> <span class="o">+</span> <span class="s">&#34;***&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;***百度网站 湿度: &#34;</span> <span class="o">+</span> <span class="n">humidity</span> <span class="o">+</span> <span class="s">&#34;***&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//创建一个WeatherData
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">WeatherData</span> <span class="n">weatherData</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WeatherData</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">//创建观察者
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">CurrentConditions</span> <span class="n">currentConditions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CurrentConditions</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">BaiduSite</span> <span class="n">baiduSite</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BaiduSite</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">//注册到weatherData
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">weatherData</span><span class="o">.</span><span class="na">registerObserver</span><span class="o">(</span><span class="n">currentConditions</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">weatherData</span><span class="o">.</span><span class="na">registerObserver</span><span class="o">(</span><span class="n">baiduSite</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">//测试
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;通知各个注册的观察者, 看看信息&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">weatherData</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="mi">10</span><span class="n">f</span><span class="o">,</span> <span class="mi">100</span><span class="n">f</span><span class="o">,</span> <span class="mf">30.3f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="n">weatherData</span><span class="o">.</span><span class="na">removeObserver</span><span class="o">(</span><span class="n">currentConditions</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//测试
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;通知各个注册的观察者, 看看信息&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">weatherData</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="mi">10</span><span class="n">f</span><span class="o">,</span> <span class="mi">100</span><span class="n">f</span><span class="o">,</span> <span class="mf">30.3f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>观察者模式的好处</strong></p>
+<ol>
+<li>观察者模式设计后，会以集合的方式来管理用户（Observer），包括注册，移除和通知</li>
+<li>我们增加观察者（这里可以理解成一个新的公告板），就不需要去修改和心类 WeatherData 不会修改代码，遵守了 OCP 原则</li>
+</ol>
+<h4 id="观察者模式在jdk应用的源码分析">观察者模式在JDK应用的源码分析</h4>
+<p><strong>JDK 的 Observable 类就使用了观察者模式</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Observable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">changed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Vector</span><span class="o">&lt;</span><span class="n">Observer</span><span class="o">&gt;</span> <span class="n">obs</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/** Construct an Observable with zero Observers. */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">Observable</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">obs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Vector</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Observer</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">update</span><span class="o">(</span><span class="n">Observable</span> <span class="n">o</span><span class="o">,</span> <span class="n">Object</span> <span class="n">arg</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition question open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>Observable<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><strong>Observable</strong> 的作用和地位等价于我们前面讲过的 Subject</li>
+<li><strong>Observable 是类，不是接口</strong>，类中已经实现了核心的方法，即管理Observer的方法 add.. delete.. notify..</li>
+<li>Observer 的作用和地位等价于我们前面讲过的Observer，有 update</li>
+<li>Observable 和 Observer 的使用方法和前面讲过的一样，只是 Observable 是类，通过<strong>继承</strong>来实现观察者模式</li>
+</ul>
+</div>
+        </div>
+    </div>
+<br>
+<h3 id="中介者模式">中介者模式</h3>
 <br>
 <p><strong>未完待续···</strong></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
