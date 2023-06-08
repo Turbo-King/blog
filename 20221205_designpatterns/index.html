@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/"
-        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  54052 ,
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  56215 ,
         "url": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 54052 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 108 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 56215 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 113 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -584,6 +584,19 @@
         <li><a href="#解释器模式">解释器模式</a>
           <ul>
             <li><a href="#四则运算问题">四则运算问题</a></li>
+            <li><a href="#传统方案-3">传统方案</a>
+              <ul>
+                <li><a href="#传统方案的问题分析-1">传统方案的问题分析</a></li>
+              </ul>
+            </li>
+            <li><a href="#解释器模式-1">解释器模式</a>
+              <ul>
+                <li><a href="#基本介绍-14">基本介绍</a></li>
+                <li><a href="#解释器模式原理">解释器模式原理</a></li>
+                <li><a href="#解释器模式应用实例">解释器模式应用实例</a></li>
+              </ul>
+            </li>
+            <li><a href="#解释器模式在spring框架应用的源码分析">解释器模式在Spring框架应用的源码分析</a></li>
           </ul>
         </li>
       </ul>
@@ -13837,6 +13850,581 @@
 <br>
 <h3 id="解释器模式">解释器模式</h3>
 <h4 id="四则运算问题">四则运算问题</h4>
+<p>通过解释器模式来实现四则运算，如计算 a+b-c的值，具体要求如下：</p>
+<ol>
+<li>先输入表达式的形式，比如 a+b+c-d+e，要求表达式的字母不能重复</li>
+<li>分别输入 a，b，c，d，e 的值</li>
+<li>最后求出结果</li>
+</ol>
+<h4 id="传统方案-3">传统方案</h4>
+<h5 id="传统方案的问题分析-1">传统方案的问题分析</h5>
+<ol>
+<li>编写一个方法，接收表达式的形式，然后根据用户输入的数值进行解析，得到结果</li>
+<li>问题分析：如果加入新的运算符，比如 * / （等等，不利于扩展，另外让一个方法来解析会造成程序结构混乱，不够清晰）</li>
+<li>解决方案：可以考虑使用解释器模式，即：表达式 -&gt; 解释器（可以有多种）-&gt;结果</li>
+</ol>
+<br>
+<h4 id="解释器模式-1">解释器模式</h4>
+<h5 id="基本介绍-14">基本介绍</h5>
+<ol>
+<li>在编译原理中，一个算术表达式通过<strong>词法分析器</strong>形成词法单元，而后这些词法单元再通过<strong>语法分析器</strong>构建语法分析树，最终形成一颗抽象的语法分析树。这里的词法分析器和语法分析器都可以看做是解释器</li>
+<li><strong>解释器模式（Interpreter Pattern）</strong>：是指给定一个语言（表达式），定义它的文法的一种表示，并定义一个解释器，使用该解释器来解释语言中的句子（表达式）</li>
+<li>应用场景
+<ul>
+<li>应用可以将一个需要解释执行的语言中的句子表示为一个抽象语法树</li>
+<li>一些重复出现的问题可以用一种简单的语言来表达</li>
+<li>一个简单语法需要解释的场景</li>
+</ul>
+</li>
+<li>这样的例子还有，比如<strong>编译器</strong>、<strong>元算表达式计算</strong>、<strong>正则表达式</strong>、<strong>机器人</strong>等</li>
+</ol>
+<h5 id="解释器模式原理">解释器模式原理</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" title="解释器模式原理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>解释器模式原理类图</h2><p>解释器模式原理类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">解释器模式原理类图</figcaption>
+    </figure></p>
+<div class="details admonition question open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>解释器模式中角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><strong>Context</strong>：是<strong>环境角色</strong>，含有解释器之外的全局信息</li>
+<li><strong>AbstractExpression</strong>：<strong>抽象表达式</strong>，声明一个抽象的解释操作，这个方法为抽象语法树中所有的节点所共享</li>
+<li><strong>TerminalExpression</strong>：<strong>终结符表达式</strong>，实现与文法中的终结符相关的解释操作</li>
+<li><strong>NonTermialExpression</strong>：<strong>非终结符表达式</strong>，为文法中的非终结符实现解释操作</li>
+<li><strong>说明</strong>：输入 Context he TerminalExpression 信息通过 Client 输入即可</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h5 id="解释器模式应用实例">解释器模式应用实例</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" title="解释器模式解决四则运算实例类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>解释器模式解决四则运算实例类图</h2><p>解释器模式解决四则运算实例类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">解释器模式解决四则运算实例类图</figcaption>
+    </figure></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 抽象类表达式，通过HashMap 键值对, 可以获取到变量的值
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Expression</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// a + b - c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 解释公式和数值, key 就是公式(表达式) 参数[a,b,c], value就是就是具体值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// HashMap {a=10, b=20}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">interpreter</span><span class="o">(</span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">var</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 抽象运算符号解析器 这里，每个运算符号，都只和自己左右两个数字有关系，
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 但左右两个数字有可能也是一个解析的结果，无论何种类型，都是Expression类的实现类
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SymbolExpression</span> <span class="kd">extends</span> <span class="n">Expression</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">protected</span> <span class="n">Expression</span> <span class="n">left</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">protected</span> <span class="n">Expression</span> <span class="n">right</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">SymbolExpression</span><span class="o">(</span><span class="n">Expression</span> <span class="n">left</span><span class="o">,</span> <span class="n">Expression</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">left</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">right</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//因为 SymbolExpression 是让其子类来实现，因此 interpreter 是一个默认实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">interpreter</span><span class="o">(</span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">var</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubExpression</span> <span class="kd">extends</span> <span class="n">SymbolExpression</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">SubExpression</span><span class="o">(</span><span class="n">Expression</span> <span class="n">left</span><span class="o">,</span> <span class="n">Expression</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">right</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//求出left 和 right 表达式相减后的结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">interpreter</span><span class="o">(</span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">var</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">left</span><span class="o">.</span><span class="na">interpreter</span><span class="o">(</span><span class="n">var</span><span class="o">)</span> <span class="o">-</span> <span class="kd">super</span><span class="o">.</span><span class="na">right</span><span class="o">.</span><span class="na">interpreter</span><span class="o">(</span><span class="n">var</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 加法解释器
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AddExpression</span> <span class="kd">extends</span> <span class="n">SymbolExpression</span>  <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">AddExpression</span><span class="o">(</span><span class="n">Expression</span> <span class="n">left</span><span class="o">,</span> <span class="n">Expression</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">right</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//处理相加
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//var 仍然是 {a=10,b=20}..
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//一会我们debug 源码,就ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">interpreter</span><span class="o">(</span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">var</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//super.left.interpreter(var) ： 返回 left 表达式对应的值 a = 10
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//super.right.interpreter(var): 返回right 表达式对应值 b = 20
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">left</span><span class="o">.</span><span class="na">interpreter</span><span class="o">(</span><span class="n">var</span><span class="o">)</span> <span class="o">+</span> <span class="kd">super</span><span class="o">.</span><span class="na">right</span><span class="o">.</span><span class="na">interpreter</span><span class="o">(</span><span class="n">var</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 加法解释器
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AddExpression</span> <span class="kd">extends</span> <span class="n">SymbolExpression</span>  <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">AddExpression</span><span class="o">(</span><span class="n">Expression</span> <span class="n">left</span><span class="o">,</span> <span class="n">Expression</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">right</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//处理相加
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//var 仍然是 {a=10,b=20}..
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//一会我们debug 源码,就ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">interpreter</span><span class="o">(</span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">var</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//super.left.interpreter(var) ： 返回 left 表达式对应的值 a = 10
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//super.right.interpreter(var): 返回right 表达式对应值 b = 20
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">left</span><span class="o">.</span><span class="na">interpreter</span><span class="o">(</span><span class="n">var</span><span class="o">)</span> <span class="o">+</span> <span class="kd">super</span><span class="o">.</span><span class="na">right</span><span class="o">.</span><span class="na">interpreter</span><span class="o">(</span><span class="n">var</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 变量的解释器
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">VarExpression</span> <span class="kd">extends</span> <span class="n">Expression</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">private</span> <span class="n">String</span> <span class="n">key</span><span class="o">;</span> <span class="c1">// key=a,key=b,key=c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">VarExpression</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">this</span><span class="o">.</span><span class="na">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// var 就是{a=10, b=20}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// interpreter 根据 变量名称，返回对应值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">interpreter</span><span class="o">(</span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">var</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">var</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">key</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Stack</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 定义表达式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="n">Expression</span> <span class="n">expression</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 构造函数传参，并解析
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="nf">Calculator</span><span class="o">(</span><span class="n">String</span> <span class="n">expStr</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// expStr = a+b
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">// 安排运算先后顺序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Stack</span><span class="o">&lt;</span><span class="n">Expression</span><span class="o">&gt;</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 表达式拆分成字符数组 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="kt">char</span><span class="o">[]</span> <span class="n">charArray</span> <span class="o">=</span> <span class="n">expStr</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span><span class="c1">// [a, +, b]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">		<span class="n">Expression</span> <span class="n">left</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">Expression</span> <span class="n">right</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//遍历我们的字符数组， 即遍历  [a, +, b]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//针对不同的情况，做处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">charArray</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">switch</span> <span class="o">(</span><span class="n">charArray</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">case</span> <span class="sc">&#39;+&#39;</span><span class="o">:</span> <span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">left</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span><span class="c1">// 从stack取出left =&gt; &#34;a&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">right</span> <span class="o">=</span> <span class="k">new</span> <span class="n">VarExpression</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">charArray</span><span class="o">[++</span><span class="n">i</span><span class="o">]));</span><span class="c1">// 取出右表达式 &#34;b&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="k">new</span> <span class="n">AddExpression</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">right</span><span class="o">));</span><span class="c1">// 然后根据得到left 和 right 构建 AddExpresson加入stack
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">case</span> <span class="sc">&#39;-&#39;</span><span class="o">:</span> <span class="c1">// 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">left</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">				<span class="n">right</span> <span class="o">=</span> <span class="k">new</span> <span class="n">VarExpression</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">charArray</span><span class="o">[++</span><span class="n">i</span><span class="o">]));</span>
+</span></span><span class="line"><span class="cl">				<span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="k">new</span> <span class="n">SubExpression</span><span class="o">(</span><span class="n">left</span><span class="o">,</span> <span class="n">right</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">				<span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			<span class="k">default</span><span class="o">:</span> 
+</span></span><span class="line"><span class="cl">				<span class="c1">//如果是一个 Var 就创建要给 VarExpression 对象，并push到 stack
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="k">new</span> <span class="n">VarExpression</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">charArray</span><span class="o">[</span><span class="n">i</span><span class="o">])));</span>
+</span></span><span class="line"><span class="cl">				<span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//当遍历完整个 charArray 数组后，stack 就得到最后Expression
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">this</span><span class="o">.</span><span class="na">expression</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">run</span><span class="o">(</span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">var</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//最后将表达式a+b和 var = {a=10,b=20}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//然后传递给expression的interpreter进行解释执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">expression</span><span class="o">.</span><span class="na">interpreter</span><span class="o">(</span><span class="n">var</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClientTest</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">String</span> <span class="n">expStr</span> <span class="o">=</span> <span class="n">getExpStr</span><span class="o">();</span> <span class="c1">// a+b
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">var</span> <span class="o">=</span> <span class="n">getValue</span><span class="o">(</span><span class="n">expStr</span><span class="o">);</span><span class="c1">// var {a=10, b=20}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Calculator</span> <span class="n">calculator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Calculator</span><span class="o">(</span><span class="n">expStr</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;运算结果：&#34;</span> <span class="o">+</span> <span class="n">expStr</span> <span class="o">+</span> <span class="s">&#34;=&#34;</span> <span class="o">+</span> <span class="n">calculator</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">var</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 获得表达式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getExpStr</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;请输入表达式：&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">(</span><span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">))).</span><span class="na">readLine</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 获得值映射
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="kd">static</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">getValue</span><span class="o">(</span><span class="n">String</span> <span class="n">expStr</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="o">(</span><span class="kt">char</span> <span class="n">ch</span> <span class="o">:</span> <span class="n">expStr</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="o">(</span><span class="n">ch</span> <span class="o">!=</span> <span class="sc">&#39;+&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">ch</span> <span class="o">!=</span> <span class="sc">&#39;-&#39;</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">if</span> <span class="o">(!</span><span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">ch</span><span class="o">)))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">					<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;请输入&#34;</span> <span class="o">+</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">ch</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;的值：&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">					<span class="n">String</span> <span class="n">in</span> <span class="o">=</span> <span class="o">(</span><span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">))).</span><span class="na">readLine</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">					<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">ch</span><span class="o">),</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">in</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">				<span class="o">}</span>
+</span></span><span class="line"><span class="cl">			<span class="o">}</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">map</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="解释器模式在spring框架应用的源码分析">解释器模式在Spring框架应用的源码分析</h4>
 <br>
 <p><strong>未完待续···</strong></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
