@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/"
-        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  56215 ,
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  56702 ,
         "url": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 56215 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 113 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 56702 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 114 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -597,8 +597,10 @@
               </ul>
             </li>
             <li><a href="#解释器模式在spring框架应用的源码分析">解释器模式在Spring框架应用的源码分析</a></li>
+            <li><a href="#解释器模式注意事项和细节">解释器模式注意事项和细节</a></li>
           </ul>
         </li>
+        <li><a href="#状态模式">状态模式</a></li>
       </ul>
     </li>
   </ul>
@@ -14425,6 +14427,144 @@
 </div>
 </div><br>
 <h4 id="解释器模式在spring框架应用的源码分析">解释器模式在Spring框架应用的源码分析</h4>
+<p><strong>Spring框架中SpelExpressionParser就使用到解释器模式</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.expression.Expression</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.expression.spel.standard.SpelExpressionParser</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Interpreter</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">SpelExpressionParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SpelExpressionParser</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">Expression</span> <span class="n">expression</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="na">parseExpression</span><span class="o">(</span><span class="s">&#34;100 * (2 + 400) * 1 + 66&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="o">(</span><span class="n">Integer</span><span class="o">)</span> <span class="n">expression</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ExpressionParser</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Expression</span> <span class="nf">parseExpression</span><span class="o">(</span><span class="n">String</span> <span class="n">expressionString</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ParseException</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Expression</span> <span class="nf">parseExpression</span><span class="o">(</span><span class="n">String</span> <span class="n">expressionString</span><span class="o">,</span> <span class="n">ParserContext</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ParseException</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">TemplateAwareExpressionParser</span> <span class="kd">implements</span> <span class="n">ExpressionParser</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">Expression</span> <span class="nf">parseExpression</span><span class="o">(</span><span class="n">String</span> <span class="n">expressionString</span><span class="o">,</span> <span class="n">ParserContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="c1">// 不同情况 返回不同的Express.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="o">}</span> <span class="c1">//看源码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>说明</strong></p>
+<ul>
+<li><strong>Expression</strong> <strong>接口表达式接口</strong></li>
+<li>下面有不同的实现类，比如 SpelExpression，或者 CompositeStringExpression</li>
+<li>使用时候，根据创建的不同的 Parser 对象，返回不同的 Expression 对象</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Expression</span> <span class="nf">parseExpression</span><span class="o">(</span><span class="n">String</span> <span class="n">expressionString</span><span class="o">,</span> <span class="n">ParserContext</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ParseException</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">context</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">context</span> <span class="o">=</span> <span class="n">NON_TEMPLATE_PARSER_CONTEXT</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">isTemplate</span><span class="o">())</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">parseTemplate</span><span class="o">(</span><span class="n">expressionString</span><span class="o">,</span> <span class="n">context</span><span class="o">);</span> <span class="c1">//返回的就是 CompositeStringExpression 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">doParseExpression</span><span class="o">(</span><span class="n">expressionString</span><span class="o">,</span> <span class="n">context</span><span class="o">);</span> <span class="c1">//返回的就是 SpelExpression 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用得当 Expression 对象，调用 getValue 解释执行表达式，最后得到结果</li>
+</ul>
+<h4 id="解释器模式注意事项和细节">解释器模式注意事项和细节</h4>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>中介者模式<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>当有一个语言需要<strong>解释执行</strong>，可将该语言中的句子表示为一个<strong>抽象语法树</strong>，就可以考虑使用解释器模式，让程序具有良好的扩展性</li>
+<li>应用场景：<strong>编译器、运算表达式计算、正则表达式、机器人</strong>等</li>
+<li>使用解释器可能带来的问题：<strong>解释器模式会引起类膨胀、解释器模式采用递归调用方法</strong>，将会导致<strong>调试非常复杂、效率可能降低</strong></li>
+</ol>
+</div>
+        </div>
+    </div>
+<br>
+<h3 id="状态模式">状态模式</h3>
 <br>
 <p><strong>未完待续···</strong></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">

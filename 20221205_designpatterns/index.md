@@ -7639,6 +7639,88 @@ public class ClientTest {
 
 #### 解释器模式在Spring框架应用的源码分析
 
+**Spring框架中SpelExpressionParser就使用到解释器模式**
+
+```java
+import org.springframework.expression.Expression;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+
+public class Interpreter {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		SpelExpressionParser parser = new SpelExpressionParser();
+
+		Expression expression = parser.parseExpression("100 * (2 + 400) * 1 + 66");
+
+		int result = (Integer) expression.getValue();
+
+		System.out.println(result);
+	}
+
+}
+
+
+
+
+
+
+
+public interface ExpressionParser {
+  Expression parseExpression(String expressionString) throws ParseException;
+  Expression parseExpression(String expressionString, ParserContext context) throws ParseException; 
+}
+
+
+
+
+
+
+
+public abstract class TemplateAwareExpressionParser implements ExpressionParser {
+  public Expression parseExpression(String expressionString, ParserContext context) { 
+    // 不同情况 返回不同的Express.
+  } //看源码
+}
+```
+
+**说明**
+
+- **Expression** **接口表达式接口**
+- 下面有不同的实现类，比如 SpelExpression，或者 CompositeStringExpression
+- 使用时候，根据创建的不同的 Parser 对象，返回不同的 Expression 对象
+
+```java
+public Expression parseExpression(String expressionString, ParserContext context) throws ParseException { 
+  if (context == null) { 
+    context = NON_TEMPLATE_PARSER_CONTEXT;
+  }
+  if (context.isTemplate()) { 
+    return parseTemplate(expressionString, context); //返回的就是 CompositeStringExpression 
+  } else { 
+    return doParseExpression(expressionString, context); //返回的就是 SpelExpression 
+  } 
+}
+```
+
+- 使用得当 Expression 对象，调用 getValue 解释执行表达式，最后得到结果
+
+#### 解释器模式注意事项和细节
+
+{{< admonition tip 中介者模式 >}}
+
+1. 当有一个语言需要**解释执行**，可将该语言中的句子表示为一个**抽象语法树**，就可以考虑使用解释器模式，让程序具有良好的扩展性
+2. 应用场景：**编译器、运算表达式计算、正则表达式、机器人**等
+3. 使用解释器可能带来的问题：**解释器模式会引起类膨胀、解释器模式采用递归调用方法**，将会导致**调试非常复杂、效率可能降低**
+
+{{< /admonition >}}
+
+
+
+<br>
+
+### 状态模式
+
 
 
 
