@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/"
-        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  56702 ,
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  59631 ,
         "url": "https:\/\/turbo-king.github.io\/blog\/20221205_designpatterns\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 56702 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 114 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 59631 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 120 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -600,7 +600,21 @@
             <li><a href="#解释器模式注意事项和细节">解释器模式注意事项和细节</a></li>
           </ul>
         </li>
-        <li><a href="#状态模式">状态模式</a></li>
+        <li><a href="#状态模式">状态模式</a>
+          <ul>
+            <li><a href="#app抽奖活动问题">App抽奖活动问题</a></li>
+            <li><a href="#状态模式-1">状态模式</a>
+              <ul>
+                <li><a href="#基本介绍-15">基本介绍</a></li>
+                <li><a href="#状态模式原理类图">状态模式原理类图</a></li>
+                <li><a href="#状态模式解决app抽奖应用实例">状态模式解决App抽奖应用实例</a></li>
+              </ul>
+            </li>
+            <li><a href="#状态模式在实际项目-借贷平台-应用分析">状态模式在实际项目-借贷平台 应用分析</a></li>
+            <li><a href="#状态模式注意事项和细节">状态模式注意事项和细节</a></li>
+          </ul>
+        </li>
+        <li><a href="#策略模式">策略模式</a></li>
       </ul>
     </li>
   </ul>
@@ -14565,6 +14579,802 @@
     </div>
 <br>
 <h3 id="状态模式">状态模式</h3>
+<h4 id="app抽奖活动问题">App抽奖活动问题</h4>
+<p>请编写程序完成APP抽奖活动 具体要求如下：</p>
+<ul>
+<li>假如每参加一次这个活动要扣除用户50积分，中奖概率是10%</li>
+<li>奖品数量固定，抽完就不能抽奖</li>
+<li>活动有四个状态：可以抽奖、不能抽奖、发放奖品和奖品领完</li>
+<li>活动的四个状态转换关系图如下所示</li>
+</ul>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%8A%BD%E5%A5%96%E6%B4%BB%E5%8A%A8%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.png" title="抽奖活动状态转换图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%8A%BD%E5%A5%96%E6%B4%BB%E5%8A%A8%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.png" data-sub-html="<h2>抽奖活动状态转换图</h2><p>抽奖活动状态转换图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%8A%BD%E5%A5%96%E6%B4%BB%E5%8A%A8%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%8A%BD%E5%A5%96%E6%B4%BB%E5%8A%A8%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%8A%BD%E5%A5%96%E6%B4%BB%E5%8A%A8%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%8A%BD%E5%A5%96%E6%B4%BB%E5%8A%A8%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%8A%BD%E5%A5%96%E6%B4%BB%E5%8A%A8%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">抽奖活动状态转换图</figcaption>
+    </figure></p>
+<h4 id="状态模式-1">状态模式</h4>
+<h5 id="基本介绍-15">基本介绍</h5>
+<ol>
+<li><strong>状态模式（State Pattern）</strong>：它主要用来解决对象在<strong>多种状态转换</strong>时，需要对外输出不同的行为的问题。<strong>状态和行为是一一对应的</strong>，状态之间可以相互转换</li>
+<li>当一个对象的内在状态改变时，允许改变其行为，这个对象看起来像是改变了其类</li>
+</ol>
+<h5 id="状态模式原理类图">状态模式原理类图</h5>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" title="状态模式原理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>状态模式原理类图</h2><p>状态模式原理类图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" />
+    </a><figcaption class="image-caption">状态模式原理类图</figcaption>
+    </figure></p>
+<div class="details admonition question open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>状态模式中角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><strong>Context</strong> 类：<strong>环境角色</strong>，用于维护 State 实例，这个实例<strong>定义当前状态</strong></li>
+<li>State：<strong>抽象状态角色</strong>，定义一个接口封装与 Context 的一个特点接口相关行为</li>
+<li><strong>ConcreteState</strong>：<strong>具体的状态角色</strong>，每个子类实现一个与 Context 的一个<strong>状态</strong>相关行为</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h5 id="状态模式解决app抽奖应用实例">状态模式解决App抽奖应用实例</h5>
+<p><strong>思路分析</strong></p>
+<ul>
+<li>定义一个接口叫状态接口，每个状态都实现它</li>
+<li>接口有扣除积分方法、抽奖方法、发放奖品方法</li>
+</ul>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3App%E6%8A%BD%E5%A5%96%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" title="状态模式解决App抽奖应用实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3App%E6%8A%BD%E5%A5%96%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" data-sub-html="<h2>状态模式解决App抽奖应用实例</h2><p>状态模式解决App抽奖应用实例</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3App%E6%8A%BD%E5%A5%96%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3App%E6%8A%BD%E5%A5%96%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3App%E6%8A%BD%E5%A5%96%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3App%E6%8A%BD%E5%A5%96%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3App%E6%8A%BD%E5%A5%96%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" />
+    </a><figcaption class="image-caption">状态模式解决App抽奖应用实例</figcaption>
+    </figure></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span><span class="lnt">257
+</span><span class="lnt">258
+</span><span class="lnt">259
+</span><span class="lnt">260
+</span><span class="lnt">261
+</span><span class="lnt">262
+</span><span class="lnt">263
+</span><span class="lnt">264
+</span><span class="lnt">265
+</span><span class="lnt">266
+</span><span class="lnt">267
+</span><span class="lnt">268
+</span><span class="lnt">269
+</span><span class="lnt">270
+</span><span class="lnt">271
+</span><span class="lnt">272
+</span><span class="lnt">273
+</span><span class="lnt">274
+</span><span class="lnt">275
+</span><span class="lnt">276
+</span><span class="lnt">277
+</span><span class="lnt">278
+</span><span class="lnt">279
+</span><span class="lnt">280
+</span><span class="lnt">281
+</span><span class="lnt">282
+</span><span class="lnt">283
+</span><span class="lnt">284
+</span><span class="lnt">285
+</span><span class="lnt">286
+</span><span class="lnt">287
+</span><span class="lnt">288
+</span><span class="lnt">289
+</span><span class="lnt">290
+</span><span class="lnt">291
+</span><span class="lnt">292
+</span><span class="lnt">293
+</span><span class="lnt">294
+</span><span class="lnt">295
+</span><span class="lnt">296
+</span><span class="lnt">297
+</span><span class="lnt">298
+</span><span class="lnt">299
+</span><span class="lnt">300
+</span><span class="lnt">301
+</span><span class="lnt">302
+</span><span class="lnt">303
+</span><span class="lnt">304
+</span><span class="lnt">305
+</span><span class="lnt">306
+</span><span class="lnt">307
+</span><span class="lnt">308
+</span><span class="lnt">309
+</span><span class="lnt">310
+</span><span class="lnt">311
+</span><span class="lnt">312
+</span><span class="lnt">313
+</span><span class="lnt">314
+</span><span class="lnt">315
+</span><span class="lnt">316
+</span><span class="lnt">317
+</span><span class="lnt">318
+</span><span class="lnt">319
+</span><span class="lnt">320
+</span><span class="lnt">321
+</span><span class="lnt">322
+</span><span class="lnt">323
+</span><span class="lnt">324
+</span><span class="lnt">325
+</span><span class="lnt">326
+</span><span class="lnt">327
+</span><span class="lnt">328
+</span><span class="lnt">329
+</span><span class="lnt">330
+</span><span class="lnt">331
+</span><span class="lnt">332
+</span><span class="lnt">333
+</span><span class="lnt">334
+</span><span class="lnt">335
+</span><span class="lnt">336
+</span><span class="lnt">337
+</span><span class="lnt">338
+</span><span class="lnt">339
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 状态抽象类
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">State</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">// 扣除积分 - 50
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">deductMoney</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 是否抽中奖品
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">boolean</span> <span class="nf">raffle</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 发放奖品
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kd">abstract</span>  <span class="kt">void</span> <span class="nf">dispensePrize</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 抽奖活动 //
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RaffleActivity</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// state 表示活动当前的状态，是变化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">State</span> <span class="n">state</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 奖品数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// 四个属性，表示四种状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">State</span> <span class="n">noRafflleState</span> <span class="o">=</span> <span class="k">new</span> <span class="n">NoRaffleState</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">State</span> <span class="n">canRaffleState</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CanRaffleState</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">State</span> <span class="n">dispenseState</span> <span class="o">=</span>   <span class="k">new</span> <span class="n">DispenseState</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">State</span> <span class="n">dispensOutState</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DispenseOutState</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//构造器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//1. 初始化当前的状态为 noRafflleState（即不能抽奖的状态）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//2. 初始化奖品的数量 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="nf">RaffleActivity</span><span class="o">(</span> <span class="kt">int</span> <span class="n">count</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">state</span> <span class="o">=</span> <span class="n">getNoRafflleState</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">count</span> <span class="o">=</span> <span class="n">count</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//扣分, 调用当前状态的 deductMoney
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">debuctMoney</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">state</span><span class="o">.</span><span class="na">deductMoney</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//抽奖 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">raffle</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">    	<span class="c1">// 如果当前的状态是抽奖成功
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="o">(</span><span class="n">state</span><span class="o">.</span><span class="na">raffle</span><span class="o">()){</span>
+</span></span><span class="line"><span class="cl">        	<span class="c1">//领取奖品
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">state</span><span class="o">.</span><span class="na">dispensePrize</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">State</span> <span class="nf">getState</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">state</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setState</span><span class="o">(</span><span class="n">State</span> <span class="n">state</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">state</span> <span class="o">=</span> <span class="n">state</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//这里请大家注意，每领取一次奖品，count--
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCount</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="kt">int</span> <span class="n">curCount</span> <span class="o">=</span> <span class="n">count</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">    	<span class="n">count</span><span class="o">--;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">curCount</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCount</span><span class="o">(</span><span class="kt">int</span> <span class="n">count</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">count</span> <span class="o">=</span> <span class="n">count</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">State</span> <span class="nf">getNoRafflleState</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">noRafflleState</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNoRafflleState</span><span class="o">(</span><span class="n">State</span> <span class="n">noRafflleState</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">noRafflleState</span> <span class="o">=</span> <span class="n">noRafflleState</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">State</span> <span class="nf">getCanRaffleState</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">canRaffleState</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCanRaffleState</span><span class="o">(</span><span class="n">State</span> <span class="n">canRaffleState</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">canRaffleState</span> <span class="o">=</span> <span class="n">canRaffleState</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">State</span> <span class="nf">getDispenseState</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">dispenseState</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDispenseState</span><span class="o">(</span><span class="n">State</span> <span class="n">dispenseState</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">dispenseState</span> <span class="o">=</span> <span class="n">dispenseState</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">State</span> <span class="nf">getDispensOutState</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">dispensOutState</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDispensOutState</span><span class="o">(</span><span class="n">State</span> <span class="n">dispensOutState</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">dispensOutState</span> <span class="o">=</span> <span class="n">dispensOutState</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 发放奖品的状态
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DispenseState</span> <span class="kd">extends</span> <span class="n">State</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	 <span class="c1">// 初始化时传入活动引用，发放奖品后改变其状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">RaffleActivity</span> <span class="n">activity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">DispenseState</span><span class="o">(</span><span class="n">RaffleActivity</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">activity</span> <span class="o">=</span> <span class="n">activity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">deductMoney</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;不能扣除积分&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">raffle</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;不能抽奖&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//发放奖品
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dispensePrize</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="o">(</span><span class="n">activity</span><span class="o">.</span><span class="na">getCount</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;恭喜中奖了&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 改变状态为不能抽奖
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">activity</span><span class="o">.</span><span class="na">setState</span><span class="o">(</span><span class="n">activity</span><span class="o">.</span><span class="na">getNoRafflleState</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;很遗憾，奖品发送完了&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 改变状态为奖品发送完毕, 后面我们就不可以抽奖
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">activity</span><span class="o">.</span><span class="na">setState</span><span class="o">(</span><span class="n">activity</span><span class="o">.</span><span class="na">getDispensOutState</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//System.out.println(&#34;抽奖活动结束&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">//System.exit(0);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 奖品发放完毕状态
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 说明，当我们activity 改变成 DispenseOutState， 抽奖活动结束
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DispenseOutState</span> <span class="kd">extends</span> <span class="n">State</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 初始化时传入活动引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">RaffleActivity</span> <span class="n">activity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">DispenseOutState</span><span class="o">(</span><span class="n">RaffleActivity</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">activity</span> <span class="o">=</span> <span class="n">activity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">deductMoney</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;奖品发送完了，请下次再参加&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">raffle</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;奖品发送完了，请下次再参加&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dispensePrize</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;奖品发送完了，请下次再参加&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 可以抽奖的状态
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CanRaffleState</span> <span class="kd">extends</span> <span class="n">State</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">RaffleActivity</span> <span class="n">activity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">CanRaffleState</span><span class="o">(</span><span class="n">RaffleActivity</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">activity</span> <span class="o">=</span> <span class="n">activity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//已经扣除了积分，不能再扣
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">deductMoney</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;已经扣取过了积分&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//可以抽奖, 抽完奖后，根据实际情况，改成新的状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">raffle</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;正在抽奖，请稍等！&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Random</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 10%中奖机会
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="mi">0</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 改变活动状态为发放奖品 context
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">activity</span><span class="o">.</span><span class="na">setState</span><span class="o">(</span><span class="n">activity</span><span class="o">.</span><span class="na">getDispenseState</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;很遗憾没有抽中奖品！&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 改变状态为不能抽奖
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">activity</span><span class="o">.</span><span class="na">setState</span><span class="o">(</span><span class="n">activity</span><span class="o">.</span><span class="na">getNoRafflleState</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 不能发放奖品
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dispensePrize</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;没中奖，不能发放奖品&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 不能抽奖状态
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoRaffleState</span> <span class="kd">extends</span> <span class="n">State</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	 <span class="c1">// 初始化时传入活动引用，扣除积分后改变其状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">RaffleActivity</span> <span class="n">activity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">NoRaffleState</span><span class="o">(</span><span class="n">RaffleActivity</span> <span class="n">activity</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">activity</span> <span class="o">=</span> <span class="n">activity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 当前状态可以扣积分 , 扣除后，将状态设置成可以抽奖状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">deductMoney</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;扣除50积分成功，您可以抽奖了&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">activity</span><span class="o">.</span><span class="na">setState</span><span class="o">(</span><span class="n">activity</span><span class="o">.</span><span class="na">getCanRaffleState</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 当前状态不能抽奖
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">raffle</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;扣了积分才能抽奖喔！&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 当前状态不能发奖品
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">dispensePrize</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;不能发放奖品&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 状态模式测试类
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author Administrator
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClientTest</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated method stub
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">// 创建活动对象，奖品有1个奖品
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">RaffleActivity</span> <span class="n">activity</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RaffleActivity</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 我们连续抽300次奖
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;--------第&#34;</span> <span class="o">+</span> <span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;次抽奖----------&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 参加抽奖，第一步点击扣除积分
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">activity</span><span class="o">.</span><span class="na">debuctMoney</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// 第二步抽奖
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">activity</span><span class="o">.</span><span class="na">raffle</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="状态模式在实际项目-借贷平台-应用分析">状态模式在实际项目-借贷平台 应用分析</h4>
+<ol>
+<li>借贷平台的订单，有审核-发布-抢单等等步骤，随着操作的不同，会改变订单的状态，项目中的这个模块实现就会使用到状态模式</li>
+<li>通常通过 if/else 判断订单的状态，从而实现不同的逻辑，伪代码如下：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">if</span><span class="o">(</span><span class="err">审核</span><span class="o">){</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">//审核逻辑 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span><span class="n">elseif</span><span class="o">(</span><span class="err">发布</span><span class="o">){</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">//发布逻辑 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span><span class="n">elseif</span><span class="o">(</span><span class="err">接单</span><span class="o">){</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">//接单逻辑 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>问题分析</strong></p>
+<p>这类代码难以应对变化，在添加一种状态时，我们需要手动 添加 if/else，在添加一种功能时，要对所有的状态进行判断。 因此代码会变得越来越臃肿，并且一旦没有处理某个状态， 便会发生极其严重的 <strong>BUG</strong>，难以维护</p>
+<ol start="3">
+<li>使用状态模式完成 借贷平台项目的审核模块</li>
+</ol>
+<h4 id="状态模式注意事项和细节">状态模式注意事项和细节</h4>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>状态模式<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>代码有很强的可读性。状态模式将每个状态的行为封装到对应的一个类中</li>
+<li>方便维护。将容易产生问题的 if/else 语句删除了，如果把每个状态的行为都放到一个类中，每次调用方法时都要判断当前是什么状态，不但会产生很多 if/else 语句，而且容易出错</li>
+<li>符合“开闭原则”。容易增删状态</li>
+<li>会产生很多类。每个状态都要一个对应的类，当状态过多时会产生很多类，加大维护难度</li>
+<li>对应场景：当一个事件或者对象有很多种状态，状态之间会相互转换，对不同的状态要求有不同的行为的时候，可以考虑使用状态模式</li>
+</ol>
+</div>
+        </div>
+    </div>
+<br>
+<h3 id="策略模式">策略模式</h3>
 <br>
 <p><strong>未完待续···</strong></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
