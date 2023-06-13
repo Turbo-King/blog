@@ -8510,11 +8510,70 @@ public class Client {
 
 **JDK 的 Arrays 的 Comparator 就使用了策略模式**
 
+```java
+import java.util.Arrays;
+import java.util.Comparator;
 
 
+public class Strategy {
 
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//数组
+		Integer[] data = { 9, 1, 2, 8, 4, 3 };
+		// 实现降序排序，返回-1放左边，1放右边，0保持不变
+		
+		// 说明
+		// 1. 实现了 Comparator 接口（策略接口） , 匿名类 对象 new Comparator<Integer>(){..}
+		// 2. 对象 new Comparator<Integer>(){..} 就是实现了 策略接口 的对象
+		// 3. public int compare(Integer o1, Integer o2){} 指定具体的处理方式
+		Comparator<Integer> comparator = new Comparator<Integer>() {
+			public int compare(Integer o1, Integer o2) {
+				if (o1 > o2) {
+					return -1;
+				} else {
+					return 1;
+				}
+			};
+		};
+		
+		// 说明
+		/*
+		 * public static <T> void sort(T[] a, Comparator<? super T> c) {
+		        if (c == null) {
+		            sort(a); //默认方法
+		        } else { 
+		            if (LegacyMergeSort.userRequested)
+		                legacyMergeSort(a, c); //使用策略对象c
+		            else
+		            	// 使用策略对象c
+		                TimSort.sort(a, 0, a.length, c, null, 0, 0);
+		        }
+		    }
+		 */
+		//方式1 
+		Arrays.sort(data, comparator);
+		
+		System.out.println(Arrays.toString(data)); // 降序排序
 
+		
+		//方式2- 同时lambda 表达式实现 策略模式
+		Integer[] data2 = { 19, 11, 12, 18, 14, 13 };
+		
+		Arrays.sort(data2, (var1, var2) -> {
+			if(var1.compareTo(var2) > 0) {
+				return -1;
+			} else {
+				return 1;
+			}
+		});
+		
+		System.out.println("data2=" + Arrays.toString(data2));
+		
+	}
 
+}
+```
 
 
 
@@ -8536,6 +8595,158 @@ public class Client {
 
 ### 职责链模式
 
+#### OA系统采购审批需求
+
+学校OA系统的采购审批项目：需求是
+
+1. 采购员采购教学器材
+2. 如果金额小于等于5000，由教学主任审批（= <= x <= 5000）
+3. 如果金额小于等于10000，由院长审批（5000 <= x <= 10000）
+4. 如果金额小于等于30000，由副校长审批（10000 <= x <=30000）
+5. 如果金额超过30000以上，由校长审批（30000 < x）
+
+
+
+#### 传统解决方案
+
+![传统方案解决OA系统采购审批需求](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E6%96%B9%E6%A1%88%E8%A7%A3%E5%86%B3OA%E7%B3%BB%E7%BB%9F%E9%87%87%E8%B4%AD%E5%AE%A1%E6%89%B9%E9%9C%80%E6%B1%82.png "传统方案解决OA系统采购审批需求")
+
+##### 传统解决方案问题分析
+
+1. 传统方式是：接收到一个采购需求，根据采购金额来调用对应的 Approver（审批人）完成审批
+2. 传统方式的问题分析：客户端这里会使用到分支判断（比如 switch）来对不同的采购请求处理，这样就存在如下问题
+    - 如果各个班级的人员审批金额发生变化，在客户端的也需要变化
+    - 客户端必须明确的知道有多少个审批级别和访问
+3. 这样对一个采购请求进行处理和 Approver（审批人）就存在强耦合关系，不利于代码的扩展和维护
+4. 解决方案 -> **职责链模式**
+
+#### 职责链模式
+
+##### 基本介绍
+
+1. 职责链模式（Chain of Responsibility Pattern），又叫**责任链模式**，为请求创建了一个接收者对象的链（如下图所示）。这种模式对请求的发送者和接收者进行解耦。
+2. 职责链模式通常每个接收者都包含对另一个接收者引用。如果一个对象不能处理该请求，那么它会把相同的请求传给下一个接收者，以此类推
+3. 这种类型的设计模式属于**行为型模式**
+
+![接收者对象的链](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%8E%A5%E6%94%B6%E8%80%85%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%93%BE.png "接收者对象的链")
+
+##### 职责链模式原理
+
+**职责链模式（Chain of Resposibility）**，使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系。将这个对象连成一个链，并沿着这个链传递该请求，直到一个对象处理它为止
+
+![责任链模式原理类图](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png "责任链模式原理类图")
+
+{{< admonition question 职责链模式中角色及职责 >}}
+
+- **Handle**：抽象的处理者，定义了一个处理请求的接口，同时含义另外Handler
+- **ConcreteHandlerA，B**：具体的处理者，处理它自己负责的请求，可以访问它的后继者（即下一个处理者），如果可以处理当前请求，则处理，否则就将该请求交给后继者去处理，从而形成一个职责链
+- **Request**：含义很多属性，表示一个请求
+
+{{< /admonition >}}
+
+##### 职责链模式应用实例
+
+![职责链模式解决OA系统采购审批需求类图](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3OA%E7%B3%BB%E7%BB%9F%E9%87%87%E8%B4%AD%E5%AE%A1%E6%89%B9%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png "职责链模式解决OA系统采购审批需求类图")
+
+```java
+//请求类
+public class PurchaseRequest {
+
+	private int type = 0; //请求类型
+	private float price = 0.0f; //请求金额
+	private int id = 0;
+	//构造器
+	public PurchaseRequest(int type, float price, int id) {
+		this.type = type;
+		this.price = price;
+		this.id = id;
+	}
+	public int getType() {
+		return type;
+	}
+	public float getPrice() {
+		return price;
+	}
+	public int getId() {
+		return id;
+	}	
+}
+
+
+
+
+
+
+
+public abstract class Approver {
+
+	Approver approver;  //下一个处理者
+	String name; // 名字
+	
+	public Approver(String name) {
+		// TODO Auto-generated constructor stub
+		this.name = name;
+	}
+
+	//下一个处理者
+	public void setApprover(Approver approver) {
+		this.approver = approver;
+	}
+	
+	//处理审批请求的方法，得到一个请求, 处理是子类完成，因此该方法做成抽象
+	public abstract void processRequest(PurchaseRequest purchaseRequest);
+	
+}
+
+
+
+
+
+
+
+public class DepartmentApprover extends Approver {
+
+	
+	public DepartmentApprover(String name) {
+		// TODO Auto-generated constructor stub
+		super(name);
+	}
+	
+	@Override
+	public void processRequest(PurchaseRequest purchaseRequest) {
+		// TODO Auto-generated method stub
+		if(purchaseRequest.getPrice() <= 5000) {
+			System.out.println(" 请求编号 id= " + purchaseRequest.getId() + " 被 " + this.name + " 处理");
+		}else {
+			approver.processRequest(purchaseRequest);
+		}
+	}
+
+}
+
+
+
+
+
+
+
+public class CollegeApprover extends Approver {
+
+	public CollegeApprover(String name) {
+		// TODO Auto-generated constructor stub
+		super(name);
+	}
+	
+	@Override
+	public void processRequest(PurchaseRequest purchaseRequest) {
+		// TODO Auto-generated method stub
+		if(purchaseRequest.getPrice() < 5000 && purchaseRequest.getPrice() <= 10000) {
+			System.out.println(" 请求编号 id= " + purchaseRequest.getId() + " 被 " + this.name + " 处理");
+		}else {
+			approver.processRequest(purchaseRequest);
+		}
+	}
+}
 
 
 
@@ -8544,6 +8755,23 @@ public class Client {
 
 
 
+public class SchoolMasterApprover extends Approver {
+
+	public SchoolMasterApprover(String name) {
+		// TODO Auto-generated constructor stub
+		super(name);
+	}
+	
+	@Override
+	public void processRequest(PurchaseRequest purchaseRequest) {
+		// TODO Auto-generated method stub
+		if(purchaseRequest.getPrice() > 30000) {
+			System.out.println(" 请求编号 id= " + purchaseRequest.getId() + " 被 " + this.name + " 处理");
+		}else {
+			approver.processRequest(purchaseRequest);
+		}
+	}
+}
 
 
 
@@ -8551,15 +8779,146 @@ public class Client {
 
 
 
+public class ViceSchoolMasterApprover extends Approver {
+
+	public ViceSchoolMasterApprover(String name) {
+		// TODO Auto-generated constructor stub
+		super(name);
+	}
+	
+	@Override
+	public void processRequest(PurchaseRequest purchaseRequest) {
+		// TODO Auto-generated method stub
+		if(purchaseRequest.getPrice() < 10000 && purchaseRequest.getPrice() <= 30000) {
+			System.out.println(" 请求编号 id= " + purchaseRequest.getId() + " 被 " + this.name + " 处理");
+		}else {
+			approver.processRequest(purchaseRequest);
+		}
+	}
+}
+
+
+
+
+
+
+
+public class Client {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//创建一个请求
+		PurchaseRequest purchaseRequest = new PurchaseRequest(1, 31000, 1);
+		
+		//创建相关的审批人
+		DepartmentApprover departmentApprover = new DepartmentApprover("张主任");
+		CollegeApprover collegeApprover = new CollegeApprover("李院长");
+		ViceSchoolMasterApprover viceSchoolMasterApprover = new ViceSchoolMasterApprover("王副校");
+		SchoolMasterApprover schoolMasterApprover = new SchoolMasterApprover("佟校长");
+	
+		//需要将各个审批级别的下一个设置好 (处理人构成环形: )
+		departmentApprover.setApprover(collegeApprover);
+		collegeApprover.setApprover(viceSchoolMasterApprover);
+		viceSchoolMasterApprover.setApprover(schoolMasterApprover);
+		schoolMasterApprover.setApprover(departmentApprover);
+		departmentApprover.processRequest(purchaseRequest);
+		viceSchoolMasterApprover.processRequest(purchaseRequest);
+	}
+
+}
+```
+
+#### 职责链模式在 SpringMVC 框架应用的源
+
+SpringMVC-HandlerExecutionChain 类就使用到职责链模式
+
+```java
+import org.springframework.web.servlet.HandlerExecutionChain;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+public class ResponsibilityChain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// DispatcherServlet 
+		
+		//说明
+		/*
+		 * 
+		 *  protected void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		 *   HandlerExecutionChain mappedHandler = null; 
+		 *   mappedHandler = getHandler(processedRequest);//获取到HandlerExecutionChain对象
+		 *    //在 mappedHandler.applyPreHandle 内部 得到啦 HandlerInterceptor interceptor
+		 *    //调用了拦截器的  interceptor.preHandle
+		 *   if (!mappedHandler.applyPreHandle(processedRequest, response)) {
+					return;
+				}
+				
+			  //说明：mappedHandler.applyPostHandle 方法内部获取到拦截器，并调用 
+			  //拦截器的  interceptor.postHandle(request, response, this.handler, mv);
+			 mappedHandler.applyPostHandle(processedRequest, response, mv);
+		 *  }
+		 *  
+		 *  
+		 *  //说明：在  mappedHandler.applyPreHandle内部中，
+		 *  还调用了  triggerAfterCompletion 方法，该方法中调用了  
+		 *  HandlerInterceptor interceptor = getInterceptors()[i];
+			try {
+				interceptor.afterCompletion(request, response, this.handler, ex);
+			}
+			catch (Throwable ex2) {
+				logger.error("HandlerInterceptor.afterCompletion threw exception", ex2);
+			}
+		 */
+    
+	}
+}
+```
+
+**说明：**
+
+- SpringMVC 请求的流程图中，执行了拦截器相关方法 **interceptor.preHandler** 等等
+- 在处理 SpringMVC 请求时，使用到**职责链模式**还使用到了**适配器模式**
+- **HandlerExecutionChain** 主要负责的是请求拦截器的执行和请求处理，但是他本身不处理请求，只是将请求分配给链上注册处理器执行，这是职责链实现方式，减少职责链本身与处理逻辑之间的耦合，规范了处理流程
+- **HandlerExecutionChain** 维护了 **HandlerInterceptor** 的集合，可以向其中注册相应的拦截器
+
+
+
+##### 职责链模式注意事项和细节
+
+{{< admonition tip 职责链模式 >}}
+
+1. 将请求和处理分开，实现解耦，提高系统的灵活性
+2. 简化了对象，使对象不需要知道链的结果
+3. 性能会受到影响，特别是在链比较长的时候，因此需要控制链中最大节点数量，一般通过在 Handler 中设置一个最大节点数量，在 setNext() 方法中判断是否已经超过阀值，超过则不允许该链建立，避免出现超长链无意识地破坏系统性能
+4. 调试不方便。采用了类似递归的方式，调试时逻辑可能比较复杂
+5. 最佳应用场景：有多个对象可以处理同一个请求时，比如：多级请求、请假/加薪等审批流程、Java Web 中 Tomcat 对 Encoding 的处理、拦截器
+
+{{< /admonition >}}
 
 
 
 <br>
 
-**未完待续···**
+### 设计模式总结
 
+1. 设计模式是程序员在编码中，**有意或者无意**使用到（也不是所有程序员都学习过设计模式），并且同一种设计模式实现方式也不是 100% 的一样，设计模式主要是提高程序的**扩展性，可读性、可维护性、规范性**
+2. 所有讲解某个设计模式在源码框架中使用时，和我们的标准的设计模式写法可能会有些出入，比如组合模式 Component 可以是抽象类，接口，也可以是一个实现类， 我们分析源码时(JDK HashMap源码)，Component 就可能不一样
+3. 对于框架源码，源码中部分使用了 A 设计模式，还部分使用了 B 设计模式，也是有可能的，也就是说**设计模式是可以结合使用的**
+4. 因为设计模式主要是一种**编程思想**，既然是思想，具体实现方式，就不可能100%的一样（当然，程序的设计结构基本是一样的）
+5. 所以学习设计模式（包括看源码分析）时，我们要**抓住本质**，使用这个设计模式到底带来了什么好处？**扩展性提高了，还是更加规范了**，这样我们才能领会设计模式的精妙之处。
 
+<br>
 
+<br>
 
+<br>
+
+<br>
+
+<br>
+
+<center><b>纸上得来终觉浅，绝知此事要躬行</b></center>
 
 
