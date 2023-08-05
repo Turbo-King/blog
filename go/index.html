@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Go基础语法和常用特性解析 - Turbo-King Blog</title><meta name="keywords" content="[Turbo-King Blog weizhihao ahao 阿豪]">
+
+<meta name="Description" content="Go基础语法和常用特性解析"><meta property="og:title" content="Go基础语法和常用特性解析" />
+<meta property="og:description" content="Go基础语法和常用特性解析" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://turbo-king.github.io/blog/go/" /><meta property="og:image" content="https://turbo-king.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-05T18:07:31+08:00" />
+<meta property="article:modified_time" content="2023-08-05T18:07:31+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://turbo-king.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Go基础语法和常用特性解析"/>
+<meta name="twitter:description" content="Go基础语法和常用特性解析"/>
+<meta name="application-name" content="Turbo-King">
+<meta name="apple-mobile-web-app-title" content="Turbo-King"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://turbo-king.github.io/blog/go/" /><link rel="prev" href="https://turbo-king.github.io/blog/20230522_stream/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Go基础语法和常用特性解析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/turbo-king.github.io\/blog\/go\/"
+        },"image": ["https:\/\/turbo-king.github.io\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Go, study","wordcount":  1818 ,
+        "url": "https:\/\/turbo-king.github.io\/blog\/go\/","datePublished": "2023-08-05T18:07:31+08:00","dateModified": "2023-08-05T18:07:31+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
+                "@type": "Person",
+                "name": "Turbo-King"
+            },"description": "Go基础语法和常用特性解析"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/posts/" title="博客文章"> 文章 </a><a class="menu-item" href="/blog/tags/" title="标签"> 标签 </a><a class="menu-item" href="/blog/categories/" title="分类"> 分类 </a><a class="menu-item" href="/about/" title="Turbo-King"> 关于 </a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/go/" selected>简体中文</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/blog/posts/" title="博客文章">文章</a><a class="menu-item" href="/blog/tags/" title="标签">标签</a><a class="menu-item" href="/blog/categories/" title="分类">分类</a><a class="menu-item" href="/about/" title="Turbo-King">关于</a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/go/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go基础语法和常用特性解析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/markdown/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Markdown</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-05">2023-08-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1818 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/go.png"
+        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/go.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/go.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/go.png 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/go.png"
+        title="Go基础语法和常用特性解析" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一基础语法">一、基础语法</a>
+      <ul>
+        <li><a href="#1--变量和类型">1.  变量和类型</a></li>
+        <li><a href="#2--赋值和运算符">2.  赋值和运算符</a></li>
+        <li><a href="#3--控制流和函数">3.  控制流和函数</a></li>
+        <li><a href="#常用语法功能">常用语法功能</a></li>
+      </ul>
+    </li>
+    <li><a href="#二常用特性">二、常用特性</a>
+      <ul>
+        <li><a href="#1--切片和切片操作">1.  切片和切片操作</a></li>
+        <li><a href="#2--字典和字典操作">2.  字典和字典操作</a></li>
+        <li><a href="#3--函数和函数调用">3.  函数和函数调用</a></li>
+        <li><a href="#4--接口和接口调用">4.  接口和接口调用</a></li>
+        <li><a href="#5-并发和协程">5. 并发和协程</a></li>
+        <li><a href="#6---错误处理">6.   错误处理</a></li>
+        <li><a href="#7-包和模块">7. 包和模块</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Go基础语法和常用特性解析</p>
+<h1 id="go-语言入门指南基础语法和常用特性解析">Go 语言入门指南：基础语法和常用特性解析</h1>
+<p>Go 语言是由 <strong>Google</strong> 在 2007 年开发的一种新的编程语言，它具有简单、快速、可靠和安全等优点，已经成为了软件开发领域的一种重要工具。本文将介绍 Go 语言的基础语法和常用特性，并提供一些使用示例，帮助你快速入门 Go 语言。</p>
+<h2 id="一基础语法">一、基础语法</h2>
+<h3 id="1--变量和类型">1.  变量和类型</h3>
+<p>在 Go 语言中，变量必须先声明后才能使用。声明变量时需要指定变量类型和变量名。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 声明整型变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">num</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 声明浮点型变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">decimal</span> <span class="kt">float64</span> <span class="p">=</span> <span class="mf">3.14</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>除了整型和浮点型，Go 语言还支持其他类型，如字符串、布尔型、数组、切片、结构体等。</p>
+<h3 id="2--赋值和运算符">2.  赋值和运算符</h3>
+<p>Go 语言支持常用的算术运算符、比较运算符、逻辑运算符和位运算符。可以使用等号（=）给变量赋值。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">Copy</span> <span class="nx">code</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 计算 1+1 的结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">sum</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 比较两个数是否相等
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="nx">num</span> <span class="o">==</span> <span class="mi">10</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;num is equal to 10&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 逻辑或运算符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="nx">num</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="nx">num</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;num is either 1 or 2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3--控制流和函数">3.  控制流和函数</h3>
+<p>Go 语言支持 if、else、else if 和 for 等控制流语句。还可以定义函数来封装常用的代码块。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 判断一个数是否是偶数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">isEven</span><span class="p">(</span><span class="nx">num</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">num</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 循环打印前 n 个斐波那契数列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">fibonacci</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">n</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fibonacci</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">fibonacci</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 函数返回值类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">max</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">x</span> <span class="p">&gt;</span> <span class="nx">y</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">x</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">y</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="常用语法功能">常用语法功能</h3>
+<ol>
+<li>
+<p>字符串声明和使用
+字符串声明语法为：<code>const( 字符串名 = &quot;字符串值&quot;)</code>，例如：<code>const hello = &quot;Hello, world!&quot;</code>。
+字符串使用语法为：<code>字符串名</code>，例如：<code>hello</code>。</p>
+</li>
+<li>
+<p>函数声明和调用
+函数声明语法为：<code>func 函数名(参数列表) 返回值类型</code>，例如：<code>func add(x, y int) int { return x + y }</code>。
+函数调用语法为：<code>函数名(参数列表)</code>，例如：<code>result = add(1, 2)</code>。</p>
+</li>
+<li>
+<p>控制流程
+go语言支持多种控制流程结构，包括<strong>if语句、for循环、range循环、函数和switch语句</strong>等。<br>
+if语句语法为：<code>if 条件语句 { 条件为真时的语句 } else { 条件为假时的语句 }</code>，<br>
+例如：<code>if x &gt; 0 { // x是正数 } else { // x是负数或零 }</code>。<br>
+for循环语法为：<code>for 初始化语句; 条件语句; 更新语句 { 循环体 }</code>，<br>
+例如：<code>for i := 0; i &lt; 10; i++ { // 打印i }</code>。<br>
+range循环语法为：<code>for 变量名 := 初始化表达式; 条件语句; 变量名++ { 循环体 }</code>，<br>
+例如：<code>for i := 0; i &lt; 10; i++ { // 打印i }</code>。<br>
+函数语法为：<code>func 函数名(参数列表) 返回值类型 { 函数体 }</code>，<br>
+例如：<code>func max(x, y int) int { if x &gt; y { return x } else { return y } }</code>。<br>
+switch语句语法为：<code>switch 表达式 { case 常量1: 语句1; case 常量2: 语句2; ... default: 语句 default }</code>，<br>
+例如：<code>switch x := 5; x { case 1: fmt.Println(&quot;x是1&quot;) case 2: fmt.Println(&quot;x是2&quot;) default: fmt.Println(&quot;x不是1也不是2&quot;) }</code>。<br></p>
+</li>
+</ol>
+<h2 id="二常用特性">二、常用特性</h2>
+<h3 id="1--切片和切片操作">1.  切片和切片操作</h3>
+<p>切片是一种数据结构，它可以动态地分配内存，并且可以快速地进行索引和操作。切片操作包括：初始化、切片大小的改变、切片元素的添加和删除、切片元素的查找和替换等。</p>
+<h3 id="2--字典和字典操作">2.  字典和字典操作</h3>
+<p>字典是一种键值对的数据结构，它可以快速地进行查找和删除操作。字典操作包括：初始化、字典大小的改变、字典元素的添加和删除、字典元素的查找和替换等。</p>
+<h3 id="3--函数和函数调用">3.  函数和函数调用</h3>
+<p>go语言支持函数式编程风格，函数可以作为参数传递，也可以作为返回值返回。函数调用可以使用点号或者括号，点号用于调用包内的函数，括号用于调用包外的函数。</p>
+<h3 id="4--接口和接口调用">4.  接口和接口调用</h3>
+<p>go语言支持接口编程，接口可以被多个类型实现，接口调用可以使用点号或者括号，点号用于调用包内的接口方法，括号用于调用包外的接口方法。</p>
+<h3 id="5-并发和协程">5. 并发和协程</h3>
+<p>Go 语言支持并发和协程，可以使用 Goroutine 和 Channel 实现并发编程。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 创建一个 Goroutine
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Hello, world!&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 通道传递数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">ch</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ch</span> <span class="o">&lt;-</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 接收通道数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">&lt;-</span><span class="nx">ch</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="6---错误处理">6.   错误处理</h3>
+<p>Go 语言支持错误处理，可以使用 error 类型来表示错误，并使用 panic 和 recover 函数来处理错误。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 发送数据到网络通道
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">sendToChannel</span><span class="p">(</span><span class="nx">conn</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">conn</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;Hello, world!&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// recover 函数捕捉 panic 生成的错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">recover</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Recovered from panic&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// panic 生成错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nb">panic</span><span class="p">(</span><span class="s">&#34;This is a panic&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="7-包和模块">7. 包和模块</h3>
+<p>Go 语言支持包和模块，可以使用 import 语句导入需要使用的包和模块，并使用 Exported 函数获取包内的可导出变量和函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 导入标准库
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;math&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 导入自定义包
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kn">import</span> <span class="s">&#34;path/filepath&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 获取导入包内的可导出变量和函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">max</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">x</span> <span class="p">&gt;</span> <span class="nx">y</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">x</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">y</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 打印结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nf">Sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">filepath</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-08-05</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://turbo-king.github.io/blog/go/" data-title="Go基础语法和常用特性解析" data-via="TurboKing1024" data-hashtags="Go,study"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://turbo-king.github.io/blog/go/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://turbo-king.github.io/blog/go/" data-title="Go基础语法和常用特性解析" data-image="https://cdn.jsdelivr.net/gh/Turbo-King/images/go.png" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://turbo-king.github.io/blog/go/" data-title="Go基础语法和常用特性解析"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/go/">Go</a>,&nbsp;<a href="/blog/tags/study/">study</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/blog/20230522_stream/" class="prev" rel="prev" title="集合Stream流用法"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>集合Stream流用法</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://turbo-king.github.io/" target="_blank">Turbo-King</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">津ICP备2021001207号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.fill%2CArray.prototype.find%2CArray.from%2CIntersectionObserver%2CMath.sign%2CObject.assign%2CPromise%2CObject.entries%2Chtml5shiv%2CObject.values%2Cfetch%2CElement.prototype.after"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/object-fit-images@3.2.4/dist/ofi.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"Turbo-King/BlogTalks"}},"data":{"id-1":"Turbo-King 博客","id-2":"Turbo-King 博客"},"lightgallery":true,"search":{"algoliaAppID":"14K5QJ9E92","algoliaIndex":"index.blog","algoliaSearchKey":"ccd19bed70442743b8a0e214d9705da3","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="js/custom.js"></script></body>
+</html>
