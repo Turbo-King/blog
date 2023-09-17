@@ -1,35 +1,35 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>study - Tag - Turbo-King Blog</title>
-        <link>https://turbo-king.github.io/blog/en/tags/study/</link>
+        <link>https://weizhihao.top/blog/en/tags/study/</link>
         <description>study - Tag - Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 31 Aug 2022 08:40:24 &#43;0800</lastBuildDate><atom:link href="https://turbo-king.github.io/blog/en/tags/study/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 31 Aug 2022 08:40:24 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/en/tags/study/" rel="self" type="application/rss+xml" /><item>
     <title>Mac使用SQLServer数据库</title>
-    <link>https://turbo-king.github.io/blog/en/20220831_sqlserver/</link>
+    <link>https://weizhihao.top/blog/en/20220831_sqlserver/</link>
     <pubDate>Wed, 31 Aug 2022 08:40:24 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://turbo-king.github.io/blog/en/20220831_sqlserver/</guid>
+    <guid>https://weizhihao.top/blog/en/20220831_sqlserver/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220831.jpg" referrerpolicy="no-referrer">
             </div><h1 id="mac-安装-sql-server">Mac 安装 SQL Server</h1>]]></description>
 </item>
 <item>
     <title>Java 学习路线</title>
-    <link>https://turbo-king.github.io/blog/en/20220813_route/</link>
+    <link>https://weizhihao.top/blog/en/20220813_route/</link>
     <pubDate>Sat, 13 Aug 2022 18:31:14 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://turbo-king.github.io/blog/en/20220813_route/</guid>
+    <guid>https://weizhihao.top/blog/en/20220813_route/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220813.jpeg" referrerpolicy="no-referrer">
             </div><h1 id="java-学习路线">Java 学习路线</h1>]]></description>
 </item>
 <item>
     <title>决定重新回归</title>
-    <link>https://turbo-king.github.io/blog/en/20220807/</link>
+    <link>https://weizhihao.top/blog/en/20220807/</link>
     <pubDate>Sun, 07 Aug 2022 18:19:22 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://turbo-king.github.io/blog/en/20220807/</guid>
+    <guid>https://weizhihao.top/blog/en/20220807/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/chouju20220807.jpg" referrerpolicy="no-referrer">
             </div><h1 id="去浮去燥砥砺前行">去浮去燥，砥砺前行</h1>]]></description>

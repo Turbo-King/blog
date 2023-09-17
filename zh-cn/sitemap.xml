@@ -2,490 +2,490 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://turbo-king.github.io/blog/go/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://turbo-king.github.io/blog/20230522_stream/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://turbo-king.github.io/blog/20230519_lambda/</loc><lastmod>2023-05-19T16:13:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/go/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://weizhihao.top/blog/20230522_stream/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://weizhihao.top/blog/20230519_lambda/</loc><lastmod>2023-05-19T16:13:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20230519_lambda/"
+                        href="https://weizhihao.top/blog/en/20230519_lambda/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20230519_lambda/"
+                        href="https://weizhihao.top/blog/fr/20230519_lambda/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20230519_lambda/"
+                    href="https://weizhihao.top/blog/20230519_lambda/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/20230515_code/</loc><lastmod>2023-05-15T21:33:35&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/20230515_code/</loc><lastmod>2023-05-15T21:33:35&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20230515_code/"
+                        href="https://weizhihao.top/blog/en/20230515_code/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20230515_code/"
+                        href="https://weizhihao.top/blog/fr/20230515_code/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20230515_code/"
+                    href="https://weizhihao.top/blog/20230515_code/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/20230503_colony/</loc><lastmod>2023-05-03T14:39:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/20230503_colony/</loc><lastmod>2023-05-03T14:39:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20230503_colony/"
+                        href="https://weizhihao.top/blog/en/20230503_colony/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20230503_colony/"
+                        href="https://weizhihao.top/blog/fr/20230503_colony/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20230503_colony/"
+                    href="https://weizhihao.top/blog/20230503_colony/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/20221205_designpatterns/</loc><lastmod>2022-12-05T08:53:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/20221205_designpatterns/</loc><lastmod>2022-12-05T08:53:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20221205_designpatterns/"
+                        href="https://weizhihao.top/blog/en/20221205_designpatterns/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20221205_designpatterns/"
+                        href="https://weizhihao.top/blog/fr/20221205_designpatterns/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20221205_designpatterns/"
+                    href="https://weizhihao.top/blog/20221205_designpatterns/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/markdown/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/markdown/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/markdown/"
+                        href="https://weizhihao.top/blog/en/markdown/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/markdown/"
+                        href="https://weizhihao.top/blog/fr/markdown/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/markdown/"
+                    href="https://weizhihao.top/blog/markdown/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/20220831_sqlserver/</loc><lastmod>2022-08-31T08:40:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/20220831_sqlserver/</loc><lastmod>2022-08-31T08:40:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20220831_sqlserver/"
+                        href="https://weizhihao.top/blog/en/20220831_sqlserver/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20220831_sqlserver/"
+                        href="https://weizhihao.top/blog/fr/20220831_sqlserver/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20220831_sqlserver/"
+                    href="https://weizhihao.top/blog/20220831_sqlserver/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/20220813_route/</loc><lastmod>2022-08-13T18:31:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/20220813_route/</loc><lastmod>2022-08-13T18:31:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20220813_route/"
+                        href="https://weizhihao.top/blog/en/20220813_route/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20220813_route/"
+                        href="https://weizhihao.top/blog/fr/20220813_route/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20220813_route/"
+                    href="https://weizhihao.top/blog/20220813_route/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/20220807/</loc><lastmod>2022-08-07T18:19:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/20220807/</loc><lastmod>2022-08-07T18:19:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/20220807/"
+                        href="https://weizhihao.top/blog/en/20220807/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/20220807/"
+                        href="https://weizhihao.top/blog/fr/20220807/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/20220807/"
+                    href="https://weizhihao.top/blog/20220807/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/emoji/</loc><lastmod>2021-07-01T17:55:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/emoji/</loc><lastmod>2021-07-01T17:55:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/emoji/"
+                        href="https://weizhihao.top/blog/en/emoji/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/emoji/"
+                        href="https://weizhihao.top/blog/fr/emoji/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/emoji/"
+                    href="https://weizhihao.top/blog/emoji/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/categories/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/categories/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/categories/"
+                        href="https://weizhihao.top/blog/en/categories/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/categories/"
+                        href="https://weizhihao.top/blog/fr/categories/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/categories/"
+                    href="https://weizhihao.top/blog/categories/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/go/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://turbo-king.github.io/blog/categories/markdown/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://turbo-king.github.io/blog/posts/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/go/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://weizhihao.top/blog/categories/markdown/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://weizhihao.top/blog/posts/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/posts/"
+                        href="https://weizhihao.top/blog/en/posts/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/posts/"
+                        href="https://weizhihao.top/blog/fr/posts/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/posts/"
+                    href="https://weizhihao.top/blog/posts/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/study/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/study/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/study/"
+                        href="https://weizhihao.top/blog/en/tags/study/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/study/"
+                        href="https://weizhihao.top/blog/fr/tags/study/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/study/"
+                    href="https://weizhihao.top/blog/tags/study/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/"
+                        href="https://weizhihao.top/blog/en/tags/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/"
+                        href="https://weizhihao.top/blog/fr/tags/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/"
+                    href="https://weizhihao.top/blog/tags/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/"
+                        href="https://weizhihao.top/blog/en/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/"
+                        href="https://weizhihao.top/blog/fr/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/"
+                    href="https://weizhihao.top/blog/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/collect/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/java/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/collect/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://weizhihao.top/blog/tags/java/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/java/"
+                        href="https://weizhihao.top/blog/en/tags/java/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/java/"
+                        href="https://weizhihao.top/blog/fr/tags/java/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/java/"
+                    href="https://weizhihao.top/blog/tags/java/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/categories/java/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/categories/java/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/categories/java/"
+                        href="https://weizhihao.top/blog/en/categories/java/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/categories/java/"
+                        href="https://weizhihao.top/blog/fr/categories/java/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/categories/java/"
+                    href="https://weizhihao.top/blog/categories/java/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/stream/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/stream/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://weizhihao.top/blog/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"
+                        href="https://weizhihao.top/blog/en/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"
+                        href="https://weizhihao.top/blog/fr/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"
+                    href="https://weizhihao.top/blog/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/lambda/</loc><lastmod>2023-05-19T16:13:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/lambda/</loc><lastmod>2023-05-19T16:13:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/lambda/"
+                        href="https://weizhihao.top/blog/en/tags/lambda/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/lambda/"
+                        href="https://weizhihao.top/blog/fr/tags/lambda/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/lambda/"
+                    href="https://weizhihao.top/blog/tags/lambda/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/%E7%AE%97%E6%B3%95/</loc><lastmod>2023-05-15T21:33:35&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/%E7%AE%97%E6%B3%95/</loc><lastmod>2023-05-15T21:33:35&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/%E7%AE%97%E6%B3%95/"
+                        href="https://weizhihao.top/blog/en/tags/%E7%AE%97%E6%B3%95/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/%E7%AE%97%E6%B3%95/"
+                        href="https://weizhihao.top/blog/fr/tags/%E7%AE%97%E6%B3%95/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/%E7%AE%97%E6%B3%95/"
+                    href="https://weizhihao.top/blog/tags/%E7%AE%97%E6%B3%95/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/nosql/</loc><lastmod>2023-05-03T14:39:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/nosql/</loc><lastmod>2023-05-03T14:39:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/nosql/"
+                        href="https://weizhihao.top/blog/en/tags/nosql/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/nosql/"
+                        href="https://weizhihao.top/blog/fr/tags/nosql/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/nosql/"
+                    href="https://weizhihao.top/blog/tags/nosql/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/redis/</loc><lastmod>2023-05-03T14:39:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/redis/</loc><lastmod>2023-05-03T14:39:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/redis/"
+                        href="https://weizhihao.top/blog/en/tags/redis/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/redis/"
+                        href="https://weizhihao.top/blog/fr/tags/redis/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/redis/"
+                    href="https://weizhihao.top/blog/tags/redis/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/categories/redis/</loc><lastmod>2023-05-03T14:39:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/categories/redis/</loc><lastmod>2023-05-03T14:39:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/categories/redis/"
+                        href="https://weizhihao.top/blog/en/categories/redis/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/categories/redis/"
+                        href="https://weizhihao.top/blog/fr/categories/redis/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/categories/redis/"
+                    href="https://weizhihao.top/blog/categories/redis/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/coding/</loc><lastmod>2022-12-05T08:53:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/coding/</loc><lastmod>2022-12-05T08:53:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/coding/"
+                        href="https://weizhihao.top/blog/en/tags/coding/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/coding/"
+                        href="https://weizhihao.top/blog/fr/tags/coding/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/coding/"
+                    href="https://weizhihao.top/blog/tags/coding/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/principle/</loc><lastmod>2022-12-05T08:53:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/principle/</loc><lastmod>2022-12-05T08:53:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/principle/"
+                        href="https://weizhihao.top/blog/en/tags/principle/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/principle/"
+                        href="https://weizhihao.top/blog/fr/tags/principle/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/principle/"
+                    href="https://weizhihao.top/blog/tags/principle/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/categories/technology/</loc><lastmod>2022-12-05T08:53:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/categories/technology/</loc><lastmod>2022-12-05T08:53:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/categories/technology/"
+                        href="https://weizhihao.top/blog/en/categories/technology/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/categories/technology/"
+                        href="https://weizhihao.top/blog/fr/categories/technology/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/categories/technology/"
+                    href="https://weizhihao.top/blog/categories/technology/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/grammar/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/grammar/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/grammar/"
+                        href="https://weizhihao.top/blog/en/tags/grammar/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/grammar/"
+                        href="https://weizhihao.top/blog/fr/tags/grammar/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/grammar/"
+                    href="https://weizhihao.top/blog/tags/grammar/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/html/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/html/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/html/"
+                        href="https://weizhihao.top/blog/en/tags/html/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/html/"
+                        href="https://weizhihao.top/blog/fr/tags/html/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/html/"
+                    href="https://weizhihao.top/blog/tags/html/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/categories/hugo/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/categories/hugo/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/categories/hugo/"
+                        href="https://weizhihao.top/blog/en/categories/hugo/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/categories/hugo/"
+                        href="https://weizhihao.top/blog/fr/categories/hugo/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/categories/hugo/"
+                    href="https://weizhihao.top/blog/categories/hugo/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/markdown/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/markdown/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/markdown/"
+                        href="https://weizhihao.top/blog/en/tags/markdown/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/markdown/"
+                        href="https://weizhihao.top/blog/fr/tags/markdown/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/markdown/"
+                    href="https://weizhihao.top/blog/tags/markdown/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/posts/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/posts/</loc><lastmod>2022-09-19T08:45:39&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/posts/"
+                        href="https://weizhihao.top/blog/en/tags/posts/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/posts/"
+                        href="https://weizhihao.top/blog/fr/tags/posts/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/posts/"
+                    href="https://weizhihao.top/blog/tags/posts/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/docker/</loc><lastmod>2022-08-31T08:40:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/docker/</loc><lastmod>2022-08-31T08:40:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/docker/"
+                        href="https://weizhihao.top/blog/en/tags/docker/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/docker/"
+                        href="https://weizhihao.top/blog/fr/tags/docker/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/docker/"
+                    href="https://weizhihao.top/blog/tags/docker/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/mac/</loc><lastmod>2022-08-31T08:40:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/mac/</loc><lastmod>2022-08-31T08:40:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/mac/"
+                        href="https://weizhihao.top/blog/en/tags/mac/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/mac/"
+                        href="https://weizhihao.top/blog/fr/tags/mac/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/mac/"
+                    href="https://weizhihao.top/blog/tags/mac/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/sqlserver/</loc><lastmod>2022-08-31T08:40:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/sqlserver/</loc><lastmod>2022-08-31T08:40:24&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/sqlserver/"
+                        href="https://weizhihao.top/blog/en/tags/sqlserver/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/sqlserver/"
+                        href="https://weizhihao.top/blog/fr/tags/sqlserver/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/sqlserver/"
+                    href="https://weizhihao.top/blog/tags/sqlserver/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</loc><lastmod>2022-08-13T18:31:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</loc><lastmod>2022-08-13T18:31:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/"
+                        href="https://weizhihao.top/blog/en/tags/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/"
+                        href="https://weizhihao.top/blog/fr/tags/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/"
+                    href="https://weizhihao.top/blog/tags/java%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/daily/</loc><lastmod>2022-08-07T18:19:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/daily/</loc><lastmod>2022-08-07T18:19:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/daily/"
+                        href="https://weizhihao.top/blog/en/tags/daily/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/daily/"
+                        href="https://weizhihao.top/blog/fr/tags/daily/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/daily/"
+                    href="https://weizhihao.top/blog/tags/daily/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/categories/daily/</loc><lastmod>2022-08-07T18:19:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/categories/daily/</loc><lastmod>2022-08-07T18:19:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/categories/daily/"
+                        href="https://weizhihao.top/blog/en/categories/daily/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/categories/daily/"
+                        href="https://weizhihao.top/blog/fr/categories/daily/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/categories/daily/"
+                    href="https://weizhihao.top/blog/categories/daily/"
                     /></url><url>
-            <loc>https://turbo-king.github.io/blog/tags/emoji/</loc><lastmod>2021-07-01T17:55:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/emoji/</loc><lastmod>2021-07-01T17:55:28&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://turbo-king.github.io/blog/en/tags/emoji/"
+                        href="https://weizhihao.top/blog/en/tags/emoji/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://turbo-king.github.io/blog/fr/tags/emoji/"
+                        href="https://weizhihao.top/blog/fr/tags/emoji/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://turbo-king.github.io/blog/tags/emoji/"
+                    href="https://weizhihao.top/blog/tags/emoji/"
                     /></url></urlset>

@@ -1,97 +1,97 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Turbo-King Blog</title>
-        <link>https://turbo-king.github.io/blog/en/</link>
+        <link>https://weizhihao.top/blog/en/</link>
         <description>About Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
             <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 19 May 2023 16:13:37 &#43;0800</lastBuildDate>
-            <atom:link href="https://turbo-king.github.io/blog/en/index.xml" rel="self" type="application/rss+xml" />
+            <atom:link href="https://weizhihao.top/blog/en/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Lambda常见场景用法</title>
-    <link>https://turbo-king.github.io/blog/en/20230519_lambda/</link>
+    <link>https://weizhihao.top/blog/en/20230519_lambda/</link>
     <pubDate>Fri, 19 May 2023 16:13:37 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://turbo-king.github.io/blog/en/20230519_lambda/</guid>
+    <guid>https://weizhihao.top/blog/en/20230519_lambda/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven.jpg" referrerpolicy="no-referrer">
             </div>Lambda表达式]]></description>
 </item>
 <item>
     <title>剑指Offer-个人题解</title>
-    <link>https://turbo-king.github.io/blog/en/20230515_code/</link>
+    <link>https://weizhihao.top/blog/en/20230515_code/</link>
     <pubDate>Mon, 15 May 2023 21:33:35 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://turbo-king.github.io/blog/en/20230515_code/</guid>
+    <guid>https://weizhihao.top/blog/en/20230515_code/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/code-wallpaper.jpg" referrerpolicy="no-referrer">
             </div><p>剑指Offer</p>]]></description>
 </item>
 <item>
     <title>Redis集群</title>
-    <link>https://turbo-king.github.io/blog/en/20230503_colony/</link>
+    <link>https://weizhihao.top/blog/en/20230503_colony/</link>
     <pubDate>Wed, 03 May 2023 14:39:48 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://turbo-king.github.io/blog/en/20230503_colony/</guid>
+    <guid>https://weizhihao.top/blog/en/20230503_colony/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/redis.png" referrerpolicy="no-referrer">
             </div><p>Redis集群搭建</p>]]></description>
 </item>
 <item>
     <title>设计模式</title>
-    <link>https://turbo-king.github.io/blog/en/20221205_designpatterns/</link>
+    <link>https://weizhihao.top/blog/en/20221205_designpatterns/</link>
     <pubDate>Mon, 05 Dec 2022 08:53:36 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://turbo-king.github.io/blog/en/20221205_designpatterns/</guid>
+    <guid>https://weizhihao.top/blog/en/20221205_designpatterns/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20221205.jpg" referrerpolicy="no-referrer">
             </div><h1 id="浅谈设计模式">浅谈设计模式</h1>]]></description>
 </item>
 <item>
     <title>Markdown 基本语法</title>
-    <link>https://turbo-king.github.io/blog/en/markdown/</link>
+    <link>https://weizhihao.top/blog/en/markdown/</link>
     <pubDate>Mon, 19 Sep 2022 08:45:39 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://turbo-king.github.io/blog/en/markdown/</guid>
+    <guid>https://weizhihao.top/blog/en/markdown/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220919.png" referrerpolicy="no-referrer">
             </div><p>basic Markdown syntax.</p>]]></description>
 </item>
 <item>
     <title>Mac使用SQLServer数据库</title>
-    <link>https://turbo-king.github.io/blog/en/20220831_sqlserver/</link>
+    <link>https://weizhihao.top/blog/en/20220831_sqlserver/</link>
     <pubDate>Wed, 31 Aug 2022 08:40:24 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://turbo-king.github.io/blog/en/20220831_sqlserver/</guid>
+    <guid>https://weizhihao.top/blog/en/20220831_sqlserver/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220831.jpg" referrerpolicy="no-referrer">
             </div><h1 id="mac-安装-sql-server">Mac 安装 SQL Server</h1>]]></description>
 </item>
 <item>
     <title>Java 学习路线</title>
-    <link>https://turbo-king.github.io/blog/en/20220813_route/</link>
+    <link>https://weizhihao.top/blog/en/20220813_route/</link>
     <pubDate>Sat, 13 Aug 2022 18:31:14 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://turbo-king.github.io/blog/en/20220813_route/</guid>
+    <guid>https://weizhihao.top/blog/en/20220813_route/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220813.jpeg" referrerpolicy="no-referrer">
             </div><h1 id="java-学习路线">Java 学习路线</h1>]]></description>
 </item>
 <item>
     <title>决定重新回归</title>
-    <link>https://turbo-king.github.io/blog/en/20220807/</link>
+    <link>https://weizhihao.top/blog/en/20220807/</link>
     <pubDate>Sun, 07 Aug 2022 18:19:22 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://turbo-king.github.io/blog/en/20220807/</guid>
+    <guid>https://weizhihao.top/blog/en/20220807/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/chouju20220807.jpg" referrerpolicy="no-referrer">
             </div><h1 id="去浮去燥砥砺前行">去浮去燥，砥砺前行</h1>]]></description>
 </item>
 <item>
     <title>Emoji Support</title>
-    <link>https://turbo-king.github.io/blog/en/emoji/</link>
+    <link>https://weizhihao.top/blog/en/emoji/</link>
     <pubDate>Tue, 01 Oct 2019 17:55:28 &#43;0800</pubDate>
     <author>Turbo-king</author>
-    <guid>https://turbo-king.github.io/blog/en/emoji/</guid>
+    <guid>https://weizhihao.top/blog/en/emoji/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image-emoji.jpg" referrerpolicy="no-referrer">
             </div><p>Emoji can be enabled in a Hugo project in a number of ways.</p>]]></description>

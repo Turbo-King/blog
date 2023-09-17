@@ -61,4 +61,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: https://turbo-king.github.io/en/sitemap.xml
+Sitemap: https://weizhihao.top/en/sitemap.xml

@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Markdown - Tag - Turbo-King Blog</title>
-        <link>https://turbo-king.github.io/blog/en/tags/markdown/</link>
+        <link>https://weizhihao.top/blog/en/tags/markdown/</link>
         <description>Markdown - Tag - Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 19 Sep 2022 08:45:39 &#43;0800</lastBuildDate><atom:link href="https://turbo-king.github.io/blog/en/tags/markdown/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 19 Sep 2022 08:45:39 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/en/tags/markdown/" rel="self" type="application/rss+xml" /><item>
     <title>Markdown 基本语法</title>
-    <link>https://turbo-king.github.io/blog/en/markdown/</link>
+    <link>https://weizhihao.top/blog/en/markdown/</link>
     <pubDate>Mon, 19 Sep 2022 08:45:39 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://turbo-king.github.io/blog/en/markdown/</guid>
+    <guid>https://weizhihao.top/blog/en/markdown/</guid>
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220919.png" referrerpolicy="no-referrer">
             </div><p>basic Markdown syntax.</p>]]></description>
