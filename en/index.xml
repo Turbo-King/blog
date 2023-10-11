@@ -4,9 +4,19 @@
         <link>https://weizhihao.top/blog/en/</link>
         <description>About Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Aug 2023 18:07:31 &#43;0800</lastBuildDate>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 11 Oct 2023 14:41:06 &#43;0800</lastBuildDate>
             <atom:link href="https://weizhihao.top/blog/en/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>分布式全局唯一ID</title>
+    <link>https://weizhihao.top/blog/en/20231011_globaluniqueid/</link>
+    <pubDate>Wed, 11 Oct 2023 14:41:06 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/en/20231011_globaluniqueid/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Snowflake.jpg" referrerpolicy="no-referrer">
+            </div>雪花算法]]></description>
+</item>
+<item>
     <title>Go基础语法和常用特性解析</title>
     <link>https://weizhihao.top/blog/en/go/</link>
     <pubDate>Sat, 05 Aug 2023 18:07:31 &#43;0800</pubDate>
@@ -95,16 +105,6 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/chouju20220807.jpg" referrerpolicy="no-referrer">
             </div><h1 id="去浮去燥砥砺前行">去浮去燥，砥砺前行</h1>]]></description>
-</item>
-<item>
-    <title>Emoji Support</title>
-    <link>https://weizhihao.top/blog/en/emoji/</link>
-    <pubDate>Tue, 01 Oct 2019 17:55:28 &#43;0800</pubDate>
-    <author>Turbo-king</author>
-    <guid>https://weizhihao.top/blog/en/emoji/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image-emoji.jpg" referrerpolicy="no-referrer">
-            </div><p>Emoji can be enabled in a Hugo project in a number of ways.</p>]]></description>
 </item>
 </channel>
 </rss>

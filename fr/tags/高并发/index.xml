@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>高并发 - Balise - Turbo-King Blog</title>
+        <link>https://weizhihao.top/blog/fr/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/</link>
+        <description>高并发 - Balise - Turbo-King Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>fr</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 11 Oct 2023 14:41:06 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/fr/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/" rel="self" type="application/rss+xml" /><item>
+    <title>分布式全局唯一ID</title>
+    <link>https://weizhihao.top/blog/fr/20231011_globaluniqueid/</link>
+    <pubDate>Wed, 11 Oct 2023 14:41:06 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/20231011_globaluniqueid/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Snowflake.jpg" referrerpolicy="no-referrer">
+            </div>雪花算法]]></description>
+</item>
+</channel>
+</rss>

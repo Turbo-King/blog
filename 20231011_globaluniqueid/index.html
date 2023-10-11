@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>分布式全局唯一ID - Turbo-King Blog</title><meta name="keywords" content="[Turbo-King Blog weizhihao ahao 阿豪]">
+
+<meta name="Description" content="雪花算法"><meta property="og:title" content="分布式全局唯一ID" />
+<meta property="og:description" content="雪花算法" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://weizhihao.top/blog/20231011_globaluniqueid/" /><meta property="og:image" content="https://weizhihao.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-11T14:41:06+08:00" />
+<meta property="article:modified_time" content="2023-10-11T14:41:06+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://weizhihao.top/logo.png"/>
+
+<meta name="twitter:title" content="分布式全局唯一ID"/>
+<meta name="twitter:description" content="雪花算法"/>
+<meta name="application-name" content="Turbo-King">
+<meta name="apple-mobile-web-app-title" content="Turbo-King"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://weizhihao.top/blog/20231011_globaluniqueid/" /><link rel="prev" href="https://weizhihao.top/blog/20231007_concurrent/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "分布式全局唯一ID",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/weizhihao.top\/blog\/20231011_globaluniqueid\/"
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "分布式全局ID, 高并发, 单机","wordcount":  4201 ,
+        "url": "https:\/\/weizhihao.top\/blog\/20231011_globaluniqueid\/","datePublished": "2023-10-11T14:41:06+08:00","dateModified": "2023-10-11T14:41:06+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
+                "@type": "Person",
+                "name": "Turbo-King"
+            },"description": "雪花算法"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/posts/" title="博客文章"> 文章 </a><a class="menu-item" href="/blog/tags/" title="标签"> 标签 </a><a class="menu-item" href="/blog/categories/" title="分类"> 分类 </a><a class="menu-item" href="/about/" title="Turbo-King"> 关于 </a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/en/20231011_globaluniqueid/">English</option><option value="/blog/20231011_globaluniqueid/" selected>简体中文</option><option value="/blog/fr/20231011_globaluniqueid/">Français</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/blog/posts/" title="博客文章">文章</a><a class="menu-item" href="/blog/tags/" title="标签">标签</a><a class="menu-item" href="/blog/categories/" title="分类">分类</a><a class="menu-item" href="/about/" title="Turbo-King">关于</a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/en/20231011_globaluniqueid/">English</option><option value="/blog/20231011_globaluniqueid/" selected>简体中文</option><option value="/blog/fr/20231011_globaluniqueid/">Français</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">分布式全局唯一ID</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-11">2023-10-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4201 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Snowflake.jpg"
+        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/Snowflake.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/Snowflake.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/Snowflake.jpg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/Snowflake.jpg"
+        title="雪花算法" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#问题">问题</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#为什么需要分布式全局唯一id以及分布式id的业务需求">为什么需要分布式全局唯一ID以及分布式ID的业务需求</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#通用解决方案">通用解决方案</a>
+      <ul>
+        <li><a href="#uuid">UUID</a>
+          <ul>
+            <li><a href="#介绍">介绍</a></li>
+            <li><a href="#存在问题">存在问题</a></li>
+          </ul>
+        </li>
+        <li><a href="#数据库自增主键">数据库自增主键</a>
+          <ul>
+            <li><a href="#单机"><strong>单机</strong></a></li>
+            <li><a href="#分布式集群">分布式集群</a></li>
+          </ul>
+        </li>
+        <li><a href="#基于redis生成全局id策略">基于Redis生成全局ID策略</a>
+          <ul>
+            <li><a href="#单机-1">单机</a></li>
+            <li><a href="#分布式集群-1">分布式集群</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#雪花算法"><strong>雪花算法</strong></a>
+      <ul>
+        <li><a href="#介绍-1">介绍</a></li>
+        <li><a href="#结构">结构</a></li>
+        <li><a href="#实现">实现</a></li>
+        <li><a href="#总结">总结</a></li>
+        <li><a href="#其它补充">其它补充</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前言">前言</h2>
+<p>系统唯一ID是我们在设计一个系统的时候常常会遇见的问题，也常常为这个问题而纠结。</p>
+<p>这篇文章就是给大家提供一个生成分布式唯一全局id生成方案的思路，希望可以共勉大家。</p>
+<h2 id="问题">问题</h2>
+<h4 id="为什么需要分布式全局唯一id以及分布式id的业务需求">为什么需要分布式全局唯一ID以及分布式ID的业务需求</h4>
+<p>在复杂分布式系统中，往往需要对大量的数据和消息进行唯一标识，如在美团点评的金融、支付、餐饮、酒店</p>
+<p>猫眼电影等产品的系统中数据逐渐增长，对数据库分库分表后需要有一个唯一ID来标识一条数据或信息；</p>
+<p>特别是订单、骑手、优惠券都需要有唯一ID做标识</p>
+<p>此时一个能够生成全局唯一ID的系统是非常必要的</p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>ID生成规则部分硬性要求<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li><strong>全局唯一</strong></li>
+<li><strong>趋势递增</strong>
+<ul>
+<li>在 MySQL 的 <strong>InnoDB</strong> 引擎中使用的是聚集索引，由于多数 RDBMS 使用 <strong>Btree</strong> 的数据结构来存储索引，在主键的选择上面我们应该尽量使用有序的主键保证写入性能</li>
+</ul>
+</li>
+<li><strong>单调递增</strong>
+<ul>
+<li>保证下一个ID一定大于上一个ID，例如事务版本号、IM增量消息、排序等特殊需求</li>
+</ul>
+</li>
+<li><strong>信息安全</strong>
+<ul>
+<li>如果ID是连续，恶意用户的爬取工作就非常容易做了，直接按照顺序下载指定URL即可，如果是订单号就危险了，竞争对手可以直接知道我们一天的单量，所以在一些应用场景下，需要ID无规则不规则，让竞争对手不好猜</li>
+</ul>
+</li>
+<li><strong>含时间戳</strong>
+<ul>
+<li>一样能够快速在开发中了解这个分布式ID什么时候生成的</li>
+</ul>
+</li>
+</ol>
+</div>
+        </div>
+    </div>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>ID号生成系统的可用性要求<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li><strong>高可用</strong>
+<ul>
+<li>发布一个获取分布式ID请求，服务器就要保证 99.999% 的情况下给我创建一个唯一分布式ID</li>
+</ul>
+</li>
+<li><strong>低延迟</strong>
+<ul>
+<li>发一个获取分布式ID的请求，服务器就要快，极速</li>
+</ul>
+</li>
+<li><strong>高QPS</strong>
+<ul>
+<li>例如并发一口气10万个创建分布式ID请求同时杀过来，服务器要顶得住且一下子成功创建10万个分布式ID</li>
+</ul>
+</li>
+</ol>
+</div>
+        </div>
+    </div>
+<h2 id="通用解决方案">通用解决方案</h2>
+<h3 id="uuid">UUID</h3>
+<h4 id="介绍">介绍</h4>
+<p><code>UUID.randomUUID()</code>, UUID的标准型包含32个16进制数字，以连字号分为五段，形式为 8-4-4-4-12的36个字符，性能非常高，本地生成，没有网络消耗。</p>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>UUID组成部分<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>当前日期和时间，UUID的第一个部分与时间有关，如果你在生成一个UUID之后，过几秒又生成一个UUID，则第一个部分不同，其余相同。</li>
+<li>时钟序列。</li>
+<li>全局唯一的IEEE机器识别号，如果有网卡，从网卡MAC地址获得，没有网卡以其他方式获得。</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h4 id="存在问题">存在问题</h4>
+<ol>
+<li>
+<p><strong>入数据库性能差，因为UUID是无序的</strong></p>
+<p>无序，无法预测他的生成顺序，不能生成递增有序的数字</p>
+<p>首先分布式id一般都会作为逐渐，但是按照mysql官方推荐主键尽量越短越好，UUID每一个都很长，所以不是很推荐。</p>
+</li>
+<li>
+<p><strong>主键，ID作为主键时，在特定的环境下会存在一些问题</strong></p>
+<p>比如做DB主键的场景下，UUID就非常不适用MySQL官方有明确的说明</p>
+</li>
+<li>
+<p><strong>索引，B+树索引的分裂</strong></p>
+<p>既然分布式ID是主键，然后主键是包含索引的，而mysql的索引是通过B+树来实现的，每一次新的UUID数据的插入，为了查询的优化，都会对索引底层的B+树进行修改，因为UUID数据是无序的，所以每一次UUID数据的插入都会对主键的B+树进行很大的修改，这一点很不好，插入完全无序，不但会导致一些中间节点产生分裂，也会白白创造出很多不饱和的节点，这样大大降低了数据库插入的性能。</p>
+</li>
+</ol>
+<p><strong>UUID只能保证全局唯一性，不满足后面的趋势递增，单调递增</strong></p>
+<h3 id="数据库自增主键">数据库自增主键</h3>
+<h4 id="单机"><strong>单机</strong></h4>
+<p>在分布式里面，数据库的自增ID机制的主要原理是：数据库自增ID和mysql数据库的<code>replace into</code>实现的，这里的<code>replace into</code>跟insert功能 类似，不同点在于：<code>replace into</code>首先尝试插入数据列表中，如果发现表中已经有此行数据（根据主键或唯一索引判断）则先删除，在插入，否则直接插入新数据。</p>
+<p><code>REPLACE INTO</code>的含义是插入一条记录，如果表中唯一索引的值遇到冲突，则替换老数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">ICREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t_test</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">BIGINT</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="n">UNSIGNED</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">state</span><span class="w"> </span><span class="nb">CHAR</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="p">(</span><span class="k">state</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">REPLACE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t_test</span><span class="p">(</span><span class="k">state</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">select</span><span class="w"> </span><span class="n">LAST_INSERT_ID</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们每次插入的时候，发现都会把原来的数据给替换，并且ID也会增加</p>
+<p>这就满足了</p>
+<ul>
+<li>递增性</li>
+<li>单调性</li>
+<li>唯一性</li>
+</ul>
+<p>在分布式情况下，并且并发量不多的情况，可以使用这种方案来解决，获得一个全局的唯一ID</p>
+<h4 id="分布式集群">分布式集群</h4>
+<p>那数据库自增ID机制适合做分布式ID吗？</p>
+<p><strong>答案是不太适合</strong></p>
+<ol>
+<li><strong>系统水平扩展比较困难</strong>，比如定义好步长和机器台数之后，如果要添加机器该怎么办，假设现在有一台机器发号是：1,2,3,4,5,（步长是1），这个时候需要扩容机器一台，可以这样做：把第二台机器的初始值设置得比第一台超过很多，貌似还好，但是假设线上如果有100台机器，这个时候扩容要怎么做，简直是噩梦，所以系统水平扩展方案复杂难以实现。</li>
+<li><strong>数据库压力还是很大</strong>，每次获取ID都得读写一次数据库，非常影响性能，不符合分布式ID里面的延迟低和高QPS的规则（<strong>在高并发下，如果都去数据库里面获取ID，那是非常影响性能的</strong>）</li>
+</ol>
+<h3 id="基于redis生成全局id策略">基于Redis生成全局ID策略</h3>
+<h4 id="单机-1">单机</h4>
+<p>因为<strong>Redis是单线程</strong>，天生保证<strong>原子性</strong>，可以使用原子操作 <strong>INCR</strong> 和 <strong>INCRBY</strong> 来实现</p>
+<p><strong>INCRBY</strong>：设置增长步长</p>
+<h4 id="分布式集群-1">分布式集群</h4>
+<p>注意：在Redis集群情况下，同样和MySQL一样需要设置不同的增长步长，同时key一定要设置有效期，可以使用Redis集群来获取更高的吞吐量。</p>
+<p>假设一个集群中有5台Redis，可以初始化每台Redis的值分别是 1,2,3,4,5 ， 然后设置步长都是5</p>
+<p>各个Redis生成的ID为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">A：1 6 11 16 21
+</span></span><span class="line"><span class="cl">B：2 7 12 17 22
+</span></span><span class="line"><span class="cl">C：3 8 13 18 23
+</span></span><span class="line"><span class="cl">D：4 9 14 19 24
+</span></span><span class="line"><span class="cl">E：5 10 15 20 25
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是存在的问题是，就是Redis集群的维护和保养比较麻烦，配置麻烦。因为要设置<strong>单点故障</strong>，<strong>哨兵值守</strong></p>
+<p>但是主要是的问题就是，<strong>为了一个ID，却需要引入整个Redis集群</strong>，有种杀鸡焉用牛刀的感觉</p>
+<h2 id="雪花算法"><strong>雪花算法</strong></h2>
+<h3 id="介绍-1">介绍</h3>
+<p>Twitter的<strong>分布式自增ID算法</strong>：<strong>Snowflake</strong></p>
+<p>最初Twitter把存储系统从MySQL迁移到Cassandra（由Facebook开发一套开源分布式NoSQL数据库系统）因为Cassandra没有顺序ID生成机制，所有开发了这样一套全局唯一ID生成服务。</p>
+<p>Twitter的分布式雪花算法SnowFlake，经测试SnowFlake每秒可以产生26万个自增可排序的ID</p>
+<ul>
+<li>twitter的SnowFlake生成ID能够按照时间有序生成</li>
+<li>SnowFlake算法生成ID的结果是一个64Bit大小的整数，为一个Long型（转换成字符串后长度最多19）</li>
+<li>分布式系统内不会产生ID碰撞（由datacenter 和 workerID做区分）并且效率较高</li>
+</ul>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>全局唯一ID的基本要求<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>在分布式环境下，必须全局唯一性</li>
+<li>一般都需要单调递增，因为一般唯一ID都会存在数据库，而InnoDB的特性就是将内容存储在主键索引上的叶子节点，而且是从左往右递增的，所有考虑到数据库性能，一般生成ID也最好是单调递增的。为了防止ID冲突可以使用36位UUID，但是UUID有一些缺点，首先是它相对比较长，并且另外UUID一般是无序的</li>
+<li>可能还会需要无规则，因为如果使用唯一ID作为订单号这种，为了不让别人知道一天的订单量多少，就需要这种规则</li>
+</ol>
+</div>
+        </div>
+    </div>
+<h3 id="结构">结构</h3>
+<p><strong>雪花算法的几个核心组成部分</strong></p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E7%BB%93%E6%9E%84.jpg"
+        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E7%BB%93%E6%9E%84.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E7%BB%93%E6%9E%84.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E7%BB%93%E6%9E%84.jpg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95%E7%BB%93%E6%9E%84.jpg"
+        title="雪花算法结构" /></p>
+<p>在Java中64bit的证书是long类型，所以在SnowFlake算法生成的ID就是long类存储的</p>
+<div class="details admonition abstract open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ul fa-fw" aria-hidden="true"></i>雪花算法核心组成部分<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>==<strong>第一部分</strong>==</p>
+<p>二进制中最高位是符号位，1表示负数，0表示正数。生成的ID一般都是用整数，所以最高位固定为0。</p>
+<p>==<strong>第二部分</strong>==</p>
+<p>第二部分是41bit时间戳位，用来记录时间戳，毫秒级</p>
+<p>41位可以表示 2^41 -1 个数字</p>
+<p>如果只用来表示正整数，可以表示的范围是：0 - 2^41 -1，减1是因为可以表示的数值范围是从0开始计算的，而不是从1。</p>
+<p>也就是说41位可以表示 2^41 - 1 毫秒的值，转换成单位年则是 69.73年</p>
+<p>==<strong>第三部分</strong>==</p>
+<p>第三部分为工作机器ID，10Bit用来记录工作机器ID</p>
+<p>可以部署在2^10 = 1024个节点，包括5位 datacenterId（数据中心，机房） 和 5位 workerID（机器码）</p>
+<p>5位可以表示的最大正整数是 2 ^ 5 = 31个数字，来表示不同的数据中心 和 机器码</p>
+<p>==<strong>第四部分</strong>==</p>
+<p>12位bit可以用来表示的正整数是 2^12 = 4095，即可以用0 1 2 … 4094 来表示同一个机器同一个时间戳内产生的4095个ID序号。</p>
+</div>
+        </div>
+    </div>
+<p><strong>SnowFlake可以保证</strong>所有生成的ID按时间趋势递增，整个分布式系统内不会产生重复ID，因为有 <strong>datacenterId</strong> 和 <strong>workerId</strong> 来做区分</p>
+<h3 id="实现">实现</h3>
+<p>雪花算法是由 <strong>scala</strong> 算法编写的，有人使用java实现，<a href="https://github.com/beyondfengyu/SnowFlake/blob/master/SnowFlake.java" target="_blank" rel="noopener noreffer ">github地址</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * twitter的snowflake算法 -- java实现
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author beyond
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SnowFlake</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 起始的时间戳
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">START_STMP</span> <span class="o">=</span> <span class="mi">1480166465631L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 每一部分占用的位数
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">SEQUENCE_BIT</span> <span class="o">=</span> <span class="mi">12</span><span class="o">;</span> <span class="c1">//序列号占用的位数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">MACHINE_BIT</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>   <span class="c1">//机器标识占用的位数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">DATACENTER_BIT</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span><span class="c1">//数据中心占用的位数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 每一部分的最大值
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">MAX_DATACENTER_NUM</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1L</span> <span class="o">^</span> <span class="o">(-</span><span class="mi">1L</span> <span class="o">&lt;&lt;</span> <span class="n">DATACENTER_BIT</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">MAX_MACHINE_NUM</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1L</span> <span class="o">^</span> <span class="o">(-</span><span class="mi">1L</span> <span class="o">&lt;&lt;</span> <span class="n">MACHINE_BIT</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">MAX_SEQUENCE</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1L</span> <span class="o">^</span> <span class="o">(-</span><span class="mi">1L</span> <span class="o">&lt;&lt;</span> <span class="n">SEQUENCE_BIT</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 每一部分向左的位移
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">MACHINE_LEFT</span> <span class="o">=</span> <span class="n">SEQUENCE_BIT</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">DATACENTER_LEFT</span> <span class="o">=</span> <span class="n">SEQUENCE_BIT</span> <span class="o">+</span> <span class="n">MACHINE_BIT</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="kt">long</span> <span class="n">TIMESTMP_LEFT</span> <span class="o">=</span> <span class="n">DATACENTER_LEFT</span> <span class="o">+</span> <span class="n">DATACENTER_BIT</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">long</span> <span class="n">datacenterId</span><span class="o">;</span>  <span class="c1">//数据中心
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">private</span> <span class="kt">long</span> <span class="n">machineId</span><span class="o">;</span>     <span class="c1">//机器标识
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">private</span> <span class="kt">long</span> <span class="n">sequence</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span> <span class="c1">//序列号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">private</span> <span class="kt">long</span> <span class="n">lastStmp</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1L</span><span class="o">;</span><span class="c1">//上一次时间戳
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">SnowFlake</span><span class="o">(</span><span class="kt">long</span> <span class="n">datacenterId</span><span class="o">,</span> <span class="kt">long</span> <span class="n">machineId</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">datacenterId</span> <span class="o">&gt;</span> <span class="n">MAX_DATACENTER_NUM</span> <span class="o">||</span> <span class="n">datacenterId</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&#34;datacenterId can&#39;t be greater than MAX_DATACENTER_NUM or less than 0&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">machineId</span> <span class="o">&gt;</span> <span class="n">MAX_MACHINE_NUM</span> <span class="o">||</span> <span class="n">machineId</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&#34;machineId can&#39;t be greater than MAX_MACHINE_NUM or less than 0&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">datacenterId</span> <span class="o">=</span> <span class="n">datacenterId</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">machineId</span> <span class="o">=</span> <span class="n">machineId</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 产生下一个ID
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">long</span> <span class="nf">nextId</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">long</span> <span class="n">currStmp</span> <span class="o">=</span> <span class="n">getNewstmp</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">currStmp</span> <span class="o">&lt;</span> <span class="n">lastStmp</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">&#34;Clock moved backwards.  Refusing to generate id&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">currStmp</span> <span class="o">==</span> <span class="n">lastStmp</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//相同毫秒内，序列号自增
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">sequence</span> <span class="o">=</span> <span class="o">(</span><span class="n">sequence</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">&amp;</span> <span class="n">MAX_SEQUENCE</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//同一毫秒的序列数已经达到最大
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">sequence</span> <span class="o">==</span> <span class="mi">0L</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">currStmp</span> <span class="o">=</span> <span class="n">getNextMill</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//不同毫秒内，序列号置为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">sequence</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">lastStmp</span> <span class="o">=</span> <span class="n">currStmp</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">(</span><span class="n">currStmp</span> <span class="o">-</span> <span class="n">START_STMP</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="n">TIMESTMP_LEFT</span> <span class="c1">//时间戳部分
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="o">|</span> <span class="n">datacenterId</span> <span class="o">&lt;&lt;</span> <span class="n">DATACENTER_LEFT</span>       <span class="c1">//数据中心部分
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="o">|</span> <span class="n">machineId</span> <span class="o">&lt;&lt;</span> <span class="n">MACHINE_LEFT</span>             <span class="c1">//机器标识部分
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="o">|</span> <span class="n">sequence</span><span class="o">;</span>                             <span class="c1">//序列号部分
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">long</span> <span class="nf">getNextMill</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">long</span> <span class="n">mill</span> <span class="o">=</span> <span class="n">getNewstmp</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="o">(</span><span class="n">mill</span> <span class="o">&lt;=</span> <span class="n">lastStmp</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mill</span> <span class="o">=</span> <span class="n">getNewstmp</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">mill</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">long</span> <span class="nf">getNewstmp</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SnowFlake</span> <span class="n">snowFlake</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SnowFlake</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="o">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">12</span><span class="o">);</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">snowFlake</span><span class="o">.</span><span class="na">nextId</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="总结">总结</h3>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>雪花算法优缺点<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>==<strong>优点</strong>==</p>
+<ul>
+<li>毫秒数在高维，自增序列在低位，整个ID都是趋势递增的</li>
+<li>不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的</li>
+<li>可以根据自身业务特性分配bit位，非常灵活</li>
+</ul>
+<p>==<strong>缺点</strong>==</p>
+<ul>
+<li>依赖机器时钟，如果机器时钟回拨，会导致重复ID生成</li>
+<li>在单机上是递增的，但由于涉及到分布式环境，每台机器上的时钟不可能完全同步，有时候会出现不是全局递增的情况，此缺点可以认为无所谓，一般分布式ID只要求趋势递增，并不会严格要求递增，90%的需求只要求趋势递增。</li>
+</ul>
+</div>
+        </div>
+    </div>
+<h3 id="其它补充">其它补充</h3>
+<p>为了解决时钟回拨问题，导致ID重复，后面有人专门提出了解决的方案</p>
+<ul>
+<li>百度开源的分布式唯一ID生成器 UidGenerator</li>
+<li>Leaf - 美团点评分布式ID生成系统</li>
+</ul></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-10-11</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://weizhihao.top/blog/20231011_globaluniqueid/" data-title="分布式全局唯一ID" data-via="TurboKing1024" data-hashtags="分布式全局ID,高并发,单机"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://weizhihao.top/blog/20231011_globaluniqueid/" data-hashtag="分布式全局ID"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://weizhihao.top/blog/20231011_globaluniqueid/" data-title="分布式全局唯一ID" data-image="https://cdn.jsdelivr.net/gh/Turbo-King/images/Snowflake.jpg" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://weizhihao.top/blog/20231011_globaluniqueid/" data-title="分布式全局唯一ID"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%A8%E5%B1%80id/">分布式全局ID</a>,&nbsp;<a href="/blog/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/">高并发</a>,&nbsp;<a href="/blog/tags/%E5%8D%95%E6%9C%BA/">单机</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/blog/20231007_concurrent/" class="prev" rel="prev" title="并发编程"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>并发编程</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://turbo-king.github.io/" target="_blank">Turbo-King</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">津ICP备2021001207号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.fill%2CArray.prototype.find%2CArray.from%2CIntersectionObserver%2CMath.sign%2CObject.assign%2CPromise%2CObject.entries%2Chtml5shiv%2CObject.values%2Cfetch%2CElement.prototype.after"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/object-fit-images@3.2.4/dist/ofi.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"Turbo-King/BlogTalks"}},"data":{"id-1":"Turbo-King 博客","id-2":"Turbo-King 博客"},"lightgallery":true,"search":{"algoliaAppID":"14K5QJ9E92","algoliaIndex":"index.blog","algoliaSearchKey":"ccd19bed70442743b8a0e214d9705da3","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="js/custom.js"></script>
+</body>
+</html>
