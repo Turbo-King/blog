@@ -377,18 +377,18 @@
             <i class="icon fas fa-list-ul fa-fw" aria-hidden="true"></i>雪花算法核心组成部分<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content"><p>==<strong>第一部分</strong>==</p>
+            <div class="admonition-content"><p><code>**第一部分**</code></p>
 <p>二进制中最高位是符号位，1表示负数，0表示正数。生成的ID一般都是用整数，所以最高位固定为0。</p>
-<p>==<strong>第二部分</strong>==</p>
+<p><code>**第二部分**</code></p>
 <p>第二部分是41bit时间戳位，用来记录时间戳，毫秒级</p>
 <p>41位可以表示 2^41 -1 个数字</p>
 <p>如果只用来表示正整数，可以表示的范围是：0 - 2^41 -1，减1是因为可以表示的数值范围是从0开始计算的，而不是从1。</p>
 <p>也就是说41位可以表示 2^41 - 1 毫秒的值，转换成单位年则是 69.73年</p>
-<p>==<strong>第三部分</strong>==</p>
+<p><code>**第三部分**</code></p>
 <p>第三部分为工作机器ID，10Bit用来记录工作机器ID</p>
 <p>可以部署在2^10 = 1024个节点，包括5位 datacenterId（数据中心，机房） 和 5位 workerID（机器码）</p>
 <p>5位可以表示的最大正整数是 2 ^ 5 = 31个数字，来表示不同的数据中心 和 机器码</p>
-<p>==<strong>第四部分</strong>==</p>
+<p><code>**第四部分**</code></p>
 <p>12位bit可以用来表示的正整数是 2^12 = 4095，即可以用0 1 2 … 4094 来表示同一个机器同一个时间戳内产生的4095个ID序号。</p>
 </div>
         </div>
@@ -610,13 +610,13 @@
             <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>雪花算法优缺点<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content"><p>==<strong>优点</strong>==</p>
+            <div class="admonition-content"><p><strong>优点</strong></p>
 <ul>
 <li>毫秒数在高维，自增序列在低位，整个ID都是趋势递增的</li>
 <li>不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的</li>
 <li>可以根据自身业务特性分配bit位，非常灵活</li>
 </ul>
-<p>==<strong>缺点</strong>==</p>
+<p><strong>缺点</strong></p>
 <ul>
 <li>依赖机器时钟，如果机器时钟回拨，会导致重复ID生成</li>
 <li>在单机上是递增的，但由于涉及到分布式环境，每台机器上的时钟不可能完全同步，有时候会出现不是全局递增的情况，此缺点可以认为无所谓，一般分布式ID只要求趋势递增，并不会严格要求递增，90%的需求只要求趋势递增。</li>
