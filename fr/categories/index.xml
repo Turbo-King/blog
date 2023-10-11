@@ -1,0 +1,56 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Categories - Catégorie - Turbo-King Blog</title>
+        <link>https://weizhihao.top/blog/fr/categories/</link>
+        <description>Categories - Catégorie - Turbo-King Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>fr</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Aug 2023 18:07:31 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/fr/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>Go</title>
+    <link>https://weizhihao.top/blog/fr/categories/go/</link>
+    <pubDate>Sat, 05 Aug 2023 18:07:31 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/categories/go/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Java </title>
+    <link>https://weizhihao.top/blog/fr/categories/java/</link>
+    <pubDate>Fri, 19 May 2023 16:13:37 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/categories/java/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Redis</title>
+    <link>https://weizhihao.top/blog/fr/categories/redis/</link>
+    <pubDate>Wed, 03 May 2023 14:39:48 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/categories/redis/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Technology</title>
+    <link>https://weizhihao.top/blog/fr/categories/technology/</link>
+    <pubDate>Mon, 05 Dec 2022 08:53:36 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/categories/technology/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Hugo</title>
+    <link>https://weizhihao.top/blog/fr/categories/hugo/</link>
+    <pubDate>Mon, 19 Sep 2022 08:45:39 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/categories/hugo/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Daily</title>
+    <link>https://weizhihao.top/blog/fr/categories/daily/</link>
+    <pubDate>Sun, 07 Aug 2022 18:19:22 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/categories/daily/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Redis - Catégorie - Turbo-King Blog</title>
+        <link>https://weizhihao.top/blog/fr/categories/redis/</link>
+        <description>Redis - Catégorie - Turbo-King Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>fr</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 03 May 2023 14:39:48 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/fr/categories/redis/" rel="self" type="application/rss+xml" /><item>
+    <title>Redis集群</title>
+    <link>https://weizhihao.top/blog/fr/20230503_colony/</link>
+    <pubDate>Wed, 03 May 2023 14:39:48 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/20230503_colony/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/redis.png" referrerpolicy="no-referrer">
+            </div><p>Redis集群搭建</p>]]></description>
+</item>
+</channel>
+</rss>

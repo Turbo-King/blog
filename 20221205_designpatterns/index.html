@@ -6796,7 +6796,7 @@
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Drink</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="n">des</span><span class="o">;</span> <span class="c1">// 描述
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="kt">float</span> <span class="n">price</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="o">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">private</span> <span class="kt">float</span> <span class="n">price</span> <span class="o">=</span> <span class="mi">0</span><span class="o">.</span><span class="na">0f</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getDes</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">des</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
@@ -6837,7 +6837,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">DeCaf</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; 无因咖啡 &#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">1.0f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mi">1</span><span class="o">.</span><span class="na">0f</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl">
@@ -6877,7 +6877,7 @@
 </span></span><span class="line"><span class="cl">	
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">Espresso</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; 意大利咖啡 &#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">6.0f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mi">6</span><span class="o">.</span><span class="na">0f</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl">
@@ -6890,7 +6890,7 @@
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">Chocolate</span><span class="o">(</span><span class="n">Drink</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; 巧克力 &#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">3.0f</span><span class="o">);</span> <span class="c1">// 调味品 的价格
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mi">3</span><span class="o">.</span><span class="na">0f</span><span class="o">);</span> <span class="c1">// 调味品 的价格
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
@@ -6902,7 +6902,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">LongBlack</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; longblack &#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">5.0f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mi">5</span><span class="o">.</span><span class="na">0f</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl">
@@ -6912,7 +6912,7 @@
 </span></span><span class="line"><span class="cl">	
 </span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="nf">ShortBlack</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; shortblack &#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">4.0f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mi">4</span><span class="o">.</span><span class="na">0f</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl">
@@ -6925,7 +6925,7 @@
 </span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated constructor stub
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; 牛奶 &#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">2.0f</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mi">2</span><span class="o">.</span><span class="na">0f</span><span class="o">);</span> 
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
@@ -6938,7 +6938,7 @@
 </span></span><span class="line"><span class="cl">		<span class="kd">super</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">// TODO Auto-generated constructor stub
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">setDes</span><span class="o">(</span><span class="s">&#34; Soy  &#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mf">1.5f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">setPrice</span><span class="o">(</span><span class="mi">1</span><span class="o">.</span><span class="na">5f</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
@@ -12545,14 +12545,14 @@
 </span></span><span class="line"><span class="cl">		
 </span></span><span class="line"><span class="cl">		<span class="c1">//测试
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;通知各个注册的观察者, 看看信息&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="n">weatherData</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="mi">10</span><span class="n">f</span><span class="o">,</span> <span class="mi">100</span><span class="n">f</span><span class="o">,</span> <span class="mf">30.3f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">weatherData</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="mi">10</span><span class="n">f</span><span class="o">,</span> <span class="mi">100</span><span class="n">f</span><span class="o">,</span> <span class="mi">30</span><span class="o">.</span><span class="na">3f</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		
 </span></span><span class="line"><span class="cl">		
 </span></span><span class="line"><span class="cl">		<span class="n">weatherData</span><span class="o">.</span><span class="na">removeObserver</span><span class="o">(</span><span class="n">currentConditions</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">//测试
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
 </span></span><span class="line"><span class="cl">		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;通知各个注册的观察者, 看看信息&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">		<span class="n">weatherData</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="mi">10</span><span class="n">f</span><span class="o">,</span> <span class="mi">100</span><span class="n">f</span><span class="o">,</span> <span class="mf">30.3f</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">weatherData</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="mi">10</span><span class="n">f</span><span class="o">,</span> <span class="mi">100</span><span class="n">f</span><span class="o">,</span> <span class="mi">30</span><span class="o">.</span><span class="na">3f</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">	<span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="o">}</span>

@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Go - 标签 - Turbo-King Blog</title>
+        <link>https://weizhihao.top/blog/tags/go/</link>
+        <description>Go - 标签 - Turbo-King Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Aug 2023 18:07:31 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/tags/go/" rel="self" type="application/rss+xml" /><item>
+    <title>Go基础语法和常用特性解析</title>
+    <link>https://weizhihao.top/blog/go/</link>
+    <pubDate>Sat, 05 Aug 2023 18:07:31 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/go/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/go.png" referrerpolicy="no-referrer">
+            </div><p>Go基础语法和常用特性解析</p>]]></description>
+</item>
+</channel>
+</rss>

@@ -4,9 +4,19 @@
         <link>https://weizhihao.top/blog/fr/</link>
         <description>À propos de Howe</description>
         <generator>Hugo -- gohugo.io</generator><language>fr</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 19 May 2023 16:13:37 &#43;0800</lastBuildDate>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 05 Aug 2023 18:07:31 &#43;0800</lastBuildDate>
             <atom:link href="https://weizhihao.top/blog/fr/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Go基础语法和常用特性解析</title>
+    <link>https://weizhihao.top/blog/fr/go/</link>
+    <pubDate>Sat, 05 Aug 2023 18:07:31 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/go/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/go.png" referrerpolicy="no-referrer">
+            </div><p>Go基础语法和常用特性解析</p>]]></description>
+</item>
+<item>
     <title>Lambda常见场景用法</title>
     <link>https://weizhihao.top/blog/fr/20230519_lambda/</link>
     <pubDate>Fri, 19 May 2023 16:13:37 &#43;0800</pubDate>

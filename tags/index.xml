@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - 标签 - Turbo-King Blog</title>
+        <link>https://weizhihao.top/blog/tags/</link>
+        <description>Tags - 标签 - Turbo-King Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>java</title>
+    <link>https://weizhihao.top/blog/tags/java/</link>
+    <pubDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/java/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>study</title>
+    <link>https://weizhihao.top/blog/tags/study/</link>
+    <pubDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/study/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>多线程</title>
+    <link>https://weizhihao.top/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</link>
+    <pubDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>高并发</title>
+    <link>https://weizhihao.top/blog/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/</link>
+    <pubDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>高并行</title>
+    <link>https://weizhihao.top/blog/tags/%E9%AB%98%E5%B9%B6%E8%A1%8C/</link>
+    <pubDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/%E9%AB%98%E5%B9%B6%E8%A1%8C/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>设计模式</title>
+    <link>https://weizhihao.top/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+    <pubDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Go</title>
+    <link>https://weizhihao.top/blog/tags/go/</link>
+    <pubDate>Sat, 05 Aug 2023 18:07:31 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/go/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>collect</title>
+    <link>https://weizhihao.top/blog/tags/collect/</link>
+    <pubDate>Mon, 22 May 2023 09:03:59 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/collect/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>stream</title>
+    <link>https://weizhihao.top/blog/tags/stream/</link>
+    <pubDate>Mon, 22 May 2023 09:03:59 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/stream/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>函数式编程</title>
+    <link>https://weizhihao.top/blog/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</link>
+    <pubDate>Mon, 22 May 2023 09:03:59 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>
