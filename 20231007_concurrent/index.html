@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  731 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  2993 ,
         "url": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/","datePublished": "2023-10-07T07:55:51+08:00","dateModified": "2023-10-07T07:55:51+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -111,8 +111,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">并发编程</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 731 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2993 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -125,11 +125,124 @@
       <ul>
         <li><a href="#介绍">介绍</a></li>
         <li><a href="#并行与并发">并行与并发</a></li>
+        <li><a href="#应用">应用</a>
+          <ul>
+            <li><a href="#应用之异步调用">应用之异步调用</a></li>
+            <li><a href="#应用之提高效率">应用之提高效率</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#java线程">Java线程</a>
+      <ul>
+        <li><a href="#创建和运行线程">创建和运行线程</a>
+          <ul>
+            <li><a href="#方法一-thread">方法一 <strong>Thread</strong></a></li>
+            <li><a href="#方法二-runable">方法二 <strong>Runable</strong></a></li>
+            <li><a href="#方法三-callable">方法三 <strong>Callable</strong></a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="引入">引入</h2>
+<div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>注意</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition abstract open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ul fa-fw" aria-hidden="true"></i>摘要<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>摘要</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>信息</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>技巧</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition success open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-check-circle fa-fw" aria-hidden="true"></i>成功<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>成功</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition question open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>问题</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>警告</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition failure open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-times-circle fa-fw" aria-hidden="true"></i>失败<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>失败</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition danger open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-skull-crossbones fa-fw" aria-hidden="true"></i>危险<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>危险</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition bug open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-bug fa-fw" aria-hidden="true"></i>Bug<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>Bug</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>示例</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>引用<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>引用</strong> 横幅</div>
+        </div>
+    </div>
 <h2 id="进程与线程">进程与线程</h2>
 <h3 id="介绍">介绍</h3>
 <p><code>进程</code></p>
@@ -208,7 +321,388 @@
             data-sizes="auto"
             alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B9%B6%E5%8F%91.jpg" />
     </a><figcaption class="image-caption">并发</figcaption>
-    </figure></p></div><div class="post-footer" id="post-footer">
+    </figure></p>
+<br>
+<p>多核CPU下，每个<code>核（core）</code>都可以调度运行线程，这时候线程可以是并行的</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">CPU</th>
+<th style="text-align:center">时间片1</th>
+<th style="text-align:center">时间片2</th>
+<th style="text-align:center">时间片3</th>
+<th style="text-align:center">时间片4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Core1</td>
+<td style="text-align:center">线程1</td>
+<td style="text-align:center">线程2</td>
+<td style="text-align:center">线程3</td>
+<td style="text-align:center">线程4</td>
+</tr>
+<tr>
+<td style="text-align:center">Core2</td>
+<td style="text-align:center">线程1</td>
+<td style="text-align:center">线程2</td>
+<td style="text-align:center">线程3</td>
+<td style="text-align:center">线程4</td>
+</tr>
+</tbody>
+</table>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B9%B6%E8%A1%8C.jpg" title="并行" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B9%B6%E8%A1%8C.jpg" data-sub-html="<h2>并行</h2><p>并行</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B9%B6%E8%A1%8C.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B9%B6%E8%A1%8C.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B9%B6%E8%A1%8C.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B9%B6%E8%A1%8C.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B9%B6%E8%A1%8C.jpg" />
+    </a><figcaption class="image-caption">并行</figcaption>
+    </figure></p>
+<br>
+<blockquote>
+<p>引用<strong>Rob Pike</strong>的一段描述：</p>
+<ul>
+<li>**并发（concurrent）**是同一时间应对（dealing with）多件事情的能力</li>
+<li>**并行（parallel）**是同一时间动手做（doing）多件事情的能力</li>
+</ul>
+<p><strong>用例</strong></p>
+<ul>
+<li>家庭主妇做饭，打扫卫生，给孩子喂奶，她一个人轮流交替做这么多件事，这时就是并发</li>
+<li>家庭主妇雇佣了个保姆，她们一起做这些事，这时既有并发，也有并行（这时会产生竞争，例如锅只有一口，一个人用锅时，另一个人就得等待）</li>
+<li>雇了三个保姆，一个专做饭，一个专打扫卫生，一个专喂奶，互不打扰，这时就是并行</li>
+</ul>
+<p><strong>Rob Pike</strong> 资料</p>
+<ul>
+<li>Golang语言的创造者</li>
+<li><a href="https://baike.baidu.com/item/%e7%be%85%e5%b8%83%c2%b7%e6%b4%be%e5%85%8b/10983505" target="_blank" rel="noopener noreffer ">Rob Pike - 百科百度</a></li>
+</ul>
+</blockquote>
+<h3 id="应用">应用</h3>
+<h4 id="应用之异步调用">应用之异步调用</h4>
+<p>以调用角度来讲，如果</p>
+<ul>
+<li>需要等待结果返回，才能继续运行就是同步</li>
+<li>不需要等待结果返回，就能继续运行就是异步</li>
+</ul>
+<br>
+<p><strong>设计</strong></p>
+<p>多线程可以让方法执行变为异步的（既不要巴巴干等着）比如说读取磁盘文件时，假设读取操作话费了5分钟，如果没有线程调度机制，这5秒CPU什么都做不了，其它代码都得暂停&hellip;</p>
+<br>
+<p><strong>结论</strong></p>
+<ul>
+<li>比如在项目中，视频文件需要转换格式等操作比较费时，这时开启一个新线程处理视频转换，避免阻塞主线程</li>
+<li>tomcat的异步servlet也是类似的目的，让用户线程处理耗时较长的操作，避免阻塞tomcat的工作线程</li>
+<li>UI程序中，开线程进行其他操作，避免阻塞UI线程</li>
+</ul>
+<br>
+<h4 id="应用之提高效率">应用之提高效率</h4>
+<p>充分利用多核CPU的优势，提高运行效率，想象下面的场景，执行3个计算，最后将计算结果汇总</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">计算 <span class="m">1</span> 花费 <span class="m">10</span> ms
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">计算 <span class="m">2</span> 花费 <span class="m">11</span> ms
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">计算 <span class="m">3</span> 花费 <span class="m">9</span> ms
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">汇总需要 <span class="m">1</span> ms
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果是串行执行，那么总共花费的时间是<code>10 + 11 + 9 + 1 = 31ms</code></li>
+<li>但如果是四核CPU，各个核心分别使用线程1执行计算1，线程2执行计算2，线程3执行计算3，那么3个线程是并行的，花费时间只取决于最长的那个线程运行的时间，即<code>11ms</code>最后加上汇总时间只会花费<code>12ms</code></li>
+</ul>
+<blockquote>
+<p><strong>注意</strong></p>
+<p>需要在多核CPU才能提高效率，单核仍然是轮流执行</p>
+</blockquote>
+<br>
+<p><strong>结论</strong></p>
+<ol>
+<li>单核CPU下，多线程不能实际提高程序运行效率，只是为了能够在不同的任务之间切换，不同线程轮流使用CPU，不至于一个线程总占用CPU，别的线程没法干活</li>
+<li>多核CPU可以并行跑多个线程，但能否提高程序运行效率还是要分情况的
+<ul>
+<li>有些任务，经过精心设计，将任务拆分，并行执行，当然可以提高程序的运行效率，但不是所有计算任务都能拆分（参考<a href="https://baike.baidu.com/item/%e9%98%bf%e5%a7%86%e8%be%be%e5%b0%94%e5%ae%9a%e5%be%8b?fromModule=lemma_search-box" target="_blank" rel="noopener noreffer ">阿姆达尔定律</a>）</li>
+<li>也不是所有任务都需要拆分，任务的目的如果不同，谈拆分和效率没啥意义</li>
+</ul>
+</li>
+<li>IO操作不占用CPU，只是我们一般拷贝文件使用的是<code>阻塞IO</code>，这时相当于线程虽然不用CPU，但需要一直等待IO结束，没能充分利用线程。所以才用后面的<code>非阻塞IO</code>和<code>异步IO</code>优化</li>
+</ol>
+<br>
+<h2 id="java线程">Java线程</h2>
+<h3 id="创建和运行线程">创建和运行线程</h3>
+<h4 id="方法一-thread">方法一 <strong>Thread</strong></h4>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Thread使用步骤<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>
+<p>创建一个继承于Thread类的子类</p>
+</li>
+<li>
+<p>重写Thread类的run() ——&gt; 将此线程执行的操作声明在run()中</p>
+</li>
+<li>
+<p>创建Thread类的子类的对象</p>
+</li>
+<li>
+<p>通过此对象调用start()执行线程</p>
+</li>
+</ol>
+</div>
+        </div>
+    </div>
+<p><strong>创建模版</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 创建线程对象 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 要执行的任务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">};</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 启动线程 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>实际应用示例</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 构造方法的参数是给线程指定名字，推荐 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="s">&#34;t1&#34;</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nd">@Override</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">// run 方法内实现了要执行的任务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">};</span> <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">19:19:00 <span class="o">[</span>t1<span class="o">]</span> c.ThreadStarter - hello
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="方法二-runable">方法二 <strong>Runable</strong></h4>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>Runable使用步骤<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>创建一个实现了Runnable接口的类</li>
+<li>实现类去实现Runnable中的抽象方法：run()</li>
+<li>创建实现类的对象</li>
+<li>将此对象作为参数传递到Thread类的构造器中，创建Thread类的对象</li>
+<li>通过Thread类的对象调用start()
+<ul>
+<li>启动线程</li>
+<li>调用当前线程的run()——&gt;调用了Runnable类型的target的run()</li>
+</ul>
+</li>
+</ol>
+</div>
+        </div>
+    </div>
+<p>把线程和任务（需要执行的代码）分开</p>
+<ul>
+<li>Thread 代表线程</li>
+<li>Runable 可运行的任务（线程需要执行的代码）</li>
+</ul>
+<p><strong>创建模版</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Runnable</span> <span class="n">runnable</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">(){</span> 
+</span></span><span class="line"><span class="cl">    <span class="c1">// 要执行的任务 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">};</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 创建线程对象 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span> <span class="n">runnable</span> <span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 启动线程 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>实际应用示例</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 创建任务对象 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Runnable</span> <span class="n">task2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 参数1 是任务对象; 参数2 是线程名字，推荐 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">task2</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="mi">19</span><span class="o">:</span><span class="mi">19</span><span class="o">:</span><span class="mi">00</span> <span class="o">[</span><span class="n">t2</span><span class="o">]</span> <span class="n">c</span><span class="o">.</span><span class="na">ThreadStarter</span> <span class="o">-</span> <span class="n">hello</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p>Java 8以后可以使用 Lambda 精简代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 创建任务对象 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Runnable</span> <span class="n">task2</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 参数1 是任务对象; 参数2 是线程名字，推荐 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">task2</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p><strong>Thread 与 Runnable 的关系</strong></p>
+<ul>
+<li>方法一是把线程和任务合并在了一起，方法二是把线程和任务分开了</li>
+<li>用 Runable 更容易与线程池等高级 API 配合</li>
+<li>用 Runable 让任务类脱离了 Thread 继承体系，更灵活</li>
+</ul>
+<br>
+<h4 id="方法三-callable">方法三 <strong>Callable</strong></h4>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>FutureTask使用步骤<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>创建一个实现 Callable 的实现类</li>
+<li>实现 call() 方法，将此线程需要执行的操作声明在 call() 中</li>
+<li>创建 Callable 接口实现类的对象</li>
+<li>将此 Callable 接口实现类的对象作为传递到 FutureTask 构造器中，创建 FutureTask 的对象</li>
+<li>将 FutureTask 的对象作为参数传递到 Thread 类的构造器中，创建 Thread 对象，并调用 start()</li>
+<li>获取 Callable 中 call() 方法的返回值</li>
+</ol>
+</div>
+        </div>
+    </div>
+<p><strong>实现Callable接口的方式创建线程的强大之处</strong></p>
+<ul>
+<li>call() 可以有返回值的</li>
+<li>call() 可以抛出异常，被外面的操作捕获，获取异常的信息</li>
+<li>Callable 是支持泛型的</li>
+</ul>
+<p><strong>实际应用示例</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 创建任务对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">FutureTask</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">task3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FutureTask</span><span class="o">&lt;&gt;(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">100</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 参数1 是任务对象; 参数2 是线程名字，推荐 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">task3</span><span class="o">,</span> <span class="s">&#34;t3&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 主线程阻塞，同步等待 task 执行完毕的结果 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Integer</span> <span class="n">result</span> <span class="o">=</span> <span class="n">task3</span><span class="o">.</span><span class="na">get</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;结果是:{}&#34;</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">19:22:27 <span class="o">[</span>t3<span class="o">]</span> c.ThreadStarter - hello 
+</span></span><span class="line"><span class="cl">19:22:27 <span class="o">[</span>main<span class="o">]</span> c.ThreadStarter - 结果是:100
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
