@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  2993 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  5881 ,
         "url": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/","datePublished": "2023-10-07T07:55:51+08:00","dateModified": "2023-10-07T07:55:51+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -111,8 +111,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">并发编程</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2993 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5881 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -142,6 +142,43 @@
             <li><a href="#方法三-callable">方法三 <strong>Callable</strong></a></li>
           </ul>
         </li>
+        <li><a href="#观察多个线程同时运行">观察多个线程同时运行</a></li>
+        <li><a href="#查看进程线程运行的方法">查看进程线程运行的方法</a>
+          <ul>
+            <li><a href="#windows"><strong>Windows</strong></a></li>
+            <li><a href="#linux"><strong>Linux</strong></a></li>
+            <li><a href="#java"><strong>Java</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#线程运行原理">线程运行原理</a>
+          <ul>
+            <li><a href="#栈与栈帧">栈与栈帧</a></li>
+            <li><a href="#线程上下文切换thread-context-switch">线程上下文切换（Thread Context Switch）</a></li>
+          </ul>
+        </li>
+        <li><a href="#线程常见方法">线程常见方法</a></li>
+        <li><a href="#start-与-run">start 与 run</a>
+          <ul>
+            <li><a href="#调用-run">调用 run()</a></li>
+            <li><a href="#调用-start">调用 start()</a></li>
+            <li><a href="#小结">小结</a></li>
+          </ul>
+        </li>
+        <li><a href="#sleep-与-yield">sleep 与 yield</a>
+          <ul>
+            <li><a href="#sleep">sleep</a></li>
+            <li><a href="#yield">yield</a></li>
+            <li><a href="#线程优先级">线程优先级</a></li>
+          </ul>
+        </li>
+        <li><a href="#join方法详解">join方法详解</a>
+          <ul>
+            <li><a href="#为什么需要join">为什么需要join</a></li>
+            <li><a href="#同步应用案例">同步应用案例</a></li>
+            <li><a href="#有时效的join">有时效的join</a></li>
+          </ul>
+        </li>
+        <li><a href="#interrupt方法详解">interrupt方法详解</a></li>
       </ul>
     </li>
   </ul>
@@ -702,7 +739,605 @@
 </span></span><span class="line"><span class="cl">19:22:27 <span class="o">[</span>main<span class="o">]</span> c.ThreadStarter - 结果是:100
 </span></span></code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><br>
+<h3 id="观察多个线程同时运行">观察多个线程同时运行</h3>
+<p><strong>规律</strong></p>
+<ul>
+<li>交替执行</li>
+<li>谁先谁后，不由我们控制</li>
+</ul>
+<br>
+<h3 id="查看进程线程运行的方法">查看进程线程运行的方法</h3>
+<h4 id="windows"><strong>Windows</strong></h4>
+<ul>
+<li>任务管理器可以查看进程和线程数，也可以用来杀死进程</li>
+<li><code>tasklist</code> 查看进程</li>
+<li><code>taskkill</code> 杀死进程</li>
+</ul>
+<br>
+<h4 id="linux"><strong>Linux</strong></h4>
+<ul>
+<li><code>ps -ef</code> 查看所有进程</li>
+<li><code>ps -fT -p&lt;PID&gt;</code> 查看某个进程（PID）的所有线程</li>
+<li><code>kill</code> 杀死进程</li>
+<li><code>top</code> 按大写H切换是否显示线程</li>
+<li><code>top -H -p&lt;PID&gt;</code> 查看某个进程（PID）的所有线程</li>
+</ul>
+<br>
+<h4 id="java"><strong>Java</strong></h4>
+<ul>
+<li><code>jps</code> 查看所有Java进程</li>
+<li><code>jstack &lt;PID&gt;</code> 查看某个Java进程（PID）的所有线程状态</li>
+<li><code>jconsole</code> 来查看某个Java进程中线程的运行状态（图形界面）</li>
+</ul>
+<br>
+<p><strong>jconsole</strong> 远程监控配置</p>
+<ul>
+<li>需要以如下方式运行Java类</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">java -Djava.rmi.server.hostname<span class="o">=</span><span class="sb">`</span>ip地址<span class="sb">`</span> -Dcom.sun.management.jmxremote 
+</span></span><span class="line"><span class="cl">Dcom.sun.management.jmxremote.port<span class="o">=</span><span class="sb">`</span>连接端口<span class="sb">`</span> -Dcom.sun.management.jmxremote.ssl<span class="o">=</span>是否安全连接 
+</span></span><span class="line"><span class="cl">Dcom.sun.management.jmxremote.authenticate<span class="o">=</span>是否认证 java类
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>修改 /etc/hosts 文件将 127.0.0.1 映射至主机名</li>
+</ul>
+<p><strong>如果要认证访问，还需要做如下步骤</strong></p>
+<ul>
+<li>复制 jmxremote.password 文件</li>
+<li>修改 jmxremote.password 和 jmxremote.access 文件的权限为600即文件所有者可读写</li>
+<li>连接时填入 controlRole（用户名），R&amp;D（密码）</li>
+</ul>
+<br>
+<h3 id="线程运行原理">线程运行原理</h3>
+<h4 id="栈与栈帧">栈与栈帧</h4>
+<p>Java Virtual Machine Stacks（Java虚拟机栈）</p>
+<p>我们都知道jVM中由堆、栈、方法区所组成，其中栈内存是给谁用的呢？其实就是线程，每个线程启动后，虚拟机就会为其分配一块栈内存</p>
+<ul>
+<li>每个栈由多个栈帧（Frame）组成，对应着每次方法调用时所占用的内存</li>
+<li>每个线程只能有一个活动栈帧，对应着当前正在执行的那个方法</li>
+</ul>
+<br>
+<h4 id="线程上下文切换thread-context-switch">线程上下文切换（Thread Context Switch）</h4>
+<p>因为以下一些原因导致CPU不再执行当前的线程，转而执行另一个线程的代码</p>
+<ul>
+<li>线程的CPU时间片用完</li>
+<li>垃圾回收</li>
+<li>有更高优先级的线程需要运行</li>
+<li>线程自己调用了 <strong>sleep、yield、wait、join、park、synchronized、lock</strong> 等方法</li>
+</ul>
+<p>当 Context Switch 发生时，需要由操作系统保存当前线程的状态，并恢复另一个线程的状态，Java中对应的概念就是程序计数器（<strong>Program Counter Register</strong>），它的作用是记住下一条 JVM 指令的执行地址，是线程私有的</p>
+<ul>
+<li>状态包括程序计数器、虚拟机栈中每个栈帧的信息，如局部变量、操作数栈、放回地址等</li>
+<li><strong>Context Switch</strong> 频繁发生会影响性能</li>
+</ul>
+<br>
+<h3 id="线程常见方法">线程常见方法</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法名</th>
+<th style="text-align:center">static</th>
+<th style="text-align:left">功能说明</th>
+<th style="text-align:left">注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">start()</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">启动一个新线 程，在新的线程 运行 run 方法 中的代码</td>
+<td style="text-align:left">start 方法只是让线程进入就绪，里面代码不一定立刻 运行（CPU 的时间片还没分给它）。每个线程对象的 start方法只能调用一次，如果调用了多次会出现 IllegalThreadStateException</td>
+</tr>
+<tr>
+<td style="text-align:center">run()</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">新线程启动后会 调用的方法</td>
+<td style="text-align:left">如果在构造 Thread 对象时传递了 Runnable 参数，则 线程启动后会调用 Runnable 中的 run 方法，否则默 认不执行任何操作。但可以创建 Thread 的子类对象， 来覆盖默认行为</td>
+</tr>
+<tr>
+<td style="text-align:center">join()</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">等待线程运行结 束</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">join(long n)</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">等待线程运行结 束,最多等待 n 毫秒</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">getId()</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">获取线程长整型 的 id</td>
+<td style="text-align:left">id 唯一</td>
+</tr>
+<tr>
+<td style="text-align:center">getName()</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">获取线程名</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">setName(String)</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">修改线程名</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">getPriority()</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">获取线程优先级</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">setPriority(int)</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">修改线程优先级</td>
+<td style="text-align:left">java中规定线程优先级是1~10 的整数，较大的优先级 能提高该线程被 CPU 调度的机率</td>
+</tr>
+<tr>
+<td style="text-align:center">getState()</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">获取线程状态</td>
+<td style="text-align:left">Java 中线程状态是用 6 个 enum 表示，分别为： NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED</td>
+</tr>
+<tr>
+<td style="text-align:center">isInterrupted()</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">判断是否被打 断，</td>
+<td style="text-align:left">不会清除打断标记</td>
+</tr>
+<tr>
+<td style="text-align:center">isAlive()</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">线程是否存活 （还没有运行完 毕）</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">interrupt()</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">打断线程</td>
+<td style="text-align:left">如果被打断线程正在 sleep，wait，join 会导致被打断 的线程抛出 InterruptedException，并清除 打断标 记 ；如果打断的正在运行的线程，则会设置 打断标 记 ；park 的线程被打断，也会设置 打断标记</td>
+</tr>
+<tr>
+<td style="text-align:center">interrupted()</td>
+<td style="text-align:center">static</td>
+<td style="text-align:left">判断当前线程是 否被打断</td>
+<td style="text-align:left">会清除打断标记</td>
+</tr>
+<tr>
+<td style="text-align:center">currentThread()</td>
+<td style="text-align:center">static</td>
+<td style="text-align:left">获取当前正在执 行的线程</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">sleep(long n)</td>
+<td style="text-align:center">static</td>
+<td style="text-align:left">让当前执行的线 程休眠n毫秒， 休眠时让出 cpu 的时间片给其它 线程</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">yield()</td>
+<td style="text-align:center">static</td>
+<td style="text-align:left">提示线程调度器 让出当前线程对 CPU的使用</td>
+<td style="text-align:left">主要是为了测试和调试</td>
+</tr>
+</tbody>
+</table>
+<br>
+<h3 id="start-与-run">start 与 run</h3>
+<h4 id="调用-run">调用 run()</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="s">&#34;t1&#34;</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">      <span class="n">FileReader</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">MP4_FULL_PATH</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">};</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">run</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;do other things ...&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">19:39:14 <span class="o">[</span>main<span class="o">]</span> c.TestStart - main 
+</span></span><span class="line"><span class="cl">19:39:14 <span class="o">[</span>main<span class="o">]</span> c.FileReader - <span class="nb">read</span> <span class="o">[</span>1.mp4<span class="o">]</span> start ...
+</span></span><span class="line"><span class="cl">19:39:18 <span class="o">[</span>main<span class="o">]</span> c.FileReader - <span class="nb">read</span> <span class="o">[</span>1.mp4<span class="o">]</span> end ... cost: <span class="m">4227</span> ms 
+</span></span><span class="line"><span class="cl">19:39:18 <span class="o">[</span>main<span class="o">]</span> c.TestStart - <span class="k">do</span> other things ...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>程序仍在main线程运行，<code>FileReader.read()</code>方法调用还是同步的</p>
+<br>
+<h4 id="调用-start">调用 start()</h4>
+<p>将上述代码的<code>t1.run()</code>改为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">19:41:30 <span class="o">[</span>main<span class="o">]</span> c.TestStart - <span class="k">do</span> other things ...
+</span></span><span class="line"><span class="cl">19:41:30 <span class="o">[</span>t1<span class="o">]</span> c.TestStart - t1 
+</span></span><span class="line"><span class="cl">19:41:30 <span class="o">[</span>t1<span class="o">]</span> c.FileReader - <span class="nb">read</span> <span class="o">[</span>1.mp4<span class="o">]</span> start ...
+</span></span><span class="line"><span class="cl">19:41:35 <span class="o">[</span>t1<span class="o">]</span> c.FileReader - <span class="nb">read</span> <span class="o">[</span>1.mp4<span class="o">]</span> end ... cost: <span class="m">4542</span> ms
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>程序在t1线程中运行，<code>FileReader.read()</code>方法调用是异步的</p>
+<br>
+<h4 id="小结">小结</h4>
+<ul>
+<li>直接调用 run() 是在主线程中执行了run方法中内容，没有真正启动新的线程</li>
+<li>使用 start() 是启动新的线程，通过新的线程间接执行了run方法中的代码</li>
+</ul>
+<br>
+<h3 id="sleep-与-yield">sleep 与 yield</h3>
+<h4 id="sleep">sleep</h4>
+<ol>
+<li>调用 sleep 会让当前线程从 Running 进入 Timed Waiting 状态（阻塞）</li>
+<li>其他线程可以使用 interrupt 方法打断正在睡眠的线程，这时 sleep 方法会跑出 <code>InterruptedException</code></li>
+<li>睡眠结束后的线程未必会立刻得到执行</li>
+<li>建议使用 TimeUnit 的 sleep 代替 Thread 的 sleep 来获得更好的可读性</li>
+</ol>
+<br>
+<h4 id="yield">yield</h4>
+<ol>
+<li>调用 yield 会让当前线程从 Running 进入 Runnable 就绪状态，然后调度执行其他线程</li>
+<li>具体的实现依赖于操作系统的任务调度器</li>
+</ol>
+<br>
+<h4 id="线程优先级">线程优先级</h4>
+<ul>
+<li>线程优先级会提示（hint）调度器优先调度该线程，但它仅仅是一个提示，调度器可以忽略它</li>
+<li>如果 CPU 比较忙，那么优先级高的线程会获得更多的时间片，但 CPU 空闲时，优先级几乎没有作用</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Runnable</span> <span class="n">task1</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="o">(;;)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;----&gt;1 &#34;</span> <span class="o">+</span> <span class="n">count</span><span class="o">++);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">};</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Runnable</span> <span class="n">task2</span> <span class="o">=</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="o">(;;)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="c1">// Thread.yield(); 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;----&gt;2 &#34;</span> <span class="o">+</span> <span class="n">count</span><span class="o">++);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">task1</span><span class="o">,</span> <span class="s">&#34;t1&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">task2</span><span class="o">,</span> <span class="s">&#34;t2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">// t1.setPriority(Thread.MIN_PRIORITY);
+</span></span></span><span class="line"><span class="cl"><span class="c1">// t2.setPriority(Thread.MAX_PRIORITY); 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h3 id="join方法详解">join方法详解</h3>
+<h4 id="为什么需要join">为什么需要join</h4>
+<p>执行下面代码，打印r是什么？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">test1</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;开始&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;开始&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;结束&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">});</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;结果为:{}&#34;</span><span class="o">,</span> <span class="n">r</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;结束&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>分析</strong></p>
+<ul>
+<li>因为主线程和线程t1是并行执行的，t1线程需要1秒之后才能算出<code>r=10</code></li>
+<li>而主线程一开始就要打印r的结果，所以只能打印出<code>r=0</code></li>
+</ul>
+<p><strong>解决办法</strong></p>
+<ul>
+<li>使用 sleep 行不行？为什么？</li>
+<li>用 join，加在<code>t1.start()</code>之后即可</li>
+</ul>
+<br>
+<h4 id="同步应用案例">同步应用案例</h4>
+<p>以调用方角度来讲，如果</p>
+<ul>
+<li>需要等待结果返回，才能继续运行就是同步</li>
+<li>不需要等待结果返回，就能继续运行就是异步</li>
+</ul>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%90%8C%E6%AD%A5.jpg" title="同步" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%90%8C%E6%AD%A5.jpg" data-sub-html="<h2>同步</h2><p>同步</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%90%8C%E6%AD%A5.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%90%8C%E6%AD%A5.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%90%8C%E6%AD%A5.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%90%8C%E6%AD%A5.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%90%8C%E6%AD%A5.jpg" />
+    </a><figcaption class="image-caption">同步</figcaption>
+    </figure></p>
+<br>
+<p><strong>等待多个结果</strong></p>
+<p>问，下面代码 cost 大约多少秒？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">r1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">test2</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test2</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">r1</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">});</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r2</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">});</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">join</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t2</span><span class="o">.</span><span class="na">join</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">end</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;r1: {} r2: {} cost: {}&#34;</span><span class="o">,</span> <span class="n">r1</span><span class="o">,</span> <span class="n">r2</span><span class="o">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>分析如下</strong></p>
+<ul>
+<li>第一个 join：等待t1时，t2并没有停止，而在运行</li>
+<li>第二个 join：1s后，执行到此，t2也运行了1s，因此也只需再等待1s</li>
+</ul>
+<p>如果颠倒两个 join 呢？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">20:45:43.239 <span class="o">[</span>main<span class="o">]</span> c.TestJoin - r1: <span class="m">10</span> r2: <span class="m">20</span> cost: <span class="m">2005</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%BC%82%E6%AD%A5.jpg" title="异步" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%BC%82%E6%AD%A5.jpg" data-sub-html="<h2>异步</h2><p>异步</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%BC%82%E6%AD%A5.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%BC%82%E6%AD%A5.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%BC%82%E6%AD%A5.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%BC%82%E6%AD%A5.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%BC%82%E6%AD%A5.jpg" />
+    </a><figcaption class="image-caption">异步</figcaption>
+    </figure></p>
+<br>
+<h4 id="有时效的join">有时效的join</h4>
+<p><strong>等待时间</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">r1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">test3</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test3</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r1</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">});</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 线程执行结束会导致 join 结束 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">t1</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="mi">1500</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">end</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;r1: {} r2: {} cost: {}&#34;</span><span class="o">,</span> <span class="n">r1</span><span class="o">,</span> <span class="n">r2</span><span class="o">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">20:48:01.320 <span class="o">[</span>main<span class="o">]</span> c.TestJoin - r1: <span class="m">10</span> r2: <span class="m">0</span> cost: <span class="m">1010</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>没等够时间</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">r1</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">r2</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">test3</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test3</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r1</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">});</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 线程执行结束会导致 join 结束 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">t1</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="mi">1500</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">end</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;r1: {} r2: {} cost: {}&#34;</span><span class="o">,</span> <span class="n">r1</span><span class="o">,</span> <span class="n">r2</span><span class="o">,</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">20:52:15.623 <span class="o">[</span>main<span class="o">]</span> c.TestJoin - r1: <span class="m">0</span> r2: <span class="m">0</span> cost: <span class="m">1502</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h3 id="interrupt方法详解">interrupt方法详解</h3></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">

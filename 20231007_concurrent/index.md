@@ -364,6 +364,404 @@ log.debug("结果是:{}", result);
 19:22:27 [main] c.ThreadStarter - 结果是:100
 ```
 
+<br>
+
+### 观察多个线程同时运行
+
+**规律**
+
+- 交替执行
+- 谁先谁后，不由我们控制
+
+<br>
+
+### 查看进程线程运行的方法
+
+#### **Windows**
+
+- 任务管理器可以查看进程和线程数，也可以用来杀死进程
+- `tasklist` 查看进程
+- `taskkill` 杀死进程
+
+<br>
+
+#### **Linux**
+
+- `ps -ef` 查看所有进程
+- `ps -fT -p<PID>` 查看某个进程（PID）的所有线程
+- `kill` 杀死进程
+- `top` 按大写H切换是否显示线程
+- `top -H -p<PID>` 查看某个进程（PID）的所有线程
+
+<br>
+
+#### **Java**
+
+- `jps` 查看所有Java进程
+- `jstack <PID>` 查看某个Java进程（PID）的所有线程状态
+- `jconsole` 来查看某个Java进程中线程的运行状态（图形界面）
+
+<br>
+
+**jconsole** 远程监控配置
+
+- 需要以如下方式运行Java类
+
+```bash
+java -Djava.rmi.server.hostname=`ip地址` -Dcom.sun.management.jmxremote 
+Dcom.sun.management.jmxremote.port=`连接端口` -Dcom.sun.management.jmxremote.ssl=是否安全连接 
+Dcom.sun.management.jmxremote.authenticate=是否认证 java类
+```
+
+- 修改 /etc/hosts 文件将 127.0.0.1 映射至主机名
+
+**如果要认证访问，还需要做如下步骤**
+
+- 复制 jmxremote.password 文件
+- 修改 jmxremote.password 和 jmxremote.access 文件的权限为600即文件所有者可读写
+- 连接时填入 controlRole（用户名），R&D（密码）
+
+<br>
+
+### 线程运行原理
+
+#### 栈与栈帧
+
+Java Virtual Machine Stacks（Java虚拟机栈）
+
+我们都知道jVM中由堆、栈、方法区所组成，其中栈内存是给谁用的呢？其实就是线程，每个线程启动后，虚拟机就会为其分配一块栈内存
+
+- 每个栈由多个栈帧（Frame）组成，对应着每次方法调用时所占用的内存
+- 每个线程只能有一个活动栈帧，对应着当前正在执行的那个方法
+
+<br>
+
+#### 线程上下文切换（Thread Context Switch）
+
+因为以下一些原因导致CPU不再执行当前的线程，转而执行另一个线程的代码
+
+- 线程的CPU时间片用完
+- 垃圾回收
+- 有更高优先级的线程需要运行
+- 线程自己调用了 **sleep、yield、wait、join、park、synchronized、lock** 等方法
+
+当 Context Switch 发生时，需要由操作系统保存当前线程的状态，并恢复另一个线程的状态，Java中对应的概念就是程序计数器（**Program Counter Register**），它的作用是记住下一条 JVM 指令的执行地址，是线程私有的
+
+- 状态包括程序计数器、虚拟机栈中每个栈帧的信息，如局部变量、操作数栈、放回地址等
+- **Context Switch** 频繁发生会影响性能
+
+<br>
+
+### 线程常见方法
+
+|      方法名      | static | 功能说明                                                     | 注意                                                         |
+| :--------------: | :----: | :----------------------------------------------------------- | :----------------------------------------------------------- |
+|     start()      |        | 启动一个新线 程，在新的线程 运行 run 方法 中的代码           | start 方法只是让线程进入就绪，里面代码不一定立刻 运行（CPU 的时间片还没分给它）。每个线程对象的 start方法只能调用一次，如果调用了多次会出现 IllegalThreadStateException |
+|      run()       |        | 新线程启动后会 调用的方法                                    | 如果在构造 Thread 对象时传递了 Runnable 参数，则 线程启动后会调用 Runnable 中的 run 方法，否则默 认不执行任何操作。但可以创建 Thread 的子类对象， 来覆盖默认行为 |
+|      join()      |        | 等待线程运行结 束                                            |                                                              |
+|   join(long n)   |        | 等待线程运行结 束,最多等待 n 毫秒                            |                                                              |
+|     getId()      |        | 获取线程长整型 的 id                                         | id 唯一                                                      |
+|    getName()     |        | 获取线程名                                                   |                                                              |
+| setName(String)  |        | 修改线程名                                                   |                                                              |
+|  getPriority()   |        | 获取线程优先级                                               |                                                              |
+| setPriority(int) |        | 修改线程优先级                                               | java中规定线程优先级是1~10 的整数，较大的优先级 能提高该线程被 CPU 调度的机率 |
+|    getState()    |        | 获取线程状态                                                 | Java 中线程状态是用 6 个 enum 表示，分别为： NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED |
+| isInterrupted()  |        | 判断是否被打 断，                                            | 不会清除打断标记                                             |
+|    isAlive()     |        | 线程是否存活 （还没有运行完 毕）                             |                                                              |
+|   interrupt()    |        | 打断线程                                                     | 如果被打断线程正在 sleep，wait，join 会导致被打断 的线程抛出 InterruptedException，并清除 打断标 记 ；如果打断的正在运行的线程，则会设置 打断标 记 ；park 的线程被打断，也会设置 打断标记 |
+|  interrupted()   | static | 判断当前线程是 否被打断                                      | 会清除打断标记                                               |
+| currentThread()  | static | 获取当前正在执 行的线程                                      |                                                              |
+|  sleep(long n)   | static | 让当前执行的线 程休眠n毫秒， 休眠时让出 cpu 的时间片给其它 线程 |                                                              |
+|     yield()      | static | 提示线程调度器 让出当前线程对 CPU的使用                      | 主要是为了测试和调试                                         |
+
+<br>
+
+### start 与 run
+
+#### 调用 run()
+
+```java
+public static void main(String[] args) {
+  Thread t1 = new Thread("t1") { 
+    @Override public void run() { 
+      log.debug(Thread.currentThread().getName());
+      FileReader.read(Constants.MP4_FULL_PATH); 
+    }
+};
+  
+  t1.run(); 
+  log.debug("do other things ...");
+}
+```
+
+**输出**
+
+```bash
+19:39:14 [main] c.TestStart - main 
+19:39:14 [main] c.FileReader - read [1.mp4] start ...
+19:39:18 [main] c.FileReader - read [1.mp4] end ... cost: 4227 ms 
+19:39:18 [main] c.TestStart - do other things ...
+```
+
+程序仍在main线程运行，`FileReader.read()`方法调用还是同步的
+
+<br>
+
+#### 调用 start()
+
+将上述代码的`t1.run()`改为
+
+```java
+t1.start();
+```
+
+**输出**
+
+```bash
+19:41:30 [main] c.TestStart - do other things ...
+19:41:30 [t1] c.TestStart - t1 
+19:41:30 [t1] c.FileReader - read [1.mp4] start ...
+19:41:35 [t1] c.FileReader - read [1.mp4] end ... cost: 4542 ms
+```
+
+程序在t1线程中运行，`FileReader.read()`方法调用是异步的
+
+<br>
+
+#### 小结
+
+- 直接调用 run() 是在主线程中执行了run方法中内容，没有真正启动新的线程
+- 使用 start() 是启动新的线程，通过新的线程间接执行了run方法中的代码
+
+<br>
+
+### sleep 与 yield
+
+#### sleep
+
+1. 调用 sleep 会让当前线程从 Running 进入 Timed Waiting 状态（阻塞）
+2. 其他线程可以使用 interrupt 方法打断正在睡眠的线程，这时 sleep 方法会跑出 `InterruptedException`
+3. 睡眠结束后的线程未必会立刻得到执行
+4. 建议使用 TimeUnit 的 sleep 代替 Thread 的 sleep 来获得更好的可读性
+
+<br>
+
+#### yield
+
+1. 调用 yield 会让当前线程从 Running 进入 Runnable 就绪状态，然后调度执行其他线程
+2. 具体的实现依赖于操作系统的任务调度器
+
+<br>
+
+#### 线程优先级
+
+- 线程优先级会提示（hint）调度器优先调度该线程，但它仅仅是一个提示，调度器可以忽略它
+- 如果 CPU 比较忙，那么优先级高的线程会获得更多的时间片，但 CPU 空闲时，优先级几乎没有作用
+
+```java
+Runnable task1 = () -> { 
+  int count = 0; 
+  for (;;) { 
+    System.out.println("---->1 " + count++); 
+  } 
+}; 
+
+Runnable task2 = () -> { 
+  int count = 0; 
+  for (;;) { 
+    // Thread.yield(); 
+    System.out.println("---->2 " + count++);
+  }
+};
+
+Thread t1 = new Thread(task1, "t1");
+Thread t2 = new Thread(task2, "t2"); 
+// t1.setPriority(Thread.MIN_PRIORITY);
+// t2.setPriority(Thread.MAX_PRIORITY); 
+t1.start(); 
+t2.start();
+```
+
+<br>
+
+### join方法详解
+
+#### 为什么需要join
+
+执行下面代码，打印r是什么？
+
+```java
+static int r = 0; 
+public static void main(String[] args) throws InterruptedException { 
+  test1(); 
+} 
+private static void test1() throws InterruptedException { 
+  log.debug("开始"); 
+  Thread t1 = new Thread(() -> { 
+    log.debug("开始"); 
+    sleep(1); 
+    log.debug("结束");
+    r = 10;
+  }); 
+  t1.start(); 
+  log.debug("结果为:{}", r); 
+  log.debug("结束");
+}
+```
+
+**分析**
+
+- 因为主线程和线程t1是并行执行的，t1线程需要1秒之后才能算出`r=10`
+- 而主线程一开始就要打印r的结果，所以只能打印出`r=0`
+
+**解决办法**
+
+- 使用 sleep 行不行？为什么？
+- 用 join，加在`t1.start()`之后即可
+
+<br>
+
+#### 同步应用案例
+
+以调用方角度来讲，如果
+
+- 需要等待结果返回，才能继续运行就是同步
+- 不需要等待结果返回，就能继续运行就是异步
+
+![同步](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%90%8C%E6%AD%A5.jpg "同步")
+
+<br>
+
+**等待多个结果**
+
+问，下面代码 cost 大约多少秒？
+
+```java
+static int r1 = 0; 
+static int r2 = 0; 
+public static void main(String[] args) throws InterruptedException {
+  test2();
+}
+private static void test2() throws InterruptedException {
+Thread t1 = new Thread(() -> {
+  sleep(1);
+  r1 = 10;
+}); 
+  Thread t2 = new Thread(() -> { 
+    sleep(2);
+    r2 = 20;
+  }); 
+  long start = System.currentTimeMillis();
+  t1.start(); 
+  t2.start(); 
+  t1.join(); 
+  t2.join(); 
+  long end = System.currentTimeMillis();
+  log.debug("r1: {} r2: {} cost: {}", r1, r2, end - start);
+}
+```
+
+**分析如下**
+
+- 第一个 join：等待t1时，t2并没有停止，而在运行
+- 第二个 join：1s后，执行到此，t2也运行了1s，因此也只需再等待1s
+
+如果颠倒两个 join 呢？
+
+```bash
+20:45:43.239 [main] c.TestJoin - r1: 10 r2: 20 cost: 2005
+```
+
+![异步](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%BC%82%E6%AD%A5.jpg "异步")
+
+<br>
+
+#### 有时效的join
+
+**等待时间**
+
+```java
+static int r1 = 0; 
+static int r2 = 0; 
+public static void main(String[] args) throws InterruptedException {
+  test3();
+}
+public static void test3() throws InterruptedException {
+  Thread t1 = new Thread(() -> {
+    sleep(1);
+    r1 = 10;
+  });
+  
+  long start = System.currentTimeMillis();
+  
+  t1.start();
+  // 线程执行结束会导致 join 结束 
+  t1.join(1500); 
+  long end = System.currentTimeMillis();
+  log.debug("r1: {} r2: {} cost: {}", r1, r2, end - start);
+}
+```
+
+**输出**
+
+```bash
+20:48:01.320 [main] c.TestJoin - r1: 10 r2: 0 cost: 1010
+```
+
+**没等够时间**
+
+```java
+static int r1 = 0; 
+static int r2 = 0; 
+public static void main(String[] args) throws InterruptedException {
+  test3(); 
+} 
+public static void test3() throws InterruptedException {
+  Thread t1 = new Thread(() -> {
+    sleep(2);
+    r1 = 10;
+  });
+  long start = System.currentTimeMillis();
+  t1.start();
+  // 线程执行结束会导致 join 结束 
+  t1.join(1500); 
+  long end = System.currentTimeMillis();
+  log.debug("r1: {} r2: {} cost: {}", r1, r2, end - start);
+}
+```
+
+**输出**
+
+```bash
+20:52:15.623 [main] c.TestJoin - r1: 0 r2: 0 cost: 1502
+```
+
+<br>
+
+### interrupt方法详解
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
