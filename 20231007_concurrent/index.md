@@ -740,19 +740,374 @@ public static void test3() throws InterruptedException {
 
 ### interrupt方法详解
 
+#### 打断 sleep，wait，join 的线程
+
+**sleep，wait，join **这些方法都会让线程进入阻塞状态
+
+打断 sleep 的线程，会清空打断状态，以sleep为例
+
+```java
+private static void test1() throws InterruptedException { 
+  Thread t1 = new Thread(()->{ 
+    sleep(1); 
+  }, "t1"); 
+  t1.start();
+  sleep(0.5); 
+  t1.interrupt(); 
+  log.debug(" 打断状态: {}",t1.isInterrupted());
+}
+```
+
+**输出**
+
+```bash
+java.lang.InterruptedException: sleep interrupted 
+  at java.lang.Thread.sleep(Native Method) 
+  at java.lang.Thread.sleep(Thread.java:340)
+  at java.util.concurrent.TimeUnit.sleep(TimeUnit.java:386) 
+  at cn.itcast.n2.util.Sleeper.sleep(Sleeper.java:8) 
+  at cn.itcast.n4.TestInterrupt.lambda$test1$3(TestInterrupt.java:59) 
+  at java.lang.Thread.run(Thread.java:745) 
+  21:18:10.374 [main] c.TestInterrupt - 打断状态: false
+```
+
+#### 打断正常运行的线程
+
+打断正常运行的线程，不会清空打断状态
+
+```java
+private static void test2() throws InterruptedException {
+  Thread t2 = new Thread(()->{
+    while(true) {
+      Thread current = Thread.currentThread(); 
+      boolean interrupted = current.isInterrupted(); 
+      if(interrupted) {
+        log.debug(" 打断状态: {}", interrupted);
+        break; 
+      }
+    } 
+  }, "t2"); 
+  t2.start();
+  sleep(0.5); 
+  t2.interrupt();
+}
+```
+
+**输出**
+
+```bash
+20:57:37.964 [t2] c.TestInterrupt - 打断状态: true
+```
+
+#### 打断 park 线程
+
+打断 park 线程，不会清空打断状态
+
+```java
+private static void test3() throws InterruptedException {
+  Thread t1 = new Thread(() -> {
+    log.debug("park..."); LockSupport.park();
+    log.debug("unpark..."); log.debug("打断状态：{}",Thread.currentThread().isInterrupted()); 
+  }, "t1"); 
+  t1.start();
+  
+  sleep(0.5);
+  t1.interrupt();
+}
+```
+
+**输出**
+
+```bash
+21:11:52.795 [t1] c.TestInterrupt - park... 
+21:11:53.295 [t1] c.TestInterrupt - unpark... 
+21:11:53.295 [t1] c.TestInterrupt - 打断状态：true
+```
+
+<br>
+
+如果打断标记已经是 true，则 park 会失效
+
+```java
+private static void test4() { 
+  Thread t1 = new Thread(() -> {
+    for (int i = 0; i < 5; i++) {
+      log.debug("park...");
+      LockSupport.park(); 
+      log.debug("打断状态：{}", Thread.currentThread().isInterrupted());
+    }
+  }); 
+  t1.start();
+  sleep(1); 
+  t1.interrupt();
+}
+```
+
+输出
+
+```bash
+21:13:48.783 [Thread-0] c.TestInterrupt - park... 
+21:13:49.809 [Thread-0] c.TestInterrupt - 打断状态：true 
+21:13:49.812 [Thread-0] c.TestInterrupt - park... 
+21:13:49.813 [Thread-0] c.TestInterrupt - 打断状态：true 
+21:13:49.813 [Thread-0] c.TestInterrupt - park... 
+21:13:49.813 [Thread-0] c.TestInterrupt - 打断状态：true 
+21:13:49.813 [Thread-0] c.TestInterrupt - park... 
+21:13:49.813 [Thread-0] c.TestInterrupt - 打断状态：true 
+21:13:49.813 [Thread-0] c.TestInterrupt - park... 
+21:13:49.813 [Thread-0] c.TestInterrupt - 打断状态：true
+```
+
+> 提示
+>
+> 可以使用`Thread.interrupted()`	清除打断状态
+
+<br>
+
+### 不推荐的方法
+
+还有一些不推荐使用的方法，这些方法已过时，容易破坏同步代码块，造成线程死锁
+
+|  方法名   | static |       功能说明       |
+| :-------: | :----: | :------------------: |
+|  stop()   |        |     停止线程运行     |
+| suspend() |        | 挂起（暂停）线程运行 |
+| resume()  |        |     恢复线程运行     |
+
+<br>
+
+### 主线程与守护线程
+
+默认情况下，Java 进程需要等待所有线程都运行结束，才会结束。有一种特殊的线程叫做**守护线程**，只要其他非守护线程运行结束了，即使守护线程的代码没有执行完，也会强制结束。
+
+**应用示例**
+
+```java
+log.debug("开始运行..."); 
+Thread t1 = new Thread(() -> {
+  log.debug("开始运行...");
+  sleep(2);
+  log.debug("运行结束..."); 
+}, "daemon"); 
+// 设置该线程为守护线程 t1.setDaemon(true);
+t1.start();
+
+sleep(1);
+log.debug("运行结束...");
+```
+
+**输出**
+
+```bash
+08:26:38.123 [main] c.TestDaemon - 开始运行... 
+08:26:38.213 [daemon] c.TestDaemon - 开始运行... 
+08:26:39.215 [main] c.TestDaemon - 运行结束...
+```
+
+>**注意**
+>
+>- 垃圾回收器线程就是一种守护线程
+>- Tomcat 中的 Acceptor 和 Poller 线程都是守护线程，所以 Tomcat 接收到 shutdown 命令后，不会等待它们处理完当前请求
+
+<br>
+
+### 五种状态
+
+这是从 **操作系统** 层面来划分描述的
+
+![线程五种状态](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E4%BA%94%E7%A7%8D%E7%8A%B6%E6%80%81.jpg "线程五种状态")
+
+- 【**初始状态**】仅是在语言层面创建了线程对象，还未与操作系统线程关联 
+- 【**可运行状态**】（就绪状态）指该线程已经被创建（与操作系统线程关联），可以由 CPU 调度执行 
+- 【**运行状态**】指获取了 CPU 时间片运行中的状态 
+    1. 当 CPU 时间片用完，会从【**运行状态**】转换至【**可运行状态**】，会导致线程的上下文切换 
+- 【**阻塞状态**】 
+    1. 如果调用了阻塞 API，如 BIO 读写文件，这时该线程实际不会用到 CPU，会导致线程上下文切换，进入 【**阻塞状态**】 
+    2. 等 BIO 操作完毕，会由操作系统唤醒阻塞的线程，转换至【**可运行状态**】 
+    3. 与【**可运行状态**】的区别是，对【**阻塞状态**】的线程来说只要它们一直不唤醒，调度器就一直不会考虑 调度它们 
+- 【**终止状态**】表示线程已经执行完毕，生命周期已经结束，不会再转换为其它状态
+
+<br>
+
+### 六种状态
+
+这时从 **Java API** 层面来描述的
+
+根据 Thread.State 枚举，分为六种状态
+
+![线程六种状态](https://cdn.jsdelivr.net/gh/Turbo-King/images/线程六种状态.jpg "线程六种状态")
+
+- `NEW` 线程刚被创建，但是还没有调用
+- `RUNNABLE` 当调用了 `start()` 方法 方法之后，注意，**Java API** 层面的 `RUNNABLE` 状态涵盖了 **操作系统** 层面的【**可运行状态**】、【**运行状态**】和【**阻塞状态**】（由于 BIO 导致的线程阻塞，在 Java 里无法区分，仍然认为 是可运行）
+-  `BLOCKED` ， `WAITING` ， `TIMED_WAITING` 都是 **Java API** 层面对【**阻塞状态**】的细
+- `TERMINATED` 当线程代码运行结束
+
+<br>
+
+## 共享模型
+
+### Java体现
+
+两个线程对初始值为0的静态变量一个做自增，一个做自减，各做5000次，结果是0吗？
+
+```java
+static int counter = 0; 
+public static void main(String[] args) throws InterruptedException { 
+  Thread t1 = new Thread(() -> { 
+    for (int i = 0; i < 5000; i++) {
+      counter++; 
+    } 
+  }, "t1"); 
+  Thread t2 = new Thread(() -> {
+    for (int i = 0; i < 5000; i++) {
+      counter--; 
+    } 
+  }, "t2"); 
+  t1.start(); 
+  t2.start(); 
+  t1.join();
+  t2.join(); 
+  log.debug("{}",counter);
+}
+```
+
+**问题分析**
+
+以上的结果可能是正数、负数、零。为什么呢？因为Java中对静态变量的自增，自减并不是原子操作，要彻底理解，必须从字节码角度来进行分析
+
+例如对于 `i++` 而言（i为静态变量），实际会产生如下的JVM字节码指令：
+
+```sh
+getstatic  i  // 获取静态变量i的值
+iconst_1      // 准备常量1
+iadd          // 自增 
+putstatic  i  // 将修改后的值存入静态变量i
+```
 
 
 
+而对应 `i--` 也是类似：
 
+```sh
+getstatic  i  // 获取静态变量 i 的值
+iconst_1      // 准备常量1
+isub          // 自减 
+putstatic  i  // 将修改后的值存入静态变量 i
+```
 
+而Java的内存模型如下，完成静态变量的自增，自减需要在主存和工作内存中进行数据交换
 
+![Java内存模型](https://cdn.jsdelivr.net/gh/Turbo-King/images/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.jpg "Java内存模型")
 
+如果是单线程以上8行代码是顺序执行（不会交错）没有问题：
 
+![单线程下运行](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg "单线程下运行")
 
+但多线程下这8行代码可能交错运行：
 
+出现负数的情况：
 
+![多线程下运行下出现负数情况](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg "多线程下运行下出现负数情况")
 
+出现正数的情况：
 
+![多线程下运行出现正数情况](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C%E5%87%BA%E7%8E%B0%E6%AD%A3%E6%95%B0%E6%83%85%E5%86%B5.jpg "多线程下运行出现正数情况")
+
+<br>
+
+### 临界区Critical Section
+
+- 一个程序运行多个线程本身是没有问题的
+- 问题出在多线程访问**共享资源**
+    1. 多个线程读**共享资源**其实也没有问题
+    2. 在多个线程对**共享资源**读写操作时发生指令交错，就会出现问题
+- 一段代码块如果存在对**共享资源**的多线程读写操作，称这段代码块为**临界区**
+
+例如，下面代码中的临界区
+
+```java
+static int counter = 0;
+
+static void increment() 
+  // 临界区
+{ 
+  counter++;
+}
+
+static void decrement() 
+  // 临界区 
+{ 
+  counter--; 
+}
+```
+
+<br>
+
+### 竞态条件Race Condition
+
+多个线程在临界区内执行，由于代码的**执行序列不同**而导致结果无法预测，称之为发生了**竞态条件**
+
+<br>
+
+### Synchronized
+
+为了避免临界区的竞态条件发生，由多种手段可以达到目的
+
+- 阻塞式的解决方案：**Synchronized**，**Lock**
+- 非阻塞式的解决方案：原子变量
+
+本次使用阻塞式的解决方案：**Synchronized**，来解决上述问题，即俗称的 **对象锁** ，它采用互斥的方式让同一时刻至多只有一个线程能持有 **对象锁** ，其他线程再想获取这个 **对象锁** 时就会被阻塞住，这样就能保证拥有锁的线程可以安全的执行临界区的代码，不用担心线程上下文切换
+
+>**注意**
+>
+>虽然Java中互斥和同步都可以采用Synchronized关键字来完成，但它们还是有区别的
+>
+>- 互斥是保证临界区的竞态发生，同一时刻只能有一个线程执行临界区代码
+>- 同步是由于线程执行的先后，顺序不同，需要一个线程等待其他线程运行到某个点
+
+**Synchronized语法**
+
+```java
+synchronized(对象) // 线程1， 线程2(blocked) 
+{ 
+  临界区 
+}
+```
+
+**解决**
+
+```java
+static int counter = 0; 
+static final Object room = new Object(); 
+
+public static void main(String[] args) throws InterruptedException { 
+  Thread t1 = new Thread(() -> { 
+    for (int i = 0; i < 5000; i++) {
+      synchronized (room) { 
+        counter++; 
+      } 
+    } 
+  }, "t1"); 
+  
+  Thread t2 = new Thread(() -> { 
+    synchronized (room) { 
+      for (int i = 0; i < 5000; i++) {
+        counter--; 
+      } 
+    } 
+  }, "t2"); 
+  
+  t1.start(); 
+  t2.start(); 
+  t1.join(); 
+  t2.join(); 
+  log.debug("{}",counter);
+}
+```
+
+**执行过程**
+
+![Synchronized执行过程](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A3%E7%A1%AE%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg "Synchronized执行过程")
 
 
 

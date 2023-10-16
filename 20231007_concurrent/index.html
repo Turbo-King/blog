@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  5881 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  8591 ,
         "url": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/","datePublished": "2023-10-07T07:55:51+08:00","dateModified": "2023-10-07T07:55:51+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -111,8 +111,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">并发编程</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5881 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 8591 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 18 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -178,7 +178,25 @@
             <li><a href="#有时效的join">有时效的join</a></li>
           </ul>
         </li>
-        <li><a href="#interrupt方法详解">interrupt方法详解</a></li>
+        <li><a href="#interrupt方法详解">interrupt方法详解</a>
+          <ul>
+            <li><a href="#打断-sleepwaitjoin-的线程">打断 sleep，wait，join 的线程</a></li>
+            <li><a href="#打断正常运行的线程">打断正常运行的线程</a></li>
+            <li><a href="#打断-park-线程">打断 park 线程</a></li>
+          </ul>
+        </li>
+        <li><a href="#不推荐的方法">不推荐的方法</a></li>
+        <li><a href="#主线程与守护线程">主线程与守护线程</a></li>
+        <li><a href="#五种状态">五种状态</a></li>
+        <li><a href="#六种状态">六种状态</a></li>
+      </ul>
+    </li>
+    <li><a href="#共享模型">共享模型</a>
+      <ul>
+        <li><a href="#java体现">Java体现</a></li>
+        <li><a href="#临界区critical-section">临界区Critical Section</a></li>
+        <li><a href="#竞态条件race-condition">竞态条件Race Condition</a></li>
+        <li><a href="#synchronized">Synchronized</a></li>
       </ul>
     </li>
   </ul>
@@ -1337,7 +1355,611 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><br>
-<h3 id="interrupt方法详解">interrupt方法详解</h3></div><div class="post-footer" id="post-footer">
+<h3 id="interrupt方法详解">interrupt方法详解</h3>
+<h4 id="打断-sleepwaitjoin-的线程">打断 sleep，wait，join 的线程</h4>
+<p>**sleep，wait，join **这些方法都会让线程进入阻塞状态</p>
+<p>打断 sleep 的线程，会清空打断状态，以sleep为例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">},</span> <span class="s">&#34;t1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">0</span><span class="o">.</span><span class="na">5</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34; 打断状态: {}&#34;</span><span class="o">,</span><span class="n">t1</span><span class="o">.</span><span class="na">isInterrupted</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">java.lang.InterruptedException: sleep interrupted 
+</span></span><span class="line"><span class="cl">  at java.lang.Thread.sleep<span class="o">(</span>Native Method<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">  at java.lang.Thread.sleep<span class="o">(</span>Thread.java:340<span class="o">)</span>
+</span></span><span class="line"><span class="cl">  at java.util.concurrent.TimeUnit.sleep<span class="o">(</span>TimeUnit.java:386<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">  at cn.itcast.n2.util.Sleeper.sleep<span class="o">(</span>Sleeper.java:8<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">  at cn.itcast.n4.TestInterrupt.lambda<span class="nv">$test1$3</span><span class="o">(</span>TestInterrupt.java:59<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">  at java.lang.Thread.run<span class="o">(</span>Thread.java:745<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">  21:18:10.374 <span class="o">[</span>main<span class="o">]</span> c.TestInterrupt - 打断状态: <span class="nb">false</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="打断正常运行的线程">打断正常运行的线程</h4>
+<p>打断正常运行的线程，不会清空打断状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test2</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Thread</span> <span class="n">current</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">      <span class="kt">boolean</span> <span class="n">interrupted</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">isInterrupted</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">      <span class="k">if</span><span class="o">(</span><span class="n">interrupted</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34; 打断状态: {}&#34;</span><span class="o">,</span> <span class="n">interrupted</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">},</span> <span class="s">&#34;t2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">0</span><span class="o">.</span><span class="na">5</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t2</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">20:57:37.964 <span class="o">[</span>t2<span class="o">]</span> c.TestInterrupt - 打断状态: <span class="nb">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="打断-park-线程">打断 park 线程</h4>
+<p>打断 park 线程，不会清空打断状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test3</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;park...&#34;</span><span class="o">);</span> <span class="n">LockSupport</span><span class="o">.</span><span class="na">park</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;unpark...&#34;</span><span class="o">);</span> <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;打断状态：{}&#34;</span><span class="o">,</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">isInterrupted</span><span class="o">());</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">},</span> <span class="s">&#34;t1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">0</span><span class="o">.</span><span class="na">5</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">21:11:52.795 <span class="o">[</span>t1<span class="o">]</span> c.TestInterrupt - park... 
+</span></span><span class="line"><span class="cl">21:11:53.295 <span class="o">[</span>t1<span class="o">]</span> c.TestInterrupt - unpark... 
+</span></span><span class="line"><span class="cl">21:11:53.295 <span class="o">[</span>t1<span class="o">]</span> c.TestInterrupt - 打断状态：true
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p>如果打断标记已经是 true，则 park 会失效</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test4</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;park...&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">LockSupport</span><span class="o">.</span><span class="na">park</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;打断状态：{}&#34;</span><span class="o">,</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">isInterrupted</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">});</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">21:13:48.783 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestInterrupt - park... 
+</span></span><span class="line"><span class="cl">21:13:49.809 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestInterrupt - 打断状态：true 
+</span></span><span class="line"><span class="cl">21:13:49.812 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestInterrupt - park... 
+</span></span><span class="line"><span class="cl">21:13:49.813 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestInterrupt - 打断状态：true 
+</span></span><span class="line"><span class="cl">21:13:49.813 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestInterrupt - park... 
+</span></span><span class="line"><span class="cl">21:13:49.813 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestInterrupt - 打断状态：true 
+</span></span><span class="line"><span class="cl">21:13:49.813 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestInterrupt - park... 
+</span></span><span class="line"><span class="cl">21:13:49.813 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestInterrupt - 打断状态：true 
+</span></span><span class="line"><span class="cl">21:13:49.813 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestInterrupt - park... 
+</span></span><span class="line"><span class="cl">21:13:49.813 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestInterrupt - 打断状态：true
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>提示</p>
+<p>可以使用<code>Thread.interrupted()</code>	清除打断状态</p>
+</blockquote>
+<br>
+<h3 id="不推荐的方法">不推荐的方法</h3>
+<p>还有一些不推荐使用的方法，这些方法已过时，容易破坏同步代码块，造成线程死锁</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法名</th>
+<th style="text-align:center">static</th>
+<th style="text-align:center">功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">stop()</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">停止线程运行</td>
+</tr>
+<tr>
+<td style="text-align:center">suspend()</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">挂起（暂停）线程运行</td>
+</tr>
+<tr>
+<td style="text-align:center">resume()</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">恢复线程运行</td>
+</tr>
+</tbody>
+</table>
+<br>
+<h3 id="主线程与守护线程">主线程与守护线程</h3>
+<p>默认情况下，Java 进程需要等待所有线程都运行结束，才会结束。有一种特殊的线程叫做<strong>守护线程</strong>，只要其他非守护线程运行结束了，即使守护线程的代码没有执行完，也会强制结束。</p>
+<p><strong>应用示例</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;开始运行...&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;开始运行...&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;运行结束...&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span> <span class="s">&#34;daemon&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 设置该线程为守护线程 t1.setDaemon(true);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;运行结束...&#34;</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">08:26:38.123 <span class="o">[</span>main<span class="o">]</span> c.TestDaemon - 开始运行... 
+</span></span><span class="line"><span class="cl">08:26:38.213 <span class="o">[</span>daemon<span class="o">]</span> c.TestDaemon - 开始运行... 
+</span></span><span class="line"><span class="cl">08:26:39.215 <span class="o">[</span>main<span class="o">]</span> c.TestDaemon - 运行结束...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>注意</strong></p>
+<ul>
+<li>垃圾回收器线程就是一种守护线程</li>
+<li>Tomcat 中的 Acceptor 和 Poller 线程都是守护线程，所以 Tomcat 接收到 shutdown 命令后，不会等待它们处理完当前请求</li>
+</ul>
+</blockquote>
+<br>
+<h3 id="五种状态">五种状态</h3>
+<p>这是从 <strong>操作系统</strong> 层面来划分描述的</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E4%BA%94%E7%A7%8D%E7%8A%B6%E6%80%81.jpg" title="线程五种状态" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E4%BA%94%E7%A7%8D%E7%8A%B6%E6%80%81.jpg" data-sub-html="<h2>线程五种状态</h2><p>线程五种状态</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E4%BA%94%E7%A7%8D%E7%8A%B6%E6%80%81.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E4%BA%94%E7%A7%8D%E7%8A%B6%E6%80%81.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E4%BA%94%E7%A7%8D%E7%8A%B6%E6%80%81.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E4%BA%94%E7%A7%8D%E7%8A%B6%E6%80%81.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E4%BA%94%E7%A7%8D%E7%8A%B6%E6%80%81.jpg" />
+    </a><figcaption class="image-caption">线程五种状态</figcaption>
+    </figure></p>
+<ul>
+<li>【<strong>初始状态</strong>】仅是在语言层面创建了线程对象，还未与操作系统线程关联</li>
+<li>【<strong>可运行状态</strong>】（就绪状态）指该线程已经被创建（与操作系统线程关联），可以由 CPU 调度执行</li>
+<li>【<strong>运行状态</strong>】指获取了 CPU 时间片运行中的状态
+<ol>
+<li>当 CPU 时间片用完，会从【<strong>运行状态</strong>】转换至【<strong>可运行状态</strong>】，会导致线程的上下文切换</li>
+</ol>
+</li>
+<li>【<strong>阻塞状态</strong>】
+<ol>
+<li>如果调用了阻塞 API，如 BIO 读写文件，这时该线程实际不会用到 CPU，会导致线程上下文切换，进入 【<strong>阻塞状态</strong>】</li>
+<li>等 BIO 操作完毕，会由操作系统唤醒阻塞的线程，转换至【<strong>可运行状态</strong>】</li>
+<li>与【<strong>可运行状态</strong>】的区别是，对【<strong>阻塞状态</strong>】的线程来说只要它们一直不唤醒，调度器就一直不会考虑 调度它们</li>
+</ol>
+</li>
+<li>【<strong>终止状态</strong>】表示线程已经执行完毕，生命周期已经结束，不会再转换为其它状态</li>
+</ul>
+<br>
+<h3 id="六种状态">六种状态</h3>
+<p>这时从 <strong>Java API</strong> 层面来描述的</p>
+<p>根据 Thread.State 枚举，分为六种状态</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e7%ba%bf%e7%a8%8b%e5%85%ad%e7%a7%8d%e7%8a%b6%e6%80%81.jpg" title="线程六种状态" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/线程六种状态.jpg" data-sub-html="<h2>线程六种状态</h2><p>线程六种状态</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e7%ba%bf%e7%a8%8b%e5%85%ad%e7%a7%8d%e7%8a%b6%e6%80%81.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e7%ba%bf%e7%a8%8b%e5%85%ad%e7%a7%8d%e7%8a%b6%e6%80%81.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e7%ba%bf%e7%a8%8b%e5%85%ad%e7%a7%8d%e7%8a%b6%e6%80%81.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e7%ba%bf%e7%a8%8b%e5%85%ad%e7%a7%8d%e7%8a%b6%e6%80%81.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/线程六种状态.jpg" />
+    </a><figcaption class="image-caption">线程六种状态</figcaption>
+    </figure></p>
+<ul>
+<li><code>NEW</code> 线程刚被创建，但是还没有调用</li>
+<li><code>RUNNABLE</code> 当调用了 <code>start()</code> 方法 方法之后，注意，<strong>Java API</strong> 层面的 <code>RUNNABLE</code> 状态涵盖了 <strong>操作系统</strong> 层面的【<strong>可运行状态</strong>】、【<strong>运行状态</strong>】和【<strong>阻塞状态</strong>】（由于 BIO 导致的线程阻塞，在 Java 里无法区分，仍然认为 是可运行）</li>
+<li><code>BLOCKED</code> ， <code>WAITING</code> ， <code>TIMED_WAITING</code> 都是 <strong>Java API</strong> 层面对【<strong>阻塞状态</strong>】的细</li>
+<li><code>TERMINATED</code> 当线程代码运行结束</li>
+</ul>
+<br>
+<h2 id="共享模型">共享模型</h2>
+<h3 id="java体现">Java体现</h3>
+<p>两个线程对初始值为0的静态变量一个做自增，一个做自减，各做5000次，结果是0吗？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">counter</span><span class="o">++;</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">},</span> <span class="s">&#34;t1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">counter</span><span class="o">--;</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">},</span> <span class="s">&#34;t2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">t2</span><span class="o">.</span><span class="na">join</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;{}&#34;</span><span class="o">,</span><span class="n">counter</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>问题分析</strong></p>
+<p>以上的结果可能是正数、负数、零。为什么呢？因为Java中对静态变量的自增，自减并不是原子操作，要彻底理解，必须从字节码角度来进行分析</p>
+<p>例如对于 <code>i++</code> 而言（i为静态变量），实际会产生如下的JVM字节码指令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">getstatic  i  // 获取静态变量i的值
+</span></span><span class="line"><span class="cl">iconst_1      // 准备常量1
+</span></span><span class="line"><span class="cl">iadd          // 自增 
+</span></span><span class="line"><span class="cl">putstatic  i  // 将修改后的值存入静态变量i
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而对应 <code>i--</code> 也是类似：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">getstatic  i  // 获取静态变量 i 的值
+</span></span><span class="line"><span class="cl">iconst_1      // 准备常量1
+</span></span><span class="line"><span class="cl">isub          // 自减 
+</span></span><span class="line"><span class="cl">putstatic  i  // 将修改后的值存入静态变量 i
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而Java的内存模型如下，完成静态变量的自增，自减需要在主存和工作内存中进行数据交换</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.jpg" title="Java内存模型" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.jpg" data-sub-html="<h2>Java内存模型</h2><p>Java内存模型</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.jpg" />
+    </a><figcaption class="image-caption">Java内存模型</figcaption>
+    </figure></p>
+<p>如果是单线程以上8行代码是顺序执行（不会交错）没有问题：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg" title="单线程下运行" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg" data-sub-html="<h2>单线程下运行</h2><p>单线程下运行</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8D%95%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg" />
+    </a><figcaption class="image-caption">单线程下运行</figcaption>
+    </figure></p>
+<p>但多线程下这8行代码可能交错运行：</p>
+<p>出现负数的情况：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg" title="多线程下运行下出现负数情况" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg" data-sub-html="<h2>多线程下运行下出现负数情况</h2><p>多线程下运行下出现负数情况</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C.jpg" />
+    </a><figcaption class="image-caption">多线程下运行下出现负数情况</figcaption>
+    </figure></p>
+<p>出现正数的情况：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C%E5%87%BA%E7%8E%B0%E6%AD%A3%E6%95%B0%E6%83%85%E5%86%B5.jpg" title="多线程下运行出现正数情况" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C%E5%87%BA%E7%8E%B0%E6%AD%A3%E6%95%B0%E6%83%85%E5%86%B5.jpg" data-sub-html="<h2>多线程下运行出现正数情况</h2><p>多线程下运行出现正数情况</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C%E5%87%BA%E7%8E%B0%E6%AD%A3%E6%95%B0%E6%83%85%E5%86%B5.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C%E5%87%BA%E7%8E%B0%E6%AD%A3%E6%95%B0%E6%83%85%E5%86%B5.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C%E5%87%BA%E7%8E%B0%E6%AD%A3%E6%95%B0%E6%83%85%E5%86%B5.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C%E5%87%BA%E7%8E%B0%E6%AD%A3%E6%95%B0%E6%83%85%E5%86%B5.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BF%90%E8%A1%8C%E5%87%BA%E7%8E%B0%E6%AD%A3%E6%95%B0%E6%83%85%E5%86%B5.jpg" />
+    </a><figcaption class="image-caption">多线程下运行出现正数情况</figcaption>
+    </figure></p>
+<br>
+<h3 id="临界区critical-section">临界区Critical Section</h3>
+<ul>
+<li>一个程序运行多个线程本身是没有问题的</li>
+<li>问题出在多线程访问<strong>共享资源</strong>
+<ol>
+<li>多个线程读<strong>共享资源</strong>其实也没有问题</li>
+<li>在多个线程对<strong>共享资源</strong>读写操作时发生指令交错，就会出现问题</li>
+</ol>
+</li>
+<li>一段代码块如果存在对<strong>共享资源</strong>的多线程读写操作，称这段代码块为<strong>临界区</strong></li>
+</ul>
+<p>例如，下面代码中的临界区</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">void</span> <span class="nf">increment</span><span class="o">()</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">// 临界区
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">counter</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">void</span> <span class="nf">decrement</span><span class="o">()</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">// 临界区 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">counter</span><span class="o">--;</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h3 id="竞态条件race-condition">竞态条件Race Condition</h3>
+<p>多个线程在临界区内执行，由于代码的<strong>执行序列不同</strong>而导致结果无法预测，称之为发生了<strong>竞态条件</strong></p>
+<br>
+<h3 id="synchronized">Synchronized</h3>
+<p>为了避免临界区的竞态条件发生，由多种手段可以达到目的</p>
+<ul>
+<li>阻塞式的解决方案：<strong>Synchronized</strong>，<strong>Lock</strong></li>
+<li>非阻塞式的解决方案：原子变量</li>
+</ul>
+<p>本次使用阻塞式的解决方案：<strong>Synchronized</strong>，来解决上述问题，即俗称的 <strong>对象锁</strong> ，它采用互斥的方式让同一时刻至多只有一个线程能持有 <strong>对象锁</strong> ，其他线程再想获取这个 <strong>对象锁</strong> 时就会被阻塞住，这样就能保证拥有锁的线程可以安全的执行临界区的代码，不用担心线程上下文切换</p>
+<blockquote>
+<p><strong>注意</strong></p>
+<p>虽然Java中互斥和同步都可以采用Synchronized关键字来完成，但它们还是有区别的</p>
+<ul>
+<li>互斥是保证临界区的竞态发生，同一时刻只能有一个线程执行临界区代码</li>
+<li>同步是由于线程执行的先后，顺序不同，需要一个线程等待其他线程运行到某个点</li>
+</ul>
+</blockquote>
+<p><strong>Synchronized语法</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">synchronized</span><span class="o">(</span><span class="n">对象</span><span class="o">)</span> <span class="c1">// 线程1， 线程2(blocked) 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">临界区</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>解决</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">room</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">synchronized</span> <span class="o">(</span><span class="n">room</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">counter</span><span class="o">++;</span> 
+</span></span><span class="line"><span class="cl">      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">},</span> <span class="s">&#34;t1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">room</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">counter</span><span class="o">--;</span> 
+</span></span><span class="line"><span class="cl">      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">},</span> <span class="s">&#34;t2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">join</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t2</span><span class="o">.</span><span class="na">join</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;{}&#34;</span><span class="o">,</span><span class="n">counter</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>执行过程</strong></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A3%E7%A1%AE%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg" title="Synchronized执行过程" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A3%E7%A1%AE%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg" data-sub-html="<h2>Synchronized执行过程</h2><p>Synchronized执行过程</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A3%E7%A1%AE%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A3%E7%A1%AE%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A3%E7%A1%AE%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A3%E7%A1%AE%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A3%E7%A1%AE%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg" />
+    </a><figcaption class="image-caption">Synchronized执行过程</figcaption>
+    </figure></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
