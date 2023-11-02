@@ -1109,6 +1109,495 @@ public static void main(String[] args) throws InterruptedException {
 
 ![Synchronized执行过程](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A3%E7%A1%AE%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg "Synchronized执行过程")
 
+<br>
+
+### 面向对象改进
+
+把需要保护的共享变量放入一个类
+
+```java
+class Room { 
+  int value = 0;
+  
+  public void increment() { 
+    synchronized (this) { 
+      value++; 
+    } 
+  }
+  
+  public void decrement() { 
+    synchronized (this) { 
+      value--; 
+    } 
+  }
+  
+  public int get() { 
+    synchronized (this) { 
+      return value; 
+    } 
+  }
+}
+
+
+@Slf4j public class Test1 {
+  public static void main(String[] args) throws InterruptedException { 
+    Room room = new Room(); 
+    
+    Thread t1 = new Thread(() -> {
+      for (int j = 0; j < 5000; j++) {
+        room.increment();
+      } 
+    }, "t1");
+    
+    Thread t2 = new Thread(() -> { 
+      for (int j = 0; j < 5000; j++) {
+        room.decrement(); 
+      } 
+    }, "t2"); 
+    
+    t1.start(); 
+    t2.start();
+    
+    t1.join(); 
+    t2.join(); 
+    log.debug("count: {}" , room.get());
+  }
+}
+```
+
+<br>
+
+### 方法上的synchronized
+
+```java
+class Test{ 
+  public synchronized void test() {
+    
+  }
+} 
+
+等价于 class Test{
+  public void test() { 
+    synchronized(this) {
+      
+    }
+  }
+}
+
+
+
+
+class Test{ 
+  public synchronized static void test() {
+    
+  }
+} 
+
+
+等价于 
+class Test{
+  public static void test() { 
+    synchronized(Test.class) {
+      
+    }
+  }
+}
+```
+
+<br>
+
+### 不加synchronzied的方法
+
+**不加 synchronized 的方法就好比不遵守规则的人，不去老实排队（好比翻窗户进去的）**
+
+<br>
+
+### 线程八锁
+
+其实就是考察synchronized锁住的是哪个对象
+
+**情况1：12 或 21**
+
+```java
+@Slf4j(topic = "c.Number") 
+class Number{
+  public synchronized void a() {
+    log.debug("1"); 
+  } 
+  public synchronized void b() {
+    log.debug("2"); 
+  }
+}
+
+public static void main(String[] args) {
+  Number n1 = new Number(); 
+  new Thread(()->{ n1.a(); }).start();
+  new Thread(()->{ n1.b(); }).start(); 
+}
+```
+
+<br>
+
+**情况2：1s后 12，或2 1s后 1**
+
+```java
+@Slf4j(topic = "c.Number") 
+class Number{
+  public synchronized void a() { 
+    sleep(1); 
+    log.debug("1"); 
+  } 
+  public synchronized void b() {
+    log.debug("2"); 
+  }
+}
+
+public static void main(String[] args) {
+  Number n1 = new Number(); 
+  new Thread(()->{ n1.a(); }).start(); 
+  new Thread(()->{ n1.b(); }).start(); 
+}
+```
+
+<br>
+
+**情况3：3 1s后 12，或23 1s后 1，或32 1s后 1**
+
+```java
+@Slf4j(topic = "c.Number")
+class Number{
+  public synchronized void a() { 
+    sleep(1); 
+    log.debug("1"); 
+  } 
+  public synchronized void b() {
+    log.debug("2"); 
+  } 
+  public void c() {
+    log.debug("3"); 
+  }
+}
+
+public static void main(String[] args) {
+  Number n1 = new Number(); 
+  new Thread(()->{ n1.a(); }).start();
+  new Thread(()->{ n1.b(); }).start();
+  new Thread(()->{ n1.c(); }).start(); 
+}
+```
+
+<br>
+
+**情况4：2 1s后 1**
+
+```java
+@Slf4j(topic = "c.Number") 
+class Number{
+  public synchronized void a() { 
+    sleep(1); 
+    log.debug("1"); 
+  } 
+  public synchronized void b() {
+    log.debug("2"); 
+  }
+}
+
+public static void main(String[] args) {
+  Number n1 = new Number();
+  Number n2 = new Number(); 
+  new Thread(()->{ n1.a(); }).start(); 
+  new Thread(()->{ n2.b(); }).start(); 
+}
+```
+
+<br>
+
+**情况5：2 1s后 1**
+
+```java
+@Slf4j(topic = "c.Number") 
+class Number{
+  public static synchronized void a() {
+    sleep(1); 
+    log.debug("1"); 
+  } 
+  
+  public synchronized void b() {
+    log.debug("2");
+  }
+}
+
+public static void main(String[] args) {
+  Number n1 = new Number(); 
+  new Thread(()->{ n1.a(); }).start(); 
+  new Thread(()->{ n1.b(); }).start(); 
+}
+```
+
+<br>
+
+**情况6：1s后 12，或2 1s后 1**
+
+```java
+@Slf4j(topic = "c.Number") 
+class Number{
+  public static synchronized void a() {
+    sleep(1); 
+    log.debug("1"); 
+  } 
+  
+  public static synchronized void b() {
+    log.debug("2"); 
+  }
+}
+
+public static void main(String[] args) {
+  Number n1 = new Number(); 
+  new Thread(()->{ n1.a(); }).start();
+  new Thread(()->{ n1.b(); }).start(); 
+}
+```
+
+<br>
+
+**情况7：2 1s后 1**
+
+```java
+@Slf4j(topic = "c.Number") 
+class Number{
+  public static synchronized void a() {
+    sleep(1); 
+    log.debug("1"); 
+  } 
+  
+  public synchronized void b() {
+    log.debug("2");
+  }
+}
+
+public static void main(String[] args) {
+  Number n1 = new Number(); 
+  Number n2 = new Number(); 
+  new Thread(()->{ n1.a(); }).start(); 
+  new Thread(()->{ n2.b(); }).start(); 
+}
+```
+
+<br>
+
+**情况8：1s后 12，或2 1s后 1**
+
+```java
+@Slf4j(topic = "c.Number")
+class Number{
+  public static synchronized void a() {
+    sleep(1); 
+    log.debug("1"); 
+  } 
+  
+  public static synchronized void b() {
+    log.debug("2"); 
+  }
+}
+
+public static void main(String[] args) {
+  Number n1 = new Number(); 
+  Number n2 = new Number(); 
+  new Thread(()->{ n1.a(); }).start(); 
+  new Thread(()->{ n2.b(); }).start(); 
+}
+```
+
+<br>
+
+### 变量的线程安全分析
+
+1. **成员变量和静态变量是否线程安全？**
+    - 如果它们没有共享，则线程安全
+    - 如果它们被共享了，根据它们的状态是否能够改变，又分两种情况
+        - 如果只有读操作，则线程安全
+        - 如果有读写操作，则这段代码是临界区，需要考虑线程安全
+2. **局部变量是否线程安全？**
+    - 局部变量是线程安全的
+    - 但局部变量引用的对象则未必
+        - 如果该对象没有逃离方法的作用访问，它是线程安全的
+        - 如果该对象逃离方法的作用范围，需要考虑线程安全
+3. **局部变量线程安全分析？**
+
+```java
+public static void test1() {
+  int i = 10;
+  i++;
+}
+```
+
+每个线程调用test1()方法时局部变量i，会在每个线程的栈帧内存中被创建多份，因此不存在共享
+
+```asciiarmor
+public static void test1();
+	descriptor: ()V
+  flags: ACC_PUBLIC, ACC_STATIC 
+  Code:
+		stack=1, locals=1, args_size=0 
+      0: bipush 10 
+      2: istore_0 
+      3: iinc 0, 1 
+      6: return 
+    LineNumberTable:
+			line 10: 0 
+      line 11: 3 
+      line 12: 6 
+    LocalVariableTable:
+			Start Length Slot Name Signature 
+        3      4     0    i      I
+```
+
+如下图展示
+
+![栈帧展示](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png "栈帧展示")
+
+局部变量的引用稍有不同
+
+先看一个成员变量的例子
+
+```java
+class ThreadUnsafe {
+  ArrayList<String> list = new ArrayList<>();
+  public void method1(int loopNumber) {
+    for (int i = 0; i < loopNumber; i++) {
+      // { 临界区, 会产生竞态条件 method2();
+      method3();
+      // } 临界区
+    }
+  }
+  
+  private void method2() { 
+    list.add("1"); 
+  }
+  
+  private void method3() { 
+    list.remove(0);
+  }
+}
+```
+
+执行
+```java
+static final int THREAD_NUMBER = 2; 
+static final int LOOP_NUMBER = 200; 
+public static void main(String[] args) {
+  ThreadUnsafe test = new ThreadUnsafe();
+  for (int i = 0; i < THREAD_NUMBER; i++) {
+    new Thread(() -> {
+      test.method1(LOOP_NUMBER); 
+    }, "Thread" + i).start();
+  }
+}
+```
+
+其中一种情况是，如果线程2还未add，线程1 remove就会报错：
+
+```shell
+Exception in thread "Thread1" java.lang.IndexOutOfBoundsException: Index: 0, Size: 0 
+  at java.util.ArrayList.rangeCheck(ArrayList.java:657) 
+  at java.util.ArrayList.remove(ArrayList.java:496) 
+  at cn.itcast.n6.ThreadUnsafe.method3(TestThreadSafe.java:35) 
+  at cn.itcast.n6.ThreadUnsafe.method1(TestThreadSafe.java:26) 
+  at cn.itcast.n6.TestThreadSafe.lambda$main$0(TestThreadSafe.java:14) 
+  at java.lang.Thread.run(Thread.java:748)
+```
+
+分析：
+
+- 无论哪个线程中的 method2 引用的都是同一个对象中的 list 成员变量
+- method3 与 method2 分析相同
+
+- 
+
+![栈帧分析](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png "栈帧分析")
+
+将 list 修改为局部变量，就不会发生上述问题
+
+```java
+class ThreadSafe { 
+  public final void method1(int loopNumber) {
+    ArrayList<String> list = new ArrayList<>();
+    for (int i = 0; i < loopNumber; i++) {
+      method2(list); 
+      method3(list);
+    }
+  }
+  
+  private void method2(ArrayList<String> list) { 
+    list.add("1"); 
+  }
+  
+  private void method3(ArrayList<String> list) { 
+    list.remove(0); 
+  }
+}
+```
+
+分析：
+
+- list 是局部变量，每个线程调用时会创建其不同实例，没有共享
+- 而 method2 的参数是从 method1 中传递过来的，与 method1 中引用同一个对象
+- method3 的参数分析与 method2 相同
+
+![list为局部变量栈帧分析](https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png "list为局部变量栈帧分析")
+
+方法访问修饰符带来的思考，如果把 method2 和 method3 的方法修改为public会不会代理线程安全问题？
+
+- 情况1：有其他线程调用 method1 和 method3
+- 情况2：在情况1的基础上，为 ThreadSafe 类添加子类，子类覆盖 method2 或 method3 方法，即
+
+```java
+class ThreadSafe { 
+  public final void method1(int loopNumber) {
+    ArrayList<String> list = new ArrayList<>();
+    for (int i = 0; i < loopNumber; i++) {
+      method2(list); method3(list);
+    }
+  }
+  
+  private void method2(ArrayList<String> list) {
+    list.add("1");
+  }
+  
+  private void method3(ArrayList<String> list) { 
+    list.remove(0); 
+  }
+}
+
+class ThreadSafeSubClass extends ThreadSafe{
+  
+  @Override 
+  public void method3(ArrayList<String> list) {
+    new Thread(() -> {
+      list.remove(0);
+    }).start(); 
+  }
+}
+```
+
+> 从这个例子可以看出 private 或 final 提供【安全】的意义所在，请体会开闭原则中的【闭】
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  8591 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  10504 ,
         "url": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/","datePublished": "2023-10-07T07:55:51+08:00","dateModified": "2023-10-07T07:55:51+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -111,8 +111,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">并发编程</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 8591 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 18 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 10504 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 21 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -197,6 +197,11 @@
         <li><a href="#临界区critical-section">临界区Critical Section</a></li>
         <li><a href="#竞态条件race-condition">竞态条件Race Condition</a></li>
         <li><a href="#synchronized">Synchronized</a></li>
+        <li><a href="#面向对象改进">面向对象改进</a></li>
+        <li><a href="#方法上的synchronized">方法上的synchronized</a></li>
+        <li><a href="#不加synchronzied的方法">不加synchronzied的方法</a></li>
+        <li><a href="#线程八锁">线程八锁</a></li>
+        <li><a href="#变量的线程安全分析">变量的线程安全分析</a></li>
       </ul>
     </li>
   </ul>
@@ -1959,7 +1964,853 @@
             data-sizes="auto"
             alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A3%E7%A1%AE%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B.jpg" />
     </a><figcaption class="image-caption">Synchronized执行过程</figcaption>
-    </figure></p></div><div class="post-footer" id="post-footer">
+    </figure></p>
+<br>
+<h3 id="面向对象改进">面向对象改进</h3>
+<p>把需要保护的共享变量放入一个类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Room</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">increment</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">value</span><span class="o">++;</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">decrement</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">value</span><span class="o">--;</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">value</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Slf4j</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test1</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">Room</span> <span class="n">room</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Room</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5000</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">room</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">},</span> <span class="s">&#34;t1&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">5000</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">room</span><span class="o">.</span><span class="na">decrement</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">},</span> <span class="s">&#34;t2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">t1</span><span class="o">.</span><span class="na">join</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">t2</span><span class="o">.</span><span class="na">join</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;count: {}&#34;</span> <span class="o">,</span> <span class="n">room</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h3 id="方法上的synchronized">方法上的synchronized</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Test</span><span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">等价于</span> <span class="kd">class</span> <span class="nc">Test</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span><span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Test</span><span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">等价于</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Test</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span><span class="o">(</span><span class="n">Test</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h3 id="不加synchronzied的方法">不加synchronzied的方法</h3>
+<p><strong>不加 synchronized 的方法就好比不遵守规则的人，不去老实排队（好比翻窗户进去的）</strong></p>
+<br>
+<h3 id="线程八锁">线程八锁</h3>
+<p>其实就是考察synchronized锁住的是哪个对象</p>
+<p><strong>情况1：12 或 21</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="o">(</span><span class="n">topic</span> <span class="o">=</span> <span class="s">&#34;c.Number&#34;</span><span class="o">)</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Number</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Number</span> <span class="n">n1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Number</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">a</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">b</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p><strong>情况2：1s后 12，或2 1s后 1</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="o">(</span><span class="n">topic</span> <span class="o">=</span> <span class="s">&#34;c.Number&#34;</span><span class="o">)</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Number</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Number</span> <span class="n">n1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Number</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">a</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">b</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p><strong>情况3：3 1s后 12，或23 1s后 1，或32 1s后 1</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="o">(</span><span class="n">topic</span> <span class="o">=</span> <span class="s">&#34;c.Number&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Number</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">c</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;3&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Number</span> <span class="n">n1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Number</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">a</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">b</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">c</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p><strong>情况4：2 1s后 1</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="o">(</span><span class="n">topic</span> <span class="o">=</span> <span class="s">&#34;c.Number&#34;</span><span class="o">)</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Number</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Number</span> <span class="n">n1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Number</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Number</span> <span class="n">n2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Number</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">a</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n2</span><span class="o">.</span><span class="na">b</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p><strong>情况5：2 1s后 1</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="o">(</span><span class="n">topic</span> <span class="o">=</span> <span class="s">&#34;c.Number&#34;</span><span class="o">)</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Number</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;2&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Number</span> <span class="n">n1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Number</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">a</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">b</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p><strong>情况6：1s后 12，或2 1s后 1</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="o">(</span><span class="n">topic</span> <span class="o">=</span> <span class="s">&#34;c.Number&#34;</span><span class="o">)</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Number</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Number</span> <span class="n">n1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Number</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">a</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">b</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p><strong>情况7：2 1s后 1</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="o">(</span><span class="n">topic</span> <span class="o">=</span> <span class="s">&#34;c.Number&#34;</span><span class="o">)</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Number</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;2&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Number</span> <span class="n">n1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Number</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">Number</span> <span class="n">n2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Number</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">a</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n2</span><span class="o">.</span><span class="na">b</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p><strong>情况8：1s后 12，或2 1s后 1</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span><span class="o">(</span><span class="n">topic</span> <span class="o">=</span> <span class="s">&#34;c.Number&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Number</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Number</span> <span class="n">n1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Number</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">Number</span> <span class="n">n2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Number</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n1</span><span class="o">.</span><span class="na">a</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> <span class="n">n2</span><span class="o">.</span><span class="na">b</span><span class="o">();</span> <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h3 id="变量的线程安全分析">变量的线程安全分析</h3>
+<ol>
+<li><strong>成员变量和静态变量是否线程安全？</strong>
+<ul>
+<li>如果它们没有共享，则线程安全</li>
+<li>如果它们被共享了，根据它们的状态是否能够改变，又分两种情况
+<ul>
+<li>如果只有读操作，则线程安全</li>
+<li>如果有读写操作，则这段代码是临界区，需要考虑线程安全</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>局部变量是否线程安全？</strong>
+<ul>
+<li>局部变量是线程安全的</li>
+<li>但局部变量引用的对象则未必
+<ul>
+<li>如果该对象没有逃离方法的作用访问，它是线程安全的</li>
+<li>如果该对象逃离方法的作用范围，需要考虑线程安全</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>局部变量线程安全分析？</strong></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test1</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">i</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>每个线程调用test1()方法时局部变量i，会在每个线程的栈帧内存中被创建多份，因此不存在共享</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">public static void test1();
+</span></span><span class="line"><span class="cl">	descriptor: ()V
+</span></span><span class="line"><span class="cl">  flags: ACC_PUBLIC, ACC_STATIC 
+</span></span><span class="line"><span class="cl">  Code:
+</span></span><span class="line"><span class="cl">		stack=1, locals=1, args_size=0 
+</span></span><span class="line"><span class="cl">      0: bipush 10 
+</span></span><span class="line"><span class="cl">      2: istore_0 
+</span></span><span class="line"><span class="cl">      3: iinc 0, 1 
+</span></span><span class="line"><span class="cl">      6: return 
+</span></span><span class="line"><span class="cl">    LineNumberTable:
+</span></span><span class="line"><span class="cl">			line 10: 0 
+</span></span><span class="line"><span class="cl">      line 11: 3 
+</span></span><span class="line"><span class="cl">      line 12: 6 
+</span></span><span class="line"><span class="cl">    LocalVariableTable:
+</span></span><span class="line"><span class="cl">			Start Length Slot Name Signature 
+</span></span><span class="line"><span class="cl">        3      4     0    i      I
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如下图展示</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png" title="栈帧展示" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png" data-sub-html="<h2>栈帧展示</h2><p>栈帧展示</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png" />
+    </a><figcaption class="image-caption">栈帧展示</figcaption>
+    </figure></p>
+<p>局部变量的引用稍有不同</p>
+<p>先看一个成员变量的例子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">ThreadUnsafe</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">(</span><span class="kt">int</span> <span class="n">loopNumber</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">loopNumber</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// { 临界区, 会产生竞态条件 method2();
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">method3</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// } 临界区
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">method2</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">method3</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">list</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">THREAD_NUMBER</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">LOOP_NUMBER</span> <span class="o">=</span> <span class="mi">200</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ThreadUnsafe</span> <span class="n">test</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadUnsafe</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">THREAD_NUMBER</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">test</span><span class="o">.</span><span class="na">method1</span><span class="o">(</span><span class="n">LOOP_NUMBER</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">},</span> <span class="s">&#34;Thread&#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中一种情况是，如果线程2还未add，线程1 remove就会报错：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Exception in thread <span class="s2">&#34;Thread1&#34;</span> java.lang.IndexOutOfBoundsException: Index: 0, Size: <span class="m">0</span> 
+</span></span><span class="line"><span class="cl">  at java.util.ArrayList.rangeCheck<span class="o">(</span>ArrayList.java:657<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">  at java.util.ArrayList.remove<span class="o">(</span>ArrayList.java:496<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">  at cn.itcast.n6.ThreadUnsafe.method3<span class="o">(</span>TestThreadSafe.java:35<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">  at cn.itcast.n6.ThreadUnsafe.method1<span class="o">(</span>TestThreadSafe.java:26<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">  at cn.itcast.n6.TestThreadSafe.lambda<span class="nv">$main$0</span><span class="o">(</span>TestThreadSafe.java:14<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">  at java.lang.Thread.run<span class="o">(</span>Thread.java:748<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>分析：</p>
+<ul>
+<li>
+<p>无论哪个线程中的 method2 引用的都是同一个对象中的 list 成员变量</p>
+</li>
+<li>
+<p>method3 与 method2 分析相同</p>
+</li>
+<li></li>
+</ul>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png" title="栈帧分析" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png" data-sub-html="<h2>栈帧分析</h2><p>栈帧分析</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png" />
+    </a><figcaption class="image-caption">栈帧分析</figcaption>
+    </figure></p>
+<p>将 list 修改为局部变量，就不会发生上述问题</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">ThreadSafe</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">(</span><span class="kt">int</span> <span class="n">loopNumber</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">loopNumber</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">method2</span><span class="o">(</span><span class="n">list</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">method3</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">method2</span><span class="o">(</span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">method3</span><span class="o">(</span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">list</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>分析：</p>
+<ul>
+<li>list 是局部变量，每个线程调用时会创建其不同实例，没有共享</li>
+<li>而 method2 的参数是从 method1 中传递过来的，与 method1 中引用同一个对象</li>
+<li>method3 的参数分析与 method2 相同</li>
+</ul>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png" title="list为局部变量栈帧分析" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png" data-sub-html="<h2>list为局部变量栈帧分析</h2><p>list为局部变量栈帧分析</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png" />
+    </a><figcaption class="image-caption">list为局部变量栈帧分析</figcaption>
+    </figure></p>
+<p>方法访问修饰符带来的思考，如果把 method2 和 method3 的方法修改为public会不会代理线程安全问题？</p>
+<ul>
+<li>情况1：有其他线程调用 method1 和 method3</li>
+<li>情况2：在情况1的基础上，为 ThreadSafe 类添加子类，子类覆盖 method2 或 method3 方法，即</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">ThreadSafe</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">(</span><span class="kt">int</span> <span class="n">loopNumber</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">loopNumber</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">method2</span><span class="o">(</span><span class="n">list</span><span class="o">);</span> <span class="n">method3</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">method2</span><span class="o">(</span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">method3</span><span class="o">(</span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">list</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">ThreadSafeSubClass</span> <span class="kd">extends</span> <span class="n">ThreadSafe</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">method3</span><span class="o">(</span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">list</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>从这个例子可以看出 private 或 final 提供【安全】的意义所在，请体会开闭原则中的【闭】</p>
+</blockquote></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
