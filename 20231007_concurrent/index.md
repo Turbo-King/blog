@@ -1015,7 +1015,7 @@ putstatic  i  // 将修改后的值存入静态变量 i
 
 <br>
 
-### 临界区Critical Section
+#### 临界区Critical Section
 
 - 一个程序运行多个线程本身是没有问题的
 - 问题出在多线程访问**共享资源**
@@ -1043,7 +1043,7 @@ static void decrement()
 
 <br>
 
-### 竞态条件Race Condition
+#### 竞态条件Race Condition
 
 多个线程在临界区内执行，由于代码的**执行序列不同**而导致结果无法预测，称之为发生了**竞态条件**
 
@@ -1111,7 +1111,7 @@ public static void main(String[] args) throws InterruptedException {
 
 <br>
 
-### 面向对象改进
+#### 面向对象改进
 
 把需要保护的共享变量放入一个类
 
@@ -1167,7 +1167,7 @@ class Room {
 
 <br>
 
-### 方法上的synchronized
+#### 方法上的synchronized
 
 ```java
 class Test{ 
@@ -1206,7 +1206,7 @@ class Test{
 
 <br>
 
-### 不加synchronzied的方法
+#### 不加synchronzied的方法
 
 **不加 synchronized 的方法就好比不遵守规则的人，不去老实排队（好比翻窗户进去的）**
 
@@ -1410,7 +1410,7 @@ public static void main(String[] args) {
 
 <br>
 
-### 变量的线程安全分析
+#### 变量的线程安全分析
 
 1. **成员变量和静态变量是否线程安全？**
     - 如果它们没有共享，则线程安全
@@ -1454,7 +1454,7 @@ public static void test1();
 
 如下图展示
 
-![栈帧展示](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png "栈帧展示")
+![栈帧展示](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.jpg "栈帧展示")
 
 局部变量的引用稍有不同
 
@@ -1512,9 +1512,7 @@ Exception in thread "Thread1" java.lang.IndexOutOfBoundsException: Index: 0, Siz
 - 无论哪个线程中的 method2 引用的都是同一个对象中的 list 成员变量
 - method3 与 method2 分析相同
 
-- 
-
-![栈帧分析](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png "栈帧分析")
+![栈帧分析](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg "栈帧分析")
 
 将 list 修改为局部变量，就不会发生上述问题
 
@@ -1544,7 +1542,7 @@ class ThreadSafe {
 - 而 method2 的参数是从 method1 中传递过来的，与 method1 中引用同一个对象
 - method3 的参数分析与 method2 相同
 
-![list为局部变量栈帧分析](https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png "list为局部变量栈帧分析")
+![list为局部变量栈帧分析](https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg "list为局部变量栈帧分析")
 
 方法访问修饰符带来的思考，如果把 method2 和 method3 的方法修改为public会不会代理线程安全问题？
 
@@ -1581,6 +1579,355 @@ class ThreadSafeSubClass extends ThreadSafe{
 ```
 
 > 从这个例子可以看出 private 或 final 提供【安全】的意义所在，请体会开闭原则中的【闭】
+
+<br>
+
+### 常见线程安全类
+
+- String
+- Integer
+- StringBuffer
+- Random
+- Vector
+- Hashtable
+- java.util.concurrent包下的类
+
+这里说它们是线程安全的是指，多个线程调用它们同一个实例的某个方法时，是线程安全的。也可以理解为
+
+```java
+Hashtable table = new Hashtable();
+
+new Thread(()->{ 
+  table.put("key", "value1"); 
+}).start();
+
+new Thread(()->{ 
+  table.put("key", "value2"); 
+}).start();
+```
+
+> - 它们每个方法是原子的
+> - 但注意它们多个方法的组合不是原子的
+
+#### 线程安全类方法的组合
+
+分析下面代码是否线程安全
+
+```java
+Hashtable table = new Hashtable(); 
+// 线程1，线程2 
+if( table.get("key") == null) {
+  table.put("key", value); 
+}
+```
+
+![代码图解](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%A0%81%E5%9B%BE%E8%A7%A3.jpg "代码图解")
+
+<br>
+
+#### 不可变类线程安全性
+
+String、Integer等都是不可变类，因为其内部的状态不可以改变，因此它们的方法都是线程安全的。
+
+```java
+public class Immutable{ 
+  private int value = 0;
+  
+  public Immutable(int value){ 
+    this.value = value;
+  }
+  
+  public int getValue(){ 
+    return this.value; 
+  }
+}
+```
+
+如果想增加一个增加的方法呢
+
+```java
+public class Immutable{ 
+  private int value = 0;
+  
+  public Immutable(int value){ 
+    this.value = value; 
+  }
+  
+  public int getValue(){
+    return this.value; 
+  }
+  
+  public Immutable add(int v){ 
+    return new Immutable(this.value + v);
+  }
+}
+```
+
+<br>
+
+### Monitor概念
+
+#### Java对象头
+
+以32位虚拟机为例
+
+**普通对象**
+
+![普通对象头](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg "普通对象头")
+
+<br>
+
+**数组对象**
+
+![数组对象头](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg "数组对象头")
+
+<br>
+
+**其中 Mark Word 结构为**
+
+![MarkWord结构](https://cdn.jsdelivr.net/gh/Turbo-King/images/MarkWord%E7%BB%93%E6%9E%84.jpg "MarkWord结构")
+
+<br>
+
+**64位虚拟机 Mark Word**
+
+![64位虚拟机MarkWord](https://cdn.jsdelivr.net/gh/Turbo-King/images/64%E4%BD%8D%E8%99%9A%E6%8B%9F%E6%9C%BAMarkWord.jpg "64位虚拟机MarkWord")
+
+> **[参考资料](https://stackoverflow.com/questions/26357186/what-is-in-java-object-header)**
+
+<br>
+
+### wait notify
+
+#### API 介绍
+
+- `obj.wait()`让进入object监视器的线程到waitSet等待
+- `obj.notify()`在object上正在waitSet等待的线程中挑一个唤醒
+- `obj.notifyAll()`让object上正在waitSet等待的线程全部唤醒
+
+它们都是线程之间进行协作的手段，都属于Object对象的方法，必须获得此对象的锁，才能调用这几个方法
+
+```java
+final static Object obj = new Object();
+
+public static void main(String[] args) {
+  new Thread(() -> {
+    synchronized (obj) { 
+      log.debug("执行...."); 
+      try { 
+        obj.wait(); // 让线程在obj上一直等待下去 
+      } catch (InterruptedException e) {
+        e.printStackTrace(); 
+      } 
+      log.debug("其它代码....");
+    } 
+  }).start();
+  
+  new Thread(() -> {
+    synchronized (obj) { 
+      log.debug("执行...."); 
+      try { obj.wait(); // 让线程在obj上一直等待下去 
+          } catch (InterruptedException e) {
+        e.printStackTrace(); 
+      } 
+      log.debug("其它代码....");
+    } 
+  }).start();
+  
+  // 主线程两秒后执行
+  sleep(2); 
+  log.debug("唤醒 obj 上其它线程");
+  synchronized (obj) {
+    obj.notify(); // 唤醒obj上一个线程
+    // obj.notifyAll(); // 唤醒obj上所有等待线程 
+  }
+}
+```
+
+**notify的一种结果**
+
+```shell
+20:00:53.096 [Thread-0] c.TestWaitNotify - 执行.... 
+20:00:53.099 [Thread-1] c.TestWaitNotify - 执行.... 
+20:00:55.096 [main] c.TestWaitNotify - 唤醒 obj 上其它线程 
+20:00:55.096 [Thread-0] c.TestWaitNotify - 其它代码....
+```
+
+**notifyAll结果**
+
+```shell
+19:58:15.457 [Thread-0] c.TestWaitNotify - 执行.... 
+19:58:15.460 [Thread-1] c.TestWaitNotify - 执行.... 
+19:58:17.456 [main] c.TestWaitNotify - 唤醒 obj 上其它线程 
+19:58:17.456 [Thread-1] c.TestWaitNotify - 其它代码.... 
+19:58:17.456 [Thread-0] c.TestWaitNotify - 其它代码....
+```
+
+`wait()`方法会释放对象的锁，进入WaitSet等待区，从而让其他线程就就有机会获取对象的锁。无限制等待，直到notify为止
+
+`wait(long n)`有时限的等待，到n毫秒后结束等待，或是被notify
+
+{{< admonition example "sleep(long n) 和 wait(long n) 的区别" >}}
+
+1. **sleep 是 Thread 方法，而 wait 是 Object 的方法**
+2. sleep **不需要强制**和 synchronized 配合使用，但 **wait 需要和 synchronized 一起使用**
+3. **sleep 在睡眠的同时，不会释放对象锁，但 wait 在等待的时候会释放对象锁**
+4. 它们状态 **TIMED_WAITINGsss**
+
+{{< /admonition >}}
+
+<br>
+
+### Park & Unpark
+
+#### 基本使用
+
+它们是 LockSupport 类中的方法
+
+```java
+// 暂停当前线程 
+LockSupport.park();
+
+// 恢复某个线程的运行 
+LockSupport.unpark(暂停线程对象)
+```
+
+**先 park 再 unpark**
+
+```java
+Thread t1 = new Thread(() -> {
+  log.debug("start..."); sleep(1);
+  log.debug("park...");
+  LockSupport.park();
+  log.debug("resume..."); 
+},"t1");
+
+t1.start();
+
+sleep(2); 
+log.debug("unpark..."); LockSupport.unpark(t1);
+```
+
+**输出结果**
+
+```shell
+18:42:52.585 c.TestParkUnpark [t1] - start... 
+18:42:53.589 c.TestParkUnpark [t1] - park... 
+18:42:54.583 c.TestParkUnpark [main] - unpark... 
+18:42:54.583 c.TestParkUnpark [t1] - resume...
+```
+
+**先 unpark 再 park**
+
+```java
+Thread t1 = new Thread(() -> {
+  log.debug("start..."); sleep(2);
+  log.debug("park...");
+  LockSupport.park();
+  log.debug("resume..."); 
+}, "t1"); 
+
+t1.start();
+
+sleep(1); 
+log.debug("unpark..."); LockSupport.unpark(t1);
+```
+
+**输出结果**
+
+```shell
+18:43:50.765 c.TestParkUnpark [t1] - start... 
+18:43:51.764 c.TestParkUnpark [main] - unpark... 
+18:43:52.769 c.TestParkUnpark [t1] - park... 
+18:43:52.769 c.TestParkUnpark [t1] - resume...
+```
+
+#### 特点
+
+{{< admonition "Object 的 wait & notify 相比">}}
+
+- wait，notify 和 notifyAll 必须配合 Object Monitor 一起使用，而 park，unpark不必
+- park & unpark 是以线程为单位来【阻塞】和【唤醒】线程，而 notify 只能随机唤醒一个等待线程，notifyAll 是唤醒所有等待线程，就不那么【精确】
+- park & unpark 可以先 unpark，而 wait & notify 不能先 notify
+
+{{< /admonition >}}
+
+<br>
+
+### 重新理解线程状态转换
+
+![线程状态转换图](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.jpg "线程状态转换图")
+
+假设有线程`Thread t`
+
+#### 情况1 `NEW -> RUNABLE`
+
+当调用`t.start()`方法时，由`NEW -> RUNNABLE`
+
+#### 情况2 `RUNNABLE <-> WAITING`
+
+t 线程调用`synchronized(obj)`获取了对象锁后
+
+- 调用`obj.wait()`方法时，t 线程从`RUNNABLE -> WAITING`
+- 调用`obj.notify()`,`obj.notifyAll()`,`t.interrupt`时
+    - 竞争锁成功，t 线程从`WAITING -> RUNNABLE`
+    - 竞争锁失败，t 线程从`WAITING -> BLOCKED`
+
+```java
+public class TestWaitNotify { 
+  final static Object obj = new Object();
+  
+  public static void main(String[] args) {
+    new Thread(() -> {
+      synchronized (obj) { 
+        log.debug("执行...."); 
+        try { 
+          obj.wait(); 
+        } catch (InterruptedException e) { 
+          e.printStackTrace(); 
+        } 
+        log.debug("其它代码...."); // 断点
+      } 
+    },"t1").start();
+    
+    new Thread(() -> {
+      synchronized (obj) { 
+        log.debug("执行...."); 
+        try { 
+          obj.wait(); 
+        } catch (InterruptedException e) { 
+          e.printStackTrace(); 
+        } 
+        log.debug("其它代码...."); // 断点
+      } 
+    },"t2").start();
+    
+    sleep(0.5); 
+    log.debug("唤醒 obj 上其它线程");
+    synchronized (obj) { 
+      obj.notifyAll(); // 唤醒obj上所有等待线程 
+    }
+  }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

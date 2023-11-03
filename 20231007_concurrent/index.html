@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  10504 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  12485 ,
         "url": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/","datePublished": "2023-10-07T07:55:51+08:00","dateModified": "2023-10-07T07:55:51+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -111,8 +111,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">并发编程</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 10504 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 21 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 12485 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 25 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -193,15 +193,52 @@
     </li>
     <li><a href="#共享模型">共享模型</a>
       <ul>
-        <li><a href="#java体现">Java体现</a></li>
-        <li><a href="#临界区critical-section">临界区Critical Section</a></li>
-        <li><a href="#竞态条件race-condition">竞态条件Race Condition</a></li>
-        <li><a href="#synchronized">Synchronized</a></li>
-        <li><a href="#面向对象改进">面向对象改进</a></li>
-        <li><a href="#方法上的synchronized">方法上的synchronized</a></li>
-        <li><a href="#不加synchronzied的方法">不加synchronzied的方法</a></li>
-        <li><a href="#线程八锁">线程八锁</a></li>
-        <li><a href="#变量的线程安全分析">变量的线程安全分析</a></li>
+        <li><a href="#java体现">Java体现</a>
+          <ul>
+            <li><a href="#临界区critical-section">临界区Critical Section</a></li>
+            <li><a href="#竞态条件race-condition">竞态条件Race Condition</a></li>
+          </ul>
+        </li>
+        <li><a href="#synchronized">Synchronized</a>
+          <ul>
+            <li><a href="#面向对象改进">面向对象改进</a></li>
+            <li><a href="#方法上的synchronized">方法上的synchronized</a></li>
+            <li><a href="#不加synchronzied的方法">不加synchronzied的方法</a></li>
+          </ul>
+        </li>
+        <li><a href="#线程八锁">线程八锁</a>
+          <ul>
+            <li><a href="#变量的线程安全分析">变量的线程安全分析</a></li>
+          </ul>
+        </li>
+        <li><a href="#常见线程安全类">常见线程安全类</a>
+          <ul>
+            <li><a href="#线程安全类方法的组合">线程安全类方法的组合</a></li>
+            <li><a href="#不可变类线程安全性">不可变类线程安全性</a></li>
+          </ul>
+        </li>
+        <li><a href="#monitor概念">Monitor概念</a>
+          <ul>
+            <li><a href="#java对象头">Java对象头</a></li>
+          </ul>
+        </li>
+        <li><a href="#wait-notify">wait notify</a>
+          <ul>
+            <li><a href="#api-介绍">API 介绍</a></li>
+          </ul>
+        </li>
+        <li><a href="#park--unpark">Park &amp; Unpark</a>
+          <ul>
+            <li><a href="#基本使用">基本使用</a></li>
+            <li><a href="#特点">特点</a></li>
+          </ul>
+        </li>
+        <li><a href="#重新理解线程状态转换">重新理解线程状态转换</a>
+          <ul>
+            <li><a href="#情况1-new---runable">情况1 <code>NEW -&gt; RUNABLE</code></a></li>
+            <li><a href="#情况2-runnable---waiting">情况2 <code>RUNNABLE &lt;-&gt; WAITING</code></a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -1817,7 +1854,7 @@
     </a><figcaption class="image-caption">多线程下运行出现正数情况</figcaption>
     </figure></p>
 <br>
-<h3 id="临界区critical-section">临界区Critical Section</h3>
+<h4 id="临界区critical-section">临界区Critical Section</h4>
 <ul>
 <li>一个程序运行多个线程本身是没有问题的</li>
 <li>问题出在多线程访问<strong>共享资源</strong>
@@ -1862,7 +1899,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><br>
-<h3 id="竞态条件race-condition">竞态条件Race Condition</h3>
+<h4 id="竞态条件race-condition">竞态条件Race Condition</h4>
 <p>多个线程在临界区内执行，由于代码的<strong>执行序列不同</strong>而导致结果无法预测，称之为发生了<strong>竞态条件</strong></p>
 <br>
 <h3 id="synchronized">Synchronized</h3>
@@ -1966,7 +2003,7 @@
     </a><figcaption class="image-caption">Synchronized执行过程</figcaption>
     </figure></p>
 <br>
-<h3 id="面向对象改进">面向对象改进</h3>
+<h4 id="面向对象改进">面向对象改进</h4>
 <p>把需要保护的共享变量放入一个类</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2069,7 +2106,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><br>
-<h3 id="方法上的synchronized">方法上的synchronized</h3>
+<h4 id="方法上的synchronized">方法上的synchronized</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2141,7 +2178,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><br>
-<h3 id="不加synchronzied的方法">不加synchronzied的方法</h3>
+<h4 id="不加synchronzied的方法">不加synchronzied的方法</h4>
 <p><strong>不加 synchronized 的方法就好比不遵守规则的人，不去老实排队（好比翻窗户进去的）</strong></p>
 <br>
 <h3 id="线程八锁">线程八锁</h3>
@@ -2486,7 +2523,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><br>
-<h3 id="变量的线程安全分析">变量的线程安全分析</h3>
+<h4 id="变量的线程安全分析">变量的线程安全分析</h4>
 <ol>
 <li><strong>成员变量和静态变量是否线程安全？</strong>
 <ul>
@@ -2566,14 +2603,14 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>如下图展示</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png" title="栈帧展示" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png" data-sub-html="<h2>栈帧展示</h2><p>栈帧展示</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.jpg" title="栈帧展示" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.jpg" data-sub-html="<h2>栈帧展示</h2><p>栈帧展示</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png 2x"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.jpg 2x"
             data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.png" />
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%B1%95%E7%A4%BA.jpg" />
     </a><figcaption class="image-caption">栈帧展示</figcaption>
     </figure></p>
 <p>局部变量的引用稍有不同</p>
@@ -2670,22 +2707,17 @@
 </div>
 </div><p>分析：</p>
 <ul>
-<li>
-<p>无论哪个线程中的 method2 引用的都是同一个对象中的 list 成员变量</p>
-</li>
-<li>
-<p>method3 与 method2 分析相同</p>
-</li>
-<li></li>
+<li>无论哪个线程中的 method2 引用的都是同一个对象中的 list 成员变量</li>
+<li>method3 与 method2 分析相同</li>
 </ul>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png" title="栈帧分析" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png" data-sub-html="<h2>栈帧分析</h2><p>栈帧分析</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg" title="栈帧分析" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg" data-sub-html="<h2>栈帧分析</h2><p>栈帧分析</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png 2x"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg 2x"
             data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png" />
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg" />
     </a><figcaption class="image-caption">栈帧分析</figcaption>
     </figure></p>
 <p>将 list 修改为局部变量，就不会发生上述问题</p>
@@ -2735,14 +2767,14 @@
 <li>而 method2 的参数是从 method1 中传递过来的，与 method1 中引用同一个对象</li>
 <li>method3 的参数分析与 method2 相同</li>
 </ul>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png" title="list为局部变量栈帧分析" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png" data-sub-html="<h2>list为局部变量栈帧分析</h2><p>list为局部变量栈帧分析</p>">
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg" title="list为局部变量栈帧分析" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg" data-sub-html="<h2>list为局部变量栈帧分析</h2><p>list为局部变量栈帧分析</p>">
         <img
             class="lazyload"
             src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png 2x"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg 2x"
             data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.png" />
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/list%E4%B8%BA%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E6%A0%88%E5%B8%A7%E5%88%86%E6%9E%90.jpg" />
     </a><figcaption class="image-caption">list为局部变量栈帧分析</figcaption>
     </figure></p>
 <p>方法访问修饰符带来的思考，如果把 method2 和 method3 的方法修改为public会不会代理线程安全问题？</p>
@@ -2810,7 +2842,555 @@
 </div>
 </div><blockquote>
 <p>从这个例子可以看出 private 或 final 提供【安全】的意义所在，请体会开闭原则中的【闭】</p>
-</blockquote></div><div class="post-footer" id="post-footer">
+</blockquote>
+<br>
+<h3 id="常见线程安全类">常见线程安全类</h3>
+<ul>
+<li>String</li>
+<li>Integer</li>
+<li>StringBuffer</li>
+<li>Random</li>
+<li>Vector</li>
+<li>Hashtable</li>
+<li>java.util.concurrent包下的类</li>
+</ul>
+<p>这里说它们是线程安全的是指，多个线程调用它们同一个实例的某个方法时，是线程安全的。也可以理解为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Hashtable</span> <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hashtable</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;key&#34;</span><span class="o">,</span> <span class="s">&#34;value1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;key&#34;</span><span class="o">,</span> <span class="s">&#34;value2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ul>
+<li>它们每个方法是原子的</li>
+<li>但注意它们多个方法的组合不是原子的</li>
+</ul>
+</blockquote>
+<h4 id="线程安全类方法的组合">线程安全类方法的组合</h4>
+<p>分析下面代码是否线程安全</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Hashtable</span> <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Hashtable</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">// 线程1，线程2 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span><span class="o">(</span> <span class="n">table</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;key&#34;</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">table</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;key&#34;</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%A0%81%E5%9B%BE%E8%A7%A3.jpg" title="代码图解" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%A0%81%E5%9B%BE%E8%A7%A3.jpg" data-sub-html="<h2>代码图解</h2><p>代码图解</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%A0%81%E5%9B%BE%E8%A7%A3.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%A0%81%E5%9B%BE%E8%A7%A3.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%A0%81%E5%9B%BE%E8%A7%A3.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%A0%81%E5%9B%BE%E8%A7%A3.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%A0%81%E5%9B%BE%E8%A7%A3.jpg" />
+    </a><figcaption class="image-caption">代码图解</figcaption>
+    </figure></p>
+<br>
+<h4 id="不可变类线程安全性">不可变类线程安全性</h4>
+<p>String、Integer等都是不可变类，因为其内部的状态不可以改变，因此它们的方法都是线程安全的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Immutable</span><span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="nf">Immutable</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">){</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getValue</span><span class="o">(){</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">value</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果想增加一个增加的方法呢</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Immutable</span><span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="nf">Immutable</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">){</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getValue</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">value</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">Immutable</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">v</span><span class="o">){</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="n">Immutable</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">+</span> <span class="n">v</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h3 id="monitor概念">Monitor概念</h3>
+<h4 id="java对象头">Java对象头</h4>
+<p>以32位虚拟机为例</p>
+<p><strong>普通对象</strong></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg" title="普通对象头" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg" data-sub-html="<h2>普通对象头</h2><p>普通对象头</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%99%AE%E9%80%9A%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg" />
+    </a><figcaption class="image-caption">普通对象头</figcaption>
+    </figure></p>
+<br>
+<p><strong>数组对象</strong></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg" title="数组对象头" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg" data-sub-html="<h2>数组对象头</h2><p>数组对象头</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg" />
+    </a><figcaption class="image-caption">数组对象头</figcaption>
+    </figure></p>
+<br>
+<p><strong>其中 Mark Word 结构为</strong></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/MarkWord%E7%BB%93%E6%9E%84.jpg" title="MarkWord结构" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/MarkWord%E7%BB%93%E6%9E%84.jpg" data-sub-html="<h2>MarkWord结构</h2><p>MarkWord结构</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/MarkWord%E7%BB%93%E6%9E%84.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/MarkWord%E7%BB%93%E6%9E%84.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/MarkWord%E7%BB%93%E6%9E%84.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/MarkWord%E7%BB%93%E6%9E%84.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/MarkWord%E7%BB%93%E6%9E%84.jpg" />
+    </a><figcaption class="image-caption">MarkWord结构</figcaption>
+    </figure></p>
+<br>
+<p><strong>64位虚拟机 Mark Word</strong></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/64%E4%BD%8D%E8%99%9A%E6%8B%9F%E6%9C%BAMarkWord.jpg" title="64位虚拟机MarkWord" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/64%E4%BD%8D%E8%99%9A%E6%8B%9F%E6%9C%BAMarkWord.jpg" data-sub-html="<h2>64位虚拟机MarkWord</h2><p>64位虚拟机MarkWord</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/64%E4%BD%8D%E8%99%9A%E6%8B%9F%E6%9C%BAMarkWord.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/64%E4%BD%8D%E8%99%9A%E6%8B%9F%E6%9C%BAMarkWord.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/64%E4%BD%8D%E8%99%9A%E6%8B%9F%E6%9C%BAMarkWord.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/64%E4%BD%8D%E8%99%9A%E6%8B%9F%E6%9C%BAMarkWord.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/64%E4%BD%8D%E8%99%9A%E6%8B%9F%E6%9C%BAMarkWord.jpg" />
+    </a><figcaption class="image-caption">64位虚拟机MarkWord</figcaption>
+    </figure></p>
+<blockquote>
+<p><strong><a href="https://stackoverflow.com/questions/26357186/what-is-in-java-object-header" target="_blank" rel="noopener noreffer ">参考资料</a></strong></p>
+</blockquote>
+<br>
+<h3 id="wait-notify">wait notify</h3>
+<h4 id="api-介绍">API 介绍</h4>
+<ul>
+<li><code>obj.wait()</code>让进入object监视器的线程到waitSet等待</li>
+<li><code>obj.notify()</code>在object上正在waitSet等待的线程中挑一个唤醒</li>
+<li><code>obj.notifyAll()</code>让object上正在waitSet等待的线程全部唤醒</li>
+</ul>
+<p>它们都是线程之间进行协作的手段，都属于Object对象的方法，必须获得此对象的锁，才能调用这几个方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">final</span> <span class="kd">static</span> <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">obj</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;执行....&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">      <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">obj</span><span class="o">.</span><span class="na">wait</span><span class="o">();</span> <span class="c1">// 让线程在obj上一直等待下去 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;其它代码....&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">obj</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;执行....&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">      <span class="k">try</span> <span class="o">{</span> <span class="n">obj</span><span class="o">.</span><span class="na">wait</span><span class="o">();</span> <span class="c1">// 让线程在obj上一直等待下去 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;其它代码....&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// 主线程两秒后执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;唤醒 obj 上其它线程&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">synchronized</span> <span class="o">(</span><span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">obj</span><span class="o">.</span><span class="na">notify</span><span class="o">();</span> <span class="c1">// 唤醒obj上一个线程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// obj.notifyAll(); // 唤醒obj上所有等待线程 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>notify的一种结果</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">20:00:53.096 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestWaitNotify - 执行.... 
+</span></span><span class="line"><span class="cl">20:00:53.099 <span class="o">[</span>Thread-1<span class="o">]</span> c.TestWaitNotify - 执行.... 
+</span></span><span class="line"><span class="cl">20:00:55.096 <span class="o">[</span>main<span class="o">]</span> c.TestWaitNotify - 唤醒 obj 上其它线程 
+</span></span><span class="line"><span class="cl">20:00:55.096 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestWaitNotify - 其它代码....
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>notifyAll结果</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">19:58:15.457 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestWaitNotify - 执行.... 
+</span></span><span class="line"><span class="cl">19:58:15.460 <span class="o">[</span>Thread-1<span class="o">]</span> c.TestWaitNotify - 执行.... 
+</span></span><span class="line"><span class="cl">19:58:17.456 <span class="o">[</span>main<span class="o">]</span> c.TestWaitNotify - 唤醒 obj 上其它线程 
+</span></span><span class="line"><span class="cl">19:58:17.456 <span class="o">[</span>Thread-1<span class="o">]</span> c.TestWaitNotify - 其它代码.... 
+</span></span><span class="line"><span class="cl">19:58:17.456 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestWaitNotify - 其它代码....
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>wait()</code>方法会释放对象的锁，进入WaitSet等待区，从而让其他线程就就有机会获取对象的锁。无限制等待，直到notify为止</p>
+<p><code>wait(long n)</code>有时限的等待，到n毫秒后结束等待，或是被notify</p>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>sleep(long n) 和 wait(long n) 的区别<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li><strong>sleep 是 Thread 方法，而 wait 是 Object 的方法</strong></li>
+<li>sleep <strong>不需要强制</strong>和 synchronized 配合使用，但 <strong>wait 需要和 synchronized 一起使用</strong></li>
+<li><strong>sleep 在睡眠的同时，不会释放对象锁，但 wait 在等待的时候会释放对象锁</strong></li>
+<li>它们状态 <strong>TIMED_WAITINGsss</strong></li>
+</ol>
+</div>
+        </div>
+    </div>
+<br>
+<h3 id="park--unpark">Park &amp; Unpark</h3>
+<h4 id="基本使用">基本使用</h4>
+<p>它们是 LockSupport 类中的方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 暂停当前线程 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">LockSupport</span><span class="o">.</span><span class="na">park</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 恢复某个线程的运行 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">LockSupport</span><span class="o">.</span><span class="na">unpark</span><span class="o">(</span><span class="n">暂停线程对象</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>先 park 再 unpark</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;start...&#34;</span><span class="o">);</span> <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;park...&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">LockSupport</span><span class="o">.</span><span class="na">park</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;resume...&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span><span class="s">&#34;t1&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;unpark...&#34;</span><span class="o">);</span> <span class="n">LockSupport</span><span class="o">.</span><span class="na">unpark</span><span class="o">(</span><span class="n">t1</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出结果</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">18:42:52.585 c.TestParkUnpark <span class="o">[</span>t1<span class="o">]</span> - start... 
+</span></span><span class="line"><span class="cl">18:42:53.589 c.TestParkUnpark <span class="o">[</span>t1<span class="o">]</span> - park... 
+</span></span><span class="line"><span class="cl">18:42:54.583 c.TestParkUnpark <span class="o">[</span>main<span class="o">]</span> - unpark... 
+</span></span><span class="line"><span class="cl">18:42:54.583 c.TestParkUnpark <span class="o">[</span>t1<span class="o">]</span> - resume...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>先 unpark 再 park</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;start...&#34;</span><span class="o">);</span> <span class="n">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;park...&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">LockSupport</span><span class="o">.</span><span class="na">park</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;resume...&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span> <span class="s">&#34;t1&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;unpark...&#34;</span><span class="o">);</span> <span class="n">LockSupport</span><span class="o">.</span><span class="na">unpark</span><span class="o">(</span><span class="n">t1</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出结果</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">18:43:50.765 c.TestParkUnpark <span class="o">[</span>t1<span class="o">]</span> - start... 
+</span></span><span class="line"><span class="cl">18:43:51.764 c.TestParkUnpark <span class="o">[</span>main<span class="o">]</span> - unpark... 
+</span></span><span class="line"><span class="cl">18:43:52.769 c.TestParkUnpark <span class="o">[</span>t1<span class="o">]</span> - park... 
+</span></span><span class="line"><span class="cl">18:43:52.769 c.TestParkUnpark <span class="o">[</span>t1<span class="o">]</span> - resume...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="特点">特点</h4>
+<div class="details admonition Object 的 wait &amp; notify 相比 open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i><i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>wait，notify 和 notifyAll 必须配合 Object Monitor 一起使用，而 park，unpark不必</li>
+<li>park &amp; unpark 是以线程为单位来【阻塞】和【唤醒】线程，而 notify 只能随机唤醒一个等待线程，notifyAll 是唤醒所有等待线程，就不那么【精确】</li>
+<li>park &amp; unpark 可以先 unpark，而 wait &amp; notify 不能先 notify</li>
+</ul>
+</div>
+        </div>
+    </div>
+<br>
+<h3 id="重新理解线程状态转换">重新理解线程状态转换</h3>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.jpg" title="线程状态转换图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.jpg" data-sub-html="<h2>线程状态转换图</h2><p>线程状态转换图</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%9B%BE.jpg" />
+    </a><figcaption class="image-caption">线程状态转换图</figcaption>
+    </figure></p>
+<p>假设有线程<code>Thread t</code></p>
+<h4 id="情况1-new---runable">情况1 <code>NEW -&gt; RUNABLE</code></h4>
+<p>当调用<code>t.start()</code>方法时，由<code>NEW -&gt; RUNNABLE</code></p>
+<h4 id="情况2-runnable---waiting">情况2 <code>RUNNABLE &lt;-&gt; WAITING</code></h4>
+<p>t 线程调用<code>synchronized(obj)</code>获取了对象锁后</p>
+<ul>
+<li>调用<code>obj.wait()</code>方法时，t 线程从<code>RUNNABLE -&gt; WAITING</code></li>
+<li>调用<code>obj.notify()</code>,<code>obj.notifyAll()</code>,<code>t.interrupt</code>时
+<ul>
+<li>竞争锁成功，t 线程从<code>WAITING -&gt; RUNNABLE</code></li>
+<li>竞争锁失败，t 线程从<code>WAITING -&gt; BLOCKED</code></li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestWaitNotify</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">final</span> <span class="kd">static</span> <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">synchronized</span> <span class="o">(</span><span class="n">obj</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;执行....&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">          <span class="n">obj</span><span class="o">.</span><span class="na">wait</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">          <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;其它代码....&#34;</span><span class="o">);</span> <span class="c1">// 断点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">},</span><span class="s">&#34;t1&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kd">synchronized</span> <span class="o">(</span><span class="n">obj</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;执行....&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">          <span class="n">obj</span><span class="o">.</span><span class="na">wait</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">          <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;其它代码....&#34;</span><span class="o">);</span> <span class="c1">// 断点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">},</span><span class="s">&#34;t2&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">0</span><span class="o">.</span><span class="na">5</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;唤醒 obj 上其它线程&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">obj</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">obj</span><span class="o">.</span><span class="na">notifyAll</span><span class="o">();</span> <span class="c1">// 唤醒obj上所有等待线程 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
