@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  12485 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  15803 ,
         "url": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/","datePublished": "2023-10-07T07:55:51+08:00","dateModified": "2023-10-07T07:55:51+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -111,8 +111,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">并发编程</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 12485 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 25 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 15803 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 32 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -237,8 +237,27 @@
           <ul>
             <li><a href="#情况1-new---runable">情况1 <code>NEW -&gt; RUNABLE</code></a></li>
             <li><a href="#情况2-runnable---waiting">情况2 <code>RUNNABLE &lt;-&gt; WAITING</code></a></li>
+            <li><a href="#情况3runnable----waiting">情况3<code>RUNNABLE</code> &lt;&ndash;&gt; <code>WAITING</code></a></li>
+            <li><a href="#情况4runable----waiting">情况4<code>RUNABLE</code> &lt;&ndash;&gt; <code>WAITING</code></a></li>
+            <li><a href="#情况5runnable----timed_waiting">情况5<code>RUNNABLE</code> &lt;&ndash;&gt; <code>TIMED_WAITING</code></a></li>
+            <li><a href="#情况6runnable----timed_waiting">情况6<code>RUNNABLE</code> &lt;&ndash;&gt; <code>TIMED_WAITING</code></a></li>
+            <li><a href="#情况7runnable----timed_waiting">情况7<code>RUNNABLE</code> &lt;&ndash;&gt; <code>TIMED_WAITING</code></a></li>
+            <li><a href="#情况8runnable----timed_waiting">情况8<code>RUNNABLE</code> &lt;&ndash;&gt; <code>TIMED_WAITING</code></a></li>
+            <li><a href="#情况9runnable----blocked">情况9<code>RUNNABLE</code> &lt;&ndash;&gt; <code>BLOCKED</code></a></li>
+            <li><a href="#情况10runnable----terminated">情况10<code>RUNNABLE</code> &lt;&ndash;&gt; <code>TERMINATED</code></a></li>
           </ul>
         </li>
+        <li><a href="#多把锁">多把锁</a></li>
+        <li><a href="#活跃性">活跃性</a>
+          <ul>
+            <li><a href="#死锁">死锁</a></li>
+            <li><a href="#定位死锁">定位死锁</a></li>
+            <li><a href="#哲学家就餐问题">哲学家就餐问题</a></li>
+            <li><a href="#活锁">活锁</a></li>
+            <li><a href="#饥饿">饥饿</a></li>
+          </ul>
+        </li>
+        <li><a href="#reentrantlock">ReentrantLock</a></li>
       </ul>
     </li>
   </ul>
@@ -3303,14 +3322,15 @@
 <p>假设有线程<code>Thread t</code></p>
 <h4 id="情况1-new---runable">情况1 <code>NEW -&gt; RUNABLE</code></h4>
 <p>当调用<code>t.start()</code>方法时，由<code>NEW -&gt; RUNNABLE</code></p>
+<br>
 <h4 id="情况2-runnable---waiting">情况2 <code>RUNNABLE &lt;-&gt; WAITING</code></h4>
-<p>t 线程调用<code>synchronized(obj)</code>获取了对象锁后</p>
+<p><strong>t 线程</strong>调用<code>synchronized(obj)</code>获取了对象锁后</p>
 <ul>
-<li>调用<code>obj.wait()</code>方法时，t 线程从<code>RUNNABLE -&gt; WAITING</code></li>
+<li>调用<code>obj.wait()</code>方法时，<strong>t 线程</strong>从<code>RUNNABLE -&gt; WAITING</code></li>
 <li>调用<code>obj.notify()</code>,<code>obj.notifyAll()</code>,<code>t.interrupt</code>时
 <ul>
-<li>竞争锁成功，t 线程从<code>WAITING -&gt; RUNNABLE</code></li>
-<li>竞争锁失败，t 线程从<code>WAITING -&gt; BLOCKED</code></li>
+<li>竞争锁成功，<strong>t 线程</strong>从<code>WAITING -&gt; RUNNABLE</code></li>
+<li>竞争锁失败，<strong>t 线程</strong>从<code>WAITING -&gt; BLOCKED</code></li>
 </ul>
 </li>
 </ul>
@@ -3390,7 +3410,740 @@
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><br>
+<h4 id="情况3runnable----waiting">情况3<code>RUNNABLE</code> &lt;&ndash;&gt; <code>WAITING</code></h4>
+<ul>
+<li><strong>当前线程</strong>调用<code>t.join()</code>方法时，<strong>当前线程</strong>从<code>RUNABLE</code> ——&gt; <code>WAITING</code>
+<ul>
+<li>注意<strong>当前线程</strong>在<strong>t 线程对象</strong>的监视器上等待</li>
+</ul>
+</li>
+<li><strong>t 线程</strong>运行结束，或调用了<strong>当前线程</strong>的<code>interrupt()</code>时，<strong>当前线程</strong>从<code>WAITING</code> ——&gt; <code>RUNABLE</code></li>
+</ul>
+<br>
+<h4 id="情况4runable----waiting">情况4<code>RUNABLE</code> &lt;&ndash;&gt; <code>WAITING</code></h4>
+<ul>
+<li>当前线程调用<code>LockSupport.park()</code>方法会让当前线程从<code>RUNNABLE</code> ——&gt; <code>WAITING</code></li>
+<li>调用<code>LockSupport.unpark(目标线程)</code>或调用了线程的<code>interrupt()</code>，会让目标线程从<code>WAITING</code> ——&gt; <code>RUNABLE</code></li>
+</ul>
+<br>
+<h4 id="情况5runnable----timed_waiting">情况5<code>RUNNABLE</code> &lt;&ndash;&gt; <code>TIMED_WAITING</code></h4>
+<p><strong>t线程</strong>用<code>synchronized(obj)</code>获取了对象锁后</p>
+<ul>
+<li>调用<code>obj.wait(long n)</code>方法时，<strong>t线程</strong>从<code>RUNNABLE ——&gt; TIMED_WAITING</code></li>
+<li><strong>t线程</strong>等待时间超过了n毫秒，或调用<code>obj.notify()</code>，<code>obj.notifyAll()</code>，<code>t.interrupt()</code>时
+<ul>
+<li>竞争锁成功，<strong>t线程</strong>从<code>TIMED_WAITING</code> ——&gt; <code>RUNNABLE</code></li>
+<li>竞争锁失败，<strong>t线程</strong>从<code>TIMED_WAITING</code> ——&gt; <code>BLOCKED</code></li>
+</ul>
+</li>
+</ul>
+<p>​	<br></p>
+<h4 id="情况6runnable----timed_waiting">情况6<code>RUNNABLE</code> &lt;&ndash;&gt; <code>TIMED_WAITING</code></h4>
+<ul>
+<li><strong>当线程</strong>调用<code>t.join(long n)</code>方法时，<code>当前先线程</code>从<code>RUNNABLE</code> ——&gt; <code>TIMED_WAITING</code>
+<ul>
+<li>注意是<strong>当前线程</strong>在 <strong>t线程 对象</strong>的监视器上等待</li>
+</ul>
+</li>
+<li><strong>当前线程</strong>等待时间超过了n毫秒，或 <strong>t线程</strong> 运行结束，或调用了<strong>当前线程</strong>的<code>interrupt()</code>时，<strong>当前线程</strong>从<code>TIMED_WAITING</code> ——&gt; <code>RUNNABLE</code></li>
+</ul>
+<br>
+<h4 id="情况7runnable----timed_waiting">情况7<code>RUNNABLE</code> &lt;&ndash;&gt; <code>TIMED_WAITING</code></h4>
+<ul>
+<li>当前线程调用<code>Thread.sleep(long n)</code>，当前线程从<code>RUNNABLE</code> ——&gt; <code>TIMED_WAITING</code></li>
+<li><strong>当前线程</strong>等待时间超过了n毫秒，<strong>当前线程</strong>从<code>TIMED_WAITING</code> ——&gt; <code>RUNNABLE</code></li>
+</ul>
+<br>
+<h4 id="情况8runnable----timed_waiting">情况8<code>RUNNABLE</code> &lt;&ndash;&gt; <code>TIMED_WAITING</code></h4>
+<ul>
+<li>当前线程调用<code>LockSupport.parkNanos(long nanos)</code>或<code>LockSupport.parkUntil(long mills)</code>时，<code>当前线程</code>从<code>RUNNABLE</code> ——&gt; <code>TIMED_WAITING</code></li>
+<li>调用<code>LockSupport.unpark(目标线程)</code>或调用了线程的<code>interrupt()</code>，或是等待超时，会让目标线程从<code>TIMED_WAITING</code> ——&gt; <code>RUNNABLE</code></li>
+</ul>
+<br>
+<h4 id="情况9runnable----blocked">情况9<code>RUNNABLE</code> &lt;&ndash;&gt; <code>BLOCKED</code></h4>
+<ul>
+<li><strong>t线程</strong> 用<code>synchronized(obj)</code>获取了对象锁时如果竞争失败，从<code>RUNNABLE</code> ——&gt; <code>BLOCKED</code></li>
+<li>持obj锁线程的同步代码块执行完毕，会唤醒该对象上所有<code>BLOCKED</code>的线程重新竞争，如果其中 <strong>t线程</strong> 竞争成功，从<code>BLOCKED</code> ——&gt; <code>RUNNABLE</code>，其他失败的线程仍然<code>BLOCKED</code></li>
+</ul>
+<br>
+<h4 id="情况10runnable----terminated">情况10<code>RUNNABLE</code> &lt;&ndash;&gt; <code>TERMINATED</code></h4>
+<p>当前线程所有代码运行完毕，进入<code>TERMINATED</code></p>
+<br>
+<h3 id="多把锁">多把锁</h3>
+<p><strong>多把不相干的锁</strong></p>
+<p>示例：一间大屋子有两个功能：睡觉、学习，互不相干</p>
+<p>现在小南要学习，小女要睡觉，但如果只用一间屋子（一个对象锁）的话，那么并发度很低</p>
+<p>解决方法是准备多个房间（多个对象锁）</p>
+<p><strong>代码演示</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">BigRoom</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sleep</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;sleeping 2 小时&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Sleeper</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">study</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;study 1 小时&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Sleeper</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 执行步骤
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">BigRoom</span> <span class="n">bigRoom</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigRoom</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">bigRoom</span><span class="o">.</span><span class="na">compute</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span><span class="s">&#34;小南&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">bigRoom</span><span class="o">.</span><span class="na">sleep</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span><span class="s">&#34;小女&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>执行结果</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">12:13:54.471 <span class="o">[</span>小南<span class="o">]</span> c.BigRoom - study <span class="m">1</span> 小时 
+</span></span><span class="line"><span class="cl">12:13:55.476 <span class="o">[</span>小女<span class="o">]</span> c.BigRoom - sleeping <span class="m">2</span> 小时
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>观察线程启动时间</strong></p>
+<br>
+<p><strong>改进方案</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">BigRoom</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">studyRoom</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">bedRoom</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sleep</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">bedRoom</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;sleeping 2 小时&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Sleeper</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">study</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">studyRoom</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;study 1 小时&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Sleeper</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>执行结果</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">12:15:35.069 <span class="o">[</span>小南<span class="o">]</span> c.BigRoom - study <span class="m">1</span> 小时 
+</span></span><span class="line"><span class="cl">12:15:35.069 <span class="o">[</span>小女<span class="o">]</span> c.BigRoom - sleeping <span class="m">2</span> 小时
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将锁的粒度细分</p>
+<ul>
+<li>好处：可以增强并发度</li>
+<li>坏处：如果一个线程需要同时获取多把锁，就容易发生死锁</li>
+</ul>
+<br>
+<h3 id="活跃性">活跃性</h3>
+<h4 id="死锁">死锁</h4>
+<p>有这样的情况：一个线程需要同时获取多把锁，这时就容易发生死锁</p>
+<p><code>t1线程</code>获得<code>A对象</code>锁，接下来想获取<code>B对象</code>的锁<code>t2线程</code>获得<code>B对象</code>锁，接下来想获取<code>A对象</code>的锁</p>
+<p><strong>代码演示</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Object</span> <span class="n">A</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="n">Object</span> <span class="n">B</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">synchronized</span> <span class="o">(</span><span class="n">A</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;lock A&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">B</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;lock B&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;操作...&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span> <span class="s">&#34;t1&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">synchronized</span> <span class="o">(</span><span class="n">B</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;lock B&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">0</span><span class="o">.</span><span class="na">5</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">A</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;lock A&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;操作...&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span> <span class="s">&#34;t2&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>运行结果</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">12:22:06.962 <span class="o">[</span>t2<span class="o">]</span> c.TestDeadLock - lock B 12:22:06.962 <span class="o">[</span>t1<span class="o">]</span> c.TestDeadLock - lock A
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="定位死锁">定位死锁</h4>
+<p>检测死锁可以使用 jconsole 工具，或者使用 jps 定位进程 id，再用 jstack 定位死锁</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">cmd &gt; jps 
+</span></span><span class="line"><span class="cl">Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding<span class="o">=</span>UTF-8 
+</span></span><span class="line"><span class="cl"><span class="m">12320</span> Jps 
+</span></span><span class="line"><span class="cl"><span class="m">22816</span> KotlinCompileDaemon 
+</span></span><span class="line"><span class="cl"><span class="m">33200</span> TestDeadLock // JVM 进程 
+</span></span><span class="line"><span class="cl"><span class="m">11508</span> Main 
+</span></span><span class="line"><span class="cl"><span class="m">28468</span> Launcher
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">cmd &gt; jstack <span class="m">33200</span> 
+</span></span><span class="line"><span class="cl">Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding<span class="o">=</span>UTF-8 
+</span></span><span class="line"><span class="cl">2018-12-29 05:51:40 Full thread dump Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM <span class="o">(</span>25.91-b14 mixed mode<span class="o">)</span>:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;DestroyJavaVM&#34;</span> <span class="c1">#13 prio=5 os_prio=0 tid=0x0000000003525000 nid=0x2f60 waiting on condition [0x0000000000000000]</span>
+</span></span><span class="line"><span class="cl">	java.lang.Thread.State: RUNNABLE
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;Thread-1&#34;</span> <span class="c1">#12 prio=5 os_prio=0 tid=0x000000001eb69000 nid=0xd40 waiting for monitor entry [0x000000001f54f000]</span>
+</span></span><span class="line"><span class="cl">	java.lang.Thread.State: BLOCKED <span class="o">(</span>on object monitor<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">		at thread.TestDeadLock.lambda<span class="nv">$main$1</span><span class="o">(</span>TestDeadLock.java:28<span class="o">)</span>
+</span></span><span class="line"><span class="cl">		- waiting to lock &lt;0x000000076b5bf1c0&gt; <span class="o">(</span>a java.lang.Object<span class="o">)</span>
+</span></span><span class="line"><span class="cl">		- locked &lt;0x000000076b5bf1d0&gt; <span class="o">(</span>a java.lang.Object<span class="o">)</span>
+</span></span><span class="line"><span class="cl">		at thread.TestDeadLock<span class="nv">$$</span>Lambda<span class="nv">$2</span>/883049899.run<span class="o">(</span>Unknown Source<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">		at java.lang.Thread.run<span class="o">(</span>Thread.java:745<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;Thread-0&#34;</span> <span class="c1">#11 prio=5 os_prio=0 tid=0x000000001eb68800 nid=0x1b28 waiting for monitor entry [0x000000001f44f000]</span>
+</span></span><span class="line"><span class="cl">	java.lang.Thread.State: BLOCKED <span class="o">(</span>on object monitor<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">		at thread.TestDeadLock.lambda<span class="nv">$main$0</span><span class="o">(</span>TestDeadLock.java:15<span class="o">)</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		- waiting to lock &lt;0x000000076b5bf1d0&gt; <span class="o">(</span>a java.lang.Object<span class="o">)</span>
+</span></span><span class="line"><span class="cl">		- locked &lt;0x000000076b5bf1c0&gt; <span class="o">(</span>a java.lang.Object<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">		at thread.TestDeadLock<span class="nv">$$</span>Lambda<span class="nv">$1</span>/495053715.run<span class="o">(</span>Unknown Source<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">		at java.lang.Thread.run<span class="o">(</span>Thread.java:745<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 略去部分输出
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Found one Java-level deadlock:
+</span></span><span class="line"><span class="cl"><span class="o">=============================</span> 
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;Thread-1&#34;</span>:
+</span></span><span class="line"><span class="cl">	waiting to lock monitor 0x000000000361d378 <span class="o">(</span>object 0x000000076b5bf1c0, a java.lang.Object<span class="o">)</span>,which is held by <span class="s2">&#34;Thread-0&#34;</span> 
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;Thread-0&#34;</span>:
+</span></span><span class="line"><span class="cl">	waiting to lock monitor 0x000000000361e768 <span class="o">(</span>object 0x000000076b5bf1d0, a java.lang.Object<span class="o">)</span>,which is held by <span class="s2">&#34;Thread-1&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Java stack information <span class="k">for</span> the threads listed above:
+</span></span><span class="line"><span class="cl"><span class="o">===================================================</span> 
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;Thread-1&#34;</span>:
+</span></span><span class="line"><span class="cl">	at thread.TestDeadLock.lambda<span class="nv">$main$1</span><span class="o">(</span>TestDeadLock.java:28<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	- waiting to lock &lt;0x000000076b5bf1c0&gt; <span class="o">(</span>a java.lang.Object<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	- locked &lt;0x000000076b5bf1d0&gt; <span class="o">(</span>a java.lang.Object<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	at thread.TestDeadLock<span class="nv">$$</span>Lambda<span class="nv">$2</span>/883049899.run<span class="o">(</span>Unknown Source<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">	at java.lang.Thread.run<span class="o">(</span>Thread.java:745<span class="o">)</span> 
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;Thread-0&#34;</span>:
+</span></span><span class="line"><span class="cl">	at thread.TestDeadLock.lambda<span class="nv">$main$0</span><span class="o">(</span>TestDeadLock.java:15<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	- waiting to lock &lt;0x000000076b5bf1d0&gt; <span class="o">(</span>a java.lang.Object<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	- locked &lt;0x000000076b5bf1c0&gt; <span class="o">(</span>a java.lang.Object<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	at thread.TestDeadLock<span class="nv">$$</span>Lambda<span class="nv">$1</span>/495053715.run<span class="o">(</span>Unknown Source<span class="o">)</span> at java.lang.Thread.run<span class="o">(</span>Thread.java:745<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">Found <span class="m">1</span> deadlock.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ul>
+<li>避免死锁要注意加锁顺序</li>
+<li>另外如果由于某个线程进入死循环，导致其它线程一直等待，对于这种情况 Linux 下可以通过 top 先定位到 CPU 占用高的 Java 进程，再利用<code>top -Hp 进程id</code>来定位是哪个线程，最后再用 jstack 排查</li>
+</ul>
+</blockquote>
+<br>
+<h4 id="哲学家就餐问题">哲学家就餐问题</h4>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%93%b2%e5%ad%a6%e5%ae%b6%e5%b0%b1%e9%a4%90%e9%97%ae%e9%a2%98.jpg" title="哲学家就餐问题" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/哲学家就餐问题.jpg" data-sub-html="<h2>哲学家就餐问题</h2><p>哲学家就餐问题</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%93%b2%e5%ad%a6%e5%ae%b6%e5%b0%b1%e9%a4%90%e9%97%ae%e9%a2%98.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%93%b2%e5%ad%a6%e5%ae%b6%e5%b0%b1%e9%a4%90%e9%97%ae%e9%a2%98.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%93%b2%e5%ad%a6%e5%ae%b6%e5%b0%b1%e9%a4%90%e9%97%ae%e9%a2%98.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%93%b2%e5%ad%a6%e5%ae%b6%e5%b0%b1%e9%a4%90%e9%97%ae%e9%a2%98.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/哲学家就餐问题.jpg" />
+    </a><figcaption class="image-caption">哲学家就餐问题</figcaption>
+    </figure></p>
+<p>有无位哲学家，围坐在圆饭桌旁</p>
+<ul>
+<li>他们只做两件事，思考和吃饭，思考一会儿吃口饭，吃完饭后接着思考</li>
+<li>吃饭时要用两根筷子吃，桌上一共有5根筷子，每位哲学家左右手边各有一根筷子</li>
+<li>如果筷子被身边的人拿着，自己就得等待</li>
+</ul>
+<p><strong>筷子类定义</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Chopstick</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="nf">Chopstick</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;筷子{&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;}&#39;</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>哲学家类定义</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Philosopher</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Chopstick</span> <span class="n">left</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">Chopstick</span> <span class="n">right</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="nf">Philosopher</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Chopstick</span> <span class="n">left</span><span class="o">,</span> <span class="n">Chopstick</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">left</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">right</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">eat</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;eating...&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Sleeper</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 获得左手筷子 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kd">synchronized</span> <span class="o">(</span><span class="n">left</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="c1">// 获得右手筷子 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">synchronized</span> <span class="o">(</span><span class="n">right</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">          <span class="c1">// 吃饭 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="n">eat</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="c1">// 放下右手筷子
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="o">}</span> <span class="c1">// 放下左手筷子
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>就餐模拟</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Chopstick</span> <span class="n">c1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Chopstick</span><span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">);</span> <span class="n">Chopstick</span> <span class="n">c2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Chopstick</span><span class="o">(</span><span class="s">&#34;2&#34;</span><span class="o">);</span> <span class="n">Chopstick</span> <span class="n">c3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Chopstick</span><span class="o">(</span><span class="s">&#34;3&#34;</span><span class="o">);</span> <span class="n">Chopstick</span> <span class="n">c4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Chopstick</span><span class="o">(</span><span class="s">&#34;4&#34;</span><span class="o">);</span> <span class="n">Chopstick</span> <span class="n">c5</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Chopstick</span><span class="o">(</span><span class="s">&#34;5&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Philosopher</span><span class="o">(</span><span class="s">&#34;苏格拉底&#34;</span><span class="o">,</span> <span class="n">c1</span><span class="o">,</span> <span class="n">c2</span><span class="o">).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Philosopher</span><span class="o">(</span><span class="s">&#34;柏拉图&#34;</span><span class="o">,</span> <span class="n">c2</span><span class="o">,</span> <span class="n">c3</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Philosopher</span><span class="o">(</span><span class="s">&#34;亚里士多德&#34;</span><span class="o">,</span> <span class="n">c3</span><span class="o">,</span> <span class="n">c4</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Philosopher</span><span class="o">(</span><span class="s">&#34;赫拉克利特&#34;</span><span class="o">,</span> <span class="n">c4</span><span class="o">,</span> <span class="n">c5</span><span class="o">).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Philosopher</span><span class="o">(</span><span class="s">&#34;阿基米德&#34;</span><span class="o">,</span> <span class="n">c5</span><span class="o">,</span> <span class="n">c1</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>运行结果</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">12:33:15.575 <span class="o">[</span>苏格拉底<span class="o">]</span> c.Philosopher - eating... 
+</span></span><span class="line"><span class="cl">12:33:15.575 <span class="o">[</span>亚里士多德<span class="o">]</span> c.Philosopher - eating... 
+</span></span><span class="line"><span class="cl">12:33:16.580 <span class="o">[</span>阿基米德<span class="o">]</span> c.Philosopher - eating...
+</span></span><span class="line"><span class="cl">12:33:17.580 <span class="o">[</span>阿基米德<span class="o">]</span> c.Philosopher - eating... 
+</span></span><span class="line"><span class="cl">// 卡在这里, 不向下运行（产生死锁）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 jconsole 检测死锁，发现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">名称: 阿基米德 
+</span></span><span class="line"><span class="cl">状态: cn.itcast.Chopstick@1540e19d <span class="o">(</span>筷子1<span class="o">)</span> 上的BLOCKED, 拥有者: 苏格拉底 
+</span></span><span class="line"><span class="cl">总阻止数: 2, 总等待数: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">堆栈跟踪:
+</span></span><span class="line"><span class="cl">cn.itcast.Philosopher.run<span class="o">(</span>TestDinner.java:48<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	- 已锁定 cn.itcast.Chopstick@6d6f6e28 <span class="o">(</span>筷子5<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">名称: 苏格拉底 
+</span></span><span class="line"><span class="cl">状态: cn.itcast.Chopstick@677327b6 <span class="o">(</span>筷子2<span class="o">)</span> 上的BLOCKED, 拥有者: 柏拉图 
+</span></span><span class="line"><span class="cl">总阻止数: 2, 总等待数: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">堆栈跟踪:
+</span></span><span class="line"><span class="cl">cn.itcast.Philosopher.run<span class="o">(</span>TestDinner.java:48<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	- 已锁定 cn.itcast.Chopstick@1540e19d <span class="o">(</span>筷子1<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">名称: 柏拉图 
+</span></span><span class="line"><span class="cl">状态: cn.itcast.Chopstick@14ae5a5 <span class="o">(</span>筷子3<span class="o">)</span> 上的BLOCKED, 拥有者: 亚里士多德 
+</span></span><span class="line"><span class="cl">总阻止数: 2, 总等待数: <span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">堆栈跟踪:
+</span></span><span class="line"><span class="cl">cn.itcast.Philosopher.run<span class="o">(</span>TestDinner.java:48<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	- 已锁定 cn.itcast.Chopstick@677327b6 <span class="o">(</span>筷子2<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">名称: 亚里士多德 
+</span></span><span class="line"><span class="cl">状态: cn.itcast.Chopstick@7f31245a <span class="o">(</span>筷子4<span class="o">)</span> 上的BLOCKED, 拥有者: 赫拉克利特 
+</span></span><span class="line"><span class="cl">总阻止数: 1, 总等待数: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">堆栈跟踪:
+</span></span><span class="line"><span class="cl">cn.itcast.Philosopher.run<span class="o">(</span>TestDinner.java:48<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	- 已锁定 cn.itcast.Chopstick@14ae5a5 <span class="o">(</span>筷子3<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">名称: 赫拉克利特
+</span></span><span class="line"><span class="cl">状态: cn.itcast.Chopstick@6d6f6e28 <span class="o">(</span>筷子5<span class="o">)</span> 上的BLOCKED, 拥有者: 阿基米德 
+</span></span><span class="line"><span class="cl">总阻止数: 2, 总等待数: <span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">堆栈跟踪:
+</span></span><span class="line"><span class="cl">cn.itcast.Philosopher.run<span class="o">(</span>TestDinner.java:48<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">	- 已锁定 cn.itcast.Chopstick@7f31245a <span class="o">(</span>筷子4<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这种线程没有按预期结束，执行不下去的情况，归类为【活跃性】问题，除了死锁以外，还有活锁和饥饿者两种情况</p>
+<br>
+<h4 id="活锁">活锁</h4>
+<p>活锁出现在两个线程互相改变对方的结束条件，最后谁也无法结束</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestLiveLock</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">static</span> <span class="kd">volatile</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">static</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="c1">// 期望减到 0 退出循环 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">while</span> <span class="o">(</span><span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">sleep</span><span class="o">(</span><span class="mi">0</span><span class="o">.</span><span class="na">2</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">count</span><span class="o">--;</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;count: {}&#34;</span><span class="o">,</span> <span class="n">count</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">},</span> <span class="s">&#34;t1&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="c1">// 期望超过 20 退出循环 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">while</span> <span class="o">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">sleep</span><span class="o">(</span><span class="mi">0</span><span class="o">.</span><span class="na">2</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">count</span><span class="o">++;</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;count: {}&#34;</span><span class="o">,</span> <span class="n">count</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">},</span> <span class="s">&#34;t2&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="饥饿">饥饿</h4>
+<p>很多教程将饥饿定义为：一个线程由于优先级太低，始终得不到 CPU 调度执行，也不能够结束，饥饿的情况不易演示，读写锁时会涉及饥饿问题</p>
+<p>死锁演示</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98.jpg" title="死锁问题" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98.jpg" data-sub-html="<h2>死锁问题</h2><p>死锁问题</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98.jpg" />
+    </a><figcaption class="image-caption">死锁问题</figcaption>
+    </figure></p>
+<p><strong>顺序加锁解决方案</strong></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%A1%BA%E5%BA%8F%E5%8A%A0%E9%94%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.jpg" title="顺序加锁解决方案" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%A1%BA%E5%BA%8F%E5%8A%A0%E9%94%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.jpg" data-sub-html="<h2>顺序加锁解决方案</h2><p>顺序加锁解决方案</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%A1%BA%E5%BA%8F%E5%8A%A0%E9%94%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%A1%BA%E5%BA%8F%E5%8A%A0%E9%94%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%A1%BA%E5%BA%8F%E5%8A%A0%E9%94%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%A1%BA%E5%BA%8F%E5%8A%A0%E9%94%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%A1%BA%E5%BA%8F%E5%8A%A0%E9%94%81%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.jpg" />
+    </a><figcaption class="image-caption">顺序加锁解决方案</figcaption>
+    </figure></p>
+<br>
+<h3 id="reentrantlock">ReentrantLock</h3></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
