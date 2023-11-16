@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  15803 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  18105 ,
         "url": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/","datePublished": "2023-10-07T07:55:51+08:00","dateModified": "2023-10-07T07:55:51+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -111,9 +111,16 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">并发编程</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 15803 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 32 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 18105 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 37 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven1116.jpg"
+        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven1116.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven1116.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven1116.jpg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven1116.jpg"
+        title="Java多线程" /></div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
@@ -257,7 +264,15 @@
             <li><a href="#饥饿">饥饿</a></li>
           </ul>
         </li>
-        <li><a href="#reentrantlock">ReentrantLock</a></li>
+        <li><a href="#reentrantlock">ReentrantLock</a>
+          <ul>
+            <li><a href="#可重入">可重入</a></li>
+            <li><a href="#可打断">可打断</a></li>
+            <li><a href="#锁超时">锁超时</a></li>
+            <li><a href="#公平锁">公平锁</a></li>
+            <li><a href="#条件变量">条件变量</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -4143,7 +4158,825 @@
     </a><figcaption class="image-caption">顺序加锁解决方案</figcaption>
     </figure></p>
 <br>
-<h3 id="reentrantlock">ReentrantLock</h3></div><div class="post-footer" id="post-footer">
+<h3 id="reentrantlock">ReentrantLock</h3>
+<p>相对于 synchronized 它具备如下特点</p>
+<ul>
+<li>可中断</li>
+<li>可以设置超时时间</li>
+<li>可以设置为公平锁</li>
+<li>支持多个条件变量</li>
+</ul>
+<p>与 synchronized 一样，都支持可重入</p>
+<p>基本语法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// 获取锁 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">reentrantLock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 临界区 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 释放锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">reentrantLock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="可重入">可重入</h4>
+<p>可重入是指同一个线程如果首次获得了这把锁，那么因为它是这把锁的拥有者，因此有权利再次获取这把锁，如果是不可重入锁，那么第二次获得锁时，自己也会被锁挡住</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="n">ReentrantLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">method1</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;execute method1&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">method2</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">method2</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;execute method2&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">method3</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">method3</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;execute method3&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">17:59:11.862 <span class="o">[</span>main<span class="o">]</span> c.TestReentrant - execute method1 
+</span></span><span class="line"><span class="cl">17:59:11.865 <span class="o">[</span>main<span class="o">]</span> c.TestReentrant - execute method2 
+</span></span><span class="line"><span class="cl">17:59:11.865 <span class="o">[</span>main<span class="o">]</span> c.TestReentrant - execute method3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="可打断">可打断</h4>
+<p><strong>示例</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ReentrantLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;启动...&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="na">lockInterruptibly</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;等锁的过程中被打断&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;获得了锁&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span> <span class="s">&#34;t1&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;获得了锁&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;执行打断&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">18:02:40.520 <span class="o">[</span>main<span class="o">]</span> c.TestInterrupt - 获得了锁 
+</span></span><span class="line"><span class="cl">18:02:40.524 <span class="o">[</span>t1<span class="o">]</span> c.TestInterrupt - 启动... 
+</span></span><span class="line"><span class="cl">18:02:41.530 <span class="o">[</span>main<span class="o">]</span> c.TestInterrupt - 执行打断 java.lang.InterruptedException
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">at java.util.concurrent.locks.AbstractQueuedSynchronizer.doAcquireInterruptibly<span class="o">(</span>AbstractQueuedSynchr onizer.java:898<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireInterruptibly<span class="o">(</span>AbstractQueuedSynchron izer.java:1222<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	at java.util.concurrent.locks.ReentrantLock.lockInterruptibly<span class="o">(</span>ReentrantLock.java:335<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	at cn.itcast.n4.reentrant.TestInterrupt.lambda<span class="nv">$main$0</span><span class="o">(</span>TestInterrupt.java:17<span class="o">)</span>
+</span></span><span class="line"><span class="cl">	at java.lang.Thread.run<span class="o">(</span>Thread.java:748<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">18:02:41.532 <span class="o">[</span>t1<span class="o">]</span> c.TestInterrupt - 等锁的过程中被打断
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意如果是不可中断模式，那么即使使用了interrupt也不会让等待中断</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ReentrantLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;启动...&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;获得了锁&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span> <span class="s">&#34;t1&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;获得了锁&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">t1</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;执行打断&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;释放了锁&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">18:06:56.261 <span class="o">[</span>main<span class="o">]</span> c.TestInterrupt - 获得了锁 
+</span></span><span class="line"><span class="cl">18:06:56.265 <span class="o">[</span>t1<span class="o">]</span> c.TestInterrupt - 启动...
+</span></span><span class="line"><span class="cl">18:06:57.266 <span class="o">[</span>main<span class="o">]</span> c.TestInterrupt - 执行打断 // 这时 t1 并没有被真正打断, 而是仍继续等待锁 
+</span></span><span class="line"><span class="cl">18:06:58.267 <span class="o">[</span>main<span class="o">]</span> c.TestInterrupt - 释放了锁 
+</span></span><span class="line"><span class="cl">18:06:58.267 <span class="o">[</span>t1<span class="o">]</span> c.TestInterrupt - 获得了锁
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="锁超时">锁超时</h4>
+<p>立刻失败</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ReentrantLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span> <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;启动...&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(!</span><span class="n">lock</span><span class="o">.</span><span class="na">tryLock</span><span class="o">())</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;获取立刻失败，返回&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;获得了锁&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span> <span class="s">&#34;t1&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;获得了锁&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">18:15:02.918 <span class="o">[</span>main<span class="o">]</span> c.TestTimeout - 获得了锁 
+</span></span><span class="line"><span class="cl">18:15:02.921 <span class="o">[</span>t1<span class="o">]</span> c.TestTimeout - 启动.. 
+</span></span><span class="line"><span class="cl">18:15:02.921 <span class="o">[</span>t1<span class="o">]</span> c.TestTimeout - 获取立刻失败，返回
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>超时失败</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ReentrantLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span> <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;启动...&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(!</span><span class="n">lock</span><span class="o">.</span><span class="na">tryLock</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">))</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;获取等待 1s 后失败，返回&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;获得了锁&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">},</span> <span class="s">&#34;t1&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;获得了锁&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">18:19:40.537 <span class="o">[</span>main<span class="o">]</span> c.TestTimeout - 获得了锁 
+</span></span><span class="line"><span class="cl">18:19:40.544 <span class="o">[</span>t1<span class="o">]</span> c.TestTimeout - 启动...
+</span></span><span class="line"><span class="cl">18:19:41.547 <span class="o">[</span>t1<span class="o">]</span> c.TestTimeout - 获取等待 1s 后失败，返回
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 tryLock 解决哲学家就餐问题</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Chopstick</span> <span class="kd">extends</span> <span class="n">ReentrantLock</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="nf">Chopstick</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;筷子{&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;}&#39;</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Philosopher</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Chopstick</span> <span class="n">left</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">Chopstick</span> <span class="n">right</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="nf">Philosopher</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Chopstick</span> <span class="n">left</span><span class="o">,</span> <span class="n">Chopstick</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">left</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">right</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="c1">// 尝试获得左手筷子 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="o">(</span><span class="n">left</span><span class="o">.</span><span class="na">tryLock</span><span class="o">())</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">          <span class="c1">// 尝试获得右手筷子 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="k">if</span> <span class="o">(</span><span class="n">right</span><span class="o">.</span><span class="na">tryLock</span><span class="o">())</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">            <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">              <span class="n">eat</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">              <span class="n">right</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">          <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">left</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">eat</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;eating...&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Sleeper</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="公平锁">公平锁</h4>
+<p>ReentrantLock 默认是不公平的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ReentrantLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">500</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34; running...&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">},</span> <span class="s">&#34;t&#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 1s 之后去争抢锁 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34; start...&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34; running...&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span> <span class="s">&#34;强行插入&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>强行插入，有机会在中间输出</p>
+<blockquote>
+<p>注意：该实验不一定总能复现</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">t39 running...
+</span></span><span class="line"><span class="cl">t40 running...
+</span></span><span class="line"><span class="cl">t41 running...
+</span></span><span class="line"><span class="cl">t42 running...
+</span></span><span class="line"><span class="cl">t43 running... 
+</span></span><span class="line"><span class="cl">强行插入 start... 
+</span></span><span class="line"><span class="cl">强行插入 running...
+</span></span><span class="line"><span class="cl">t44 running...
+</span></span><span class="line"><span class="cl">t45 running...
+</span></span><span class="line"><span class="cl">t46 running...
+</span></span><span class="line"><span class="cl">t47 running...
+</span></span><span class="line"><span class="cl">t49 running...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>改为公平锁后</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">ReentrantLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>强行插入，总是在最后输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">t465 running... 
+</span></span><span class="line"><span class="cl">t464 running... 
+</span></span><span class="line"><span class="cl">t477 running... 
+</span></span><span class="line"><span class="cl">t442 running... 
+</span></span><span class="line"><span class="cl">t468 running... 
+</span></span><span class="line"><span class="cl">t493 running... 
+</span></span><span class="line"><span class="cl">t482 running... 
+</span></span><span class="line"><span class="cl">t485 running... 
+</span></span><span class="line"><span class="cl">t481 running... 
+</span></span><span class="line"><span class="cl">强行插入 running...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>公平锁一般没有必要，会降低并发度</p>
+<h4 id="条件变量">条件变量</h4>
+<p>synchronized 中也有条件变量，就是我们讲原理时那个 waitSet 休息室，当条件不满足时进入 waitSet 等待 ReentrantLock 的条件变量比 synchronized 强大之处在于，它是支持多个条件变量的，这就好比</p>
+<ul>
+<li>synchroized 是那些不满足条件的线程都在一间休息室等消息</li>
+<li>而 ReentrantLock 支持多间休息室，有专门等烟的休息室、专门等早餐的休息室、唤醒时也是按休息室来唤醒</li>
+</ul>
+<p>使用要点：</p>
+<ul>
+<li>await 前需要获得锁</li>
+<li>await 执行后，会释放锁，进入conditionObject 等待</li>
+<li>await 的线程被唤醒（或打断、或超时）取重新竞争 lock 锁</li>
+<li>竞争 lock 锁成功后，从 await 后继续执行</li>
+</ul>
+<p><strong>样例代码</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="n">ReentrantLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="n">Condition</span> <span class="n">waitCigaretteQueue</span> <span class="o">=</span> <span class="n">lock</span><span class="o">.</span><span class="na">newCondition</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="n">Condition</span> <span class="n">waitbreakfastQueue</span> <span class="o">=</span> <span class="n">lock</span><span class="o">.</span><span class="na">newCondition</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">hasCigrette</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">hasBreakfast</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">      <span class="k">while</span> <span class="o">(!</span><span class="n">hasCigrette</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">waitCigaretteQueue</span><span class="o">.</span><span class="na">await</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;等到了它的烟&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">      <span class="k">while</span> <span class="o">(!</span><span class="n">hasBreakfast</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">          <span class="n">waitbreakfastQueue</span><span class="o">.</span><span class="na">await</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">          <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;等到了它的早餐&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">sendBreakfast</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">sendCigarette</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">sendCigarette</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;送烟来了&#34;</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">hasCigrette</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">waitCigaretteQueue</span><span class="o">.</span><span class="na">signal</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">sendBreakfast</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;送早餐来了&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">hasBreakfast</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">waitbreakfastQueue</span><span class="o">.</span><span class="na">signal</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">18:52:27.680 <span class="o">[</span>main<span class="o">]</span> c.TestCondition - 送早餐来了 
+</span></span><span class="line"><span class="cl">18:52:27.682 <span class="o">[</span>Thread-1<span class="o">]</span> c.TestCondition - 等到了它的早餐 
+</span></span><span class="line"><span class="cl">18:52:28.683 <span class="o">[</span>main<span class="o">]</span> c.TestCondition - 送烟来了 
+</span></span><span class="line"><span class="cl">18:52:28.683 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestCondition - 等到了它的烟
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -4152,7 +4985,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://weizhihao.top/blog/20231007_concurrent/" data-title="并发编程" data-via="TurboKing1024" data-hashtags="Java,多线程,高并行,高并发,设计模式,study"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://weizhihao.top/blog/20231007_concurrent/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://weizhihao.top/blog/20231007_concurrent/" data-title="并发编程" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://weizhihao.top/blog/20231007_concurrent/" data-title="并发编程"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://weizhihao.top/blog/20231007_concurrent/" data-title="并发编程" data-via="TurboKing1024" data-hashtags="Java,多线程,高并行,高并发,设计模式,study"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://weizhihao.top/blog/20231007_concurrent/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://weizhihao.top/blog/20231007_concurrent/" data-title="并发编程" data-image="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven1116.jpg" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://weizhihao.top/blog/20231007_concurrent/" data-title="并发编程"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
