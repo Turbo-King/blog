@@ -2822,6 +2822,153 @@ private static void sendBreakfast() {
 18:52:28.683 [Thread-0] c.TestCondition - 等到了它的烟
 ```
 
+<br>
+
+### 小结
+
+- 分析多线程访问共享资源时，哪些代码片段属于临界区
+- 使用 synchronized 互斥解决临界区的线程安全
+    - 掌握 synchronized 锁对象语法
+    - 掌握 synchronized 加载成员方法和静态方法语法
+    - 掌握 wait/notify 同步方法
+- 使用 lock 互斥解决临界区的线程安全问题
+    - 掌握 lock 的使用细节：**可打断、锁超时、公平锁、条件变量**
+- 学会分析变量的线程安全、掌握常见线程安全类的使用
+- 了解线程活跃性问题：**死锁、活锁、饥饿**
+
+<br>
+
+- 应用方面
+    - **互斥**：使用 synchronized 或 Lock 达到共享资源互斥效果
+    - **同步**：使用 wait/notify 或 Lock 的条件变量来达到线程间通信效果
+- 原理方面
+    - monitor、synchronized、wait/notify原理
+    - synchronized进阶原理
+    - park & unpark原理
+- 模式方面
+    - 同步模式之保护性暂停
+    - 异步模式之生产者消费者
+    - 同步模式之顺序控制
+
+<br>
+
+## 共享模型内存
+
+### Java内存模式
+
+JMM 即 Java Memory Model，它定义了主存、工作内存抽象概念，底层对应着 CPU 寄存器、缓存、硬件内存、CPU指令优化等。
+
+JMM 体现在以下几个方面
+
+- 原子性：保证指令不会收到线程上下文切换的影响
+- 可见行：保证指令不会收到 CPU 缓存的影响
+- 有序性：保证指令不会受 CPU 指令并行优化的影响
+
+<br>
+
+### 可见行
+
+#### 退不出的循环
+
+先来看一个现象，main 线程对 run 变量的修改对于 t 线程不可见，导致了 t 线程无法停止：
+
+```java
+static boolean run = true;
+
+public static void main(String[] args) throws InterruptedException {
+  Thread t = new Thread(()->{
+    while(run){ 
+      // .... 
+    }
+  }); 
+  t.start();
+  
+  sleep(1); 
+  run = false; // 线程t不会如预想的停下来
+
+}
+```
+
+**原因分析：**
+
+1. 初始状态，t 线程刚开始从主内存读取了 run 的值到工作内存
+
+![步骤一](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%80.jpg "步骤一")
+
+2. 因为 t 线程要频繁从主内存中读取 run 的值，JIT编译器会将 run 的值缓存至自己工作内存中的高速缓存中，减少对主内存中 run 的访问，提高效率
+
+![步骤二](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%BA%8C.jpg "步骤二")
+
+3. 1秒之后，main 线程修改了 run 的值，并同步至主存，而 t 是从自己工作内存中的高速缓存中读取这个变量的值，结果永远是旧值
+
+![步骤三](https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%89.jpg "步骤三")
+
+<br>
+
+#### 解决方法
+
+**volatile（易变关键字）**
+
+它可以用来修饰成员变量和静态成员变量，它可以避免线程从自己的工作缓存中查找变量的值，必须到主存中获取它的值，线程操作 volatile 变量都是直接操作主存
+
+
+
+#### 可见性 VS 原子性
+
+前面例子体现的实际就是可见性，它保证的是在多个线程之间，一个线程对 volatile 变量的修改对另一个线程可见，不能保证原子性，仅用在一个写线程，多个读线程的情况：上例从字节码理解是这样的：
+
+```shell
+getstatic  run  // 线程 t 获取 run true
+getstatic  run  // 线程 t 获取 run true
+getstatic  run  // 线程 t 获取 run true
+getstatic  run  // 线程 t 获取 run true
+putstatic  run  // 线程 main 修改 run 为 false， 仅此一次
+getstatic  run  // 线程 main 修改 run 为 false
+```
+
+比较一下之前我们将线程安全时举的例子：两个线程一个 i++ 一个 i--，只能保证看到最新值，不能解决指令交错
+
+```shell
+// 假设i的初始值为0 
+getstatic  i // 线程2-获取静态变量i的值 线程内i=0
+
+getstatic  i // 线程1-获取静态变量i的值 线程内i=0        
+iconst_1     // 线程1-准备常量1
+iadd         // 线程1-自增 线程内i=1 
+putstatic  i // 线程1-将修改后的值存入静态变量i 静态变量i=1
+
+iconst_1     // 线程2-准备常量1
+isub         // 线程2-自减 线程内i=-1
+putstatic  i // 线程2-将修改后的值存入静态变量i 静态变量i=-1
+
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

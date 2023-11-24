@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  18105 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  19294 ,
         "url": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/","datePublished": "2023-10-07T07:55:51+08:00","dateModified": "2023-10-07T07:55:51+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -111,8 +111,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">并发编程</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 18105 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 37 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 19294 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 39 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -271,6 +271,19 @@
             <li><a href="#锁超时">锁超时</a></li>
             <li><a href="#公平锁">公平锁</a></li>
             <li><a href="#条件变量">条件变量</a></li>
+          </ul>
+        </li>
+        <li><a href="#小结-1">小结</a></li>
+      </ul>
+    </li>
+    <li><a href="#共享模型内存">共享模型内存</a>
+      <ul>
+        <li><a href="#java内存模式">Java内存模式</a></li>
+        <li><a href="#可见行">可见行</a>
+          <ul>
+            <li><a href="#退不出的循环">退不出的循环</a></li>
+            <li><a href="#解决方法">解决方法</a></li>
+            <li><a href="#可见性-vs-原子性">可见性 VS 原子性</a></li>
           </ul>
         </li>
       </ul>
@@ -4974,6 +4987,189 @@
 </span></span><span class="line"><span class="cl">18:52:27.682 <span class="o">[</span>Thread-1<span class="o">]</span> c.TestCondition - 等到了它的早餐 
 </span></span><span class="line"><span class="cl">18:52:28.683 <span class="o">[</span>main<span class="o">]</span> c.TestCondition - 送烟来了 
 </span></span><span class="line"><span class="cl">18:52:28.683 <span class="o">[</span>Thread-0<span class="o">]</span> c.TestCondition - 等到了它的烟
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h3 id="小结-1">小结</h3>
+<ul>
+<li>分析多线程访问共享资源时，哪些代码片段属于临界区</li>
+<li>使用 synchronized 互斥解决临界区的线程安全
+<ul>
+<li>掌握 synchronized 锁对象语法</li>
+<li>掌握 synchronized 加载成员方法和静态方法语法</li>
+<li>掌握 wait/notify 同步方法</li>
+</ul>
+</li>
+<li>使用 lock 互斥解决临界区的线程安全问题
+<ul>
+<li>掌握 lock 的使用细节：<strong>可打断、锁超时、公平锁、条件变量</strong></li>
+</ul>
+</li>
+<li>学会分析变量的线程安全、掌握常见线程安全类的使用</li>
+<li>了解线程活跃性问题：<strong>死锁、活锁、饥饿</strong></li>
+</ul>
+<br>
+<ul>
+<li>应用方面
+<ul>
+<li><strong>互斥</strong>：使用 synchronized 或 Lock 达到共享资源互斥效果</li>
+<li><strong>同步</strong>：使用 wait/notify 或 Lock 的条件变量来达到线程间通信效果</li>
+</ul>
+</li>
+<li>原理方面
+<ul>
+<li>monitor、synchronized、wait/notify原理</li>
+<li>synchronized进阶原理</li>
+<li>park &amp; unpark原理</li>
+</ul>
+</li>
+<li>模式方面
+<ul>
+<li>同步模式之保护性暂停</li>
+<li>异步模式之生产者消费者</li>
+<li>同步模式之顺序控制</li>
+</ul>
+</li>
+</ul>
+<br>
+<h2 id="共享模型内存">共享模型内存</h2>
+<h3 id="java内存模式">Java内存模式</h3>
+<p>JMM 即 Java Memory Model，它定义了主存、工作内存抽象概念，底层对应着 CPU 寄存器、缓存、硬件内存、CPU指令优化等。</p>
+<p>JMM 体现在以下几个方面</p>
+<ul>
+<li>原子性：保证指令不会收到线程上下文切换的影响</li>
+<li>可见行：保证指令不会收到 CPU 缓存的影响</li>
+<li>有序性：保证指令不会受 CPU 指令并行优化的影响</li>
+</ul>
+<br>
+<h3 id="可见行">可见行</h3>
+<h4 id="退不出的循环">退不出的循环</h4>
+<p>先来看一个现象，main 线程对 run 变量的修改对于 t 线程不可见，导致了 t 线程无法停止：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">boolean</span> <span class="n">run</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="o">(</span><span class="n">run</span><span class="o">){</span> 
+</span></span><span class="line"><span class="cl">      <span class="c1">// .... 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">});</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">t</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">run</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span> <span class="c1">// 线程t不会如预想的停下来
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>原因分析：</strong></p>
+<ol>
+<li>初始状态，t 线程刚开始从主内存读取了 run 的值到工作内存</li>
+</ol>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%80.jpg" title="步骤一" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%80.jpg" data-sub-html="<h2>步骤一</h2><p>步骤一</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%80.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%80.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%80.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%80.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%80.jpg" />
+    </a><figcaption class="image-caption">步骤一</figcaption>
+    </figure></p>
+<ol start="2">
+<li>因为 t 线程要频繁从主内存中读取 run 的值，JIT编译器会将 run 的值缓存至自己工作内存中的高速缓存中，减少对主内存中 run 的访问，提高效率</li>
+</ol>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%BA%8C.jpg" title="步骤二" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%BA%8C.jpg" data-sub-html="<h2>步骤二</h2><p>步骤二</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%BA%8C.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%BA%8C.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%BA%8C.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%BA%8C.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%BA%8C.jpg" />
+    </a><figcaption class="image-caption">步骤二</figcaption>
+    </figure></p>
+<ol start="3">
+<li>1秒之后，main 线程修改了 run 的值，并同步至主存，而 t 是从自己工作内存中的高速缓存中读取这个变量的值，结果永远是旧值</li>
+</ol>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%89.jpg" title="步骤三" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%89.jpg" data-sub-html="<h2>步骤三</h2><p>步骤三</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%89.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%89.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%89.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%89.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%AD%A5%E9%AA%A4%E4%B8%89.jpg" />
+    </a><figcaption class="image-caption">步骤三</figcaption>
+    </figure></p>
+<br>
+<h4 id="解决方法">解决方法</h4>
+<p><strong>volatile（易变关键字）</strong></p>
+<p>它可以用来修饰成员变量和静态成员变量，它可以避免线程从自己的工作缓存中查找变量的值，必须到主存中获取它的值，线程操作 volatile 变量都是直接操作主存</p>
+<h4 id="可见性-vs-原子性">可见性 VS 原子性</h4>
+<p>前面例子体现的实际就是可见性，它保证的是在多个线程之间，一个线程对 volatile 变量的修改对另一个线程可见，不能保证原子性，仅用在一个写线程，多个读线程的情况：上例从字节码理解是这样的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">getstatic  run  // 线程 t 获取 run <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">getstatic  run  // 线程 t 获取 run <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">getstatic  run  // 线程 t 获取 run <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">getstatic  run  // 线程 t 获取 run <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">putstatic  run  // 线程 main 修改 run 为 false， 仅此一次
+</span></span><span class="line"><span class="cl">getstatic  run  // 线程 main 修改 run 为 <span class="nb">false</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>比较一下之前我们将线程安全时举的例子：两个线程一个 i++ 一个 i&ndash;，只能保证看到最新值，不能解决指令交错</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">// 假设i的初始值为0 
+</span></span><span class="line"><span class="cl">getstatic  i // 线程2-获取静态变量i的值 <span class="nv">线程内i</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">getstatic  i // 线程1-获取静态变量i的值 <span class="nv">线程内i</span><span class="o">=</span><span class="m">0</span>        
+</span></span><span class="line"><span class="cl">iconst_1     // 线程1-准备常量1
+</span></span><span class="line"><span class="cl">iadd         // 线程1-自增 <span class="nv">线程内i</span><span class="o">=</span><span class="m">1</span> 
+</span></span><span class="line"><span class="cl">putstatic  i // 线程1-将修改后的值存入静态变量i <span class="nv">静态变量i</span><span class="o">=</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">iconst_1     // 线程2-准备常量1
+</span></span><span class="line"><span class="cl">isub         // 线程2-自减 <span class="nv">线程内i</span><span class="o">=</span>-1
+</span></span><span class="line"><span class="cl">putstatic  i // 线程2-将修改后的值存入静态变量i <span class="nv">静态变量i</span><span class="o">=</span>-1
 </span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
