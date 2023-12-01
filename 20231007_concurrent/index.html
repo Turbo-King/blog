@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  19294 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, 多线程, 高并行, 高并发, 设计模式, study","wordcount":  21045 ,
         "url": "https:\/\/weizhihao.top\/blog\/20231007_concurrent\/","datePublished": "2023-10-07T07:55:51+08:00","dateModified": "2023-10-07T07:55:51+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -111,8 +111,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">并发编程</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 19294 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 39 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-10-07">2023-10-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 21045 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 43 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -286,8 +286,16 @@
             <li><a href="#可见性-vs-原子性">可见性 VS 原子性</a></li>
           </ul>
         </li>
+        <li><a href="#有序性">有序性</a>
+          <ul>
+            <li><a href="#指令级并行">指令级并行</a></li>
+            <li><a href="#happens-before">Happens-before</a></li>
+          </ul>
+        </li>
+        <li><a href="#小结-2">小结</a></li>
       </ul>
     </li>
+    <li><a href="#共享模型无锁">共享模型无锁</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="引入">引入</h2>
@@ -5143,7 +5151,7 @@
 </span></span><span class="line"><span class="cl">getstatic  run  // 线程 main 修改 run 为 <span class="nb">false</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>比较一下之前我们将线程安全时举的例子：两个线程一个 i++ 一个 i&ndash;，只能保证看到最新值，不能解决指令交错</p>
+</div><p>比较一下之前我们将线程安全时举的例子：两个线程一个 i++ 一个 i- -，只能保证看到最新值，不能解决指令交错</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -5172,7 +5180,508 @@
 </span></span><span class="line"><span class="cl">putstatic  i // 线程2-将修改后的值存入静态变量i <span class="nv">静态变量i</span><span class="o">=</span>-1
 </span></span></code></pre></td></tr></table>
 </div>
-</div></div><div class="post-footer" id="post-footer">
+</div><blockquote>
+<p>Synchronized 语句块既可以保证代码块的原子性，也同时保证代码块内变量的可见性。但缺点是 Synchronized 是属于重量级操作，性能相对更低</p>
+<p>如果在前面示例的死循环中加入 System.out.println() 会发现即使不加 volatile 修饰符，线程t也能正确看到对 run 变量的修改了，请思考一下为什么？</p>
+</blockquote>
+<br>
+<h3 id="有序性">有序性</h3>
+<p>JVM会在不影响正确性的前提下，可以调整语句的执行顺序，思考一下下面一段代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">i</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">j</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 在某个线程内执行如下赋值操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">i</span> <span class="o">=</span> <span class="o">...;</span>
+</span></span><span class="line"><span class="cl"><span class="n">j</span> <span class="o">=</span> <span class="o">...;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到，至于是先执行 i 还是先执行 j，对最终结果不会产生影响。所以，上面代码真正执行时，既可以是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">i</span> <span class="o">=</span> <span class="o">...;</span>
+</span></span><span class="line"><span class="cl"><span class="n">j</span> <span class="o">=</span> <span class="o">...;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>也可以是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">j</span> <span class="o">=</span> <span class="o">...;</span>
+</span></span><span class="line"><span class="cl"><span class="n">i</span> <span class="o">=</span> <span class="o">...;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这种特性称之为【指令重排】，多线程下【指令重排】会影响正确性，为什么要有重排指令这项优化呢？</p>
+<p>**提示：**从CPU执行指令的原理角度思考</p>
+<h4 id="指令级并行">指令级并行</h4>
+<p><strong>诡异的结果</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">boolean</span> <span class="n">ready</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 线程1 执行此方法 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">actor1</span><span class="o">(</span><span class="n">I_Result</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span><span class="o">(</span><span class="n">ready</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="na">r1</span> <span class="o">=</span> <span class="n">num</span> <span class="o">+</span> <span class="n">num</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="na">r1</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 线程2 执行此方法 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">actor2</span><span class="o">(</span><span class="n">I_Result</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">num</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ready</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>I_Result 是一个对象，有一个属性 r1 用来保存结果，问，可能结果有几种？</p>
+<p>有些同学可能会这么分析：</p>
+<p>**情况1：**线程1先执行，这时 ready=false，所以进入 else 分支结果为1</p>
+<p>**情况2：**线程2先执行 num=2，但没来得及执行 ready=true，线程1执行，还是进入else分支，结果为1</p>
+<p>**情况3：**线程2执行到 ready=true，线程1执行，这回进入 if 分支，结果为4（因为 num 已经执行过了）</p>
+<p><strong>特殊情况：我会告诉你结果可能为0</strong></p>
+<p>这种情况是：线程3执行 ready=true，切换线程1，进入 if 分支，相加为0，再切回线程2执行 num=2。相信很多同学已经晕了</p>
+<br>
+<p>这种现象叫做指令重排，是JIT编译器在运行时进行的一些优化，这个现象需要通过大量测试才能复现：</p>
+<p>借助Java并发压测工具 <a href="https://wiki.openjdk.java.net/display/CodeTools/jcstress" target="_blank" rel="noopener noreffer ">jcstress</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mvn archetype:generate 
+</span></span><span class="line"><span class="cl">-DinteractiveMode<span class="o">=</span><span class="nb">false</span> 
+</span></span><span class="line"><span class="cl">-DarchetypeGroupId<span class="o">=</span>org.openjdk.jcstress 
+</span></span><span class="line"><span class="cl">-DarchetypeArtifactId<span class="o">=</span>jcstress-java-test-archetype 
+</span></span><span class="line"><span class="cl">-DarchetypeVersion<span class="o">=</span>0.5 
+</span></span><span class="line"><span class="cl">-DgroupId<span class="o">=</span>cn.itcast 
+</span></span><span class="line"><span class="cl">-DartifactId<span class="o">=</span>ordering 
+</span></span><span class="line"><span class="cl">-Dversion<span class="o">=</span>1.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建 maven 项目，提供以下测试类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@JCStressTest</span> 
+</span></span><span class="line"><span class="cl"><span class="nd">@Outcome</span><span class="o">(</span><span class="n">id</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;1&#34;</span><span class="o">,</span> <span class="s">&#34;4&#34;</span><span class="o">},</span> <span class="n">expect</span> <span class="o">=</span> <span class="n">Expect</span><span class="o">.</span><span class="na">ACCEPTABLE</span><span class="o">,</span> <span class="n">desc</span> <span class="o">=</span> <span class="s">&#34;ok&#34;</span><span class="o">)</span> 
+</span></span><span class="line"><span class="cl"><span class="nd">@Outcome</span><span class="o">(</span><span class="n">id</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span><span class="o">,</span> <span class="n">expect</span> <span class="o">=</span> <span class="n">Expect</span><span class="o">.</span><span class="na">ACCEPTABLE_INTERESTING</span><span class="o">,</span> <span class="n">desc</span> <span class="o">=</span> <span class="s">&#34;!!!!&#34;</span><span class="o">)</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@State</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcurrencyTest</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">boolean</span> <span class="n">ready</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nd">@Actor</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actor1</span><span class="o">(</span><span class="n">I_Result</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="o">(</span><span class="n">ready</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">r</span><span class="o">.</span><span class="na">r1</span> <span class="o">=</span> <span class="n">num</span> <span class="o">+</span> <span class="n">num</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">r</span><span class="o">.</span><span class="na">r1</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nd">@Actor</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actor2</span><span class="o">(</span><span class="n">I_Result</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ready</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>执行方式</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mvn clean install java 
+</span></span><span class="line"><span class="cl">-jar target/jcstress.jar
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>会输出我们感兴趣的结果，摘录其中一次结果：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/jcstress%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" title="jcstress执行结果" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/jcstress%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" data-sub-html="<h2>jcstress执行结果</h2><p>jcstress执行结果</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/jcstress%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/jcstress%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/jcstress%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/jcstress%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/jcstress%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" />
+    </a><figcaption class="image-caption">jcstress执行结果</figcaption>
+    </figure></p>
+<p>可以看到，出现结果为0的情况有638次，虽然次数相对较少，但毕竟是出现了</p>
+<br>
+<p><strong>解决方法</strong></p>
+<p>volatile 修饰的变量，可以禁用指令重排</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@JCStressTest</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Outcome</span><span class="o">(</span><span class="n">id</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;1&#34;</span><span class="o">,</span> <span class="s">&#34;4&#34;</span><span class="o">},</span> <span class="n">expect</span> <span class="o">=</span> <span class="n">Expect</span><span class="o">.</span><span class="na">ACCEPTABLE</span><span class="o">,</span> <span class="n">desc</span> <span class="o">=</span> <span class="s">&#34;ok&#34;</span><span class="o">)</span> 
+</span></span><span class="line"><span class="cl"><span class="nd">@Outcome</span><span class="o">(</span><span class="n">id</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span><span class="o">,</span> <span class="n">expect</span> <span class="o">=</span> <span class="n">Expect</span><span class="o">.</span><span class="na">ACCEPTABLE_INTERESTING</span><span class="o">,</span> <span class="n">desc</span> <span class="o">=</span> <span class="s">&#34;!!!!&#34;</span><span class="o">)</span> 
+</span></span><span class="line"><span class="cl"><span class="nd">@State</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcurrencyTest</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">ready</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="nd">@Actor</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actor1</span><span class="o">(</span><span class="n">I_Result</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="o">(</span><span class="n">ready</span><span class="o">)</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">r</span><span class="o">.</span><span class="na">r1</span> <span class="o">=</span> <span class="n">num</span> <span class="o">+</span> <span class="n">num</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">r</span><span class="o">.</span><span class="na">r1</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nd">@Actor</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">actor2</span><span class="o">(</span><span class="n">I_Result</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ready</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>输出结果</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">*** INTERESTING tests 
+</span></span><span class="line"><span class="cl">  Some interesting behaviors observed. This is <span class="k">for</span> the plain curiosity.
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="m">0</span> matching <span class="nb">test</span> results.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="happens-before">Happens-before</h4>
+<p>Happens-befor 规定了对共享变量的写操作对其它线程的读操作可见，它是可见性与有序性的一套规则总结，抛开一下happens-before规则，JMM并不能保证一个线程对共享变量的写，对于其他线程对该共享变量的读可见</p>
+<ul>
+<li>
+<p>线程解锁m之前对变量的写，对于接下来对m加锁的其他线程对该变量的读可见</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="n">Object</span> <span class="n">m</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">synchronized</span><span class="o">(</span><span class="n">m</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span><span class="s">&#34;t1&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> 
+</span></span><span class="line"><span class="cl">  <span class="kd">synchronized</span><span class="o">(</span><span class="n">m</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span><span class="s">&#34;t2&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>线程对 volatile 变量的写，对接下来其它线程对该变量的读可见</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">volatile</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">},</span><span class="s">&#34;t1&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span> <span class="o">},</span><span class="s">&#34;t2&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>线程 start 前对变量的写，对该线程开始写对该变量的读可见</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span> <span class="o">},</span><span class="s">&#34;t2&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>线程结束前对变量的写，对其他线程得知它结束后的读可见（比如其它线程调用 t1.isAlive() 或 t1.join() 等待它结束）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span><span class="s">&#34;t1&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">t1</span><span class="o">.</span><span class="na">join</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>线程 t1 打断 t2（interrupt）前对变量的写，对于其他线程得知 t2 被打断后对变量的读可见（通过t2.interrupted 或 t2.isInterruped）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">isInterrupted</span><span class="o">())</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span> 
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">},</span><span class="s">&#34;t2&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">t2</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">},</span><span class="s">&#34;t1&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">while</span><span class="o">(!</span><span class="n">t2</span><span class="o">.</span><span class="na">isInterrupted</span><span class="o">())</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span> 
+</span></span><span class="line"><span class="cl">  <span class="o">}</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>对变量默认值（0，false，null）的写，对其它线程对该变量的读可见</p>
+<ul>
+<li>
+<p>具有传递性，如果<code>x hb -&gt; y</code>并且<code>x hb -&gt; z</code>，配合 volatile 的防指令重排，有下面的例子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">volatile</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">x</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl"><span class="o">},</span><span class="s">&#34;t1&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span> <span class="n">Thread</span><span class="o">(()-&gt;{</span> 
+</span></span><span class="line"><span class="cl">  <span class="c1">// x=20 对 t2 可见, 同时 y=10 也对 t2 可见 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">x</span><span class="o">);</span> <span class="o">},</span><span class="s">&#34;t2&#34;</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<blockquote>
+<p>变量都是指成员变量或静态成员变量</p>
+</blockquote>
+</li>
+</ul>
+<br>
+<h3 id="小结-2">小结</h3>
+<p>重点讲解了JMM中的</p>
+<ul>
+<li>可见性 - 由 JVM 缓存优化引起</li>
+<li>有序性 - 由 JVM 指令重排序优化引起</li>
+<li>happen-before 规则</li>
+<li><strong>原理方面</strong>
+<ul>
+<li>CPU 指令并行</li>
+<li>volatile</li>
+</ul>
+</li>
+<li>模式方面
+<ul>
+<li>两阶段终止模式的 volatile 改进</li>
+<li>同步模式 - balking</li>
+</ul>
+</li>
+</ul>
+<br>
+<h2 id="共享模型无锁">共享模型无锁</h2></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
