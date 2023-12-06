@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20221205_designpatterns\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  53952 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Java, coding, principle","wordcount":  53322 ,
         "url": "https:\/\/weizhihao.top\/blog\/20221205_designpatterns\/","datePublished": "2022-12-05T08:53:36+08:00","dateModified": "2022-12-05T08:53:36+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -110,8 +110,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">设计模式</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 53952 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 108 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-05">2022-12-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 53322 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 107 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -623,16 +623,9 @@
 <h3 id="单一职责原则">单一职责原则</h3>
 <h4 id="介绍">介绍</h4>
 <p>对类来说，一个类应该只负责一项职责。如类A负责两个不同的职责：职责1，职责2。当职责1需求变更而改变A时，可能造成职责2执行错误，所以需要将类A的粒度分解为A1，A2。类图如下所示</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg" title="单一职责原则" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/单一职责.png.jpeg" data-sub-html="<h2>单一职责原则</h2><p>单一职责原则</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/单一职责.png.jpeg" />
-    </a><figcaption class="image-caption">单一职责原则</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%8d%95%e4%b8%80%e8%81%8c%e8%b4%a3.png.jpeg" alt="单一职责原则"  title="单一职责原则" />
+</p></p>
 <h4 id="单一职责原则注意事项和细节">单一职责原则注意事项和细节</h4>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -651,16 +644,9 @@
 <h3 id="接口隔离原则">接口隔离原则</h3>
 <h4 id="介绍-1">介绍</h4>
 <p>客户端不应该依赖他不需要的接口，即对类对另一个类的依赖应该建立在最小的接口上。</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.40.01.png" title="接口隔离原则-未拆分" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.40.01.png" data-sub-html="<h2>接口隔离原则-未拆分</h2><p>接口隔离原则-未拆分</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.40.01.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.40.01.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.40.01.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.40.01.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.40.01.png" />
-    </a><figcaption class="image-caption">接口隔离原则-未拆分</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.40.01.png" alt="接口隔离原则-未拆分"  title="接口隔离原则-未拆分" />
+</p></p>
 <p>类A通过接口Interface1依赖类B，类C通过Interface1依赖类D，如果接口Interface1对于类A和类C来说不是最小接口，那么类B和类D必须去实现他们不需要的方法。</p>
 <p><strong>隔离原则应当如下处理：</strong></p>
 <p>将接口Interface1拆分成为几个独立的接口（这里我们拆分成为3个接口），类A和类C分别与他们需要的接口建立依赖关系。也就是采用接口隔离原则。</p>
@@ -679,16 +665,9 @@
         </div>
     </div>
 <p>拆分实现如下：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.56.50.png" title="接口隔离原则-拆分" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.56.50.png" data-sub-html="<h2>接口隔离原则-拆分</h2><p>接口隔离原则-拆分</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.56.50.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.56.50.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.56.50.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.56.50.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.56.50.png" />
-    </a><figcaption class="image-caption">接口隔离原则-拆分</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2022-12-05%2014.56.50.png" alt="接口隔离原则-拆分"  title="接口隔离原则-拆分" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -913,16 +892,9 @@
 </li>
 <li>
 <p>使用接口或抽象类的目的是制定好规范，而不涉及任何具体的操作，把展现细节的任务交给他们的实现类去完成</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg" title="依赖倒转" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg" data-sub-html="<h2>依赖倒转</h2><p>依赖倒转</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg" />
-    </a><figcaption class="image-caption">依赖倒转</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/24a4bef88c92f6af9dbf584f9c382456_r-20230227093317943.jpg" alt="依赖倒转"  title="依赖倒转" />
+</p></p>
 </li>
 </ol>
 <div class="details admonition abstract open">
@@ -1124,16 +1096,9 @@
 <p>里氏替换原则告诉我们，继承实际上让两个类耦合性增强了，在适当的情况下，可以通过<strong>耦合、组合、依赖</strong>来解决问题</p>
 </li>
 </ol>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/111901060-b86c2f00-8a70-11eb-99fb-f28d28c62cb4.png" title="里式替换原则" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/111901060-b86c2f00-8a70-11eb-99fb-f28d28c62cb4.png" data-sub-html="<h2>里氏替换</h2><p>里式替换原则</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/111901060-b86c2f00-8a70-11eb-99fb-f28d28c62cb4.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/111901060-b86c2f00-8a70-11eb-99fb-f28d28c62cb4.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/111901060-b86c2f00-8a70-11eb-99fb-f28d28c62cb4.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/111901060-b86c2f00-8a70-11eb-99fb-f28d28c62cb4.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/111901060-b86c2f00-8a70-11eb-99fb-f28d28c62cb4.png" />
-    </a><figcaption class="image-caption">里氏替换</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/111901060-b86c2f00-8a70-11eb-99fb-f28d28c62cb4.png" alt="里式替换原则"  title="里氏替换" />
+</p></p>
 <p><strong>里氏替换原则通用做法：原来的父类和子类都继承一个更通俗的基类，原有的继承关系去掉，采用依赖、聚合、组合等关系替代。</strong></p>
 <h3 id="开闭原则">开闭原则</h3>
 <h4 id="介绍-4">介绍</h4>
@@ -1143,16 +1108,9 @@
 <li>当软件需要变化时，尽量通过扩展软件实体的行为来实现变化，而不是通过修改已有的代码来实现变化</li>
 <li>编程中遵循其他原则，以及使用设计模式的目的就是遵循开闭原则</li>
 </ol>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-02%2021.09.58.png" title="代码演示" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-02%2021.09.58.png" data-sub-html="<h2>类图演示</h2><p>代码演示</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-02%2021.09.58.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-02%2021.09.58.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-02%2021.09.58.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-02%2021.09.58.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-02%2021.09.58.png" />
-    </a><figcaption class="image-caption">类图演示</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-02%2021.09.58.png" alt="代码演示"  title="类图演示" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1909,16 +1867,9 @@
 <h3 id="合成复用原则">合成复用原则</h3>
 <h4 id="介绍-6">介绍</h4>
 <p>原则是尽量使用合成/聚合的方式，而不是使用继承</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png" title="合成复用原则" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png" data-sub-html="<h2>合成复用原则</h2><p>合成复用原则</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png" />
-    </a><figcaption class="image-caption">合成复用原则</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2021.05.08.png" alt="合成复用原则"  title="合成复用原则" />
+</p></p>
 <div class="details admonition abstract open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-list-ul fa-fw" aria-hidden="true"></i>设计原则核心思想<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -1939,16 +1890,9 @@
 <li>UML&ndash;Unified modeling language UML（统一建模语言），是一种用于软件系统分析和设计的语言工具，它用于帮助软件开发人员进行思考和记录思路的结果</li>
 <li>UML本身是一套符号的规定，就像数学符号和化学符号一样，这些符号用于描述软件模型中的各个元素和他们之间的关系，比如类、接口、实现、泛化、依赖、组合、聚合等</li>
 </ol>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png" title="类关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png" data-sub-html="<h2>类关系</h2><p>类关系</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png" />
-    </a><figcaption class="image-caption">类关系</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-05%2023.01.54.png" alt="类关系"  title="类关系" />
+</p></p>
 <br>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -1971,85 +1915,43 @@
     </div>
 <h3 id="依赖关系dependence">依赖关系（Dependence）</h3>
 <p>只要在类中使用到了对方，那么他们之间就存在依赖关系。如果没有对方，连编译都通过不了。</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png" title="依赖关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png" data-sub-html="<h2>依赖关系</h2><p>依赖关系</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png" />
-    </a><figcaption class="image-caption">依赖关系</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2010.59.17.png" alt="依赖关系"  title="依赖关系" />
+</p></p>
 <h3 id="泛化关系generalization">泛化关系（Generalization）</h3>
 <p>如果一个模型元素（子代）基于另一个模型元素（父代），那么这两个元素之间就存在泛化关系（<strong>继承关系</strong>）</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png" title="泛化关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png" data-sub-html="<h2>泛化关系</h2><p>泛化关系</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png" />
-    </a><figcaption class="image-caption">泛化关系</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.04.28.png" alt="泛化关系"  title="泛化关系" />
+</p></p>
 <h3 id="实现关系implementation">实现关系（Implementation）</h3>
 <p>实现关系实际上是A类实现B接口，它是<strong>依赖关系的特例</strong></p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png" title="实现关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png" data-sub-html="<h2>实现关系</h2><p>实现关系</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png" />
-    </a><figcaption class="image-caption">实现关系</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2011.10.37.png" alt="实现关系"  title="实现关系" />
+</p></p>
 <h3 id="关联关系association">关联关系（Association）</h3>
 <p>关联关系实际上是类与类之间的联系，它是<strong>依赖关系的特例</strong></p>
 <p>关联具有<strong>导航性</strong>：即双向关系或单向关系</p>
 <p>关系具有<strong>多重性</strong>：如“1”（表示有且仅有一个），“0&hellip;”（表示0个或者多个），“0，1”（表示0个或者一个），“n&hellip;m”（表示n到m个都可以），“m&hellip;*”（表示至少m个）</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png" title="关联关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png" data-sub-html="<h2>关联关系</h2><p>关联关系</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png" />
-    </a><figcaption class="image-caption">关联关系</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.59.32.png" alt="关联关系"  title="关联关系" />
+</p></p>
 <br>
 <h3 id="聚合关系aggregation">聚合关系（Aggregation）</h3>
 <p>是整体与部分的关系, 且部分可以离开整体而单独存在。</p>
 <p>聚合关系是关联关系的一种，是强的关联关系</p>
 <p>关联和聚合在语法上无法区分，必须考察具体的逻辑关系</p>
 <p><strong>如下所示</strong>：车和轮胎是整体和部分的关系，轮胎离开车仍然可以存在</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png" title="聚合关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png" data-sub-html="<h2>聚合关系</h2><p>聚合关系</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png" />
-    </a><figcaption class="image-caption">聚合关系</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2022.52.13.png" alt="聚合关系"  title="聚合关系" />
+</p></p>
 <br>
 <h3 id="组合关系composition">组合关系（Composition）</h3>
 <p>组合关系：也是整体与部分的关系，但是<strong>整体与部分不可以分开</strong></p>
 <p>组合关系是关联关系中的一种，也是比聚合关系还要强的关系，它要求普通的聚合关系中代表整体的对象负责代表部分对象的生命周期</p>
 <p><strong>如下所示</strong>：公司和部分是整体和部门的关系，没有公司就不存在部门</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png" title="组合关系" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png" data-sub-html="<h2>组合关系</h2><p>组合关系</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png" />
-    </a><figcaption class="image-caption">组合关系</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-03-06%2023.01.18.png" alt="组合关系"  title="组合关系" />
+</p></p>
 <br>
 <br>
 <br>
@@ -2743,16 +2645,9 @@
 <ol>
 <li>思路分析（类图）</li>
 </ol>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png" title="披萨项目类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png" data-sub-html="<h2>披萨项目类图</h2><p>披萨项目类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png" />
-    </a><figcaption class="image-caption">披萨项目类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-07%2010.26.25.png" alt="披萨项目类图"  title="披萨项目类图" />
+</p></p>
 <p>简单工厂模式的设计方案：定义一个可以实例化的Pizaa对象的类，封装创建对象的代码。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3570,16 +3465,9 @@
 <p>现在有一只羊tom，姓名为：tom，年龄为：1，颜色为：白色，请编写程序创建和tom羊属性完全相同的10只羊。</p>
 <h5 id="传统方式解决">传统方式解决</h5>
 <p>思路分析：类图图解</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png" title="克隆羊类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png" data-sub-html="<h2>克隆羊类图</h2><p>克隆羊类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png" />
-    </a><figcaption class="image-caption">克隆羊类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2009.59.55.png" alt="克隆羊类图"  title="克隆羊类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -3733,16 +3621,9 @@
 <li>形象的理解：孙大圣拔出猴毛，变出其他孙大圣。</li>
 </ol>
 <h5 id="原型模式原理结构图-uml类图">原型模式原理结构图-UML类图</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png" title="原型模式类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png" data-sub-html="<h2>原型模式类图</h2><p>原型模式类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png" />
-    </a><figcaption class="image-caption">原型模式类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-14%2010.21.11.png" alt="原型模式类图"  title="原型模式类图" />
+</p></p>
 <div class="details admonition question open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>原理结构图说明<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -4449,16 +4330,9 @@
 <li>房子有各种各样的，比如普通房，高楼，别墅，各种房子的过程虽然一样，但是要求不要相同的。</li>
 </ol>
 <h5 id="传统方式解决-1">传统方式解决</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png" title="传统方式分析类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png" data-sub-html="<h2>传统方式分析类图</h2><p>传统方式分析类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png" />
-    </a><figcaption class="image-caption">传统方式分析类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.13.32.png" alt="传统方式分析类图"  title="传统方式分析类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -4597,27 +4471,13 @@
         </div>
     </div>
 <h4 id="建造者模式原理类图">建造者模式原理类图</h4>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png" title="建造者模式类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png" data-sub-html="<h2>建造者模式类图</h2><p>建造者模式类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png" />
-    </a><figcaption class="image-caption">建造者模式类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.40.20.png" alt="建造者模式类图"  title="建造者模式类图" />
+</p></p>
 <h4 id="建造者模式解决盖房问题">建造者模式解决盖房问题</h4>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png" title="盖房问题类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png" data-sub-html="<h2>盖房问题类图</h2><p>盖房问题类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png" />
-    </a><figcaption class="image-caption">盖房问题类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-04-21%2010.42.44.png" alt="盖房问题类图"  title="盖房问题类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -5097,16 +4957,9 @@
 <p>Adapter类，通过继承src类，实现dst类接口，完成 src -&gt; dst 的适配</p>
 <h5 id="应用实例-4">应用实例</h5>
 <p>生活中充电器的例子来反应适配器模式，充电器本身相当于Adapter，220V交流电相当于src（即被适配者），我们的dst（即目标)是5V直流电</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png" title="类适配器实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png" data-sub-html="<h2>类适配器实例</h2><p>类适配器实例</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png" />
-    </a><figcaption class="image-caption">类适配器实例</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2010.21.27.png" alt="类适配器实例"  title="类适配器实例" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -5440,16 +5293,9 @@
 <li>适用于一个接口不想使用其所有的方法的情况</li>
 </ol>
 <h5 id="应用实例-6">应用实例</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png" title="接口适配器实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png" data-sub-html="<h2>接口适配器实例</h2><p>接口适配器实例</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png" />
-    </a><figcaption class="image-caption">接口适配器实例</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2008.31.49.png" alt="接口适配器实例"  title="接口适配器实例" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -5826,28 +5672,14 @@
 <h4 id="传统方法-2">传统方法</h4>
 <h5 id="手机操作问题">手机操作问题</h5>
 <p>现在对于不同手机类型的不同品牌实现操作编程（比如：开机、关机、上网、打电话等），如下图所示：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png" title="手机类型分类" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png" data-sub-html="<h2>Phone</h2><p>手机类型分类</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png" />
-    </a><figcaption class="image-caption">Phone</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/phone.png" alt="手机类型分类"  title="Phone" />
+</p></p>
 <h5 id="传统方案解决手机使用问题">传统方案解决手机使用问题</h5>
 <p>传统方法对应的类图</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png" title="Phone类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>手机使用问题类图</h2><p>Phone类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">手机使用问题类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Phone%E7%B1%BB%E5%9B%BE.png" alt="Phone类图"  title="手机使用问题类图" />
+</p></p>
 <h5 id="传统方案解决手机操作类型">传统方案解决手机操作类型</h5>
 <ol>
 <li>扩展性问题（类爆炸），如果我们再增加手机的样式（旋转式）,就需要增加各个品牌手机的类，同样如果我们增加一个手机品牌，也要在各个手机样式类下增加</li>
@@ -5862,16 +5694,9 @@
 <li>Bridge模式基于<strong>类的最小设计原则</strong>，通过使用<strong>封装</strong>、<strong>聚合</strong>及<strong>继承</strong>等行为让不同的类承担不同的职责。它的主要特点是把<strong>抽象（Abstraction）与行为实现（Implementation）分离开来</strong>，从而可以保持各部分的独立性以及应对他们的功能扩展</li>
 </ol>
 <h5 id="桥接模式原理类图">桥接模式原理类图</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png" title="桥接模式类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png" data-sub-html="<h2>桥接模式类图</h2><p>桥接模式类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png" />
-    </a><figcaption class="image-caption">桥接模式类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-05%2011.19.25.png" alt="桥接模式类图"  title="桥接模式类图" />
+</p></p>
 <p><strong>类图说明</strong></p>
 <ol>
 <li>Client类：桥接模式模式的调用者</li>
@@ -5883,16 +5708,9 @@
 </ol>
 <h5 id="桥接模式解决手机操作问题">桥接模式解决手机操作问题</h5>
 <p>使用桥接模式改进传统方式，让程序具有搞好的扩展性，利用程序维护</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png" title="桥接模式解决手机操作问题类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>桥接模式解决手机操作问题类图</h2><p>桥接模式解决手机操作问题类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">桥接模式解决手机操作问题类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png" alt="桥接模式解决手机操作问题类图"  title="桥接模式解决手机操作问题类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -6243,16 +6061,9 @@
 </div>
 </div><h4 id="桥接模式在jdbc的源码剖析">桥接模式在JDBC的源码剖析</h4>
 <p>JDBC的Driver接口，如果从<strong>桥接模式</strong>来看，<strong>Driver</strong>就是一个接口，下面可以有MySQL的Driver，Oracle的Driver，这些就可以当作实现接口类</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2010.46.43.png" title="JDBC源码分析类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2010.46.43.png" data-sub-html="<h2>JDBC源码分析类图</h2><p>JDBC源码分析类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2010.46.43.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2010.46.43.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2010.46.43.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2010.46.43.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2010.46.43.png" />
-    </a><figcaption class="image-caption">JDBC源码分析类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2010.46.43.png" alt="JDBC源码分析类图"  title="JDBC源码分析类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -6389,16 +6200,9 @@
 <li>使用OO的来计算不同种类咖啡的<strong>费用</strong>：客户可以点<strong>单品咖啡</strong>、也可以点<strong>单品咖啡+调料组合</strong></li>
 </ol>
 <h5 id="解决方案一">解决方案一</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2011.34.39-20230509113642796.png" title="咖啡订单解决方案一" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2011.34.39-20230509113642796.png" data-sub-html="<h2>咖啡订单解决方案一</h2><p>咖啡订单解决方案一</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2011.34.39-20230509113642796.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2011.34.39-20230509113642796.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2011.34.39-20230509113642796.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2011.34.39-20230509113642796.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2011.34.39-20230509113642796.png" />
-    </a><figcaption class="image-caption">咖啡订单解决方案一</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-09%2011.34.39-20230509113642796.png" alt="咖啡订单解决方案一"  title="咖啡订单解决方案一" />
+</p></p>
 <p><strong>方案一问题分析</strong></p>
 <ol>
 <li>Drink是一个抽象类，表示饮料</li>
@@ -6410,16 +6214,9 @@
 <p><strong>问题：这样设计会有很多类，当我们增加一个单品咖啡或者一个新的调料，类的数量就会倍增，就会出现类爆炸</strong></p>
 <h5 id="解决方案二">解决方案二</h5>
 <p>前面分析到方案一因为咖啡单品+调料组合会造成类的倍增，因此可以做改进，将调料内置到Drink类，这样就不会造成类数量过多。从而提高项目的维护性（如下图）</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png" title="咖啡馆解决方案二" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png" data-sub-html="<h2>咖啡馆解决方案二</h2><p>咖啡馆解决方案二</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png" />
-    </a><figcaption class="image-caption">咖啡馆解决方案二</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%92%96%E5%95%A1%E9%A6%86%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%BA%8C.png" alt="咖啡馆解决方案二"  title="咖啡馆解决方案二" />
+</p></p>
 <p>**说明：**milk，soy，chocolate 可以设计为Boolean，表示是否要添加相应的调料</p>
 <p><strong>方案二分析</strong></p>
 <ol>
@@ -6435,16 +6232,9 @@
 <li>这里提到的动态的将新功能附加到对象和OCP原则，在后面的应用实例上会以代码的形式体现，请读者注意。</li>
 </ol>
 <h5 id="装饰者模式原理">装饰者模式原理</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png" title="原理图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png" data-sub-html="<h2>原理图</h2><p>原理图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png" />
-    </a><figcaption class="image-caption">原理图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2008.55.43.png" alt="原理图"  title="原理图" />
+</p></p>
 <ol>
 <li>装饰者模式就像打包一个快递</li>
 </ol>
@@ -6457,16 +6247,9 @@
 </ol>
 <p>如图中Component与ConcreteComponent之间，如果ConcreteComponent类很多，还可以设计一个缓冲层，将共有的部分提取出来，抽象层一个类</p>
 <h5 id="装饰者模式解决咖啡订单">装饰者模式解决咖啡订单</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png" title="装饰者模式解决咖啡订单" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png" data-sub-html="<h2>装饰者模式解决咖啡订单</h2><p>装饰者模式解决咖啡订单</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png" />
-    </a><figcaption class="image-caption">装饰者模式解决咖啡订单</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.00.52.png" alt="装饰者模式解决咖啡订单"  title="装饰者模式解决咖啡订单" />
+</p></p>
 <p><strong>说明：</strong></p>
 <ol>
 <li>Drink 类就是前面说的抽象类，Component</li>
@@ -6475,16 +6258,9 @@
 <li>Decorator的cost方法进行一个费用的叠加计算，递归的计算价格</li>
 </ol>
 <p>装饰者模式下的订单：2份巧克力+1份牛奶的LongBlack</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png" title="装饰者模式下的订单" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png" data-sub-html="<h2>装饰者模式下的订单</h2><p>装饰者模式下的订单</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png" />
-    </a><figcaption class="image-caption">装饰者模式下的订单</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.04.56.png" alt="装饰者模式下的订单"  title="装饰者模式下的订单" />
+</p></p>
 <p><strong>说明：</strong></p>
 <ol>
 <li>Milk包含了LongBlack</li>
@@ -6901,16 +6677,9 @@
 </div>
 </div><h4 id="装饰者模式在jdk应用的源码分析">装饰者模式在JDK应用的源码分析</h4>
 <p><strong>Java的IO结构，FileInputStream就是一个装饰者</strong></p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png" title="FileInputStream" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png" data-sub-html="<h2>FileInputStream</h2><p>FileInputStream</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png" />
-    </a><figcaption class="image-caption">FileInputStream</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2009.32.02.png" alt="FileInputStream"  title="FileInputStream" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -6967,27 +6736,13 @@
 <h4 id="传统方法-4">传统方法</h4>
 <h5 id="学校院系展示需求">学校院系展示需求</h5>
 <p>编写程序展示一个学校院系结构：需求是这样的，要在一个页面中展示出学校的院系组成，一个学校有多个学院，一个学院有多个系。如下图所示。</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.22.41.png" title="学院展示需求" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.22.41.png" data-sub-html="<h2>学院展示需求</h2><p>学院展示需求</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.22.41.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.22.41.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.22.41.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.22.41.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.22.41.png" />
-    </a><figcaption class="image-caption">学院展示需求</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.22.41.png" alt="学院展示需求"  title="学院展示需求" />
+</p></p>
 <h5 id="传统方案解决学校院系展示类图">传统方案解决学校院系展示（类图）</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png" title="传统解决方案类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>传统解决方案类图</h2><p>传统解决方案类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">传统解决方案类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png" alt="传统解决方案类图"  title="传统解决方案类图" />
+</p></p>
 <h5 id="传统方案解决学校院系展示存在的问题分析">传统方案解决学校院系展示存在的问题分析</h5>
 <ol>
 <li>将学院看作是学校的子类，系是学院的子类，这样实际上是站在组织大小来进行分层次的</li>
@@ -7003,16 +6758,9 @@
 <li>组合模式使得用户对单个对象和组合对象的访问具有一致性，即：组合能让客户以一致的方式处理个别对象以及组合对象</li>
 </ol>
 <h5 id="组合模式的原理类图">组合模式的原理类图</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.44.00.png" title="组合模式原理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.44.00.png" data-sub-html="<h2>组合模式原理类图</h2><p>组合模式原理类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.44.00.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.44.00.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.44.00.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.44.00.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.44.00.png" />
-    </a><figcaption class="image-caption">组合模式原理类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.44.00.png" alt="组合模式原理类图"  title="组合模式原理类图" />
+</p></p>
 <div class="details admonition question open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>组合模式的角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -7028,16 +6776,9 @@
     </div>
 <h5 id="组合模式解决学校院系展示的应用实例">组合模式解决学校院系展示的应用实例</h5>
 <p>需求：编写程序展示一个学校院系结构，要在一个页面中展示出学校的院系组成，一个学校有多个学院，一个学院有多个系</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.59.50.png" title="组合模式解决学校院系展示" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.59.50.png" data-sub-html="<h2>组合模式解决学校院系展示</h2><p>组合模式解决学校院系展示</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.59.50.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.59.50.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.59.50.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.59.50.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.59.50.png" />
-    </a><figcaption class="image-caption">组合模式解决学校院系展示</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%88%AA%E5%B1%8F2023-05-12%2010.59.50.png" alt="组合模式解决学校院系展示"  title="组合模式解决学校院系展示" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -7508,16 +7249,9 @@
 </div>
 </div><h4 id="组合模式在jdk集合的源码分析">组合模式在JDK集合的源码分析</h4>
 <p>Java的集合类-HashMap就使用了组合模式</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/HashMap%e4%bd%bf%e7%94%a8%e7%bb%84%e5%90%88%e6%a8%a1%e5%bc%8f.png" title="HashMap使用组合模式" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/HashMap使用组合模式.png" data-sub-html="<h2>HashMap使用组合模式</h2><p>HashMap使用组合模式</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/HashMap%e4%bd%bf%e7%94%a8%e7%bb%84%e5%90%88%e6%a8%a1%e5%bc%8f.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/HashMap%e4%bd%bf%e7%94%a8%e7%bb%84%e5%90%88%e6%a8%a1%e5%bc%8f.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/HashMap%e4%bd%bf%e7%94%a8%e7%bb%84%e5%90%88%e6%a8%a1%e5%bc%8f.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/HashMap%e4%bd%bf%e7%94%a8%e7%bb%84%e5%90%88%e6%a8%a1%e5%bc%8f.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/HashMap使用组合模式.png" />
-    </a><figcaption class="image-caption">HashMap使用组合模式</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/HashMap%e4%bd%bf%e7%94%a8%e7%bb%84%e5%90%88%e6%a8%a1%e5%bc%8f.png" alt="HashMap使用组合模式"  title="HashMap使用组合模式" />
+</p></p>
 <h4 id="组合模式的注意事项和细节">组合模式的注意事项和细节</h4>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -7553,16 +7287,9 @@
 <li>观影结束，关闭各种设备</li>
 </ul>
 <h5 id="传统方式解决影院管理">传统方式解决影院管理</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e4%bc%a0%e7%bb%9f%e6%96%b9%e5%bc%8f%e8%a7%a3%e5%86%b3%e5%bd%b1%e9%99%a2%e7%ae%a1%e7%90%86.png" title="传统方式解决影院管理" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/传统方式解决影院管理.png" data-sub-html="<h2>传统方式解决影院管理</h2><p>传统方式解决影院管理</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e4%bc%a0%e7%bb%9f%e6%96%b9%e5%bc%8f%e8%a7%a3%e5%86%b3%e5%bd%b1%e9%99%a2%e7%ae%a1%e7%90%86.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e4%bc%a0%e7%bb%9f%e6%96%b9%e5%bc%8f%e8%a7%a3%e5%86%b3%e5%bd%b1%e9%99%a2%e7%ae%a1%e7%90%86.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e4%bc%a0%e7%bb%9f%e6%96%b9%e5%bc%8f%e8%a7%a3%e5%86%b3%e5%bd%b1%e9%99%a2%e7%ae%a1%e7%90%86.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e4%bc%a0%e7%bb%9f%e6%96%b9%e5%bc%8f%e8%a7%a3%e5%86%b3%e5%bd%b1%e9%99%a2%e7%ae%a1%e7%90%86.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/传统方式解决影院管理.png" />
-    </a><figcaption class="image-caption">传统方式解决影院管理</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e4%bc%a0%e7%bb%9f%e6%96%b9%e5%bc%8f%e8%a7%a3%e5%86%b3%e5%bd%b1%e9%99%a2%e7%ae%a1%e7%90%86.png" alt="传统方式解决影院管理"  title="传统方式解决影院管理" />
+</p></p>
 <h5 id="传统方式解决影院管理问题分析">传统方式解决影院管理问题分析</h5>
 <ol>
 <li>在ClientTest的main方法中，创建各个子系统的对象，并直接去调用子系统（对象）相关方法，会造成调用过程混乱，没有清晰的过程</li>
@@ -7577,16 +7304,9 @@
 <li>外观模式通过定义个一致的接口，用以屏蔽内部子系统的细节，使得调用端只需跟这个接口发生调用，而无需关心这个子系统的内部细节</li>
 </ol>
 <h5 id="外观模式原理类图">外观模式原理类图</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%a4%96%e8%a7%82%e6%a8%a1%e5%bc%8f%e5%8e%9f%e7%90%86%e7%b1%bb%e5%9b%be.png" title="外观模式原理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/外观模式原理类图.png" data-sub-html="<h2>外观模式原理类图</h2><p>外观模式原理类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%a4%96%e8%a7%82%e6%a8%a1%e5%bc%8f%e5%8e%9f%e7%90%86%e7%b1%bb%e5%9b%be.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%a4%96%e8%a7%82%e6%a8%a1%e5%bc%8f%e5%8e%9f%e7%90%86%e7%b1%bb%e5%9b%be.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%a4%96%e8%a7%82%e6%a8%a1%e5%bc%8f%e5%8e%9f%e7%90%86%e7%b1%bb%e5%9b%be.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%a4%96%e8%a7%82%e6%a8%a1%e5%bc%8f%e5%8e%9f%e7%90%86%e7%b1%bb%e5%9b%be.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/外观模式原理类图.png" />
-    </a><figcaption class="image-caption">外观模式原理类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%e5%a4%96%e8%a7%82%e6%a8%a1%e5%bc%8f%e5%8e%9f%e7%90%86%e7%b1%bb%e5%9b%be.png" alt="外观模式原理类图"  title="外观模式原理类图" />
+</p></p>
 <div class="details admonition question open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>外观模式的角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -7606,27 +7326,13 @@
 <li>外观模式就是解决多个复杂接口带来的使用困难，起到简化用户操作的作用</li>
 <li>示意图说明如下：</li>
 </ol>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png" title="外观模式解决影院管理示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png" data-sub-html="<h2>外观模式解决影院管理示意图</h2><p>外观模式解决影院管理示意图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">外观模式解决影院管理示意图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="外观模式解决影院管理示意图"  title="外观模式解决影院管理示意图" />
+</p></p>
 <h5 id="外观模式解决影院管理应用实例">外观模式解决影院管理应用实例</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" title="外观模式解决影院管理应用实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" data-sub-html="<h2>外观模式解决影院管理应用实例</h2><p>外观模式解决影院管理应用实例</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" />
-    </a><figcaption class="image-caption">外观模式解决影院管理应用实例</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%BD%B1%E9%99%A2%E7%AE%A1%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" alt="外观模式解决影院管理应用实例"  title="外观模式解决影院管理应用实例" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -8061,16 +7767,9 @@
 </div>
 </div><h4 id="外观模式在mybatis框架应用的源码分析">外观模式在MyBatis框架应用的源码分析</h4>
 <p>Mybatis中的Configuration去创建MetaObject对象使用到外观模式</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png" title="mybatis中使用外观模式角色类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>mybatis中使用外观模式角色类图</h2><p>mybatis中使用外观模式角色类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">mybatis中使用外观模式角色类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/mybatis%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E8%A7%92%E8%89%B2%E7%B1%BB%E5%9B%BE.png" alt="mybatis中使用外观模式角色类图"  title="mybatis中使用外观模式角色类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -8176,16 +7875,9 @@
 <li>给每个网站租用一个空间</li>
 <li>方案设计示意图如下：</li>
 </ol>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png" title="展示网站方案设计示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png" data-sub-html="<h2>展示网站方案设计示意图</h2><p>展示网站方案设计示意图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">展示网站方案设计示意图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%B1%95%E7%A4%BA%E7%BD%91%E7%AB%99%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="展示网站方案设计示意图"  title="展示网站方案设计示意图" />
+</p></p>
 <h5 id="传统方案解决网站展现项目问题分析">传统方案解决网站展现项目问题分析</h5>
 <ol>
 <li>需要的网站结构<strong>相似度很高</strong>，而且都<strong>不是高访问量网站</strong>，如果分成多个虚拟空间来处理，相当于一个相同的网站的实例对象有很多，造成服务器的资源浪费</li>
@@ -8201,27 +7893,13 @@
 <li>享元模式能够解决重复对象的内存浪费问题，当系统中有大量相似对象，需要缓存池时。不需总是创建新对象，可以从缓存池里拿。这样可以降低系统内存，同时提高效率</li>
 <li>享元模式经典的应用常见就是池技术了，String常量池、数据库连接池、缓冲池等等都是享元模式的应用，享元吗模式是池技术的重要实现方式</li>
 </ol>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png" title="String常量池" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png" data-sub-html="<h2>String常量池</h2><p>String常量池</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png" />
-    </a><figcaption class="image-caption">String常量池</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/String%E5%B8%B8%E9%87%8F%E6%B1%A0.png" alt="String常量池"  title="String常量池" />
+</p></p>
 <h5 id="享元模式的原理类图">享元模式的原理类图</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" title="享元模式原理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>享元模式原理类图</h2><p>享元模式原理类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">享元模式原理类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" alt="享元模式原理类图"  title="享元模式原理类图" />
+</p></p>
 <div class="details admonition question open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>享元模式的角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -8245,16 +7923,9 @@
 <li>举个例子：围棋理论上有361个空位可以放棋子，每个棋盘都有可能有两三百个棋子对象产生，因为内存空间有限，一台服务器很难支持更多的玩家玩围棋游戏，如果用享元模式来处理棋子，那么棋子对象就可以减少到只有两个实例，这样就很好的解决了对象的开销问题</li>
 </ol>
 <h5 id="享元模式解决网站展现项目应用实例">享元模式解决网站展现项目应用实例</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png" title="享元模式解决网站展现类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>享元模式解决网站展现类图</h2><p>享元模式解决网站展现类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">享元模式解决网站展现类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E7%BD%91%E7%AB%99%E5%B1%95%E7%8E%B0%E7%B1%BB%E5%9B%BE.png" alt="享元模式解决网站展现类图"  title="享元模式解决网站展现类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -8605,16 +8276,9 @@
 <li>代理模式有不同的形式，主要有三种：静态代理、动态代理（JDK代理、接口代理）和Cglib代理（可以在内存动态的创建对象，而不需要实现接口，它是属于动态代理的范畴）</li>
 <li>代理模式示意图如下：</li>
 </ol>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png" title="代理模式示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png" data-sub-html="<h2>代理模式示意图</h2><p>代理模式示意图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">代理模式示意图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="代理模式示意图"  title="代理模式示意图" />
+</p></p>
 <br>
 <h4 id="静态代理">静态代理</h4>
 <h5 id="基本介绍-6">基本介绍</h5>
@@ -8628,16 +8292,9 @@
 <li>调用的时候通过调用代理对象的方法来调用目标对象</li>
 <li><strong>特别提醒</strong>：代理对象与目标对象要实现相同的接口，然后通过调用相同的方法来调用目标对象的方法</li>
 </ul>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png" title="静态代理分类图解（类图）" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png" data-sub-html="<h2>静态代理分类图解（类图）</h2><p>静态代理分类图解（类图）</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png" />
-    </a><figcaption class="image-caption">静态代理分类图解（类图）</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86%E5%88%86%E7%B1%BB%E5%9B%BE%E8%A7%A3%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png" alt="静态代理分类图解（类图）"  title="静态代理分类图解（类图）" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -8797,16 +8454,9 @@
 </div>
 </div><h5 id="应用实例-8">应用实例</h5>
 <p>将前面的静态代理该进成动态代理模式（即：JDK代理模式）</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" title="动态代理应用实例类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>动态代理应用实例类图</h2><p>动态代理应用实例类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">动态代理应用实例类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" alt="动态代理应用实例类图"  title="动态代理应用实例类图" />
+</p></p>
 <br>
 <h4 id="cglib代理模式">Cglib代理模式</h4>
 <h5 id="基本介绍-8">基本介绍</h5>
@@ -8839,16 +8489,9 @@
 </ol>
 <h5 id="cglib代理模式应用实例">Cglib代理模式应用实例</h5>
 <p>将前面案例用Cglib代理模式实现</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" title="Cglib代理模式应用实例类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>Cglib代理模式应用实例类图</h2><p>Cglib代理模式应用实例类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">Cglib代理模式应用实例类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Cglib%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" alt="Cglib代理模式应用实例类图"  title="Cglib代理模式应用实例类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -9034,16 +8677,9 @@
 <li>这种类型的设计模式属于-&gt;行为型模式</li>
 </ol>
 <h4 id="模版方法模式原理类图">模版方法模式原理类图</h4>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" title="模版方法模式原理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>模版方法模式原理类图</h2><p>模版方法模式原理类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">模版方法模式原理类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" alt="模版方法模式原理类图"  title="模版方法模式原理类图" />
+</p></p>
 <div class="details admonition question open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>模版方法模式的角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -9057,16 +8693,9 @@
         </div>
     </div>
 <h4 id="模版方法模式解决豆浆制作问题">模版方法模式解决豆浆制作问题</h4>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E8%B1%86%E6%B5%86%E5%88%B6%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png" title="模版方法模式解决豆浆制作问题类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E8%B1%86%E6%B5%86%E5%88%B6%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>模版方法模式解决豆浆制作问题类图</h2><p>模版方法模式解决豆浆制作问题类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E8%B1%86%E6%B5%86%E5%88%B6%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E8%B1%86%E6%B5%86%E5%88%B6%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E8%B1%86%E6%B5%86%E5%88%B6%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E8%B1%86%E6%B5%86%E5%88%B6%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E8%B1%86%E6%B5%86%E5%88%B6%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">模版方法模式解决豆浆制作问题类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E8%B1%86%E6%B5%86%E5%88%B6%E4%BD%9C%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9B%BE.png" alt="模版方法模式解决豆浆制作问题类图"  title="模版方法模式解决豆浆制作问题类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -9458,16 +9087,9 @@
 </div>
 </div><h4 id="模版方法模式在spring框架应用的源码分析">模版方法模式在Spring框架应用的源码分析</h4>
 <p><strong>Spring IOC容器初始化时运用到的模版方法模式</strong></p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/Spring%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE.png" title="Spring源码使用模版方法模式类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/Spring%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>Spring源码使用模版方法模式类图</h2><p>Spring源码使用模版方法模式类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Spring%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/Spring%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/Spring%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/Spring%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/Spring%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">Spring源码使用模版方法模式类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Spring%E6%BA%90%E7%A0%81%E4%BD%BF%E7%94%A8%E6%A8%A1%E7%89%88%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%B1%BB%E5%9B%BE.png" alt="Spring源码使用模版方法模式类图"  title="Spring源码使用模版方法模式类图" />
+</p></p>
 <h4 id="模版方法模式注意事项和细节">模版方法模式注意事项和细节</h4>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -9504,16 +9126,9 @@
 <li>通俗易懂的理解：将军发布命令，士兵去执行。其中有几个角色：将军（命令发布者）、士兵（命令的具体执行者）、命令（连接将军和士兵）。Invoker是调用者（将军），Receiver是被调用者（士兵），MyCommand是命令，实现了Command接口，持有接收对象</li>
 </ol>
 <h4 id="命令模式的原理类图">命令模式的原理类图</h4>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" title="命令模式的原理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>命令模式的原理类图</h2><p>命令模式的原理类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">命令模式的原理类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" alt="命令模式的原理类图"  title="命令模式的原理类图" />
+</p></p>
 <div class="details admonition question open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>命令模式的角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -9529,16 +9144,9 @@
         </div>
     </div>
 <h4 id="命令模式解决智能生活项目">命令模式解决智能生活项目</h4>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E7%94%9F%E6%B4%BB%E9%A1%B9%E7%9B%AE%E7%B1%BB%E5%9B%BE.png" title="命令模式解决智能生活项目类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E7%94%9F%E6%B4%BB%E9%A1%B9%E7%9B%AE%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>命令模式解决智能生活项目类图</h2><p>命令模式解决智能生活项目类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E7%94%9F%E6%B4%BB%E9%A1%B9%E7%9B%AE%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E7%94%9F%E6%B4%BB%E9%A1%B9%E7%9B%AE%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E7%94%9F%E6%B4%BB%E9%A1%B9%E7%9B%AE%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E7%94%9F%E6%B4%BB%E9%A1%B9%E7%9B%AE%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E7%94%9F%E6%B4%BB%E9%A1%B9%E7%9B%AE%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">命令模式解决智能生活项目类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E7%94%9F%E6%B4%BB%E9%A1%B9%E7%9B%AE%E7%B1%BB%E5%9B%BE.png" alt="命令模式解决智能生活项目类图"  title="命令模式解决智能生活项目类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -10290,16 +9898,9 @@
 <li>命令调用者是JdbcTemplate，其中execute（StatementCallback<code>&lt;T&gt;</code>action）方法中，调用action.doInStatement方法。不同的实现StatementCallback接口的对象，对应不同的doInStatement实现逻辑</li>
 <li>另外实现StatementCallback命令接口的子类还有QueryStatementCallback</li>
 </ul>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/StatementCallback%20%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AD%90%E7%B1%BB.png" title="StatementCallback 命令接口的子类" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/StatementCallback%20%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AD%90%E7%B1%BB.png" data-sub-html="<h2>StatementCallback 命令接口的子类</h2><p>StatementCallback 命令接口的子类</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/StatementCallback%20%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AD%90%E7%B1%BB.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/StatementCallback%20%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AD%90%E7%B1%BB.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/StatementCallback%20%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AD%90%E7%B1%BB.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/StatementCallback%20%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AD%90%E7%B1%BB.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/StatementCallback%20%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AD%90%E7%B1%BB.png" />
-    </a><figcaption class="image-caption">StatementCallback 命令接口的子类</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/StatementCallback%20%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AD%90%E7%B1%BB.png" alt="StatementCallback 命令接口的子类"  title="StatementCallback 命令接口的子类" />
+</p></p>
 </div>
         </div>
     </div>
@@ -10327,16 +9928,9 @@
 <p>将观众分为男人和女人，对歌手进行评测，当看完某个歌手表演后，得到他们对该歌手不同的评价（评价有不同的种类，比如成功、失败等）</p>
 <h4 id="传统方法-7">传统方法</h4>
 <h5 id="传统方式的问题分析-1">传统方式的问题分析</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AF%84%E6%B5%8B%E7%B3%BB%E7%BB%9F%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E8%A7%A3%E5%86%B3.png" title="评测系统传统方式解决" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AF%84%E6%B5%8B%E7%B3%BB%E7%BB%9F%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E8%A7%A3%E5%86%B3.png" data-sub-html="<h2>评测系统传统方式解决</h2><p>评测系统传统方式解决</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AF%84%E6%B5%8B%E7%B3%BB%E7%BB%9F%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E8%A7%A3%E5%86%B3.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AF%84%E6%B5%8B%E7%B3%BB%E7%BB%9F%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E8%A7%A3%E5%86%B3.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AF%84%E6%B5%8B%E7%B3%BB%E7%BB%9F%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E8%A7%A3%E5%86%B3.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AF%84%E6%B5%8B%E7%B3%BB%E7%BB%9F%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E8%A7%A3%E5%86%B3.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AF%84%E6%B5%8B%E7%B3%BB%E7%BB%9F%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E8%A7%A3%E5%86%B3.png" />
-    </a><figcaption class="image-caption">评测系统传统方式解决</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AF%84%E6%B5%8B%E7%B3%BB%E7%BB%9F%E4%BC%A0%E7%BB%9F%E6%96%B9%E5%BC%8F%E8%A7%A3%E5%86%B3.png" alt="评测系统传统方式解决"  title="评测系统传统方式解决" />
+</p></p>
 <ol>
 <li>如果系统比较小，还是OK的，但是考虑系统增加越来越多新的功能时，对代码改动比较大，违反了OCP原则，不利于维护</li>
 <li>扩展性不好，比如增加了新的人员类型，或者管理方法，都不好做</li>
@@ -10351,16 +9945,9 @@
 <li><strong>访问者模式应用场景是</strong>：需要对一个对象结构中的对象进行很多不同操作（这些操作彼此没有关联），同时需要避免让这些操作“污染”这些对象的类，可以选用访问者模式解决</li>
 </ol>
 <h5 id="访问者模式的原理类图">访问者模式的原理类图</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" title="访问者模式的原理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>访问者模式的原理类图</h2><p>访问者模式的原理类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">访问者模式的原理类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" alt="访问者模式的原理类图"  title="访问者模式的原理类图" />
+</p></p>
 <div class="details admonition question open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>访问者模式的角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -10377,16 +9964,9 @@
         </div>
     </div>
 <h5 id="访问者模式应用实例">访问者模式应用实例</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-.png" title="访问者模式应用实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-.png" data-sub-html="<h2>访问者模式应用实例</h2><p>访问者模式应用实例</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-.png" />
-    </a><figcaption class="image-caption">访问者模式应用实例</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B-.png" alt="访问者模式应用实例"  title="访问者模式应用实例" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -10785,27 +10365,13 @@
 <h3 id="迭代器模式">迭代器模式</h3>
 <h4 id="学校院系展示系统">学校院系展示系统</h4>
 <p>编写程序展示一个学校院系结构：要求在一个页面中展示出学校的院系组成，一个学校有多个学院，一个学院有多个系。功能展示如下所示。</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90.png" title="学校院系构成" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90.png" data-sub-html="<h2>学校院系构成</h2><p>学校院系构成</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90.png" />
-    </a><figcaption class="image-caption">学校院系构成</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90.png" alt="学校院系构成"  title="学校院系构成" />
+</p></p>
 <h4 id="传统的设计方案">传统的设计方案</h4>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.png" title="学校院系构成传统设计方案" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.png" data-sub-html="<h2>学校院系构成传统设计方案</h2><p>学校院系构成传统设计方案</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.png" />
-    </a><figcaption class="image-caption">学校院系构成传统设计方案</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%AD%A6%E6%A0%A1%E9%99%A2%E7%B3%BB%E6%9E%84%E6%88%90%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88.png" alt="学校院系构成传统设计方案"  title="学校院系构成传统设计方案" />
+</p></p>
 <h5 id="传统方式的问题分析-2">传统方式的问题分析</h5>
 <ol>
 <li>将学院看做是学校的子类，系是学院的子类，这样实际上是站在<strong>组织大小</strong>来进行分层次的</li>
@@ -10821,14 +10387,9 @@
 <li><strong>迭代器模式</strong>，提供一种遍历集合元素的<strong>统一接口</strong>，用一致的方式遍历集合元素，不需要知道集合对象的底层表示，即：<strong>不暴露其内部的结构</strong></li>
 </ol>
 <h5 id="迭代器模式原理类图">迭代器模式原理类图</h5>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png"
-        title="迭代器模式原理类图" /></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" alt="迭代器模式原理类图"  />
+</p></p>
 <div class="details admonition question open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>迭代器模式的角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -10845,16 +10406,9 @@
         </div>
     </div>
 <h5 id="迭代器模式应用实例">迭代器模式应用实例</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" title="迭代器模式应用实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" data-sub-html="<h2>迭代器模式应用实例</h2><p>迭代器模式应用实例</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" />
-    </a><figcaption class="image-caption">迭代器模式应用实例</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B.png" alt="迭代器模式应用实例"  title="迭代器模式应用实例" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -11758,32 +11312,18 @@
 </ol>
 <h4 id="传统方案">传统方案</h4>
 <p>通过对气象站项目的分析，我们可以初步设计出一个WeatherData类</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png" title="weather" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png" data-sub-html="<h2>weather</h2><p>weather</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png" />
-    </a><figcaption class="image-caption">weather</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/weather.png" alt="weather"  title="weather" />
+</p></p>
 <p><strong>说明：</strong></p>
 <ol>
 <li>通过getXxx方法，可以让第三方接入，并得到相关信息</li>
 <li>当数据有更新时，气象站通过调用 dataChange() 去个更新数据，当第三方再次获取时，就能得到最新数据，当然也可以推送</li>
 </ol>
 <p><strong>解决示意图：</strong></p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" title="解决示意图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" data-sub-html="<h2>解决示意图解决示意图</h2><p>解决示意图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">解决示意图解决示意图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%A3%E5%86%B3%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="解决示意图"  title="解决示意图解决示意图" />
+</p></p>
 <p>CurrentConditions(当前的天气情况)</p>
 <p>可以理解成是我们气象局的网站 // 推送</p>
 <div class="highlight"><div class="chroma">
@@ -12015,24 +11555,12 @@
 <h5 id="基本介绍-11">基本介绍</h5>
 <p><strong>观察者模式（Observer Pattern）</strong>：指多个对象间存在<strong>一对多的依赖关系</strong>，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。这种模式有时又称作<strong>发布-订阅模式</strong>、<strong>模型-视图模式</strong>，它是对象<strong>行为型模式</strong>。</p>
 <h5 id="观察者模式原理">观察者模式原理</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png" title="观察者模式原理-Subject" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png" data-sub-html="<h2>观察者模式原理-Subject</h2><p>观察者模式原理-Subject</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png" />
-    </a><figcaption class="image-caption">观察者模式原理-Subject</figcaption>
-    </figure></p>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86-Observer.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86-Observer.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86-Observer.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86-Observer.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86-Observer.png"
-        title="观察者模式原理-Observer" /></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86.png" alt="观察者模式原理-Subject"  title="观察者模式原理-Subject" />
+</p></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86-Observer.png" alt="观察者模式原理-Observer"  />
+</p></p>
 <div class="details admonition question open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>观察者模式的角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -12060,16 +11588,9 @@
     </div>
 <h5 id="观察者模式应用实例">观察者模式应用实例</h5>
 <p><strong>观察者模式解决天气预报需求</strong></p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png" title="观察者模式解决天气预报需求类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>观察者模式解决天气预报需求类图</h2><p>观察者模式解决天气预报需求类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">观察者模式解决天气预报需求类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E5%A4%A9%E6%B0%94%E9%A2%84%E6%8A%A5%E9%9C%80%E6%B1%82%E7%B1%BB%E5%9B%BE.png" alt="观察者模式解决天气预报需求类图"  title="观察者模式解决天气预报需求类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -12536,16 +12057,9 @@
 <li>主人要看电视时，各个设备可以协同工作，自动完成看电视的准备工作，比如流程为：闹钟响起 -&gt; 咖啡机开始做咖啡 -&gt; 窗帘自动落下 -&gt; 电视机开始播放</li>
 </ol>
 <h4 id="传统方案-1">传统方案</h4>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png" title="传统设计方案类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>传统设计方案类图</h2><p>传统设计方案类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">传统设计方案类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%E7%B1%BB%E5%9B%BE.png" alt="传统设计方案类图"  title="传统设计方案类图" />
+</p></p>
 <h5 id="传统设计方案问题分析">传统设计方案问题分析</h5>
 <ol>
 <li>当各电器对象有多种状态改变时，相互之间的调用关系会比较复杂</li>
@@ -12561,16 +12075,9 @@
 <li>比如 MVC 模式，C（Controller 控制器）是 M（Model 模型）和 V（View 视图）的中介者，在前后端交互时起到了中间人的作用</li>
 </ol>
 <h5 id="中介者模式原理类图">中介者模式原理类图</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" title="中介者模式原理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>中介者模式原理类图</h2><p>中介者模式原理类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">中介者模式原理类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" alt="中介者模式原理类图"  title="中介者模式原理类图" />
+</p></p>
 <div class="details admonition question open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>中介者模式中角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -12586,16 +12093,9 @@
         </div>
     </div>
 <h5 id="中介者模式应用实例">中介者模式应用实例</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E5%AE%B6%E5%BA%AD%E7%AE%A1%E7%90%86%E7%B1%BB%E5%9B%BE.png" title="中介者模式解决智能家庭管理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E5%AE%B6%E5%BA%AD%E7%AE%A1%E7%90%86%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>中介者模式解决智能家庭管理类图</h2><p>中介者模式解决智能家庭管理类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E5%AE%B6%E5%BA%AD%E7%AE%A1%E7%90%86%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E5%AE%B6%E5%BA%AD%E7%AE%A1%E7%90%86%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E5%AE%B6%E5%BA%AD%E7%AE%A1%E7%90%86%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E5%AE%B6%E5%BA%AD%E7%AE%A1%E7%90%86%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E5%AE%B6%E5%BA%AD%E7%AE%A1%E7%90%86%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">中介者模式解决智能家庭管理类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F%E8%A7%A3%E5%86%B3%E6%99%BA%E8%83%BD%E5%AE%B6%E5%BA%AD%E7%AE%A1%E7%90%86%E7%B1%BB%E5%9B%BE.png" alt="中介者模式解决智能家庭管理类图"  title="中介者模式解决智能家庭管理类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -13142,16 +12642,9 @@
 <h4 id="游戏角色状态恢复问题">游戏角色状态恢复问题</h4>
 <p>游戏角色有攻击力和防御力，在大战Boss前保存自身的状态（攻击力和防御力），当大战Boss后攻击力和防御力下降，从备忘录对象恢复到大战前的状态</p>
 <h4 id="传统方案-2">传统方案</h4>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png" title="传统的设计方案（类图）" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png" data-sub-html="<h2>传统的设计方案（类图）</h2><p>传统的设计方案（类图）</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png" />
-    </a><figcaption class="image-caption">传统的设计方案（类图）</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E4%BC%A0%E7%BB%9F%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%EF%BC%88%E7%B1%BB%E5%9B%BE%EF%BC%89.png" alt="传统的设计方案（类图）"  title="传统的设计方案（类图）" />
+</p></p>
 <h5 id="传统方案的问题分析">传统方案的问题分析</h5>
 <ol>
 <li>一个对象，就对应一个保存对象状态的对象，这样当我们游戏的对象很多时，不利于管理，开销也很大</li>
@@ -13167,16 +12660,9 @@
 <li>备忘录模式属于<strong>行为型模式</strong></li>
 </ol>
 <h5 id="备忘录模式原理">备忘录模式原理</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" title="备忘录模式原理类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>备忘录模式原理类图</h2><p>备忘录模式原理类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">备忘录模式原理类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%8E%9F%E7%90%86%E7%B1%BB%E5%9B%BE.png" alt="备忘录模式原理类图"  title="备忘录模式原理类图" />
+</p></p>
 <div class="details admonition question open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>备忘录模式中角色及职责<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -13423,16 +12909,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h5 id="备忘录模式应用实例">备忘录模式应用实例</h5>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" title="备忘录模式应用实例类图" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" data-sub-html="<h2>备忘录模式应用实例类图</h2><p>备忘录模式应用实例类图</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" />
-    </a><figcaption class="image-caption">备忘录模式应用实例类图</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B%E7%B1%BB%E5%9B%BE.png" alt="备忘录模式应用实例类图"  title="备忘录模式应用实例类图" />
+</p></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1

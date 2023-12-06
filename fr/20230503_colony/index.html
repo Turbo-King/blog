@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/fr\/20230503_colony\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Redis, Java, NoSQL","wordcount":  818 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Redis, Java, NoSQL","wordcount":  802 ,
         "url": "https:\/\/weizhihao.top\/blog\/fr\/20230503_colony\/","datePublished": "2023-05-03T14:39:48+08:00","dateModified": "2023-05-03T14:39:48+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -111,7 +111,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Redis集群</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">inclus dans <a href="/blog/fr/categories/redis/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Redis</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-03">2023-05-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;818 mots&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-03">2023-05-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;802 mots&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -162,16 +162,9 @@
 <h2 id="redis主从集群">Redis主从集群</h2>
 <h3 id="集群结构">集群结构</h3>
 <p>我们搭建的主从集群结构如图：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png" title="主从集群结构" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png" data-sub-html="<h2>主从集群结构</h2><p>主从集群结构</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png" />
-    </a><figcaption class="image-caption">主从集群结构</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630111505799.png" alt="主从集群结构"  title="主从集群结构" />
+</p></p>
 <p>共包含三个节点，一个主节点，两个从节点。</p>
 <p>这里我们会在同一台虚拟机中开启3个redis实例，模拟主从集群，信息如下：</p>
 <table>
@@ -219,14 +212,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>如图：</p>
-<p><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630113929868.png"
-        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630113929868.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630113929868.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630113929868.png 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630113929868.png"
-        title="image-20210630113929868" /></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630113929868.png" alt="image-20210630113929868"  />
+</p></p>
 <p>2）恢复原始配置</p>
 <p>修改redis-6.2.4/redis.conf文件，将其中的持久化模式改为默认的RDB模式，AOF保持关闭状态。</p>
 <div class="highlight"><div class="chroma">
@@ -341,16 +329,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>启动后：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png" title="redis集群启动" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png" data-sub-html="<h2>redis集群启动</h2><p>redis集群启动</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png" />
-    </a><figcaption class="image-caption">redis集群启动</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630183914491.png" alt="redis集群启动"  title="redis集群启动" />
+</p></p>
 <p>如果要一键停止，可以运行下面命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -430,16 +411,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>结果：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png" title="查看redis集群状态" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png" data-sub-html="<h2>查看redis集群状态</h2><p>查看redis集群状态</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png" />
-    </a><figcaption class="image-caption">查看redis集群状态</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210630201258802.png" alt="查看redis集群状态"  title="查看redis集群状态" />
+</p></p>
 <h3 id="测试">测试</h3>
 <p>执行下列操作以测试：</p>
 <ul>
@@ -457,16 +431,9 @@
 <h2 id="搭建哨兵集群">搭建哨兵集群</h2>
 <h3 id="集群结构-1">集群结构</h3>
 <p>这里我们搭建一个三节点形成的Sentinel集群，来监管之前的Redis主从集群。如图：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png" title="redis哨兵集群结构" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png" data-sub-html="<h2>redis哨兵集群结构</h2><p>redis哨兵集群结构</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png" />
-    </a><figcaption class="image-caption">redis哨兵集群结构</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215227018.png" alt="redis哨兵集群结构"  title="redis哨兵集群结构" />
+</p></p>
 <p>三个sentinel实例信息如下：</p>
 <table>
 <thead>
@@ -512,16 +479,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>如图：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png" title="准备实例" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png" data-sub-html="<h2>准备实例</h2><p>准备实例</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png" />
-    </a><figcaption class="image-caption">准备实例</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701215534714.png" alt="准备实例"  title="准备实例" />
+</p></p>
 <p>然后我们在s1目录创建一个sentinel.conf文件，添加下面的内容：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -600,63 +560,28 @@
 </span></span><span class="line"><span class="cl">redis-sentinel s3/sentinel.conf
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>启动后：<figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png" title="哨兵集群启动" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png" data-sub-html="<h2>哨兵集群启动</h2><p>哨兵集群启动</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png" />
-    </a><figcaption class="image-caption">哨兵集群启动</figcaption>
-    </figure></p>
+</div><p>启动后：<p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701220714104.png" alt="哨兵集群启动"  title="哨兵集群启动" />
+</p></p>
 <h3 id="测试-1">测试</h3>
 <p>尝试让master节点7001宕机，查看sentinel日志：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png" title="sentinel日志" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png" data-sub-html="<h2>sentinel日志</h2><p>sentinel日志</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png" />
-    </a><figcaption class="image-caption">sentinel日志</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701222857997.png" alt="sentinel日志"  title="sentinel日志" />
+</p></p>
 <p>查看7003的日志：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png" title="7003的日志" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png" data-sub-html="<h2>7003的日志</h2><p>7003的日志</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png" />
-    </a><figcaption class="image-caption">7003的日志</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223025709.png" alt="7003的日志"  title="7003的日志" />
+</p></p>
 <p>查看7002的日志：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png" title="7002的日志" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png" data-sub-html="<h2>7002的日志</h2><p>7002的日志</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png" />
-    </a><figcaption class="image-caption">7002的日志</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210701223131264.png" alt="7002的日志"  title="7002的日志" />
+</p></p>
 <h2 id="搭建分片集群">搭建分片集群</h2>
 <h3 id="集群结构-2">集群结构</h3>
 <p>分片集群需要的节点数量较多，这里我们搭建一个最小的分片集群，包含3个master节点，每个master包含一个slave节点，结构如下：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png" title="redis分片集群结构" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png" data-sub-html="<h2>redis分片集群结构</h2><p>redis分片集群结构</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png" />
-    </a><figcaption class="image-caption">redis分片集群结构</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702164116027.png" alt="redis分片集群结构"  title="redis分片集群结构" />
+</p></p>
 <p>这里我们会在同一台虚拟机中开启6个redis实例，模拟分片集群，信息如下：</p>
 <table>
 <thead>
@@ -824,16 +749,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>发现服务都已经正常启动：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png" title="redis服务状态" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png" data-sub-html="<h2>redis服务状态</h2><p>redis服务状态</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png" />
-    </a><figcaption class="image-caption">redis服务状态</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702174255799.png" alt="redis服务状态"  title="redis服务状态" />
+</p></p>
 <p>如果要关闭所有进程，可以执行命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -901,27 +819,13 @@
 <li><code>--replicas 1</code>或者<code>--cluster-replicas 1</code> ：指定集群中每个master的副本个数为1，此时<code>节点总数 ÷ (replicas + 1)</code> 得到的就是master的数量。因此节点列表中的前n个就是master，其它节点都是slave节点，随机分配到不同master</li>
 </ul>
 <p>运行后的样子：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png" title="服务运行详情" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png" data-sub-html="<h2>服务运行详情</h2><p>服务运行详情</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png" />
-    </a><figcaption class="image-caption">服务运行详情</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181101969.png" alt="服务运行详情"  title="服务运行详情" />
+</p></p>
 <p>这里输入yes，则集群开始创建：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png" title="构建状态" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png" data-sub-html="<h2>构建状态</h2><p>构建状态</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png" />
-    </a><figcaption class="image-caption">构建状态</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181215705.png" alt="构建状态"  title="构建状态" />
+</p></p>
 <p>通过命令可以查看集群状态：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -931,16 +835,9 @@
 <pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">redis-cli -p <span class="m">7001</span> cluster nodes
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png" title="集群状态" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png" data-sub-html="<h2>集群状态</h2><p>集群状态</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png" />
-    </a><figcaption class="image-caption">集群状态</figcaption>
-    </figure></p>
+</div><p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702181922809.png" alt="集群状态"  title="集群状态" />
+</p></p>
 <h3 id="测试-2">测试</h3>
 <p>尝试连接7001节点，存储一个数据：</p>
 <div class="highlight"><div class="chroma">
@@ -966,16 +863,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>结果悲剧了：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png" title="连接7001节点" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png" data-sub-html="<h2>连接7001节点</h2><p>连接7001节点</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png" />
-    </a><figcaption class="image-caption">连接7001节点</figcaption>
-    </figure></p>
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182343979.png" alt="连接7001节点"  title="连接7001节点" />
+</p></p>
 <p>集群操作时，需要给<code>redis-cli</code>加上<code>-c</code>参数才可以：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -986,16 +876,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这次可以了：</p>
-<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png" title="连接重试" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png" data-sub-html="<h2>连接重试</h2><p>连接重试</p>">
-        <img
-            class="lazyload"
-            src="/blog/svg/loading.min.svg"
-            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png"
-            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png 2x"
-            data-sizes="auto"
-            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png" />
-    </a><figcaption class="image-caption">连接重试</figcaption>
-    </figure></p></div><div class="post-footer" id="post-footer">
+<p><p class="md_image">
+  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20210702182602145.png" alt="连接重试"  title="连接重试" />
+</p></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
