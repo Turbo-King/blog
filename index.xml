@@ -4,9 +4,17 @@
         <link>https://weizhihao.top/blog/</link>
         <description>关于阿豪</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 11 Oct 2023 14:41:06 &#43;0800</lastBuildDate>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 14 Dec 2023 09:17:12 &#43;0800</lastBuildDate>
             <atom:link href="https://weizhihao.top/blog/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>MySQL 索引</title>
+    <link>https://weizhihao.top/blog/20231214_mysqlindex/</link>
+    <pubDate>Thu, 14 Dec 2023 09:17:12 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/20231214_mysqlindex/</guid>
+    <description><![CDATA[索引]]></description>
+</item>
+<item>
     <title>分布式全局唯一ID</title>
     <link>https://weizhihao.top/blog/20231011_globaluniqueid/</link>
     <pubDate>Wed, 11 Oct 2023 14:41:06 &#43;0800</pubDate>
@@ -95,16 +103,6 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220919.png" referrerpolicy="no-referrer">
             </div><p>基本 Markdown 语法.</p>]]></description>
-</item>
-<item>
-    <title>Mac使用SQLServer数据库</title>
-    <link>https://weizhihao.top/blog/20220831_sqlserver/</link>
-    <pubDate>Wed, 31 Aug 2022 08:40:24 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/20220831_sqlserver/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220831.jpg" referrerpolicy="no-referrer">
-            </div><h1 id="mac-安装-sql-server">Mac 安装 SQL Server</h1>]]></description>
 </item>
 </channel>
 </rss>

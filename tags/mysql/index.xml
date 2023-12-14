@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>MySQL - 标签 - Turbo-King Blog</title>
+        <link>https://weizhihao.top/blog/tags/mysql/</link>
+        <description>MySQL - 标签 - Turbo-King Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 14 Dec 2023 09:17:12 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/tags/mysql/" rel="self" type="application/rss+xml" /><item>
+    <title>MySQL 索引</title>
+    <link>https://weizhihao.top/blog/20231214_mysqlindex/</link>
+    <pubDate>Thu, 14 Dec 2023 09:17:12 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/20231214_mysqlindex/</guid>
+    <description><![CDATA[索引]]></description>
+</item>
+</channel>
+</rss>
