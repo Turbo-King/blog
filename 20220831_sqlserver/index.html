@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20220831_sqlserver\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "study, Docker, SQLServer, Mac","wordcount":  2116 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "study, Docker, SQLServer, Mac","wordcount":  2165 ,
         "url": "https:\/\/weizhihao.top\/blog\/20220831_sqlserver\/","datePublished": "2022-08-31T08:40:24+08:00","dateModified": "2022-08-31T08:40:24+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -110,7 +110,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mac使用SQLServer数据库</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-31">2022-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2116 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-31">2022-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2165 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -175,9 +175,16 @@
 <li>基本环境配置</li>
 </ul>
 <p>根据自己电脑相应配置，自己分配Docker占用资源大小，内存一定要大于2G，我记得好像SQL Server最基本要保证内存2G才能成功启动（以下是我的Docker资源分配配置）。</p>
-<p><p class="md_image">
-  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/i1.png" alt="i1"  title="Docker环境配置" />
-</p></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/i1.png" title="i1" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/i1.png" data-sub-html="<h2>Docker环境配置</h2><p>i1</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/i1.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/i1.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/i1.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/i1.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/i1.png" />
+    </a><figcaption class="image-caption">Docker环境配置</figcaption>
+    </figure></p>
 <br>
 <br>
 <br>
@@ -185,9 +192,16 @@
 <li>镜像加速</li>
 </ul>
 <p>鉴于国内网络问题，后续拉取 Docker 镜像十分缓慢，我们可以需要配置加速器来解决，我使用的是网易的镜像地址：<code>http://hub-mirror.c.163.com</code>。</p>
-<p><p class="md_image">
-  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/i2.png" alt="i2"  title="Docker镜像加速" />
-</p></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/i2.png" title="i2" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/i2.png" data-sub-html="<h2>Docker镜像加速</h2><p>i2</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/i2.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/i2.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/i2.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/i2.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/i2.png" />
+    </a><figcaption class="image-caption">Docker镜像加速</figcaption>
+    </figure></p>
 <br>
 <br>
 <br>
@@ -338,15 +352,29 @@
 <br>
 <h3 id="利用navicat可视化工具连接sql-server">利用<code>Navicat</code>可视化工具连接Sql Server</h3>
 <p>下载 <code>navicat</code> 应用选择SQL Server服务，输入<code>连接名</code>、<code>主机</code>、<code>用户名</code>、<code>密码</code>进行连接。</p>
-<p><p class="md_image">
-  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/i3.png" alt="i3"  title="Navicat连接SQLServer" />
-</p></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/i3.png" title="i3" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/i3.png" data-sub-html="<h2>Navicat连接SQLServer</h2><p>i3</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/i3.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/i3.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/i3.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/i3.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/i3.png" />
+    </a><figcaption class="image-caption">Navicat连接SQLServer</figcaption>
+    </figure></p>
 <br>
 <p><strong>提示：</strong></p>
 <p>密码一定不要填错，如果密码填错，会出现以下错误(一定要学会去Docker里面查看LOG):</p>
-<p><p class="md_image">
-  <img loading='lazy' src="https://cdn.jsdelivr.net/gh/Turbo-King/images/i4.png" alt="i4"  title="Docker日志LOG" />
-</p></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/i4.png" title="i4" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/i4.png" data-sub-html="<h2>Docker日志LOG</h2><p>i4</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/i4.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/i4.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/i4.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/i4.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/i4.png" />
+    </a><figcaption class="image-caption">Docker日志LOG</figcaption>
+    </figure></p>
 <br>
 <p><strong>注意：</strong></p>
 <p><code>创建sa账号时候的密码的左右&lt;&gt;两个尖括号也是属于密码的</code></p>
@@ -392,5 +420,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.fill%2CArray.prototype.find%2CArray.from%2CIntersectionObserver%2CMath.sign%2CObject.assign%2CPromise%2CObject.entries%2Chtml5shiv%2CObject.values%2Cfetch%2CElement.prototype.after"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/object-fit-images@3.2.4/dist/ofi.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"Turbo-King/BlogTalks"}},"data":{"id-1":"Turbo-King 博客","id-2":"Turbo-King 博客"},"lightgallery":true,"search":{"algoliaAppID":"14K5QJ9E92","algoliaIndex":"index.blog","algoliaSearchKey":"ccd19bed70442743b8a0e214d9705da3","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.fill%2CArray.prototype.find%2CArray.from%2CIntersectionObserver%2CMath.sign%2CObject.assign%2CPromise%2CObject.entries%2Chtml5shiv%2CObject.values%2Cfetch%2CElement.prototype.after"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/object-fit-images@3.2.4/dist/ofi.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"Turbo-King/BlogTalks"}},"data":{"id-1":"Turbo-King 博客","id-2":"Turbo-King 博客"},"lightgallery":true,"search":{"algoliaAppID":"14K5QJ9E92","algoliaIndex":"index.blog","algoliaSearchKey":"ccd19bed70442743b8a0e214d9705da3","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Turbo-King/images/custom.js"></script></body>
 </html>
