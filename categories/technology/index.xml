@@ -10,7 +10,9 @@
     <pubDate>Thu, 14 Dec 2023 09:17:12 &#43;0800</pubDate>
     <author>Turbo-King</author>
     <guid>https://weizhihao.top/blog/20231214_mysqlindex/</guid>
-    <description><![CDATA[索引]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/mysql-index.jpeg" referrerpolicy="no-referrer">
+            </div>MySQL Index]]></description>
 </item>
 <item>
     <title>分布式全局唯一ID</title>
