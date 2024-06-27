@@ -4,9 +4,19 @@
         <link>https://weizhihao.top/blog/en/</link>
         <description>About Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 11 Oct 2023 14:41:06 &#43;0800</lastBuildDate>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 26 Jun 2024 19:32:25 &#43;0800</lastBuildDate>
             <atom:link href="https://weizhihao.top/blog/en/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Systemd 学习</title>
+    <link>https://weizhihao.top/blog/en/20240626_systemd/</link>
+    <pubDate>Wed, 26 Jun 2024 19:32:25 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/en/20240626_systemd/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/systemd-linux.jpeg" referrerpolicy="no-referrer">
+            </div>Linux systemctl systemd]]></description>
+</item>
+<item>
     <title>分布式全局唯一ID</title>
     <link>https://weizhihao.top/blog/en/20231011_globaluniqueid/</link>
     <pubDate>Wed, 11 Oct 2023 14:41:06 &#43;0800</pubDate>
@@ -95,16 +105,6 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220813.jpeg" referrerpolicy="no-referrer">
             </div><h1 id="java-学习路线">Java 学习路线</h1>]]></description>
-</item>
-<item>
-    <title>决定重新回归</title>
-    <link>https://weizhihao.top/blog/en/20220807/</link>
-    <pubDate>Sun, 07 Aug 2022 18:19:22 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/en/20220807/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/chouju20220807.jpg" referrerpolicy="no-referrer">
-            </div><h1 id="去浮去燥砥砺前行">去浮去燥，砥砺前行</h1>]]></description>
 </item>
 </channel>
 </rss>
