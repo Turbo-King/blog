@@ -19,7 +19,7 @@ MySQL在存储数据之外，数据库系统中还维护着满足特定查找算
 
 下图展示的就是一种可能的二叉树的索引方式：
 
-![二叉树索引方式](https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214100639030.png "二叉树索引方式")
+![image-20231214100639030](https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214100639030.jpeg "二叉树索引方式")
 
 **二叉树数据结构的弊端**：当极端情况下，数据递增插入时，会一直向右插入，形成链表，查询效率会降低。
 
