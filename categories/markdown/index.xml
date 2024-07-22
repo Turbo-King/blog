@@ -4,12 +4,12 @@
         <link>https://weizhihao.top/blog/categories/markdown/</link>
         <description>Markdown - 分类 - Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 14 Dec 2023 17:10:57 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/categories/markdown/" rel="self" type="application/rss+xml" /><item>
-    <title>First_post</title>
-    <link>https://weizhihao.top/blog/first_post/</link>
-    <pubDate>Thu, 14 Dec 2023 17:10:57 &#43;0800</pubDate>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 22 Jul 2024 19:57:54 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/categories/markdown/" rel="self" type="application/rss+xml" /><item>
+    <title>JVM 原理</title>
+    <link>https://weizhihao.top/blog/20240722_jvm/</link>
+    <pubDate>Mon, 22 Jul 2024 19:57:54 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/first_post/</guid>
+    <guid>https://weizhihao.top/blog/20240722_jvm/</guid>
     <description><![CDATA[<div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>

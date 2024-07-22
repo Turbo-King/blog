@@ -15,6 +15,16 @@
             </div>Linux systemctl systemd]]></description>
 </item>
 <item>
+    <title>MySQL 索引</title>
+    <link>https://weizhihao.top/blog/fr/20231214_mysqlindex/</link>
+    <pubDate>Thu, 14 Dec 2023 09:17:12 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/20231214_mysqlindex/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/mysql-index.jpeg" referrerpolicy="no-referrer">
+            </div>MySQL Index]]></description>
+</item>
+<item>
     <title>分布式全局唯一ID</title>
     <link>https://weizhihao.top/blog/fr/20231011_globaluniqueid/</link>
     <pubDate>Wed, 11 Oct 2023 14:41:06 &#43;0800</pubDate>
@@ -93,16 +103,6 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220831.jpg" referrerpolicy="no-referrer">
             </div><h1 id="mac-安装-sql-server">Mac 安装 SQL Server</h1>]]></description>
-</item>
-<item>
-    <title>Java 学习路线</title>
-    <link>https://weizhihao.top/blog/fr/20220813_route/</link>
-    <pubDate>Sat, 13 Aug 2022 18:31:14 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/fr/20220813_route/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20220813.jpeg" referrerpolicy="no-referrer">
-            </div><h1 id="java-学习路线">Java 学习路线</h1>]]></description>
 </item>
 </channel>
 </rss>

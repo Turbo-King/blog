@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>MySQL 索引 - Turbo-King Blog</title><meta name="keywords" content="[Turbo-King Blog weizhihao ahao 阿豪]">
+
+<meta name="Description" content="MySQL Index"><meta property="og:title" content="MySQL 索引" />
+<meta property="og:description" content="MySQL Index" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://weizhihao.top/blog/en/20231214_mysqlindex/" /><meta property="og:image" content="https://weizhihao.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-14T09:17:12+08:00" />
+<meta property="article:modified_time" content="2023-12-14T09:17:12+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://weizhihao.top/logo.png"/>
+
+<meta name="twitter:title" content="MySQL 索引"/>
+<meta name="twitter:description" content="MySQL Index"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://weizhihao.top/blog/en/20231214_mysqlindex/" /><link rel="prev" href="https://weizhihao.top/blog/en/20231011_globaluniqueid/" /><link rel="next" href="https://weizhihao.top/blog/en/20240626_systemd/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MySQL 索引",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/weizhihao.top\/blog\/en\/20231214_mysqlindex\/"
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Index, 索引, MySQL, 优化","wordcount":  907 ,
+        "url": "https:\/\/weizhihao.top\/blog\/en\/20231214_mysqlindex\/","datePublished": "2023-12-14T09:17:12+08:00","dateModified": "2023-12-14T09:17:12+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
+                "@type": "Person",
+                "name": "Turbo-King"
+            },"description": "MySQL Index"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/en/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/en/posts/" title="Posts"> Posts </a><a class="menu-item" href="/blog/en/tags/" title="Tags"> Tags </a><a class="menu-item" href="/blog/en/categories/" title="Categories"> Categories </a><a class="menu-item" href="/about/" title="Turbo-King"> About </a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/en/20231214_mysqlindex/" selected>English</option><option value="/blog/20231214_mysqlindex/">简体中文</option><option value="/blog/fr/20231214_mysqlindex/">Français</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/en/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/blog/en/posts/" title="Posts">Posts</a><a class="menu-item" href="/blog/en/tags/" title="Tags">Tags</a><a class="menu-item" href="/blog/en/categories/" title="Categories">Categories</a><a class="menu-item" href="/about/" title="Turbo-King">About</a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/en/20231214_mysqlindex/" selected>English</option><option value="/blog/20231214_mysqlindex/">简体中文</option><option value="/blog/fr/20231214_mysqlindex/">Français</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MySQL 索引</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">included in <a href="/blog/en/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-14">2023-12-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;907 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/mysql-index.jpeg"
+        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/mysql-index.jpeg, https://cdn.jsdelivr.net/gh/Turbo-King/images/mysql-index.jpeg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/mysql-index.jpeg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/mysql-index.jpeg"
+        title="MySQL Index" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#索引介绍">索引介绍</a>
+      <ul>
+        <li><a href="#什么是mysql的索引">什么是MySQL的索引</a></li>
+        <li><a href="#索引数据结构">索引数据结构</a></li>
+        <li><a href="#索引优势">索引优势</a></li>
+        <li><a href="#索引优势-1">索引优势</a></li>
+        <li><a href="#索引使用场景">索引使用场景</a></li>
+        <li><a href="#索引分类">索引分类</a>
+          <ul>
+            <li><a href="#主键索引">主键索引</a></li>
+            <li><a href="#唯一索引">唯一索引</a></li>
+            <li><a href="#单值索引">单值索引</a></li>
+            <li><a href="#复合索引">复合索引</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#性能分析">性能分析</a>
+      <ul>
+        <li><a href="#mysql常见瓶颈">MySQL常见瓶颈</a></li>
+        <li><a href="#explain分析">Explain分析</a></li>
+        <li><a href="#explain-重要字段名">Explain 重要字段名</a>
+          <ul>
+            <li><a href="#id">id</a></li>
+            <li><a href="#select_type">select_type</a></li>
+            <li><a href="#table">table</a></li>
+            <li><a href="#type">type</a></li>
+            <li><a href="#possible_keys">possible_keys</a></li>
+            <li><a href="#key">key</a></li>
+            <li><a href="#key_len">key_len</a></li>
+            <li><a href="#ref">ref</a></li>
+            <li><a href="#rows">rows</a></li>
+            <li><a href="#extra">extra</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#查询优化">查询优化</a>
+      <ul>
+        <li><a href="#索引失效">索引失效</a></li>
+        <li><a href="#单表查询优化">单表查询优化</a></li>
+        <li><a href="#关联查询优化">关联查询优化</a></li>
+        <li><a href="#排序优化">排序优化</a></li>
+        <li><a href="#分组优化">分组优化</a></li>
+      </ul>
+    </li>
+    <li><a href="#慢查询日志">慢查询日志</a>
+      <ul>
+        <li><a href="#介绍">介绍</a></li>
+        <li><a href="#慢查询日志使用">慢查询日志使用</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="索引介绍">索引介绍</h2>
+<h3 id="什么是mysql的索引">什么是MySQL的索引</h3>
+<blockquote>
+<p>MySQL官方对于索引的定义：<strong>索引是帮助MySQL高效获取数据的数据结构。</strong></p>
+</blockquote>
+<p>MySQL在存储数据之外，数据库系统中还维护着满足特定查找算法的数据结构，这些数据结构以某种引用(指向)表中的数据，这样我们就可以通过数据结构上实现的高级查找算法来快速找到我们想要的数据。而这种数据结构就是<strong>索引</strong>。</p>
+<p>简单理解为“<strong>排好序的可以快速查找数据的数据结构</strong>”。</p>
+<br>
+<h3 id="索引数据结构">索引数据结构</h3>
+<p>下图展示的就是一种可能的二叉树的索引方式：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214100639030.jpeg" title="image-20231214100639030" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214100639030.jpeg" data-sub-html="<h2>二叉树索引方式</h2><p>image-20231214100639030</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214100639030.jpeg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214100639030.jpeg, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214100639030.jpeg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214100639030.jpeg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214100639030.jpeg" />
+    </a><figcaption class="image-caption">二叉树索引方式</figcaption>
+    </figure></p>
+<p><strong>二叉树数据结构的弊端</strong>：当极端情况下，数据递增插入时，会一直向右插入，形成链表，查询效率会降低。</p>
+<blockquote>
+<p>MySQL中常用的索引数据结构有BTree索引（Myisam 普通索引），B+Tree索引（Innodb 普通索引）,Hash索引（Memory 存储引擎）等等。</p>
+</blockquote>
+<br>
+<h3 id="索引优势">索引优势</h3>
+<p>提高数据检索的效率，降低数据库的IO成本</p>
+<p>通过索引对数据进行排序，降低数据排序的成本，降低了CPU的消耗。</p>
+<br>
+<h3 id="索引优势-1">索引优势</h3>
+<p>索引实际上也是一张表，保存了主键和索引的字段，并且指向实体表的记录，索引索引也是需要占用空间的。在索引大大提高查询速度的同时，却会降低表的更新速度，在对表进行数据增删改的同时，MySQL不仅要更新数据，还需要保存一下索引文件。每次更新添加了的索引列的字段，都会去调整因为更新带来的减值变化后的索引的信息。</p>
+<br>
+<h3 id="索引使用场景">索引使用场景</h3>
+<p><strong>下列情况需要创建索引</strong></p>
+<ol>
+<li>主键自动建立唯一索引</li>
+<li>频繁作为查询条件的字段应该创建索引（where 后面的语句）</li>
+<li>查询中与其它表关联的字段，外键关系建立索引</li>
+<li>多字段查询下倾向创建组合索引</li>
+<li>查询中排序的字段，排序字段若通过索引去访问将大大提高排序速度</li>
+<li>查询中统计或者分组字段</li>
+</ol>
+<br>
+<p><strong>下列情况不推荐建立索引</strong></p>
+<ol>
+<li>表记录太少</li>
+<li>经常增删改的表</li>
+<li>Where 条件里用不到的字段不建立索引</li>
+</ol>
+<br>
+<h3 id="索引分类">索引分类</h3>
+<h4 id="主键索引">主键索引</h4>
+<ol>
+<li>
+<p>表中的列设定为主键后，数据库会自动建立主键索引</p>
+</li>
+<li>
+<p>单独创建键和删除主键索引语法：</p>
+<ul>
+<li>创建主键索引语法</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="err">字段</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>删除主键索引语法</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="k">drop</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<br>
+<h4 id="唯一索引">唯一索引</h4>
+<ol>
+<li>
+<p>表中的列创建了唯一约束时，数据库会自动建立唯一索引。</p>
+</li>
+<li>
+<p>单独创建和删除唯一索引语法：</p>
+<ul>
+<li>创建唯一索引语法</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="err">索引名</span><span class="p">(</span><span class="err">字段</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">或</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">create</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="err">索引名</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">表名</span><span class="p">(</span><span class="err">字段</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>删除唯一索引语法</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">drop</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="err">索引名</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<br>
+<h4 id="单值索引">单值索引</h4>
+<p>即一个索引只包含单个列，一个表可以有多个单值索引。</p>
+<ol>
+<li>
+<p>建表时可随表一起建立单值索引</p>
+</li>
+<li>
+<p>单独创建和删除单值索引：</p>
+<ul>
+<li>创建单值索引</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="err">索引名</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">表名</span><span class="p">(</span><span class="err">字段</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="err">或</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="err">索引名</span><span class="p">(</span><span class="err">字段</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>删除单值索引</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">drop</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="err">索引名</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<br>
+<h4 id="复合索引">复合索引</h4>
+<p>即一个索引包含多个列。</p>
+<ol>
+<li>
+<p>建表时可随表一起建立复合索引</p>
+</li>
+<li>
+<p>单独创建和删除复合索引：</p>
+<ul>
+<li>创建复合索引</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">create</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="err">索引名</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">表名</span><span class="p">(</span><span class="err">字段</span><span class="mi">1</span><span class="err">，字段</span><span class="mi">2</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>删除复合索引</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">drop</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="err">索引名</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<br>
+<h2 id="性能分析">性能分析</h2>
+<h3 id="mysql常见瓶颈">MySQL常见瓶颈</h3>
+<p>SQL中对大量数据进行比较、关联、排序、分组时，产生CPU瓶颈。</p>
+<p>实例内存满足不了缓存数据或排序等需要，导致产生大量的物理IO。查询数据时扫描过多数据行，导致查询效率低。</p>
+<br>
+<h3 id="explain分析">Explain分析</h3>
+<p>使用 <strong>Explain</strong> 关键字可以模拟优化器执行 SQL 查询语句，从而知道 MySQL 是如何处理 SQL 语句的。可以用来分析查询语句或是表的结构的性能瓶颈。作用如下：</p>
+<ol>
+<li>表的读取顺序</li>
+<li>哪些索引可以使用</li>
+<li>数据读取操作的操作类型</li>
+<li>哪些索引被实际使用</li>
+<li>表之间的引用</li>
+<li>每张表有多少行被优化器查询</li>
+</ol>
+<p><strong>Explain</strong> 关键字使用起来比较简单：<strong>explain + SQL语句</strong></p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214160254115.png" title="explain执行结果参数" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214160254115.png" data-sub-html="<h2>explain执行结果参数</h2><p>explain执行结果参数</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214160254115.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214160254115.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214160254115.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214160254115.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214160254115.png" />
+    </a><figcaption class="image-caption">explain执行结果参数</figcaption>
+    </figure></p>
+<h3 id="explain-重要字段名">Explain 重要字段名</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">--  创建四张测试表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t1</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">content</span><span class="w">  </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t2</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">content</span><span class="w">  </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t3</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">content</span><span class="w">  </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">t4</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">content</span><span class="w">  </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 每张表中添加一条数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t1</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;t1_&#39;</span><span class="p">,</span><span class="n">FLOOR</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">RAND</span><span class="p">()</span><span class="o">*</span><span class="mi">1000</span><span class="p">)));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t2</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;t2_&#39;</span><span class="p">,</span><span class="n">FLOOR</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">RAND</span><span class="p">()</span><span class="o">*</span><span class="mi">1000</span><span class="p">)));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t3</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;t3_&#39;</span><span class="p">,</span><span class="n">FLOOR</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">RAND</span><span class="p">()</span><span class="o">*</span><span class="mi">1000</span><span class="p">)));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">t4</span><span class="p">(</span><span class="n">content</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="n">CONCAT</span><span class="p">(</span><span class="s1">&#39;t4_&#39;</span><span class="p">,</span><span class="n">FLOOR</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">RAND</span><span class="p">()</span><span class="o">*</span><span class="mi">1000</span><span class="p">)));</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="id">id</h4>
+<p>select 查询的系列号，表示查询中执行 select 子句或操作表的顺序。</p>
+<p>id 相同时，执行顺序由上至下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">,</span><span class="n">t3</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">t2</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t3</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>id 不同时，如果为子查询，id 的序号会递增，id 值越大优先级越高，则先被执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">in</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">in</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">t3</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t3</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">t3</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>id 相同和不同都存在，id 相同的可以理解为一组，从上往下顺序执行，所有组中，id值越大，优先级越高越先执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t2</span><span class="p">,(</span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t3</span><span class="p">)</span><span class="w"> </span><span class="n">s3</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">s3</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="select_type">select_type</h4>
+<p>查询的类型，常见值有：</p>
+<p><strong>SIMPLE</strong>：简单的 select 查询，查询中不包含子查询或者 UNION</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>PRIMARY</strong>：查询中若包含任何复杂的子部分，最外层查询则被标记为 Primary。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">content</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t1</span><span class="p">)</span><span class="w"> </span><span class="n">s1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>DERIVED</strong>：在 FROM 列表中包含的子查询被标记为 DERIVED（衍生）MySQL 会递归执行这些子查询，把结果放在临时表里。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">content</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t1</span><span class="p">)</span><span class="w"> </span><span class="n">s1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>SUBQUERY</strong>：在 SELECT 或 WHERE 列表中包含了子查询。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">t3</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t3</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h4 id="table">table</h4>
+<p>显示这一行的数据是来自哪张表的。</p>
+<br>
+<h4 id="type">type</h4>
+<p>访问类型排序：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214192611646.png" title="访问类型" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214192611646.png" data-sub-html="<h2>访问类型</h2><p>访问类型</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214192611646.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214192611646.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214192611646.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214192611646.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/image-20231214192611646.png" />
+    </a><figcaption class="image-caption">访问类型</figcaption>
+    </figure></p>
+<p><strong>system</strong>:表中只有一行记录（等于系统表），这是 const 类型的特性，平时不会出现，这个也可以忽略不计。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>const</strong>:表示通过索引一次就找到了，const 用于比较 <strong>primary key</strong> 或者 <strong>unique</strong> 索引。因为只匹配一行数据，所以很快，如将主键置于 where 列表中，MySQL 就能将该查询转换为一个常量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>eq_ref</strong>:唯一性索引扫描，对于每个索引键，表中只有一条记录与之匹配。常见主键或唯一索引扫描。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="n">t2</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>ref</strong>:非唯一性索引扫描，返回匹配某个单独值的所有行。本质上也是一种索引访问，它返回所有匹配某个单独值的行，然后，它可能会找到多个符合条件的行，所以它应该属于查找和扫描的混合体。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">idx_t1_content</span><span class="p">(</span><span class="n">content</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;abc&#34;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>range</strong>:只检索给定范围的行，使用一个索引来选择行。key 列显示使用了哪个索引，一般就是在你的 where 语句中出现了 between、&lt;、&gt;、in 等的查询这种范围扫描索引扫描比全表扫描要好，因为它只需要开始于索引的某一点，而结束语另一点，不用扫描全部索引。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">&gt;</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>index</strong>:Full Index Scan，index 与 All 区别为 index 类型只遍历索引树。这通常比 All 快，因为索引文件通常比数据文件小，也就是说虽然 all 和 index 都是读全表，但 index 是从索引中读取的，而 all 是从硬盘中读的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="n">content</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>All</strong>:Full Table Scan，将遍历全表以找到匹配的行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;abc&#34;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>从最好到最差依次是：<strong>system &gt; const &gt;  eq_ref &gt; ref &gt; range &gt; All</strong> 一般来说，最好保证查询能够达到 <strong>range</strong> 级别，最好达到 <strong>ref</strong>。</p>
+</blockquote>
+<br>
+<h4 id="possible_keys">possible_keys</h4>
+<p>显示可能应用在这张表中的索引，一个或多个。查询涉及到的字段上如果存在索引，则相应索引将会被列出来，但不一定会被查询实际使用上。</p>
+<br>
+<h4 id="key">key</h4>
+<p>查询中实际使用的索引，如果为 NULL，则没有使用索引。</p>
+<br>
+<h4 id="key_len">key_len</h4>
+<p>表示索引中使用的字节数，可通过该列计算查询中使用的索引的长度。在不损失精确性的情况下，<strong>长度越短越好</strong>。</p>
+<br>
+<h4 id="ref">ref</h4>
+<p>显示索引的哪一列被使用了。哪些列或常量被用于查找索引列上的值。</p>
+<br>
+<h4 id="rows">rows</h4>
+<p>rows 列显示 MySQL 认为它执行查询时必须检查的行数。一般越少越好。</p>
+<br>
+<h4 id="extra">extra</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="c1">-- 创建测试表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">emps</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emps</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="n">AUTO_INCREMENT</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s2">&#34;主键id&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="w"> </span><span class="p">(</span><span class="mi">24</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;姓名&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">age</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;年龄&#39;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">job</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="w"> </span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">COMMENT</span><span class="w"> </span><span class="s1">&#39;职位&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 插入测试数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">emps</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">job</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;张三&#39;</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="s1">&#39;manager&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">emps</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">job</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;lisi&#39;</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="s1">&#39;clerk&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">emps</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">job</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;wangwu&#39;</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="s1">&#39;salsman&#39;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">emps</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="p">,</span><span class="n">job</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;赵六&#39;</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="s1">&#39;salsman&#39;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<p>一些常见的重要的额外信息：</p>
+<ul>
+<li><strong>Using filesort</strong>：MySQL 无法利用索引完成的排序操作称之为“文件排序”。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">emps</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<ul>
+<li><strong>Using temporary</strong>：MySQL 在对查询结果排序时使用临时表，常见排序 <strong>order by</strong> 和分组查询 <strong>group by</strong>。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="n">job</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">emps</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">job</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<ul>
+<li><strong>Using index</strong>：表示索引被用来执行索引键值的查找，避免访问了表的数据行，效率还不错。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="n">name</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">emps</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<ul>
+<li><strong>Using where</strong>：表示使用了 <strong>where</strong> 过滤。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">emps</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;张三&#34;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><br>
+<h2 id="查询优化">查询优化</h2>
+<h3 id="索引失效">索引失效</h3>
+<ol>
+<li><strong>最佳左前缀法则</strong>：如果索引了多列，要遵循最左前缀法则，指的是查询从索引的最左前列开始并且不跳过索引中的列。</li>
+<li><strong>不在索引上做任何计算、函数操作</strong>，会导致索引失效转而转向全表扫描。</li>
+<li>存储引擎不能使用索引中范围条件右边的列。</li>
+<li>MySQL 在使用不等于时无法使用索引会导致全表扫描。</li>
+<li><strong>is null</strong> 可以使用索引，但是 <strong>is not null</strong> 无法使用索引。</li>
+<li><strong>like</strong> 以通配符开头会使索引失效导致全表扫描。</li>
+<li>字符串不加单引号索引会失效。</li>
+<li>使用 <strong>or</strong> 连接时索引失效。</li>
+</ol>
+<br>
+<p><strong><span id="example">实战演示</span></strong></p>
+<p>假设 <strong>index(a,b,c)</strong> 复合索引：注意 or 不会生效，and 会自动调整顺序为最左前列。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>where语句</strong></th>
+<th style="text-align:center"><strong>索引是否被使用</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">where a = 3</td>
+<td style="text-align:center">Yes，使用到a</td>
+</tr>
+<tr>
+<td style="text-align:center">where a = 3 and b = 5</td>
+<td style="text-align:center">Yes，使用到 a，b</td>
+</tr>
+<tr>
+<td style="text-align:center">where a = 3 and b = 4 and c = 5</td>
+<td style="text-align:center">Yes，使用到 a，b，c</td>
+</tr>
+<tr>
+<td style="text-align:center">Where b = 4 或者 where b = 4 and c = 4 或者 where c = 5</td>
+<td style="text-align:center">No</td>
+</tr>
+<tr>
+<td style="text-align:center">where a = 3 and c = 5</td>
+<td style="text-align:center"><strong>Yes，只用到 a，key_len 会小一些</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">where a = 3 and b &gt; 4 and c = 5</td>
+<td style="text-align:center"><strong>Yes，使用到 a，b</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">where a = 3 and b like &lsquo;kk%&rsquo; and c = 5</td>
+<td style="text-align:center">Yes，使用到 a，b，c</td>
+</tr>
+<tr>
+<td style="text-align:center">where a = 3 and b like &lsquo;%kk&rsquo; and c = 5</td>
+<td style="text-align:center"><strong>Yes，只用到 a</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">where a = 3 and b like &lsquo;%kk%&rsquo; and c = 5</td>
+<td style="text-align:center"><strong>Yes，只用到 a</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">where a = 3 and b like &lsquo;k%kk%&rsquo; and c = 5</td>
+<td style="text-align:center">Yes，使用到 a，b，c</td>
+</tr>
+</tbody>
+</table>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>索引使用建议<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>对于单值索引，尽量选择针对当前查询字段过滤性更好的索引。</li>
+<li>对于组合索引，当前 where 查询中过滤性更好的字段在索引字段顺序中位置越靠前越好。</li>
+<li>对于组合索引，尽量选择能够包含当前查询中 where 子句中更多字段的索引。</li>
+<li>尽可能通过分析统计信息和调整 query 的写法来达到选择合适索引的目的。</li>
+</ol>
+</div>
+        </div>
+    </div>
+<br>
+<h3 id="单表查询优化">单表查询优化</h3>
+<ol>
+<li>索引优化
+<ul>
+<li>经常用于查询条件的列建立索引</li>
+<li>避免在大表上使用全文索引，因为它可能会影响性能</li>
+<li>对于经常需要排序或分组的列，可以考虑添加索引</li>
+<li>使用覆盖索引，确保索引包含了查询所需要的所有列，避免了回表操作</li>
+</ul>
+</li>
+<li>查询语句优化
+<ul>
+<li>避免使用 <code>select *</code>，只选择实际需要的列</li>
+<li>避免在 <strong>where</strong> 子句中使用不可见函数，会因为它可能导致索引失效</li>
+<li>合理使用 <code>limit</code>，限制返回的记录数量，避免不必要的数据传输和处理</li>
+</ul>
+</li>
+</ol>
+<br>
+<h3 id="关联查询优化">关联查询优化</h3>
+<p>内连接时，MySQL 会自动把小结果集的选为驱动表，所以大表的字段最好加上索引。座外连接时，左表会全表扫描，所以右边大表字段最好加上索引，右外连接同理。我们最好保证被驱动表上的字段建立了索引。</p>
+<br>
+<h3 id="排序优化">排序优化</h3>
+<ol>
+<li>尽量避免使用 <strong>Using fileSort</strong> 方式排序</li>
+<li><strong>order by</strong> 语句使用索引最左前列或使用 <strong>where</strong> 子句与 <strong>order by</strong> 字句条件组合满足索引最左前列。</li>
+<li><strong>where</strong> 子句中如果出现索引范围查询会导致 <strong>order by</strong> 索引失效。</li>
+</ol>
+<p><strong><a href="#example" rel="">参照上面实战演示</a></strong></p>
+<br>
+<h3 id="分组优化">分组优化</h3>
+<p>参照<strong>排序优化</strong></p>
+<br>
+<h2 id="慢查询日志">慢查询日志</h2>
+<h3 id="介绍">介绍</h3>
+<p>MySQL 的慢查询日志是 MySQL 提供的一种日志记录，它用来记录在 MySQL 中响应时间超过设定阀值的语句，具体指运行时间超过 long_query_time 值的 SQL ，则会被记录到慢查询日志中。可以由它来查看哪些 SQL 超出了我们最大忍耐时间值。</p>
+<br>
+<h3 id="慢查询日志使用">慢查询日志使用</h3>
+<p>默认情况下，MySQL 数据库咩有开启慢查询日志，需要手动设置参数。</p>
+<p><strong>查看是否开启慢查询日志：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%slow_query_log%&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>开启日志：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">show_query_log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>设置时间阀值：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">long_query_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>查看设置的时间阀值：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;long_query_time%&#39;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看超时的 sql 记录日志：MySQL 的数据文件夹下 &lsquo;\Data\设备名称-slow.log&rsquo;</p>
+<blockquote>
+<p>注意：非调优场景下，一般不建议开启改参数，慢查询日志将日志记录写入文件，开启慢查询日志会或多或少带来一定的性能影响。</p>
+</blockquote></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-12-14</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://weizhihao.top/blog/en/20231214_mysqlindex/" data-title="MySQL 索引" data-via="TurboKing1024" data-hashtags="Index,索引,MySQL,优化"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://weizhihao.top/blog/en/20231214_mysqlindex/" data-hashtag="Index"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://weizhihao.top/blog/en/20231214_mysqlindex/" data-title="MySQL 索引" data-image="https://cdn.jsdelivr.net/gh/Turbo-King/images/mysql-index.jpeg" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 百度" data-sharer="baidu" data-url="https://weizhihao.top/blog/en/20231214_mysqlindex/" data-title="MySQL 索引"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/en/tags/index/">Index</a>,&nbsp;<a href="/blog/en/tags/%E7%B4%A2%E5%BC%95/">索引</a>,&nbsp;<a href="/blog/en/tags/mysql/">MySQL</a>,&nbsp;<a href="/blog/en/tags/%E4%BC%98%E5%8C%96/">优化</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/blog/en/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/blog/en/20231011_globaluniqueid/" class="prev" rel="prev" title="分布式全局唯一ID"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>分布式全局唯一ID</a>
+            <a href="/blog/en/20240626_systemd/" class="next" rel="next" title="Systemd 学习">Systemd 学习<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://turbo-king.github.io/" target="_blank">Turbo-King</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">津ICP备2021001207号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.fill%2CArray.prototype.find%2CArray.from%2CIntersectionObserver%2CMath.sign%2CObject.assign%2CPromise%2CObject.entries%2Chtml5shiv%2CObject.values%2Cfetch%2CElement.prototype.after"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/object-fit-images@3.2.4/dist/ofi.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"Turbo-King/BlogTalks"}},"data":{"id-1":"Turbo-King 博客","id-2":"Turbo-King 博客"},"lightgallery":true,"search":{"algoliaAppID":"14K5QJ9E92","algoliaIndex":"index.blog","algoliaSearchKey":"ccd19bed70442743b8a0e214d9705da3","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Turbo-King/images/custom.js"></script></body>
+</html>

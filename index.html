@@ -106,7 +106,114 @@
         data-sizes="auto"
         alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/avatar.JPG"
         title="https://cdn.jsdelivr.net/gh/Turbo-King/images/avatar.JPG" /></a></div><h1 class="home-title">Turbo-King</h1><div class="home-subtitle"><div id="id-3" class="typeit"></div></div><div class="links"><a href="https://github.com/Turbo-King" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a><a href="https://twitter.com/TurboKing1024" title="Twitter" target="_blank" rel="noopener noreffer me"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="https://weibo.com/u/5657728345" title="微博" target="_blank" rel="noopener noreffer me"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="https://space.bilibili.com/476268871" title="bilibili" target="_blank" rel="noopener noreffer me"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/bilibili.svg" aria-hidden="true"></i></a><a href="mailto:turbo.ahao@foxmail.com" title="Email" rel="me"><i class="far fa-envelope fa-fw" aria-hidden="true"></i></a><a href="/index.xml" title="RSS" target="_blank" rel="noopener noreffer me"><i class="fas fa-rss fa-fw" aria-hidden="true"></i></a></div></div>
-<article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
+<article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/blog/20240722_jvm/">JVM 原理</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>
+
+
+        
+
+        &nbsp;<span class="post-publish">发布于 <time datetime="2024-07-22">2024-07-22</time>, 
+            </span>&nbsp;<span class="post-publish">更新于 <time datetime="2024-07-22">2024-07-22</time>, 
+            </span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/markdown/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Markdown</a></span></div><div class="content"><div class="details admonition note open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>注意</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition abstract open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ul fa-fw" aria-hidden="true"></i>摘要<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>摘要</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>信息</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>技巧</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition success open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-check-circle fa-fw" aria-hidden="true"></i>成功<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>成功</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition question open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>问题</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>警告</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition failure open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-times-circle fa-fw" aria-hidden="true"></i>失败<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>失败</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition danger open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-skull-crossbones fa-fw" aria-hidden="true"></i>危险<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>危险</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition bug open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-bug fa-fw" aria-hidden="true"></i>Bug<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>Bug</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>示例</strong> 横幅</div>
+        </div>
+    </div>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>引用<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">一个 <strong>引用</strong> 横幅</div>
+        </div>
+    </div></div><div class="post-footer">
+        <a href="/blog/20240722_jvm/">阅读全文</a><div class="post-tags">
+                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/java/">java</a>,&nbsp;<a href="/blog/tags/jvm/">jvm</a>,&nbsp;<a href="/blog/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">虚拟机</a>,&nbsp;<a href="/blog/tags/jvm%E5%8E%9F%E7%90%86/">jvm原理</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
             <a href="/blog/20240626_systemd/"><img
         class="lazyload"
         src="/blog/svg/loading.min.svg"
@@ -211,27 +318,6 @@
             </span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/go/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Go</a></span></div><div class="content"><p>Go基础语法和常用特性解析</p></div><div class="post-footer">
         <a href="/blog/go/">阅读全文</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/go/">Go</a>,&nbsp;<a href="/blog/tags/study/">study</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
-            <a href="/blog/20230522_stream/"><img
-        class="lazyload"
-        src="/blog/svg/loading.min.svg"
-        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-3zp6o9_3840x2160.jpg"
-        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-3zp6o9_3840x2160.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-3zp6o9_3840x2160.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-3zp6o9_3840x2160.jpg 2x"
-        data-sizes="auto"
-        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-3zp6o9_3840x2160.jpg"
-        title="Stream流" /></a>
-        </div><h1 class="single-title" itemprop="name headline">
-        <a href="/blog/20230522_stream/">集合Stream流用法</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>
-
-
-        
-
-        &nbsp;<span class="post-publish">发布于 <time datetime="2023-05-22">2023-05-22</time>, 
-            </span>&nbsp;<span class="post-publish">更新于 <time datetime="2023-05-22">2023-05-22</time>, 
-            </span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/java/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Java</a></span></div><div class="content">Stream流</div><div class="post-footer">
-        <a href="/blog/20230522_stream/">阅读全文</a><div class="post-tags">
-                <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/java/">java</a>,&nbsp;<a href="/blog/tags/stream/">stream</a>,&nbsp;<a href="/blog/tags/collect/">collect</a>,&nbsp;<a href="/blog/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">函数式编程</a></div></div>
 </article><ul class="pagination"><li class="page-item active">
                     <span class="page-link">
                         <a href="/blog/">1</a>
