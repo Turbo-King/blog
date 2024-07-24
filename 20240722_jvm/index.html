@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>JVM 原理 - Turbo-King Blog</title><meta name="keywords" content="[Turbo-King Blog weizhihao ahao 阿豪]">
+        <title>JVM 原理拙见 - Turbo-King Blog</title><meta name="keywords" content="[Turbo-King Blog weizhihao ahao 阿豪]">
 
-<meta name="Description" content="JVM虚拟机"><meta property="og:title" content="JVM 原理" />
+<meta name="Description" content="JVM虚拟机"><meta property="og:title" content="JVM 原理拙见" />
 <meta property="og:description" content="JVM虚拟机" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://weizhihao.top/blog/20240722_jvm/" /><meta property="og:image" content="https://weizhihao.top/logo.png"/><meta property="article:section" content="posts" />
@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://weizhihao.top/logo.png"/>
 
-<meta name="twitter:title" content="JVM 原理"/>
+<meta name="twitter:title" content="JVM 原理拙见"/>
 <meta name="twitter:description" content="JVM虚拟机"/>
 <meta name="application-name" content="Turbo-King">
 <meta name="apple-mobile-web-app-title" content="Turbo-King"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -26,12 +26,12 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "JVM 原理",
+        "headline": "JVM 原理拙见",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20240722_jvm\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "java, jvm, 虚拟机, jvm原理","wordcount":  261 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "java, jvm, 虚拟机, jvm原理","wordcount":  807 ,
         "url": "https:\/\/weizhihao.top\/blog\/20240722_jvm\/","datePublished": "2024-07-22T19:57:54+08:00","dateModified": "2024-07-22T19:57:54+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -109,10 +109,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">JVM 原理</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">JVM 原理拙见</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/markdown/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Markdown</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-07-22">2024-07-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 261 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-07-22">2024-07-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 807 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -122,6 +122,11 @@
   <ul>
     <li><a href="#概念">概念</a></li>
     <li><a href="#jvm的生命周期">JVM的生命周期</a></li>
+    <li><a href="#jvm运行内存模型">JVM运行内存模型</a>
+      <ul>
+        <li><a href="#类装载器">类装载器</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><div class="details admonition note open">
@@ -223,7 +228,48 @@
 <h2 id="概念">概念</h2>
 <p><code>JVM</code> 是 Java 的核心和基础，处于 Java 编译器和 OS 平台之间的虚拟处理器。它是一种利用软件方法实现的抽象的计算机基于下层的操作系统和硬件平台，可以在上面执行 Java 的字节码程序。Java 编译器只要面向 <code>JVM</code>，生成 <code>JVM</code> 能够理解的代码或字节码文件。Java 源文件经编译成字节码程序，通过 <code>JVM</code> 将每一条指令翻译成不同平台机器码，通过特定的平台运行。</p>
 <br>
-<h2 id="jvm的生命周期">JVM的生命周期</h2></div><div class="post-footer" id="post-footer">
+<h2 id="jvm的生命周期">JVM的生命周期</h2>
+<ol>
+<li><strong>JVM 的诞生</strong>：当启动一个 Java 程序时，一个 JVM 实例就产生了，任何一个拥有<code>public static void main(String[] args)</code>函数的 class 都可以作为 JVM 实例运行的起点。</li>
+<li><strong>JVM 实例的运行</strong>：main() 作为该程序初始线程的起点，任何其他线程均由该线程启动。JVM 内部有两种线程：<strong>守护线程</strong>和<strong>非守护线程</strong>，main() 属于非守护线程，守护线程通常由 JVM 自己使用，Java 程序也可以标明自己创建的线程是守护线程。</li>
+<li><strong>JVM 实例的消亡</strong>：当程序中的所有非守护线程都终止时，JVM 才退出；若安全管理器允许，程序也可以使用 java.lang.Runtime 类或者 java.lang.System.exit() 来退出。</li>
+</ol>
+<br>
+<h2 id="jvm运行内存模型">JVM运行内存模型</h2>
+<p>概念：JVM 把文件 .class 字节码加载到内存，对数据进行校验，转换和解析，并初始化，最终形成可以被虚拟机直接使用的 Java 类型，这就是虚拟机的类加载机制。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.jpeg" title="类加载机制" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.jpeg" data-sub-html="<h2>类加载机制</h2><p>类加载机制</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.jpeg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.jpeg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.jpeg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.jpeg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.jpeg" />
+    </a><figcaption class="image-caption">类加载机制</figcaption>
+    </figure></p>
+<br>
+<h3 id="类装载器">类装载器</h3>
+<blockquote>
+<p>类加载器的任务是根据一个类的全限定名来读取此类的二进制字节流到 JVM 中，然后转换为一个与目标对应的 java.lang.Class 对象实例</p>
+</blockquote>
+<br>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>虚拟机提供的四类类加载机制<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li><strong>启动类加载器（Bootstrap ClassLoader）</strong> C++ 编写，加载 Java 核心 java.*
+<ul>
+<li>这个类加载器负载放在 &lt;JAVA_HOME&gt;/lib 目录中的，或者被 -Xbootclasspath 参数所指定的路径中，并且是虚拟机识别的类库。用户无法直接使用。</li>
+<li>由于引导类加载器涉及到虚拟机本地实现细节，开发者无法直接获取到启动类加载器的引用，所以不允许直接通过引用进行操作。</li>
+</ul>
+</li>
+<li>扩展类加载器（Extend加）</li>
+</ul>
+</div>
+        </div>
+    </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -232,7 +278,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://weizhihao.top/blog/20240722_jvm/" data-title="JVM 原理" data-via="TurboKing1024" data-hashtags="java,jvm,虚拟机,jvm原理"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://weizhihao.top/blog/20240722_jvm/" data-hashtag="java"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://weizhihao.top/blog/20240722_jvm/" data-title="JVM 原理" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://weizhihao.top/blog/20240722_jvm/" data-title="JVM 原理"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://weizhihao.top/blog/20240722_jvm/" data-title="JVM 原理拙见" data-via="TurboKing1024" data-hashtags="java,jvm,虚拟机,jvm原理"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://weizhihao.top/blog/20240722_jvm/" data-hashtag="java"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://weizhihao.top/blog/20240722_jvm/" data-title="JVM 原理拙见" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://weizhihao.top/blog/20240722_jvm/" data-title="JVM 原理拙见"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
