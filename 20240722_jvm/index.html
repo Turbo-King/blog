@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/weizhihao.top\/blog\/20240722_jvm\/"
-        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "java, jvm, 虚拟机, jvm原理","wordcount":  807 ,
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "java, jvm, 虚拟机, jvm原理","wordcount":  5547 ,
         "url": "https:\/\/weizhihao.top\/blog\/20240722_jvm\/","datePublished": "2024-07-22T19:57:54+08:00","dateModified": "2024-07-22T19:57:54+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
@@ -63,7 +63,7 @@
                     <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
                     <i class="fa fa-globe" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/20240722_jvm/" selected>简体中文</option></select>
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/en/20240722_jvm/">English</option><option value="/blog/20240722_jvm/" selected>简体中文</option><option value="/blog/fr/20240722_jvm/">Français</option></select>
                 </a></div>
         </div>
     </div>
@@ -97,7 +97,7 @@
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
                     <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/blog/20240722_jvm/" selected>简体中文</option></select>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/en/20240722_jvm/">English</option><option value="/blog/20240722_jvm/" selected>简体中文</option><option value="/blog/fr/20240722_jvm/">Français</option></select>
                 </a></div>
     </div>
 </header><div class="search-dropdown desktop">
@@ -110,10 +110,17 @@
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">JVM 原理拙见</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/markdown/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Markdown</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-07-22">2024-07-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 807 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+            <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/java/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Java</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-07-22">2024-07-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5547 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%20%E5%8E%9F%E7%90%86%E6%8B%99%E8%A7%81.jpeg"
+        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%20%E5%8E%9F%E7%90%86%E6%8B%99%E8%A7%81.jpeg, https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%20%E5%8E%9F%E7%90%86%E6%8B%99%E8%A7%81.jpeg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%20%E5%8E%9F%E7%90%86%E6%8B%99%E8%A7%81.jpeg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%20%E5%8E%9F%E7%90%86%E6%8B%99%E8%A7%81.jpeg"
+        title="JVM虚拟机" /></div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
@@ -125,107 +132,37 @@
     <li><a href="#jvm运行内存模型">JVM运行内存模型</a>
       <ul>
         <li><a href="#类装载器">类装载器</a></li>
+        <li><a href="#原理">原理</a>
+          <ul>
+            <li><a href="#加载重点">加载（重点）</a></li>
+            <li><a href="#验证">验证</a></li>
+            <li><a href="#准备">准备</a></li>
+            <li><a href="#解析">解析</a></li>
+            <li><a href="#初始化">初始化</a></li>
+          </ul>
+        </li>
+        <li><a href="#类装载器内部机制">类装载器内部机制</a>
+          <ul>
+            <li><a href="#原理-1">原理</a></li>
+            <li><a href="#双亲委派机制作用">双亲委派机制作用</a></li>
+          </ul>
+        </li>
+        <li><a href="#运行时数据区">运行时数据区</a>
+          <ul>
+            <li><a href="#堆---线程共享">堆 - 线程共享</a></li>
+            <li><a href="#元空间--永久代方法区---线程共享">元空间 = 永久代（方法区） - 线程共享</a></li>
+            <li><a href="#java栈---非线程共享">Java栈 - 非线程共享</a></li>
+            <li><a href="#程序计数器---非线程共享">程序计数器 - 非线程共享</a></li>
+            <li><a href="#本地方法栈---非线程共享">本地方法栈 - 非线程共享</a></li>
+          </ul>
+        </li>
+        <li><a href="#创建对象内存分析">创建对象内存分析</a></li>
       </ul>
     </li>
+    <li><a href="#总结">总结</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><div class="details admonition note open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">一个 <strong>注意</strong> 横幅</div>
-        </div>
-    </div>
-<div class="details admonition abstract open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-list-ul fa-fw" aria-hidden="true"></i>摘要<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">一个 <strong>摘要</strong> 横幅</div>
-        </div>
-    </div>
-<div class="details admonition info open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>信息<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">一个 <strong>信息</strong> 横幅</div>
-        </div>
-    </div>
-<div class="details admonition tip open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>技巧<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">一个 <strong>技巧</strong> 横幅</div>
-        </div>
-    </div>
-<div class="details admonition success open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-check-circle fa-fw" aria-hidden="true"></i>成功<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">一个 <strong>成功</strong> 横幅</div>
-        </div>
-    </div>
-<div class="details admonition question open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>问题<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">一个 <strong>问题</strong> 横幅</div>
-        </div>
-    </div>
-<div class="details admonition warning open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>警告<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">一个 <strong>警告</strong> 横幅</div>
-        </div>
-    </div>
-<div class="details admonition failure open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-times-circle fa-fw" aria-hidden="true"></i>失败<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">一个 <strong>失败</strong> 横幅</div>
-        </div>
-    </div>
-<div class="details admonition danger open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-skull-crossbones fa-fw" aria-hidden="true"></i>危险<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">一个 <strong>危险</strong> 横幅</div>
-        </div>
-    </div>
-<div class="details admonition bug open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-bug fa-fw" aria-hidden="true"></i>Bug<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">一个 <strong>Bug</strong> 横幅</div>
-        </div>
-    </div>
-<div class="details admonition example open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>示例<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">一个 <strong>示例</strong> 横幅</div>
-        </div>
-    </div>
-<div class="details admonition quote open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>引用<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">一个 <strong>引用</strong> 横幅</div>
-        </div>
-    </div>
-<h2 id="概念">概念</h2>
+            </div><div class="content" id="content"><h2 id="概念">概念</h2>
 <p><code>JVM</code> 是 Java 的核心和基础，处于 Java 编译器和 OS 平台之间的虚拟处理器。它是一种利用软件方法实现的抽象的计算机基于下层的操作系统和硬件平台，可以在上面执行 Java 的字节码程序。Java 编译器只要面向 <code>JVM</code>，生成 <code>JVM</code> 能够理解的代码或字节码文件。Java 源文件经编译成字节码程序，通过 <code>JVM</code> 将每一条指令翻译成不同平台机器码，通过特定的平台运行。</p>
 <br>
 <h2 id="jvm的生命周期">JVM的生命周期</h2>
@@ -258,18 +195,269 @@
             <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>虚拟机提供的四类类加载机制<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content"><ul>
-<li><strong>启动类加载器（Bootstrap ClassLoader）</strong> C++ 编写，加载 Java 核心 java.*
+            <div class="admonition-content"><ol>
+<li>
+<p><strong>启动类加载器（Bootstrap ClassLoader）</strong> C++ 编写，加载 Java 核心 java.*</p>
 <ul>
 <li>这个类加载器负载放在 &lt;JAVA_HOME&gt;/lib 目录中的，或者被 -Xbootclasspath 参数所指定的路径中，并且是虚拟机识别的类库。用户无法直接使用。</li>
 <li>由于引导类加载器涉及到虚拟机本地实现细节，开发者无法直接获取到启动类加载器的引用，所以不允许直接通过引用进行操作。</li>
 </ul>
 </li>
-<li>扩展类加载器（Extend加）</li>
+<li>
+<p><strong>扩展类加载器（Extension ClassLoader）</strong> Java 编写，加载扩展库</p>
+<ul>
+<li>这个类加载器由 sun.misc.Launcher$AppClassLoader 实现。它负责 &lt;Java_Home&gt;/lib/ext 目录中的jar文件，或者被 java.ext.dirs 系统变量所指定的路径中的所有类库。用户可以直接使用。</li>
+</ul>
+</li>
+<li>
+<p><strong>应用程序类加载器（Application ClassLoader）</strong> Java 编写，加载程序所在的目录</p>
+<ul>
+<li>这个类由 sun.misc.Launcher$AppClassLoader 实现。是 ClassLoader 中 getSystemClassLoader() 方法的返回值。它负责用户路径（ClassPath）所指定的类库。用户可以直接使用。如果用户没有自己定义类加载器，默认使用这个。</li>
+</ul>
+</li>
+<li>
+<p><strong>自定义类加载器（User ClassLoader）</strong></p>
+<ul>
+<li>用户自己定义的类加载器。</li>
+</ul>
+</li>
+</ol>
+</div>
+        </div>
+    </div>
+<br>
+<h3 id="原理">原理</h3>
+<p>类从被加载到虚拟机内存中开始，到卸载出内存为止，它的生命周期包括一下流程：</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86.jpeg" title="类加载原理" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86.jpeg" data-sub-html="<h2>类加载原理</h2><p>类加载原理</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86.jpeg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86.jpeg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86.jpeg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86.jpeg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86.jpeg" />
+    </a><figcaption class="image-caption">类加载原理</figcaption>
+    </figure></p>
+<h4 id="加载重点">加载（重点）</h4>
+<p>加载阶段是“类加载机制”中的一个阶段，这个阶段通常也被称作“装载”，主要完成：</p>
+<ol>
+<li>通过“类全名”来获取定义此类的二进制字节流</li>
+<li>将字节流所代表的静态存储结构转换为方法区中的运行时数据结构&ndash;模版</li>
+<li>在 Java 堆中生成一个代表这个类的 java.lang.Class 对象，作为方法区这些数据的访问入口</li>
+</ol>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>解释<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ul>
+<li>相对于类加载过程中的其他阶段，加载阶段（准确来说，是加载阶段中获取类的二进制字节流的动作）是开发期可控性最强的阶段，因为加载阶段可以使用系统提供的类加载器（<code>ClassLoader</code>）来完成，也可以由用户自定义的类加载器完成，开发人员可以通过定义自己的类加载器去控制字节流的获取方式。</li>
+<li>加载阶段完成后，虚拟机外部的二进制字节流就按照虚拟机所需的格式存储在方法区之中，方法区中的数据存储格式由虚拟机实现自行定义，虚拟机并未规定此区域的具体数据结构。然后在 Java 堆中实例化一个 java.lang.Class 类的对象，这个对象作为程序访问方法区中的这些类型数据的外部接口。</li>
 </ul>
 </div>
         </div>
-    </div></div><div class="post-footer" id="post-footer">
+    </div>
+<h4 id="验证">验证</h4>
+<p>验证是链接阶段的第一步，这一步主要的目的是确保 class 文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身安全。</p>
+<p>验证阶段主要包括四个检验过程：文件格式验证、元数据验证、字节码验证和符号引用验证。</p>
+<h4 id="准备">准备</h4>
+<p>准备阶段是正式为类变量分配内存并设置类变量初始值的阶段，这些内存都将在方法区中进行分配。这个阶段中有两个容易混淆的知识点，</p>
+<p>首先是这个时候进行内存分配的变量仅包括类变量（<code>static</code> 修饰的变量），而不包括实例变量，实例变量将会在对象实例化时随着对象一起分配在 Java 堆中。</p>
+<p>其次是这里所说的初始值“通常情况”下是数据类型的零值，假设一个类变量定义为：（<strong>public static int value = 12;</strong>）那么变量 value 在准备阶段过后的初始值为0而不是12，因为这个时候尚未开始执行任何 Java 方法，而把 valve 赋值为12的指令是被程序编译后，存放在类构造器()方法之中，所以把 value 赋值为12的动作将在初始化阶段才会被执行。</p>
+<p>上面所说的“通常情况”下初始值是零值，那相对一些特殊情况，如果类字段的字段属性表中存在 <strong>ConstantValue</strong> 属性，那在准备阶段变量 value 就会被初始化为 <strong>ConstantValue</strong> 属性所指定的值，建议上面类变量 value 定义为(public static final int value = 12；)编译时 Java 将会为 value 生成 <strong>ConstantValue</strong> 属性，在准备阶段虚拟机就会根据 <strong>ConstantValue</strong> 的设置将 value 设置为12。</p>
+<h4 id="解析">解析</h4>
+<p>解析阶段是虚拟机常量池内的符号引用替换为直接引用的过程</p>
+<p><strong>符号引用：</strong> 符号引用是一组符号来描述所引用的目标对象，符号可以是任何形式的字面量，只要使用时能无歧义地定位到目标即可。符号引用与虚拟机实现的内存布局无关，引用的目标对象并不一定已经加载到内存中。</p>
+<p><strong>直接引用：</strong> 直接引用可以是直接指向目标对象的指针、相对偏移量或是一个能间接定位到目标的句柄。直接引用是与虚拟机内存布局实现相关的，同一个符号引用在不同虚拟机实例上翻译出来的直接引用一般不会相同，如果有了直接引用，那引用的目标必定是已经在内存中存在。</p>
+<p>解析的动作主要准对类或接口、字段、类方法、接口方法四类符号引用进行。分别对应编译后常量池内的 CONSTANT_CLASS_INFO、CONSTANT_FIELDREF_INFO、CONSTANT_METHODEF_INFO、CONSTANT_INTERFACEMETHODER_INFO 四种常量类型。</p>
+<ol>
+<li>类、接口的解析</li>
+<li>字段解析</li>
+<li>类方法解析</li>
+<li>接口方法解析</li>
+</ol>
+<h4 id="初始化">初始化</h4>
+<p>类加载最后阶段，若该类具有超类，则对其进行初始化，执行静态初始化器和静态初始化成员变量（如前面只初始化了默认值的 static 变量将会在这个阶段赋值，成员变量也将被初始化）。</p>
+<br>
+<h3 id="类装载器内部机制">类装载器内部机制</h3>
+<h4 id="原理-1">原理</h4>
+<p>当某个类加载器需要加载某个.class文件时，它首先会把这个任务委托给它的上级类加载器，递归这个操作，如果上级的类加载器没有加载，自己才会去加载这个类。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B.jpeg" title="类加载流程" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B.jpeg" data-sub-html="<h2>类加载流程</h2><p>类加载流程</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B.jpeg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B.jpeg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B.jpeg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B.jpeg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B.jpeg" />
+    </a><figcaption class="image-caption">类加载流程</figcaption>
+    </figure></p>
+<p>抽象理解：即每个儿子都不愿意干活，每次有活就丢给父亲去干，直到父亲说这件事我干不了时，儿子自己才会想办法去完成，这就是传说中的<strong>双亲委派机制</strong> 。</p>
+<h4 id="双亲委派机制作用">双亲委派机制作用</h4>
+<ol>
+<li>
+<p><strong>保证安全性</strong></p>
+<p>防止重复加载同一个 class。通过委托去向上面问，加载过了就不用再加载一遍。保证数据安全。</p>
+</li>
+<li>
+<p><strong>类加载流程</strong></p>
+<p>保证核心 .class 不能被篡改。通过委托方式，就不会去篡改核心 .class，即使篡改也不会去加载，即使加载也不会是同一个 .class 对象。不同的加载器加载同一个 .class 也不是同一个 Class 对象。</p>
+</li>
+</ol>
+<p>解释：如果没有双亲委派模型，而是由各个类加载器自行加载，如果用户编写了一个 java.lang.Object 的同名类并放在 ClassPath 中，多个类加载器都去加载这个类到内存中，系统中将会出现多个不同的 Object 类，那么类之间的比较结果以及类的唯一性将无法保证，因为 Object 都各自不相同，那么程序运行启动就会出错，所以双亲委派模型也保证了 JVM 能够正常安全运行。</p>
+<br>
+<h3 id="运行时数据区">运行时数据区</h3>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E8%BF%90%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%8C%BA.jpeg" title="JVM运行数据区" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E8%BF%90%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%8C%BA.jpeg" data-sub-html="<h2>JVM运行时数据区</h2><p>JVM运行数据区</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E8%BF%90%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%8C%BA.jpeg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E8%BF%90%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%8C%BA.jpeg, https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E8%BF%90%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%8C%BA.jpeg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E8%BF%90%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%8C%BA.jpeg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E8%BF%90%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%8C%BA.jpeg" />
+    </a><figcaption class="image-caption">JVM运行时数据区</figcaption>
+    </figure></p>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>介绍<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>JVM 运行时会分配好方法区和堆，而 JVM 每次遇到一个线程，就为其分配一个程序计数器、Java栈、本地方法栈，当线程终止时，三者（<code>程序计数器、Java栈、本地方法栈</code>）所占用的内存空间也会释放掉。</li>
+<li>程序计数器、Java栈、本地方法栈的生命周期与所属线程相同，而方法区和堆的生命周期与 Java 程序运行生命周期相同，所以 GC 只发生在线程共享的区域（大部分发生在 <code>HEAP</code> 上）。</li>
+</ol>
+</div>
+        </div>
+    </div>
+<br>
+<h4 id="堆---线程共享">堆 - 线程共享</h4>
+<ul>
+<li><strong>Java 中的堆是用来存储对象实例以及数组</strong>（当然，数组引用是存放在 Java 栈中的）。<strong>堆是被所有线程共享的，因此在其上进行对象内存的分配均需要进行加锁，这也导致了 new 对象的开销是比较大的。</strong> 在 JVM 中只有一个堆。堆是 Java 垃圾收集器管理的主要区域，Java 的垃圾回收机制会自动进行处理。</li>
+<li><strong>堆空间分为老年代和年轻代</strong>。刚刚创建的对象存放在年轻代，而老年代中存放生命周期长久的实例对象。</li>
+<li><strong>年轻代中又被分为 <code>Eden</code> 区和两个 <code>Survivor</code> 区。新的对象分配首先是放在 Eden 区，Survivor 区作为 Eden 区和 <code>Old</code> 区的缓冲，在 Survivor 区的对象经历若干次 GC 仍然存活的，就会被转移到老年代。</strong> 当一个对象大于 Eden 区而小于 Old 区（老年代）的时候就会直接扔到 Old 区。而当对象大于 Old 区时。会直接抛出 <code>OutOfMemoryError（OOM）</code></li>
+</ul>
+<br>
+<h4 id="元空间--永久代方法区---线程共享">元空间 = 永久代（方法区） - 线程共享</h4>
+<p>存储在物理硬盘上（非堆）</p>
+<ul>
+<li><strong>有时候也称为永久代（Permanent Generation）</strong>，在方法区中，存储了每个类的信息 <strong>（包括：类的名称、修饰符、方法信息、字段信息）、类中静态变量、类中定义为 final 类型的常量、类中的 Field 信息、类中的方法信息以及编译器编译后的代码等</strong></li>
+<li><strong>当开发人员在程序中通过 Class 对象中的 <code>getName</code>、<code>isInterface</code> 等方法来获取信息时，这些数据都来源于方法区域，同时方法区域也是全局共享的，在一定的条件下它也会被 <code>GC</code></strong>，在这里进行的 GC 主要是方法区里的常量池和类型的卸载。当方法区域需要使用的内存超过其允许的大小时，会抛出 <strong>OutOfMemory（OOM）</strong> 的错误信息</li>
+<li><strong>方法区中有一个非常重要的部分就是运行时常量池，用于存放静态编译产生的字面量和符号引用。运行时生成的常量也会存在这个常量池中</strong>，比如 String 的 intern 方法。它是每一个类或接口的常量池的运行时表现形式，在类和接口被加载到 JVM 后，对应的运行时常量池就被创建出来。</li>
+</ul>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E5%A0%86%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png" title="JVM堆内存结构" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E5%A0%86%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png" data-sub-html="<h2>JVM堆内存结构</h2><p>JVM堆内存结构</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E5%A0%86%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E5%A0%86%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png, https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E5%A0%86%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E5%A0%86%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%E5%A0%86%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png" />
+    </a><figcaption class="image-caption">JVM堆内存结构</figcaption>
+    </figure></p>
+<p><strong>为什么元空间又被称为非堆：</strong> 因为在内存模型中它存储的数据和堆有些许不同，所以习惯性把它从堆中单独区分出来。方法区属于非堆内存。它存储每个类结构，如运行时常量池、字段和方法数据，以及方法和构造方法的代码。它是在 Java 虚拟机启动时创建的。</p>
+<br>
+<h4 id="java栈---非线程共享">Java栈 - 非线程共享</h4>
+<ul>
+<li><strong>Java栈也称为虚拟机栈（Java Vitual Machine Stack），也就是我们常常所说的栈。JVM 栈是线程私有的，每个线程创建的同时都会创建自己的 JVM 栈，互不干扰。</strong> Java栈是 Java 方法执行的内存模型。</li>
+<li><strong>Java栈中存放的是一个个栈帧，每个栈帧都对应一个被调用的方法</strong>，在栈帧中包括局部变量表（Local Variables）、操作数（Operand Stark）、指向当前方法所属的类的运行时常量池的引用（Reference to runtime constant pool）、方法返回地址（Retuen Address）和一些额外的附加信息。</li>
+<li><strong>当线程执行一个方法时，就会随之创建一个对应的栈帧，并将建立的栈帧压栈。当方法执行完毕之后，便会将栈帧出栈。因此可知，线程当前执行的方法所对应的栈帧必定位于 Java 栈的顶部</strong>。</li>
+<li><strong>局部变量表</strong>：用来存储方法中的局部变量，对于引用类型的变量，则存的是指向对象的引用，对于基本数据类型的变量，则直接存储它的值</li>
+<li><strong>操作数栈</strong>：栈最典型的一个应用就是用来对表达式求值。在一个线程执行方法的过程中，实际上就是不断执行语句的过程，而归根到底就是进行计算的过程。因此可以这么说，程序中的所有计算过程都是在借助于操作栈来完成的。</li>
+<li><strong>指向运行时常量池的引用</strong>：因为在方法执行的过程中有可能需要用到类中的常量，所以必须要有一个引用指向运行时常量。</li>
+<li><strong>方法返回地址</strong>：当一个方法执行完毕之后，要返回之前调用它的地方，因此在栈帧中必须保存一个方法返回地址。</li>
+</ul>
+<br>
+<h4 id="程序计数器---非线程共享">程序计数器 - 非线程共享</h4>
+<ul>
+<li>
+<p><strong>程序计数器（Program Counter Register）</strong>，也有称作为 PC 寄存器</p>
+<p>​	由于在JVM中，多线程是通过线程轮流切换来获得 CPU 执行时间的，因此，在任一具体时刻，一个CPU的内核只会执行一条线程中的指令，因此，为了能够使得每个线程都在线程切换后能够恢复在切换之前的程序执行位置，每个线程都需要有自己独立的程序计数器，并且不能互相被干扰，否则就会影响到程序的正常执行次序。因此，可以这么说，程序计数器是每个线程所私有的。</p>
+</li>
+<li>
+<p>在 JVM 规范中规定，如果线程执行的是非 native（本地）方法，则程序计数器中保存的是当前需要执行的指令的地址；如果线程执行的是 native 方法，则程序计数器中的值是 undefined。</p>
+</li>
+<li>
+<p><strong>由于程序计数器中存储的数据所占空间的大小不会随程序的执行而发生改变</strong>，因此，对于程序计数器是不会发生内存溢出现象（OutOfMemory）的。</p>
+</li>
+</ul>
+<br>
+<h4 id="本地方法栈---非线程共享">本地方法栈 - 非线程共享</h4>
+<p>JVM 采用本地方法堆栈来支持 <strong>native</strong> 方法的执行，此区域用于存储每个 native 方法调用的状态。</p>
+<p>本地方法栈与 Java 栈的作用和原理非常相似。<strong>区别只不过是 Java栈是为执行 Java 方法服务的，而本地方法栈则是为执行本地方法（Native Method）服务的</strong>。</p>
+<p><strong>JVM 规范中，并没有对本地方法栈的具体实现方法以及数据结构作强制规定，虚拟机可以自由实现它。在 <code>HotSopt</code> 虚拟机中直接就把本地方法栈和 Java栈合二为一</strong></p>
+<br>
+<h3 id="创建对象内存分析">创建对象内存分析</h3>
+<p>创建一个Dog类，实例化两个对象，分别是&quot;AHuang&quot;和&quot;AHui&quot;。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">(){</span>
+</span></span><span class="line"><span class="cl">			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;running&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span><span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Dog</span> <span class="n">Ahuang</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Ahuang</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">&#34;Ahuang&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Ahuang</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Ahuang</span><span class="o">.</span><span class="na">shout</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Dog</span> <span class="n">AHui</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AHui</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">&#34;AHui&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AHui</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AHui</span><span class="o">.</span><span class="na">shout</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90.jpeg" title="创建对象内存分析" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90.jpeg" data-sub-html="<h2>创建对象内存分析</h2><p>创建对象内存分析</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90.jpeg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90.jpeg, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90.jpeg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90.jpeg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90.jpeg" />
+    </a><figcaption class="image-caption">创建对象内存分析</figcaption>
+    </figure></p>
+<p>首先会在方法区加载 Class 模版，每个模版都有该类的属性以及方法和常量池，以及静态变量随着类加载而加载到静态方法区，并在 Java 堆中生成一个代表该类的 Class 对象的内存区域，为类变量分配内存并设置类变量初始值，例如 String 类型为 null，而后在栈中存储该对象的引用地址，地址指向堆中类的内存地址，最后初始化，例如构造方法，复制给堆中的对象内存数据中。每一个线程都会给它分配指定的 Java 栈，程序计数器、本地方法栈，所以说这三个是线程独享的，是线程安全的，而堆和方法区大家一起使用，因而线程不安全。</p>
+<br>
+<h2 id="总结">总结</h2>
+<p>东西扯了这么久，也参考了一些资料，也有自己在学习上的一些总结，这里面也埋了一个彩蛋，关于JVM GC操作的执行流程又是怎样的呢？希望以上对你有所帮助，谢谢。</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -278,7 +466,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://weizhihao.top/blog/20240722_jvm/" data-title="JVM 原理拙见" data-via="TurboKing1024" data-hashtags="java,jvm,虚拟机,jvm原理"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://weizhihao.top/blog/20240722_jvm/" data-hashtag="java"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://weizhihao.top/blog/20240722_jvm/" data-title="JVM 原理拙见" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://weizhihao.top/blog/20240722_jvm/" data-title="JVM 原理拙见"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://weizhihao.top/blog/20240722_jvm/" data-title="JVM 原理拙见" data-via="TurboKing1024" data-hashtags="java,jvm,虚拟机,jvm原理"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://weizhihao.top/blog/20240722_jvm/" data-hashtag="java"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://weizhihao.top/blog/20240722_jvm/" data-title="JVM 原理拙见" data-image="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%20%E5%8E%9F%E7%90%86%E6%8B%99%E8%A7%81.jpeg" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 百度" data-sharer="baidu" data-url="https://weizhihao.top/blog/20240722_jvm/" data-title="JVM 原理拙见"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>

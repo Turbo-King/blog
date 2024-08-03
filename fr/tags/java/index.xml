@@ -4,7 +4,17 @@
         <link>https://weizhihao.top/blog/fr/tags/java/</link>
         <description>java - Balise - Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>fr</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 19 May 2023 16:13:37 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/fr/tags/java/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 22 Jul 2024 19:57:54 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/fr/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>JVM 原理拙见</title>
+    <link>https://weizhihao.top/blog/fr/20240722_jvm/</link>
+    <pubDate>Mon, 22 Jul 2024 19:57:54 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/20240722_jvm/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/JVM%20%E5%8E%9F%E7%90%86%E6%8B%99%E8%A7%81.jpeg" referrerpolicy="no-referrer">
+            </div>JVM虚拟机]]></description>
+</item>
+<item>
     <title>Lambda常见场景用法</title>
     <link>https://weizhihao.top/blog/fr/20230519_lambda/</link>
     <pubDate>Fri, 19 May 2023 16:13:37 &#43;0800</pubDate>

@@ -5,11 +5,11 @@
         <description>Categories - 分类 - Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
             <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 22 Jul 2024 19:57:54 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/categories/" rel="self" type="application/rss+xml" /><item>
-    <title>Markdown</title>
-    <link>https://weizhihao.top/blog/categories/markdown/</link>
+    <title>Java</title>
+    <link>https://weizhihao.top/blog/categories/java/</link>
     <pubDate>Mon, 22 Jul 2024 19:57:54 &#43;0800</pubDate>
     <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/categories/markdown/</guid>
+    <guid>https://weizhihao.top/blog/categories/java/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
@@ -26,14 +26,6 @@
     <pubDate>Sat, 05 Aug 2023 18:07:31 &#43;0800</pubDate>
     <author>Turbo-King</author>
     <guid>https://weizhihao.top/blog/categories/go/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Java</title>
-    <link>https://weizhihao.top/blog/categories/java/</link>
-    <pubDate>Mon, 22 May 2023 09:03:59 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/categories/java/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>

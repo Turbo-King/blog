@@ -2,8 +2,20 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://weizhihao.top/blog/20240722_jvm/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://weizhihao.top/blog/20240626_systemd/</loc><lastmod>2024-06-26T19:32:25&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/20240722_jvm/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="https://weizhihao.top/blog/en/20240722_jvm/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/20240722_jvm/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh-cn"
+                    href="https://weizhihao.top/blog/20240722_jvm/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/20240626_systemd/</loc><lastmod>2024-06-26T19:32:25&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://weizhihao.top/blog/en/20240626_systemd/"
@@ -174,7 +186,7 @@
                     hreflang="zh-cn"
                     href="https://weizhihao.top/blog/emoji/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/categories/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/categories/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://weizhihao.top/blog/en/categories/"
@@ -187,7 +199,7 @@
                     hreflang="zh-cn"
                     href="https://weizhihao.top/blog/categories/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/tags/java/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/java/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://weizhihao.top/blog/en/tags/java/"
@@ -200,10 +212,46 @@
                     hreflang="zh-cn"
                     href="https://weizhihao.top/blog/tags/java/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/tags/jvm/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://weizhihao.top/blog/tags/jvm%E5%8E%9F%E7%90%86/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://weizhihao.top/blog/categories/markdown/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://weizhihao.top/blog/posts/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/categories/java/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="https://weizhihao.top/blog/en/categories/java/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/categories/java/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh-cn"
+                    href="https://weizhihao.top/blog/categories/java/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/tags/jvm/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="https://weizhihao.top/blog/en/tags/jvm/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/tags/jvm/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh-cn"
+                    href="https://weizhihao.top/blog/tags/jvm/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/tags/jvm%E5%8E%9F%E7%90%86/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="https://weizhihao.top/blog/en/tags/jvm%E5%8E%9F%E7%90%86/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/tags/jvm%E5%8E%9F%E7%90%86/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh-cn"
+                    href="https://weizhihao.top/blog/tags/jvm%E5%8E%9F%E7%90%86/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/posts/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://weizhihao.top/blog/en/posts/"
@@ -216,7 +264,7 @@
                     hreflang="zh-cn"
                     href="https://weizhihao.top/blog/posts/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/tags/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://weizhihao.top/blog/en/tags/"
@@ -229,7 +277,7 @@
                     hreflang="zh-cn"
                     href="https://weizhihao.top/blog/tags/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://weizhihao.top/blog/en/"
@@ -242,8 +290,20 @@
                     hreflang="zh-cn"
                     href="https://weizhihao.top/blog/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://weizhihao.top/blog/tags/linux/</loc><lastmod>2024-06-26T19:32:25&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/</loc><lastmod>2024-07-22T19:57:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="en"
+                        href="https://weizhihao.top/blog/en/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="zh-cn"
+                    href="https://weizhihao.top/blog/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/tags/linux/</loc><lastmod>2024-06-26T19:32:25&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://weizhihao.top/blog/en/tags/linux/"
@@ -256,7 +316,7 @@
                     hreflang="zh-cn"
                     href="https://weizhihao.top/blog/tags/linux/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/tags/system/</loc><lastmod>2024-06-26T19:32:25&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/system/</loc><lastmod>2024-06-26T19:32:25&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://weizhihao.top/blog/en/tags/system/"
@@ -269,7 +329,7 @@
                     hreflang="zh-cn"
                     href="https://weizhihao.top/blog/tags/system/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/tags/systemctl/</loc><lastmod>2024-06-26T19:32:25&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/tags/systemctl/</loc><lastmod>2024-06-26T19:32:25&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://weizhihao.top/blog/en/tags/systemctl/"
@@ -282,7 +342,7 @@
                     hreflang="zh-cn"
                     href="https://weizhihao.top/blog/tags/systemctl/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/categories/technology/</loc><lastmod>2024-06-26T19:32:25&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/categories/technology/</loc><lastmod>2024-06-26T19:32:25&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://weizhihao.top/blog/en/categories/technology/"
@@ -429,19 +489,6 @@
                     href="https://weizhihao.top/blog/categories/go/"
                     /></url><url>
             <loc>https://weizhihao.top/blog/tags/collect/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://weizhihao.top/blog/categories/java/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="en"
-                        href="https://weizhihao.top/blog/en/categories/java/"
-                        /><xhtml:link
-                        rel="alternate"
-                        hreflang="fr"
-                        href="https://weizhihao.top/blog/fr/categories/java/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="zh-cn"
-                    href="https://weizhihao.top/blog/categories/java/"
-                    /></url><url>
             <loc>https://weizhihao.top/blog/tags/stream/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://weizhihao.top/blog/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</loc><lastmod>2023-05-22T09:03:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
