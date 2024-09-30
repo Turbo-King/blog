@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>开发思想拙见 - Turbo-King Blog</title><meta name="keywords" content="[Turbo-King Blog weizhihao ahao 阿豪]">
+
+<meta name="Description" content="个人软件开发中必须知道的若干思想"><meta property="og:title" content="开发思想拙见" />
+<meta property="og:description" content="个人软件开发中必须知道的若干思想" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://weizhihao.top/blog/fr/20240930/" /><meta property="og:image" content="https://weizhihao.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-09-30T09:37:11+08:00" />
+<meta property="article:modified_time" content="2024-09-30T09:37:11+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://weizhihao.top/logo.png"/>
+
+<meta name="twitter:title" content="开发思想拙见"/>
+<meta name="twitter:description" content="个人软件开发中必须知道的若干思想"/>
+<meta name="application-name" content="Turbo-King">
+<meta name="apple-mobile-web-app-title" content="Turbo-King"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://weizhihao.top/blog/fr/20240930/" /><link rel="prev" href="https://weizhihao.top/blog/fr/20240722_jvm/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "开发思想拙见",
+        "inLanguage": "fr",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/weizhihao.top\/blog\/fr\/20240930\/"
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "daily, study","wordcount":  82 ,
+        "url": "https:\/\/weizhihao.top\/blog\/fr\/20240930\/","datePublished": "2024-09-30T09:37:11+08:00","dateModified": "2024-09-30T09:37:11+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
+                "@type": "Person",
+                "name": "Turbo-King"
+            },"description": "个人软件开发中必须知道的若干思想"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/fr/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/fr/posts/" title="Postes"> Postes </a><a class="menu-item" href="/blog/fr/tags/" title="Balises"> Balises </a><a class="menu-item" href="/blog/fr/categories/" title="Catégories"> Catégories </a><a class="menu-item" href="/about/" title="Turbo-King"> À propos </a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Rechercher des titres, des contenus..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Chercher">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clair">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Changer de Thème">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Choisir la langue">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/en/20240930/">English</option><option value="/blog/20240930/">简体中文</option><option value="/blog/fr/20240930/" selected>Français</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/fr/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Rechercher des titres, des contenus..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Chercher">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clair">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Annuler
+                    </a>
+                </div><a class="menu-item" href="/blog/fr/posts/" title="Postes">Postes</a><a class="menu-item" href="/blog/fr/tags/" title="Balises">Balises</a><a class="menu-item" href="/blog/fr/categories/" title="Catégories">Catégories</a><a class="menu-item" href="/about/" title="Turbo-King">À propos</a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Changer de Thème">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Choisir la langue">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/en/20240930/">English</option><option value="/blog/20240930/">简体中文</option><option value="/blog/fr/20240930/" selected>Français</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contenu</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">开发思想拙见</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">inclus dans <a href="/blog/fr/categories/daily/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Daily</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-09-30">2024-09-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;82 mots&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;Une minute&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-85ydk2_3840x2160.jpeg"
+        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-85ydk2_3840x2160.jpeg, https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-85ydk2_3840x2160.jpeg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-85ydk2_3840x2160.jpeg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-85ydk2_3840x2160.jpeg"
+        title="个人软件开发中必须知道的若干思想" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contenu</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#起因">起因</a></li>
+    <li><a href="#拙见">拙见</a>
+      <ul>
+        <li><a href="#设计模式中提到的六大设计原则">设计模式中提到的六大设计原则</a>
+          <ul>
+            <li><a href="#单一职责原则">单一职责原则</a></li>
+            <li><a href="#里氏替换原则">里氏替换原则</a></li>
+            <li><a href="#ioc-或-di-法则">IOC 或 DI 法则</a></li>
+            <li><a href="#接口分离原则">接口分离原则</a></li>
+            <li><a href="#迪米特原则">迪米特原则</a></li>
+            <li><a href="#开闭原则">开闭原则</a></li>
+          </ul>
+        </li>
+        <li><a href="#分层思想">分层思想</a></li>
+        <li><a href="#接口开发思想">接口开发思想</a></li>
+        <li><a href="#配置思想">配置思想</a></li>
+        <li><a href="#分离思想">分离思想</a></li>
+        <li><a href="#分页思想">分页思想</a></li>
+        <li><a href="#异步调用思想">异步调用思想</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="起因">起因</h2>
+<p>最近在公司中因为工作需要，设计开发了几款通用工具与通用方案，由此忍不住想发几句嘴碎😂，因为在设计开发流程中会涉及详设评审环节，在经历的这几次评审中，我发现了这一环节设立的必要性，因为对于开发来说，每个人的设计思想与考虑视角总是不同的，毕竟一万个人心中有一万个哈姆雷特，所以在这其中总能碰撞出一些灵感的火花💥，毕竟炸裂的灵感总是出现在不经意间。并且在这其中也能了解到自己设计思想上的不足与欠缺，这其中最直接呈现的就是经验啦，这可不是书本上死记硬背能够学会的哦！所以这篇文章记录总结一下那些经典的设计思想与法则，帮助大家能够细细品味。🤭</p>
+<h2 id="拙见">拙见</h2>
+<blockquote>
+<p>每一种语言或开发工具都有特定的目的，用来解决什么类型的问题，其特点、优点是什么，比如 当前流行的JAVA、PYTHON、.net，要深入理解他们的最大优势是什么。</p>
+</blockquote>
+<br>
+<h3 id="设计模式中提到的六大设计原则">设计模式中提到的六大设计原则</h3>
+<h4 id="单一职责原则">单一职责原则</h4>
+<p>从业务的角度规范模块或单元划分范围界限，即业务模块的外在界限。</p>
+<br>
+<h4 id="里氏替换原则">里氏替换原则</h4>
+<p>通俗的讲，就是面向对象（其实不仅仅限于面向对象）的继承，其概念是<code>凡是对象 A 出现的地方，都能被对象 B 替换</code>，满足这种情况，就应该设计成继承结构，即<code>B extends A</code>。</p>
+<br>
+<h4 id="ioc-或-di-法则">IOC 或 DI 法则</h4>
+<p>即依赖注入或控制反转，大名鼎鼎的开源框架<code>Spring</code>，将这一思想体现的淋漓尽致，具体思路：具体依赖抽象，<strong>由主动的“拉”，转换为被动的“推”</strong>，且被推的目标在编译时不确定的，在运行时动态绑定。这里用到很重要的一个思想，<code>接口编程</code>，依赖关系传入接口，具体的实现在运行时指定，一般通过 XML 配置推入。</p>
+<br>
+<h4 id="接口分离原则">接口分离原则</h4>
+<p>契约（接口定义的功能）并不是越多越好，功能越多，责任（具体的实现）代价也越大，因此从业务的角度加以划分接口要提供的最”干净“的功能，比如：对应美的观点，有丰腴，也有苗条，如果合并在一个接口中，虽然编码上没问题，但给人的感觉就是矛盾与怪异，这种情况下，显示拆分在两个接口比较合理。</p>
+<br>
+<h4 id="迪米特原则">迪米特原则</h4>
+<p>看过电视剧的人，经常听到熟悉的台词：“A：为什么？”，“B：你知道的太多了&hellip;”。</p>
+<p>如果<code>单一职责原则</code>、<code>接口分离原则</code>是对对象内部的规范要求的话，那么<code>IOC法则</code>、<code>迪米特法则</code>就是基于对象之间依赖性约束的相关规范，它与 IOC法则 一样，出发点都是“解偶”，达到低耦合的目的，解偶是需要代价的，一般至少引入一个中间层，引入的中间层越多，与目标的耦合度越低，这其实是分层思想的一个典型应用，其实这里还有一个隐形原则，就是依赖的路线最好是单线（1:1），而不是树形或网状对应关系（1:n ; n:m）</p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>例子<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>有老师、学生2个对象，老师与学生直接耦合，如果解偶，可以引入班长或课代表这个中间角色，这样就有三个角色了，这时三者之间有如下几种依赖关系：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-apl" data-lang="apl"><span class="line"><span class="cl"><span class="c1"># A.单线依赖</span>
+</span></span><span class="line"><span class="cl"><span class="err">老师———————</span><span class="o">-&gt;</span><span class="err">班长（或课代表）————————</span><span class="o">&gt;</span><span class="err">学生</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># B.非单线依赖</span>
+</span></span><span class="line"><span class="cl"><span class="err">老师———————</span><span class="o">-&gt;</span><span class="err">班长（或课代表）————————</span><span class="o">&gt;</span><span class="err">学生</span>
+</span></span><span class="line"><span class="cl"><span class="err">老师———————</span><span class="o">-&gt;</span><span class="err">学生</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到 B 类型的依赖关系，老师不仅要依赖班长，还要依赖学生，产生多重依赖，“知道的太多”，并不是一个好的解偶方式，而 A 类型的依赖关系就是正确的迪米特原则的实现体现。</p>
+</div>
+        </div>
+    </div>
+<br>
+<h4 id="开闭原则">开闭原则</h4>
+<p>这种主要是针对编码时的规范要求，即对新增方法开放，对已有的方法进行修改或是关闭，也就是保留已经成熟的实现方法，如果需求有变动，通过增加新的方法，将影响度降低到最低，特别是新旧版本发布的时候，有些还在等未处理的业务，依旧需要沿用原有的业务逻辑。</p>
+<br>
+<h3 id="分层思想">分层思想</h3>
+<p>这里的分层，是针对架构层次的分层，典型的 WEB 应用一般都会进行分层，比如<strong>展示层、业务逻辑层、领域模型层、数据访问层</strong>，这就是典型的分层思想，这样的好处是：方便软件的复用、维护，减少维护成本，也方便架构的伸缩、扩展性；<code>Spring MVC</code>也是典型分层系统的实现。</p>
+<br>
+<h3 id="接口开发思想">接口开发思想</h3>
+<p>上面设计原则中的<code>IOC原则</code>提到，这里也是为了强调接口开发的好处，通过引入接口层，使模块或组件之间的依赖通过接口来耦合，不是具体的实现来耦合，这样做有以下几种好处：</p>
+<div class="details admonition example open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-list-ol fa-fw" aria-hidden="true"></i>接口开发好处<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><ol>
+<li>RPC调用，将接口与实现分类，方便客户端、服务端的隔离，对客户而言，实现改变了，不影响客户端的编译。</li>
+<li>通过接口依赖，实现解偶，方便业务扩展、变动引起的不变维护，将影响降到最低。</li>
+<li>方便软件的重用，更好的结合设计模式中的具体实现嵌入。</li>
+</ol>
+</div>
+        </div>
+    </div>
+<br>
+<h3 id="配置思想">配置思想</h3>
+<p>常用的配置文件格式有 property，xml，yaml等，其好处是配置做了改动后，就不需要重新编译，重启应用即可生效（有些应用可以动态提取，不用重启应用），特别是容器管理配置的维护，真正达到“四两拨千斤”的效果，<code>ibatis、mybatis</code>的 mapper 思想就是最好的体现，通过动态维护 XML 中的映射语句，达到动态访问业务数据的功能。</p>
+<br>
+<h3 id="分离思想">分离思想</h3>
+<p>这里的分离是一个很广泛的思想，小到代码模块单元，大到服务、子系统，都含有分离的思想，包括配置都包含若干分离思想的应用，之所以如此，主要是分布环境，多人开发团队协作给软件开发驱动的必然结果，方便治理也好，方便维护也罢，总之其目的不一而足。</p>
+<br>
+<h3 id="分页思想">分页思想</h3>
+<p>随着系统业务量的增加，数据量也会同步增长，对数据的提取与导出带来了性能上的压力，数据分页是十分有必要的，具体包括前端分页（JS插件）、后端分页（数据库的分页或对查询出的结果集进行计算分页），这样会极大提高系统的性能。</p>
+<br>
+<h3 id="异步调用思想">异步调用思想</h3>
+<p>对于复杂或交互量大的系统，往往需要与周边系统进行交互数据，一般需要通过 RPC 的方式进行调用，如果每包的数据量比较大，调用比较频繁，如果同步方式处理，对系统的性能要求比较大，而采用异步方式，则极大改善性能，特别是对实时性不高的业务。</p>
+<br>
+<h2 id="总结">总结</h2>
+<p>hi，不觉间已经看到这里了，希望这里的内容能作为你进步的阶梯，将你带去更高的层级，拜了拜。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Mis à jour le 2024-09-30</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Partager sur Twitter" data-sharer="twitter" data-url="https://weizhihao.top/blog/fr/20240930/" data-title="开发思想拙见" data-via="TurboKing1024" data-hashtags="daily,study"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Partager sur Facebook" data-sharer="facebook" data-url="https://weizhihao.top/blog/fr/20240930/" data-hashtag="daily"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Partager sur 微博" data-sharer="weibo" data-url="https://weizhihao.top/blog/fr/20240930/" data-title="开发思想拙见" data-image="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-85ydk2_3840x2160.jpeg" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Partager sur 百度" data-sharer="baidu" data-url="https://weizhihao.top/blog/fr/20240930/" data-title="开发思想拙见"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/fr/tags/daily/">daily</a>,&nbsp;<a href="/blog/fr/tags/study/">study</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Retour</a></span>&nbsp;|&nbsp;<span><a href="/blog/fr/">Accueil</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/blog/fr/20240722_jvm/" class="prev" rel="prev" title="JVM 原理拙见"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>JVM 原理拙见</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://turbo-king.github.io/" target="_blank">Turbo-King</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">津ICP备2021001207号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Retour en Haut">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="Afficher les Commentaires">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.fill%2CArray.prototype.find%2CArray.from%2CIntersectionObserver%2CMath.sign%2CObject.assign%2CPromise%2CObject.entries%2Chtml5shiv%2CObject.values%2Cfetch%2CElement.prototype.after"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/object-fit-images@3.2.4/dist/ofi.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copier dans le presse-papiers","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"Turbo-King/BlogTalks"}},"data":{"id-1":"Turbo-King 博客","id-2":"Turbo-King 博客"},"lightgallery":true,"search":{"algoliaAppID":"14K5QJ9E92","algoliaIndex":"index.blog","algoliaSearchKey":"ccd19bed70442743b8a0e214d9705da3","highlightTag":"em","maxResultLength":10,"noResultsFound":"Aucun résultat trouvé","snippetLength":30,"type":"algolia"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Turbo-King/images/custom.js"></script></body>
+</html>

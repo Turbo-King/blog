@@ -4,7 +4,17 @@
         <link>https://weizhihao.top/blog/tags/study/</link>
         <description>study - 标签 - Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/tags/study/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 30 Sep 2024 09:37:11 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/tags/study/" rel="self" type="application/rss+xml" /><item>
+    <title>开发思想拙见</title>
+    <link>https://weizhihao.top/blog/20240930/</link>
+    <pubDate>Mon, 30 Sep 2024 09:37:11 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/20240930/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-85ydk2_3840x2160.jpeg" referrerpolicy="no-referrer">
+            </div>个人软件开发中必须知道的若干思想]]></description>
+</item>
+<item>
     <title>并发编程</title>
     <link>https://weizhihao.top/blog/20231007_concurrent/</link>
     <pubDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</pubDate>
