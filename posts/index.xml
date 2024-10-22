@@ -4,7 +4,17 @@
         <link>https://weizhihao.top/blog/posts/</link>
         <description>所有文章 | Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 30 Sep 2024 09:37:11 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>OpenFeign 浅述</title>
+    <link>https://weizhihao.top/blog/20241022_openfeign/</link>
+    <pubDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/20241022_openfeign/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-jxg55q_3840x2160.jpeg" referrerpolicy="no-referrer">
+            </div>SpringCloud OpenFeign]]></description>
+</item>
+<item>
     <title>开发思想拙见</title>
     <link>https://weizhihao.top/blog/20240930/</link>
     <pubDate>Mon, 30 Sep 2024 09:37:11 &#43;0800</pubDate>
@@ -93,16 +103,6 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven.jpg" referrerpolicy="no-referrer">
             </div>Lambda表达式]]></description>
-</item>
-<item>
-    <title>剑指Offer-个人题解</title>
-    <link>https://weizhihao.top/blog/20230515_code/</link>
-    <pubDate>Mon, 15 May 2023 21:33:35 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/20230515_code/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/code-wallpaper.jpg" referrerpolicy="no-referrer">
-            </div><p>剑指Offer</p>]]></description>
 </item>
 </channel>
 </rss>

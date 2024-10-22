@@ -4,7 +4,31 @@
         <link>https://weizhihao.top/blog/tags/</link>
         <description>Tags - 标签 - Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 30 Sep 2024 09:37:11 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>HTTP</title>
+    <link>https://weizhihao.top/blog/tags/http/</link>
+    <pubDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/http/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>OpenFeign</title>
+    <link>https://weizhihao.top/blog/tags/openfeign/</link>
+    <pubDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/openfeign/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>SpringCloud</title>
+    <link>https://weizhihao.top/blog/tags/springcloud/</link>
+    <pubDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/tags/springcloud/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>daily</title>
     <link>https://weizhihao.top/blog/tags/daily/</link>
     <pubDate>Mon, 30 Sep 2024 09:37:11 &#43;0800</pubDate>
@@ -58,30 +82,6 @@
     <pubDate>Wed, 26 Jun 2024 19:32:25 &#43;0800</pubDate>
     <author>Turbo-King</author>
     <guid>https://weizhihao.top/blog/tags/linux/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>system</title>
-    <link>https://weizhihao.top/blog/tags/system/</link>
-    <pubDate>Wed, 26 Jun 2024 19:32:25 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/tags/system/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>systemctl</title>
-    <link>https://weizhihao.top/blog/tags/systemctl/</link>
-    <pubDate>Wed, 26 Jun 2024 19:32:25 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/tags/systemctl/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Index</title>
-    <link>https://weizhihao.top/blog/tags/index/</link>
-    <pubDate>Thu, 14 Dec 2023 09:17:12 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/tags/index/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

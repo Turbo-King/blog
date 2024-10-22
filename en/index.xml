@@ -4,9 +4,19 @@
         <link>https://weizhihao.top/blog/en/</link>
         <description>About Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 30 Sep 2024 09:37:11 &#43;0800</lastBuildDate>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</lastBuildDate>
             <atom:link href="https://weizhihao.top/blog/en/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>OpenFeign 浅述</title>
+    <link>https://weizhihao.top/blog/en/20241022_openfeign/</link>
+    <pubDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/en/20241022_openfeign/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-jxg55q_3840x2160.jpeg" referrerpolicy="no-referrer">
+            </div>SpringCloud OpenFeign]]></description>
+</item>
+<item>
     <title>开发思想拙见</title>
     <link>https://weizhihao.top/blog/en/20240930/</link>
     <pubDate>Mon, 30 Sep 2024 09:37:11 &#43;0800</pubDate>
@@ -95,16 +105,6 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/redis.png" referrerpolicy="no-referrer">
             </div><p>Redis集群搭建</p>]]></description>
-</item>
-<item>
-    <title>设计模式</title>
-    <link>https://weizhihao.top/blog/en/20221205_designpatterns/</link>
-    <pubDate>Mon, 05 Dec 2022 08:53:36 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/en/20221205_designpatterns/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/featured-image20221205.jpg" referrerpolicy="no-referrer">
-            </div><h1 id="浅谈设计模式">浅谈设计模式</h1>]]></description>
 </item>
 </channel>
 </rss>
