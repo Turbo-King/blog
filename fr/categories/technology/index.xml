@@ -4,7 +4,17 @@
         <link>https://weizhihao.top/blog/fr/categories/technology/</link>
         <description>Technology - Catégorie - Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>fr</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/fr/categories/technology/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 25 Nov 2024 19:12:41 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/fr/categories/technology/" rel="self" type="application/rss+xml" /><item>
+    <title>Spring异步流式接口</title>
+    <link>https://weizhihao.top/blog/fr/20241125_springresponse/</link>
+    <pubDate>Mon, 25 Nov 2024 19:12:41 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/20241125_springresponse/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/SpringResponse.jpg" referrerpolicy="no-referrer">
+            </div>Spring Response]]></description>
+</item>
+<item>
     <title>OpenFeign 浅述</title>
     <link>https://weizhihao.top/blog/fr/20241022_openfeign/</link>
     <pubDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</pubDate>
@@ -43,6 +53,16 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Snowflake.jpg" referrerpolicy="no-referrer">
             </div>雪花算法]]></description>
+</item>
+<item>
+    <title>并发编程</title>
+    <link>https://weizhihao.top/blog/fr/20231007_concurrent/</link>
+    <pubDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/20231007_concurrent/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven1116.jpg" referrerpolicy="no-referrer">
+            </div>Java多线程]]></description>
 </item>
 <item>
     <title>设计模式</title>

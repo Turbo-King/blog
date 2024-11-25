@@ -4,12 +4,36 @@
         <link>https://weizhihao.top/blog/en/tags/</link>
         <description>Tags - Tag - Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/en/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 25 Nov 2024 19:12:41 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/en/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>Api</title>
+    <link>https://weizhihao.top/blog/en/tags/api/</link>
+    <pubDate>Mon, 25 Nov 2024 19:12:41 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/en/tags/api/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>HTTP</title>
     <link>https://weizhihao.top/blog/en/tags/http/</link>
-    <pubDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</pubDate>
+    <pubDate>Mon, 25 Nov 2024 19:12:41 &#43;0800</pubDate>
     <author>Turbo-King</author>
     <guid>https://weizhihao.top/blog/en/tags/http/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Response</title>
+    <link>https://weizhihao.top/blog/en/tags/response/</link>
+    <pubDate>Mon, 25 Nov 2024 19:12:41 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/en/tags/response/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Spring</title>
+    <link>https://weizhihao.top/blog/en/tags/spring/</link>
+    <pubDate>Mon, 25 Nov 2024 19:12:41 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/en/tags/spring/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
@@ -58,30 +82,6 @@
     <pubDate>Mon, 22 Jul 2024 19:57:54 &#43;0800</pubDate>
     <author>Turbo-King</author>
     <guid>https://weizhihao.top/blog/en/tags/jvm/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>jvm原理</title>
-    <link>https://weizhihao.top/blog/en/tags/jvm%E5%8E%9F%E7%90%86/</link>
-    <pubDate>Mon, 22 Jul 2024 19:57:54 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/en/tags/jvm%E5%8E%9F%E7%90%86/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>虚拟机</title>
-    <link>https://weizhihao.top/blog/en/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
-    <pubDate>Mon, 22 Jul 2024 19:57:54 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/en/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Linux</title>
-    <link>https://weizhihao.top/blog/en/tags/linux/</link>
-    <pubDate>Wed, 26 Jun 2024 19:32:25 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/en/tags/linux/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

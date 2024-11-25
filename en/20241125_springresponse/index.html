@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Spring异步流式接口 - Turbo-King Blog</title><meta name="keywords" content="[Turbo-King Blog weizhihao ahao 阿豪]">
+
+<meta name="Description" content="Spring Response"><meta property="og:title" content="Spring异步流式接口" />
+<meta property="og:description" content="Spring Response" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://weizhihao.top/blog/en/20241125_springresponse/" /><meta property="og:image" content="https://weizhihao.top/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-25T19:12:41+08:00" />
+<meta property="article:modified_time" content="2024-11-25T19:12:41+08:00" /><meta property="og:site_name" content="My cool site" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://weizhihao.top/logo.png"/>
+
+<meta name="twitter:title" content="Spring异步流式接口"/>
+<meta name="twitter:description" content="Spring Response"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://weizhihao.top/blog/en/20241125_springresponse/" /><link rel="prev" href="https://weizhihao.top/blog/en/20241022_openfeign/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Spring异步流式接口",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/weizhihao.top\/blog\/en\/20241125_springresponse\/"
+        },"image": ["https:\/\/weizhihao.top\/images\/Apple-Devices-Preview.png"],"genre": "posts","keywords": "Spring, Http, Response, Api","wordcount":  442 ,
+        "url": "https:\/\/weizhihao.top\/blog\/en\/20241125_springresponse\/","datePublished": "2024-11-25T19:12:41+08:00","dateModified": "2024-11-25T19:12:41+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "Turbo-King","logo": "https:\/\/cdn.jsdelivr.net\/gh\/Turbo-King\/images\/avatar.JPG"},"author": {
+                "@type": "Person",
+                "name": "Turbo-King"
+            },"description": "Spring Response"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/en/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/en/posts/" title="Posts"> Posts </a><a class="menu-item" href="/blog/en/tags/" title="Tags"> Tags </a><a class="menu-item" href="/blog/en/categories/" title="Categories"> Categories </a><a class="menu-item" href="/about/" title="Turbo-King"> About </a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/en/20241125_springresponse/" selected>English</option><option value="/blog/20241125_springresponse/">简体中文</option><option value="/blog/fr/20241125_springresponse/">Français</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/en/" title="Turbo-King Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw'></i></span><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/blog/en/posts/" title="Posts">Posts</a><a class="menu-item" href="/blog/en/tags/" title="Tags">Tags</a><a class="menu-item" href="/blog/en/categories/" title="Categories">Categories</a><a class="menu-item" href="/about/" title="Turbo-King">About</a><a class="menu-item" href="https://github.com/Turbo-King" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/en/20241125_springresponse/" selected>English</option><option value="/blog/20241125_springresponse/">简体中文</option><option value="/blog/fr/20241125_springresponse/">Français</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Spring异步流式接口</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://turbo-king.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Turbo-King</a></span>&nbsp;<span class="post-category">included in <a href="/blog/en/categories/technology/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Technology</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-11-25">2024-11-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;442 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/SpringResponse.jpg"
+        data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/SpringResponse.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/SpringResponse.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/SpringResponse.jpg 2x"
+        data-sizes="auto"
+        alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/SpringResponse.jpg"
+        title="Spring Response" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#引言">引言</a></li>
+    <li><a href="#responsebofyemitter">ResponseBofyEmitter</a></li>
+    <li><a href="#sseemitter">SseEmitter</a></li>
+    <li><a href="#streamingresponsebody">StreamingResponseBody</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="引言">引言</h2>
+<div class="details admonition question open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw" aria-hidden="true"></i>在实际开发中，如何处理比较耗时的接口呢？<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">是不是大家第一反应是上异步接口，使用<code>Callable</code>、<code>WebAsyncTask</code>和<code>DeferredResult</code>、<code>CompletableFuture</code>等均可实现。</div>
+        </div>
+    </div>
+<p>但这些方法有局限性，处理结果均仅返回单个值。某些场景中，如果需要接口异步处理同时，还持续不断地向客户端响应处理结果，这些方法就不够看了。</p>
+<p>Spring 框架提供了多种工具支持异步流式接口，如<code>ResponseBodyEmitter</code>、<code>SeeEmitter</code>和<code>StreamingResponseBody</code>。这些工具的用法简单，接口中直接返回相应的对象或泛型响应实体<code>ResponseEntity&lt;XXX&gt;</code>，如此这些接口就是异步的，且执行耗时操作时亦不会阻塞 <code>Servlet</code>的请求线程，不影响系统的响应能力。</p>
+<p>下面将逐一介绍一下每个工具的使用及其应用场景。</p>
+<br>
+<h2 id="responsebofyemitter">ResponseBofyEmitter</h2>
+<p><code>ResponseBodyEmitter</code>适用于要动态生成内容并逐步发送给客户端的场景，例如：文件上传进度、实时日志等，可以在任务执行过程中逐步向客户端发送更新。</p>
+<p>举个例子，经常用GPT你会发现当你提问后，得到的答案并不是一次性响应呈现的，而是逐步动态显示。这样做的好处是，让你感觉它在认真思考、交互体验比直接返回完整答案更为生动和自然。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/GPT%E5%9B%9E%E7%AD%94%E9%97%AE%E9%A2%98.gif" title="GPT回答问题" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/GPT%E5%9B%9E%E7%AD%94%E9%97%AE%E9%A2%98.gif" data-sub-html="<h2>GPT回答问题</h2><p>GPT回答问题</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/GPT%E5%9B%9E%E7%AD%94%E9%97%AE%E9%A2%98.gif"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/GPT%E5%9B%9E%E7%AD%94%E9%97%AE%E9%A2%98.gif, https://cdn.jsdelivr.net/gh/Turbo-King/images/GPT%E5%9B%9E%E7%AD%94%E9%97%AE%E9%A2%98.gif 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/GPT%E5%9B%9E%E7%AD%94%E9%97%AE%E9%A2%98.gif 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/GPT%E5%9B%9E%E7%AD%94%E9%97%AE%E9%A2%98.gif" />
+    </a><figcaption class="image-caption">GPT回答问题</figcaption>
+    </figure></p>
+<p>使用<code>ResponseBodyEmitter</code>来实现这个效果并不难，首先创建<code>ResponseBodyEmitter</code>发送器对象，模拟耗时操作逐步调用 send 方法发送消息。</p>
+<blockquote>
+<p>注意：<strong>ResponseBodyEmitter</strong>的超时时间，如果设置为 0 或 -1，则表示连接不会超时；如果不设置，到达默认的超时时间后连接会自动断开。其他两种工具也是同样的用法，后面不再进行赘述了。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/bodyEmitter&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">ResponseBodyEmitter</span> <span class="nf">handle</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 创建一个ResponseBodyEmitter，-1代表不超时
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">ResponseBodyEmitter</span> <span class="n">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ResponseBodyEmitter</span><span class="o">(-</span><span class="mi">1L</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 异步执行耗时操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CompletableFuture</span><span class="o">.</span><span class="na">runAsync</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 模拟耗时操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;bodyEmitter &#34;</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// 发送数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">emitter</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="s">&#34;bodyEmitter &#34;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">&#34; @ &#34;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">Date</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;\n&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 完成
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">emitter</span><span class="o">.</span><span class="na">complete</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 发生异常时结束接口
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">emitter</span><span class="o">.</span><span class="na">completeWithError</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">emitter</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>实现代码非常简单。通过模拟每2秒响应一次结果，请求接口时可以看到页面数据在动态生成。效果和 GPT 回答基本一致。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/ResponseBodyEmitter%E4%BD%BF%E7%94%A8%E6%95%88%E6%9E%9C.gif" title="ResponseBodyEmitter使用效果" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/ResponseBodyEmitter%E4%BD%BF%E7%94%A8%E6%95%88%E6%9E%9C.gif" data-sub-html="<h2>ResponseBodyEmitter使用效果</h2><p>ResponseBodyEmitter使用效果</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/ResponseBodyEmitter%E4%BD%BF%E7%94%A8%E6%95%88%E6%9E%9C.gif"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/ResponseBodyEmitter%E4%BD%BF%E7%94%A8%E6%95%88%E6%9E%9C.gif, https://cdn.jsdelivr.net/gh/Turbo-King/images/ResponseBodyEmitter%E4%BD%BF%E7%94%A8%E6%95%88%E6%9E%9C.gif 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/ResponseBodyEmitter%E4%BD%BF%E7%94%A8%E6%95%88%E6%9E%9C.gif 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/ResponseBodyEmitter%E4%BD%BF%E7%94%A8%E6%95%88%E6%9E%9C.gif" />
+    </a><figcaption class="image-caption">ResponseBodyEmitter使用效果</figcaption>
+    </figure></p>
+<br>
+<h2 id="sseemitter">SseEmitter</h2>
+<p><code>SeeEmitter</code>是<code>ResponseBodyEmitter</code>的一个子类，它同样能够实现动态内容生成，不过主要将它用在 <strong>服务器向客户端</strong> 推送实时数据，例如：消息推送、状态更新等场景。</p>
+<p>SSE在服务器和客户端之间打开一个单向通道，服务端响应的不再是一次性的数据包而是<code>text/event-stream</code>类型的数据流信息，在有数据变更时从服务器流式传输到客户端。</p>
+<p>![SSE方式传输图](<a href="https://cdn.jsdelivr.net/gh/Turbo-King/images/SSE%E6%96%B9%E5%BC%8F%E4%BC%A0%E8%BE%93%E5%9B%BE.jpg" target="_blank" rel="noopener noreffer ">https://cdn.jsdelivr.net/gh/Turbo-King/images/SSE%E6%96%B9%E5%BC%8F%E4%BC%A0%E8%BE%93%E5%9B%BE.jpg</a> “SSE方式传输图”)</p>
+<p>整体的实现思路有点类似于在线视频播放，视频流会连续不断地推送到浏览器，你也可以理解成，客户端在完成一次用时很长（网络不畅）的下载。</p>
+<p>客户端JS实现，通过一次 HTTP 请求建立连接后，等待接收消息。此时，服务端为每个连接创建一个<code>SseEmitter</code>对象，通过这个通道向客户端发送消息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;content&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;text-align: center;&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>SSE 接收服务端事件消息数据<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;message&#34;</span><span class="p">&gt;</span>等待连接...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">source</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">userId</span> <span class="o">=</span> <span class="mi">7777</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">setMessageInnerHTML</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">messageDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;message&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">newParagraph</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&#34;p&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">newParagraph</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">message</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">messageDiv</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">newParagraph</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">EventSource</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 建立连接
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">source</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventSource</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:9033/subSseEmitter/&#39;</span><span class="o">+</span><span class="nx">userId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">setMessageInnerHTML</span><span class="p">(</span><span class="s2">&#34;连接用户=&#34;</span> <span class="o">+</span> <span class="nx">userId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * 连接一旦建立，就会触发open事件
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * 另一种写法：source.onopen = function (event) {}
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">source</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;open&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">setMessageInnerHTML</span><span class="p">(</span><span class="s2">&#34;建立连接。。。&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * 客户端收到服务器发来的数据
+</span></span></span><span class="line"><span class="cl"><span class="cm">         * 另一种写法：source.onmessage = function (event) {}
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">source</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">setMessageInnerHTML</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">setMessageInnerHTML</span><span class="p">(</span><span class="s2">&#34;你的浏览器不支持SSE&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在服务端，我们将<code>SseEmitter</code>发送器对象进行持久化，以便在消息产生时直接取出对应的<code>SseEmitter</code>发送器，并调用<code>send</code>方法进行推送。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">SseEmitter</span><span class="o">&gt;</span> <span class="n">EMITTER_MAP</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcurrentHashMap</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/subSseEmitter/{userId}&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">SseEmitter</span> <span class="nf">sseEmitter</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">String</span> <span class="n">userId</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;sseEmitter: {}&#34;</span><span class="o">,</span> <span class="n">userId</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SseEmitter</span> <span class="n">emitterTmp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SseEmitter</span><span class="o">(-</span><span class="mi">1L</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">EMITTER_MAP</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">userId</span><span class="o">,</span> <span class="n">emitterTmp</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CompletableFuture</span><span class="o">.</span><span class="na">runAsync</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">SseEmitter</span><span class="o">.</span><span class="na">SseEventBuilder</span> <span class="n">event</span> <span class="o">=</span> <span class="n">SseEmitter</span><span class="o">.</span><span class="na">event</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">.</span><span class="na">data</span><span class="o">(</span><span class="s">&#34;sseEmitter&#34;</span> <span class="o">+</span> <span class="n">userId</span> <span class="o">+</span> <span class="s">&#34; @ &#34;</span> <span class="o">+</span> <span class="n">LocalTime</span><span class="o">.</span><span class="na">now</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">.</span><span class="na">id</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">userId</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">&#34;sseEmitter&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">emitterTmp</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">emitterTmp</span><span class="o">.</span><span class="na">completeWithError</span><span class="o">(</span><span class="n">ex</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">emitterTmp</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/sendSseMsg/{userId}&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">sseEmitter</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">String</span> <span class="n">userId</span><span class="o">,</span> <span class="n">String</span> <span class="n">msg</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SseEmitter</span> <span class="n">sseEmitter</span> <span class="o">=</span> <span class="n">EMITTER_MAP</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">userId</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">sseEmitter</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sseEmitter</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而且SSE有一点比较好，客户端与服务端一旦建立连接，即便服务端发生重启，也可以做到自动重连。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/SSE%E9%87%8D%E8%BF%9E.jpg" title="SSE重连" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/SSE%E9%87%8D%E8%BF%9E.jpg" data-sub-html="<h2>SSE重连</h2><p>SSE重连</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/SSE%E9%87%8D%E8%BF%9E.jpg"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/SSE%E9%87%8D%E8%BF%9E.jpg, https://cdn.jsdelivr.net/gh/Turbo-King/images/SSE%E9%87%8D%E8%BF%9E.jpg 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/SSE%E9%87%8D%E8%BF%9E.jpg 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/SSE%E9%87%8D%E8%BF%9E.jpg" />
+    </a><figcaption class="image-caption">SSE重连</figcaption>
+    </figure></p>
+<br>
+<h2 id="streamingresponsebody">StreamingResponseBody</h2>
+<p><code>StreamingResponseBody</code>与其他响应处理方式略有不同，主要用于处理大数据量或持续数据流的传输，支持将数据直接写入<code>OutputStream</code>。</p>
+<p>例如：当我们需要下载一个超大文件时，使用<code>StreamingResponseBody</code>可以避免将文件数据一次性加载到内存中，而是持续不断的把文件流发送给客户端，从而解决下载超大文件时常见的内存溢出问题。</p>
+<p>接口实现直接返回<code>StreamingResponseBody</code>对象，将数据写入输出流并刷新，调用一次<code>flush</code>就会向客户端写入一次数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/streamingResponse&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">StreamingResponseBody</span><span class="o">&gt;</span> <span class="nf">handleRbe</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">StreamingResponseBody</span> <span class="n">stream</span> <span class="o">=</span> <span class="n">out</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="s">&#34;streamingResponse&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(((</span><span class="n">message</span> <span class="o">+</span> <span class="n">i</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;\r\n&#34;</span><span class="o">).</span><span class="na">getBytes</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">                <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="s">&#34;\r\n&#34;</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">//调用一次flush就会像前端写入一次数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">().</span><span class="na">contentType</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">TEXT_HTML</span><span class="o">).</span><span class="na">body</span><span class="o">(</span><span class="n">stream</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>demo这里输出的是简单的文本流，如果是下载文件那么转换成文件流效果一样。</p>
+<p><figure><a class="lightgallery" href="https://cdn.jsdelivr.net/gh/Turbo-King/images/StreamingResponseBody%E5%AE%9E%E7%8E%B0.gif" title="StreamingResponseBody实现" data-thumbnail="https://cdn.jsdelivr.net/gh/Turbo-King/images/StreamingResponseBody%E5%AE%9E%E7%8E%B0.gif" data-sub-html="<h2>StreamingResponseBody实现</h2><p>StreamingResponseBody实现</p>">
+        <img
+            class="lazyload"
+            src="/blog/svg/loading.min.svg"
+            data-src="https://cdn.jsdelivr.net/gh/Turbo-King/images/StreamingResponseBody%E5%AE%9E%E7%8E%B0.gif"
+            data-srcset="https://cdn.jsdelivr.net/gh/Turbo-King/images/StreamingResponseBody%E5%AE%9E%E7%8E%B0.gif, https://cdn.jsdelivr.net/gh/Turbo-King/images/StreamingResponseBody%E5%AE%9E%E7%8E%B0.gif 1.5x, https://cdn.jsdelivr.net/gh/Turbo-King/images/StreamingResponseBody%E5%AE%9E%E7%8E%B0.gif 2x"
+            data-sizes="auto"
+            alt="https://cdn.jsdelivr.net/gh/Turbo-King/images/StreamingResponseBody%E5%AE%9E%E7%8E%B0.gif" />
+    </a><figcaption class="image-caption">StreamingResponseBody实现</figcaption>
+    </figure></p>
+<br>
+<h2 id="总结">总结</h2>
+<p>本文介绍三种实现异步流式接口的工具，算是 Spring 知识点的扫盲。使用起来比较简单，没有什么难点，但它们在实际业务中的应用场景还是很多的，通过这些工具，可以有效提高系统的性能和响应能力。</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-11-25</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://weizhihao.top/blog/en/20241125_springresponse/" data-title="Spring异步流式接口" data-via="TurboKing1024" data-hashtags="Spring,Http,Response,Api"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://weizhihao.top/blog/en/20241125_springresponse/" data-hashtag="Spring"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://weizhihao.top/blog/en/20241125_springresponse/" data-title="Spring异步流式接口" data-image="https://cdn.jsdelivr.net/gh/Turbo-King/images/SpringResponse.jpg" data-ralateuid="u/5657728345"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 百度" data-sharer="baidu" data-url="https://weizhihao.top/blog/en/20241125_springresponse/" data-title="Spring异步流式接口"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/baidu.svg" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/en/tags/spring/">Spring</a>,&nbsp;<a href="/blog/en/tags/http/">HTTP</a>,&nbsp;<a href="/blog/en/tags/response/">Response</a>,&nbsp;<a href="/blog/en/tags/api/">Api</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/blog/en/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/blog/en/20241022_openfeign/" class="prev" rel="prev" title="OpenFeign 浅述"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>OpenFeign 浅述</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://turbo-king.github.io/" target="_blank">Turbo-King</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">津ICP备2021001207号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script type="text/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.fill%2CArray.prototype.find%2CArray.from%2CIntersectionObserver%2CMath.sign%2CObject.assign%2CPromise%2CObject.entries%2Chtml5shiv%2CObject.values%2Cfetch%2CElement.prototype.after"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/object-fit-images@3.2.4/dist/ofi.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.1/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"pathname","label":"","lightTheme":"github-light","repo":"Turbo-King/BlogTalks"}},"data":{"id-1":"Turbo-King 博客","id-2":"Turbo-King 博客"},"lightgallery":true,"search":{"algoliaAppID":"14K5QJ9E92","algoliaIndex":"index.blog","algoliaSearchKey":"ccd19bed70442743b8a0e214d9705da3","highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30,"type":"algolia"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Turbo-King/images/custom.js"></script></body>
+</html>

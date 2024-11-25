@@ -15,6 +15,16 @@
             </div>软件开发中必须知道的若干思想]]></description>
 </item>
 <item>
+    <title>并发编程</title>
+    <link>https://weizhihao.top/blog/en/20231007_concurrent/</link>
+    <pubDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/en/20231007_concurrent/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven1116.jpg" referrerpolicy="no-referrer">
+            </div>Java多线程]]></description>
+</item>
+<item>
     <title>Go基础语法和常用特性解析</title>
     <link>https://weizhihao.top/blog/en/go/</link>
     <pubDate>Sat, 05 Aug 2023 18:07:31 &#43;0800</pubDate>

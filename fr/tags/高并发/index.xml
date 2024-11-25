@@ -14,5 +14,15 @@
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/Snowflake.jpg" referrerpolicy="no-referrer">
             </div>雪花算法]]></description>
 </item>
+<item>
+    <title>并发编程</title>
+    <link>https://weizhihao.top/blog/fr/20231007_concurrent/</link>
+    <pubDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/fr/20231007_concurrent/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven1116.jpg" referrerpolicy="no-referrer">
+            </div>Java多线程]]></description>
+</item>
 </channel>
 </rss>

@@ -15,6 +15,16 @@
             </div>JVM虚拟机]]></description>
 </item>
 <item>
+    <title>并发编程</title>
+    <link>https://weizhihao.top/blog/en/20231007_concurrent/</link>
+    <pubDate>Sat, 07 Oct 2023 07:55:51 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/en/20231007_concurrent/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven1116.jpg" referrerpolicy="no-referrer">
+            </div>Java多线程]]></description>
+</item>
+<item>
     <title>Lambda常见场景用法</title>
     <link>https://weizhihao.top/blog/en/20230519_lambda/</link>
     <pubDate>Fri, 19 May 2023 16:13:37 &#43;0800</pubDate>

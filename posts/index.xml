@@ -4,7 +4,17 @@
         <link>https://weizhihao.top/blog/posts/</link>
         <description>所有文章 | Turbo-King Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>turbo.ahao@foxmail.com (Turbo-King)</managingEditor>
-            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>turbo.ahao@foxmail.com (Turbo-King)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 25 Nov 2024 19:12:41 &#43;0800</lastBuildDate><atom:link href="https://weizhihao.top/blog/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Spring异步流式接口</title>
+    <link>https://weizhihao.top/blog/20241125_springresponse/</link>
+    <pubDate>Mon, 25 Nov 2024 19:12:41 &#43;0800</pubDate>
+    <author>Turbo-King</author>
+    <guid>https://weizhihao.top/blog/20241125_springresponse/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/SpringResponse.jpg" referrerpolicy="no-referrer">
+            </div>Spring Response]]></description>
+</item>
+<item>
     <title>OpenFeign 浅述</title>
     <link>https://weizhihao.top/blog/20241022_openfeign/</link>
     <pubDate>Tue, 22 Oct 2024 16:15:15 &#43;0800</pubDate>
@@ -93,16 +103,6 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven-3zp6o9_3840x2160.jpg" referrerpolicy="no-referrer">
             </div>Stream流]]></description>
-</item>
-<item>
-    <title>Lambda常见场景用法</title>
-    <link>https://weizhihao.top/blog/20230519_lambda/</link>
-    <pubDate>Fri, 19 May 2023 16:13:37 &#43;0800</pubDate>
-    <author>Turbo-King</author>
-    <guid>https://weizhihao.top/blog/20230519_lambda/</guid>
-    <description><![CDATA[<div class="featured-image">
-                <img src="https://cdn.jsdelivr.net/gh/Turbo-King/images/wallhaven.jpg" referrerpolicy="no-referrer">
-            </div>Lambda表达式]]></description>
 </item>
 </channel>
 </rss>

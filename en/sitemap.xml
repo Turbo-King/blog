@@ -2,7 +2,20 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://weizhihao.top/blog/en/20241022_openfeign/</loc><lastmod>2024-10-22T16:15:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/en/20241125_springresponse/</loc><lastmod>2024-11-25T19:12:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://weizhihao.top/blog/20241125_springresponse/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/20241125_springresponse/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://weizhihao.top/blog/en/20241125_springresponse/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/en/20241022_openfeign/</loc><lastmod>2024-10-22T16:15:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://weizhihao.top/blog/20241022_openfeign/"
@@ -15,7 +28,7 @@
                     hreflang="en"
                     href="https://weizhihao.top/blog/en/20241022_openfeign/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/en/20240930/</loc><lastmod>2024-09-30T09:37:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/en/20240930/</loc><lastmod>2024-09-30T09:37:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://weizhihao.top/blog/20240930/"
@@ -79,6 +92,19 @@
                     rel="alternate"
                     hreflang="en"
                     href="https://weizhihao.top/blog/en/20231011_globaluniqueid/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/en/20231007_concurrent/</loc><lastmod>2023-10-07T07:55:51&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://weizhihao.top/blog/20231007_concurrent/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/20231007_concurrent/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://weizhihao.top/blog/en/20231007_concurrent/"
                     /></url><url>
             <loc>https://weizhihao.top/blog/en/go/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
@@ -210,7 +236,20 @@
                     hreflang="en"
                     href="https://weizhihao.top/blog/en/emoji/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/en/categories/</loc><lastmod>2024-10-22T16:15:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/en/tags/api/</loc><lastmod>2024-11-25T19:12:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://weizhihao.top/blog/tags/api/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/tags/api/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://weizhihao.top/blog/en/tags/api/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/en/categories/</loc><lastmod>2024-11-25T19:12:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://weizhihao.top/blog/categories/"
@@ -223,7 +262,7 @@
                     hreflang="en"
                     href="https://weizhihao.top/blog/en/categories/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/en/tags/http/</loc><lastmod>2024-10-22T16:15:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/en/tags/http/</loc><lastmod>2024-11-25T19:12:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://weizhihao.top/blog/tags/http/"
@@ -236,20 +275,7 @@
                     hreflang="en"
                     href="https://weizhihao.top/blog/en/tags/http/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/en/tags/openfeign/</loc><lastmod>2024-10-22T16:15:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="zh-cn"
-                        href="https://weizhihao.top/blog/tags/openfeign/"
-                        /><xhtml:link
-                        rel="alternate"
-                        hreflang="fr"
-                        href="https://weizhihao.top/blog/fr/tags/openfeign/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://weizhihao.top/blog/en/tags/openfeign/"
-                    /></url><url>
-            <loc>https://weizhihao.top/blog/en/posts/</loc><lastmod>2024-10-22T16:15:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/en/posts/</loc><lastmod>2024-11-25T19:12:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://weizhihao.top/blog/posts/"
@@ -262,20 +288,33 @@
                     hreflang="en"
                     href="https://weizhihao.top/blog/en/posts/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/en/tags/springcloud/</loc><lastmod>2024-10-22T16:15:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/en/tags/response/</loc><lastmod>2024-11-25T19:12:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://weizhihao.top/blog/tags/springcloud/"
+                        href="https://weizhihao.top/blog/tags/response/"
                         /><xhtml:link
                         rel="alternate"
                         hreflang="fr"
-                        href="https://weizhihao.top/blog/fr/tags/springcloud/"
+                        href="https://weizhihao.top/blog/fr/tags/response/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://weizhihao.top/blog/en/tags/springcloud/"
+                    href="https://weizhihao.top/blog/en/tags/response/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/en/tags/</loc><lastmod>2024-10-22T16:15:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/en/tags/spring/</loc><lastmod>2024-11-25T19:12:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://weizhihao.top/blog/tags/spring/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/tags/spring/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://weizhihao.top/blog/en/tags/spring/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/en/tags/</loc><lastmod>2024-11-25T19:12:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://weizhihao.top/blog/tags/"
@@ -288,7 +327,7 @@
                     hreflang="en"
                     href="https://weizhihao.top/blog/en/tags/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/en/categories/technology/</loc><lastmod>2024-10-22T16:15:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/en/categories/technology/</loc><lastmod>2024-11-25T19:12:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://weizhihao.top/blog/categories/technology/"
@@ -301,7 +340,7 @@
                     hreflang="en"
                     href="https://weizhihao.top/blog/en/categories/technology/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/en/</loc><lastmod>2024-10-22T16:15:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/en/</loc><lastmod>2024-11-25T19:12:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://weizhihao.top/blog/"
@@ -314,7 +353,33 @@
                     hreflang="en"
                     href="https://weizhihao.top/blog/en/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/en/tags/daily/</loc><lastmod>2024-09-30T09:37:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/en/tags/openfeign/</loc><lastmod>2024-10-22T16:15:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://weizhihao.top/blog/tags/openfeign/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/tags/openfeign/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://weizhihao.top/blog/en/tags/openfeign/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/en/tags/springcloud/</loc><lastmod>2024-10-22T16:15:15&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://weizhihao.top/blog/tags/springcloud/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/tags/springcloud/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://weizhihao.top/blog/en/tags/springcloud/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/en/tags/daily/</loc><lastmod>2024-09-30T09:37:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://weizhihao.top/blog/tags/daily/"
@@ -327,7 +392,7 @@
                     hreflang="en"
                     href="https://weizhihao.top/blog/en/tags/daily/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/en/categories/daily/</loc><lastmod>2024-09-30T09:37:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/en/categories/daily/</loc><lastmod>2024-09-30T09:37:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://weizhihao.top/blog/categories/daily/"
@@ -340,7 +405,7 @@
                     hreflang="en"
                     href="https://weizhihao.top/blog/en/categories/daily/"
                     /></url><url>
-            <loc>https://weizhihao.top/blog/en/tags/study/</loc><lastmod>2024-09-30T09:37:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority><xhtml:link
+            <loc>https://weizhihao.top/blog/en/tags/study/</loc><lastmod>2024-09-30T09:37:11&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://weizhihao.top/blog/tags/study/"
@@ -547,6 +612,45 @@
                     rel="alternate"
                     hreflang="en"
                     href="https://weizhihao.top/blog/en/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/en/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc><lastmod>2023-10-07T07:55:51&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://weizhihao.top/blog/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://weizhihao.top/blog/en/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/en/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc><lastmod>2023-10-07T07:55:51&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://weizhihao.top/blog/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://weizhihao.top/blog/en/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
+                    /></url><url>
+            <loc>https://weizhihao.top/blog/en/tags/%E9%AB%98%E5%B9%B6%E8%A1%8C/</loc><lastmod>2023-10-07T07:55:51&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="zh-cn"
+                        href="https://weizhihao.top/blog/tags/%E9%AB%98%E5%B9%B6%E8%A1%8C/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="fr"
+                        href="https://weizhihao.top/blog/fr/tags/%E9%AB%98%E5%B9%B6%E8%A1%8C/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://weizhihao.top/blog/en/tags/%E9%AB%98%E5%B9%B6%E8%A1%8C/"
                     /></url><url>
             <loc>https://weizhihao.top/blog/en/tags/go/</loc><lastmod>2023-08-05T18:07:31&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
